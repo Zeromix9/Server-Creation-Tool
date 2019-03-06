@@ -436,8 +436,11 @@ namespace Server_Creation_Tool
 		"http://steamcommunity.com/id/zeromix" +
 		Environment.NewLine +
 		Environment.NewLine +
-		"And BasisBit");
-		}
+		"And BasisBit" +
+         Environment.NewLine +
+         "https://github.com/basisbit");
+
+        }
 		
 		void CallOfDutyBlackOps3ToolStripMenuItemClick(object sender, EventArgs e)
 		{

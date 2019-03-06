@@ -255,14 +255,14 @@ namespace Server_Creation_Tool
             // changelogToolStripMenuItem
             // 
             this.changelogToolStripMenuItem.Name = "changelogToolStripMenuItem";
-            this.changelogToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.changelogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.changelogToolStripMenuItem.Text = "Changelog";
             this.changelogToolStripMenuItem.Click += new System.EventHandler(this.ChangelogToolStripMenuItemClick);
             // 
             // serverGroupToolStripMenuItem
             // 
             this.serverGroupToolStripMenuItem.Name = "serverGroupToolStripMenuItem";
-            this.serverGroupToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.serverGroupToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.serverGroupToolStripMenuItem.Text = "Server Group";
             this.serverGroupToolStripMenuItem.Click += new System.EventHandler(this.ServerGroupToolStripMenuItemClick);
             // 
@@ -270,7 +270,7 @@ namespace Server_Creation_Tool
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
             this.aboutToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem1.Text = "Exit";
             this.aboutToolStripMenuItem1.ToolTipText = "Close the program.";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.AboutToolStripMenuItem1Click);
