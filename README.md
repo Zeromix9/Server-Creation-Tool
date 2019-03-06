@@ -1,4 +1,4 @@
-# ServerTool
+# Server Creation Tool
 A Tool to easily create Server via SteamCMD
 
 To use this tool is pretty easy.
