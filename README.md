@@ -10,5 +10,5 @@ To use this tool is pretty easy.
 5. Locate your SteamCMD
 6. Type quit, if the download was successful
 
-There is no need to write any commands beside the "quit" commandm there are also guides avalible which will guide you
-through the configuration of your server.
+There is no need to write any commands beside the "quit" command.
+There are also guides avalible which will guide you, through the configuration of your server.
