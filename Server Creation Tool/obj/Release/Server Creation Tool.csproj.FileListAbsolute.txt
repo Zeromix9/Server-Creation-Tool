@@ -1,0 +1,12 @@
+C:\Users\nosaj\Desktop\New Version\Server Creation Tool\bin\Release\Server Creation Tool.exe.config
+C:\Users\nosaj\Desktop\New Version\Server Creation Tool\bin\Release\Server Creation Tool.exe.manifest
+C:\Users\nosaj\Desktop\New Version\Server Creation Tool\bin\Release\Server Creation Tool.application
+C:\Users\nosaj\Desktop\New Version\Server Creation Tool\bin\Release\Server Creation Tool.exe
+C:\Users\nosaj\Desktop\New Version\Server Creation Tool\obj\Release\Server_Creation_Tool.AboutFrm.resources
+C:\Users\nosaj\Desktop\New Version\Server Creation Tool\obj\Release\Server_Creation_Tool.MainForm.resources
+C:\Users\nosaj\Desktop\New Version\Server Creation Tool\obj\Release\Server_Creation_Tool.Properties.Resources.resources
+C:\Users\nosaj\Desktop\New Version\Server Creation Tool\obj\Release\Server Creation Tool.csproj.GenerateResource.cache
+C:\Users\nosaj\Desktop\New Version\Server Creation Tool\obj\Release\Server Creation Tool.csproj.CoreCompileInputs.cache
+C:\Users\nosaj\Desktop\New Version\Server Creation Tool\obj\Release\Server Creation Tool.exe.manifest
+C:\Users\nosaj\Desktop\New Version\Server Creation Tool\obj\Release\Server Creation Tool.application
+C:\Users\nosaj\Desktop\New Version\Server Creation Tool\obj\Release\Server Creation Tool.exe
