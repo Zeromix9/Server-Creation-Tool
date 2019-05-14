@@ -1,6 +1,10 @@
 # Server Creation Tool
 A Tool to easily create Server via SteamCMD
 
+Requirements:
+- Internet connection
+- Net Framework 4.5
+
 To use this tool is pretty easy.
 
 1. Click "Download SteamCMD" (If you haven't)
