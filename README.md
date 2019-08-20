@@ -14,3 +14,8 @@ To use this tool is pretty easy.
 
 There is no need to write any commands beside the "quit" command.
 There are also guides avalible which will guide you, through the configuration of your server.
+
+
+Questions:
+Why does I need to type the quit command, instead just quitting it via script?
+Because so you can see, if the download was sucessful or an error appeared.
