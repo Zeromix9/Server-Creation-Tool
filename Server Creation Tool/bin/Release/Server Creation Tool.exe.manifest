@@ -4,7 +4,7 @@
   <description asmv2:iconFile="favicon (8).ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="Server Creation Tool" version="1.0.7073.28959" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="Server Creation Tool" version="2.6.7190.39109" language="neutral" processorArchitecture="msil" />
     <commandLine file="Server Creation Tool.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -16,15 +16,15 @@
       <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
         <!--
           UAC-Manifestoptionen
-          Wenn Sie die Ebene der Windows-Benutzerkontensteuerung ändern möchten, ersetzen Sie den 
-          Knoten "requestedExecutionLevel" durch eine der folgenden Angaben.
+          Wenn Sie die Zugangsebene für das Windows-Benutzerkonto ändern möchten, ersetzen Sie den 
+          requestedExecutionLevel-Knoten durch eines der folgenden Elemente.
 
-        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
-        <requestedExecutionLevel level="requireAdministrator" uiAccess="false" />
-        <requestedExecutionLevel level="highestAvailable" uiAccess="false" />
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
 
-         Wenn Sie Datei- und Registrierungsvirtualisierung für Abwärtskompatibilität 
-         verwenden möchten, löschen Sie den Knoten "requestedExecutionLevel".
+         Löschen Sie den requestedExecutionLevel-Knoten, wenn Sie 
+         zum Gewährleisten der Abwärtskompatibilität die Datei- und Registrierungsvirtualisierung verwenden möchten.
     -->
         <requestedExecutionLevel level="asInvoker" uiAccess="false" />
       </requestedPrivileges>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Creation Tool.exe" size="92160">
-      <assemblyIdentity name="Server Creation Tool" version="1.0.7073.28959" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Creation Tool.exe" size="147968">
+      <assemblyIdentity name="Server Creation Tool" version="2.6.7190.39109" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>GvZWrtqIADYDbIJnXQj50xiUs/Cq5MoOjzg+Di34ZhY=</dsig:DigestValue>
+        <dsig:DigestValue>XzO2dDEzz0WxXt3SR1DF9KnjX6utzTC8x72zTYaU5HA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -63,13 +63,13 @@
       <dsig:DigestValue>T1QK/Yv6v5CCrzMjj3lwKyRWby/eSnDORMBdGMLAL1I=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Server Creation Tool.exe.config" size="161">
+  <file name="Server Creation Tool.exe.config" size="907">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>+K0Xw31ERSGzkFzL116my249J2OxbrVrLhqkJ0Fz5hQ=</dsig:DigestValue>
+      <dsig:DigestValue>wf3fzdyhk/IWF69dxdQOofFzUEuhUmQs0Ux0JtlcU7k=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

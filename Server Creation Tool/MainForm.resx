@@ -124,7 +124,7 @@
   <data name="changelogToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAAAZRJREFUSEtjGD7APmBrhl3g5nJyMUg/1CjswD5w639KMdQo7ACbBlIx1CjsYPe9
+        vAAADrwBlbxySQAAAZRJREFUSEtjGD7APmBrhl3g5nJyMUg/1CjswD5w639KMdQo7ACbBlIx1CjsYPe9
         3/8pxVCjsANsGkjFUKOwA2SF049/+j/5yEcwXbD2BU4MUoOsD2oUdoCscBJQY++B92A6ZflTnBikBlkf
         1CjsAFnhSPXBr/+PiosXPy0u3vq0vp4LaiwCIFtAqg/23Pn5f8uJ6/93bNpx5HFJyZ8nxcXbocYiALIF
         xPpg6rGP//fc/f7/5frg/0f2Lf+/Yd/R/zs3bjv6uLh4KdRYBEC2gBgfpK149n/91S9gw//PYADjY1u6
@@ -137,7 +137,7 @@
   <data name="serverGroupToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAAAWtJREFUSEvtkc1Kw0AUhbPSpfWx1AaLTfUJrCtT40baFFyJwY1xqY/gAzRLwY0g
+        vAAADrwBlbxySQAAAWtJREFUSEvtkc1Kw0AUhbPSpfWx1AaLTfUJrCtT40baFFyJwY1xqY/gAzRLwY0g
         JSNByCSZULqoqz5AF5Jx7jjRNpkpBHeSAweGued+d360WrW46GNnIxvpN9moOQNTr+nAnij/XZmnX1NP
         p8uGPVGupnGabqGQnDB3YQ177NQfpQHsJqq8UkEw3fZDkiJMKBjW0KQaoMoLXFn8JCL84yg5Vj2RKi9w
         ZUFR1sA/mQHh1NwwkO2p8gJXFppMGlWuXDXPBQH4MDhJHt7vXTYOzEHbOLXP22bfgnWne8FrsrxScRxv
@@ -146,19 +146,67 @@
         l6INs++AZTUZQ+Br/W9p2hdEFounIftelQAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="aboutToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="closeToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAAAMVJREFUSEvtlMsKgzAUBfNTSdc1u1po//83jIviovUk91AkNt4mUrpwQCQPZjSg
+        vAAADrwBlbxySQAAAMVJREFUSEvtlMsKgzAUBfNTSdc1u1po//83jIviovUk91AkNt4mUrpwQCQPZjSg
         5uA/GTt3D95eZbhJ8K4fvbvJsAzkQ+ceuDQRyLlfFQnn0yXJ3VPuvSxlUP7eq3xrTaRaTkqRZjlZi+Ty
         z0eoYhmx0+DttJucpEgSR3mK7CMHkPHJYwCxOSrLbUQ5j2iO8E3iXGtkIZczz+ZqI2tyWcrXvo2U5KQ6
         opGTqgh+WNi8JSf4irkfP0qZLoOIRk4QUcsPfowxLzIDFtyPS1EqAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="englishToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAGYktHRAD/AP8A/6C9p5MAAAJJSURBVEhL7ZTtS1NRHMfvP9WLXoUl00ZGm1PRWKRUkKZhGLEe
+        qAWtFz1gWLSECLMH10qC2R7UamKsNMo5J2gsTFLvdnd3m25T593dN8/p3u5stfYielF+4QsXzu/3/ZzD
+        75zLbOo/0XK/G0TzbArHz49im+5Znun61i3URD+r0e714Kl9AsJFC8IVWsjxDMMZ68C3NEGcnaXNvrcR
+        VB18vqGZqBDg5IVRhHt6we4qR/zqJUiJhApotwYg2Oxgy0vXFy8ju5xCMiWi4/YkthucBQHGI0MYH/CD
+        b24Et9+I9GSQro+851QAKaww9sP1xA/BfBbhyj1Y8b2ihaGZRTSZfPQ7F6CpceNu9wTinbfAajVI2h4C
+        kgReWIXlmp/C5fhvAMUtp17jk2sYkdoqxNpakWEXkM3SzA2ABccAwvrddEOSICCTyeJx3wydg5IlxzMM
+        7ShCuYBiJMczjNL4py3H/wWAfKLfSmksVnK8OmRd/SA83jk6VHHuM/hjRxGpMeCjw0sbcgF3ej4gvSat
+        3/clerXZnRpwDx7B0j6WP+QSvZNercWlNLKiiER3F9iyHYjdtOJG5zhKKp00NBdAAuoaX9L7TrQ2PYXo
+        gXpEDx9CwPMO+5qHVMB0KE6LVkfeIFKtR8x0Al5HAPqGwe+7IfoRoNh8ZQzR2Ap9B0m7jZ5GuN6hAjIc
+        B+G0CRGDDvN9L9Bmzv8fEf0KQFxW68b93hB9DxLPQzh3RgUQ4herFV33giitduU1ExMVAihuaB1GcEqg
+        NXL8pv5tMcxXlfmQxZGLRW4AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="germenToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAGYktHRAD/AP8A/6C9p5MAAABhSURBVEhL7Y0xCoAwEAQXLMynbAStU6dO4y8Cfix52Rlh2ysX
+        LW5g2hkE/+AstSlkHjhKNYXMx8CXeeDOe1fIPGAbTCHzMfBlfg6upStkfg7GagqZj4Ev8+8gNYXMB58C
+        PKrLFL5nPYVMAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="englishToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAGYktHRAD/AP8A/6C9p5MAAAJJSURBVEhL7ZTtS1NRHMfvP9WLXoUl00ZGm1PRWKRUkKZhGLEe
+        qAWtFz1gWLSECLMH10qC2R7UamKsNMo5J2gsTFLvdnd3m25T593dN8/p3u5stfYielF+4QsXzu/3/ZzD
+        75zLbOo/0XK/G0TzbArHz49im+5Znun61i3URD+r0e714Kl9AsJFC8IVWsjxDMMZ68C3NEGcnaXNvrcR
+        VB18vqGZqBDg5IVRhHt6we4qR/zqJUiJhApotwYg2Oxgy0vXFy8ju5xCMiWi4/YkthucBQHGI0MYH/CD
+        b24Et9+I9GSQro+851QAKaww9sP1xA/BfBbhyj1Y8b2ihaGZRTSZfPQ7F6CpceNu9wTinbfAajVI2h4C
+        kgReWIXlmp/C5fhvAMUtp17jk2sYkdoqxNpakWEXkM3SzA2ABccAwvrddEOSICCTyeJx3wydg5IlxzMM
+        7ShCuYBiJMczjNL4py3H/wWAfKLfSmksVnK8OmRd/SA83jk6VHHuM/hjRxGpMeCjw0sbcgF3ej4gvSat
+        3/clerXZnRpwDx7B0j6WP+QSvZNercWlNLKiiER3F9iyHYjdtOJG5zhKKp00NBdAAuoaX9L7TrQ2PYXo
+        gXpEDx9CwPMO+5qHVMB0KE6LVkfeIFKtR8x0Al5HAPqGwe+7IfoRoNh8ZQzR2Ap9B0m7jZ5GuN6hAjIc
+        B+G0CRGDDvN9L9Bmzv8fEf0KQFxW68b93hB9DxLPQzh3RgUQ4herFV33giitduU1ExMVAihuaB1GcEqg
+        NXL8pv5tMcxXlfmQxZGLRW4AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="germanToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAGYktHRAD/AP8A/6C9p5MAAABhSURBVEhL7Y0xCoAwEAQXLMynbAStU6dO4y8Cfix52Rlh2ysX
+        LW5g2hkE/+AstSlkHjhKNYXMx8CXeeDOe1fIPGAbTCHzMfBlfg6upStkfg7GagqZj4Ev8+8gNYXMB58C
+        PKrLFL5nPYVMAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="fAQToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAAAlBJREFUSEvdlT1oU1EUx4NrBJE4CH4sic1HW2gS8zCbJimIOImDg6BDN3Gw1gy2
+        vAAADrwBlbxySQAAAlBJREFUSEvdlT1oU1EUx4NrBJE4CH4sic1HW2gS8zCbJimIOImDg6BDN3Gw1gy2
         OFgoOLgIFRttKaWD4uZmTQUlJn2pFaFLlTqI1KGDg7mtvjTc4znv3Ze8j/uesbjoH/7k3XvO/Z3LeS/3
         Bv5/8Vr8GFejY1yNvUFv4LNm/NIY5zEuUv31rZDex3LK/UYus9HIKWzrzPGHvB4l70A9Bl6mOLqEBUMC
         JVcjrzxDcywyyU5n1lhegdZ8nxQqMxZY52q8V+Dcol2zfGaBL0UONyf7v1OB5r1+KczLWGST1gukXduF
@@ -174,7 +222,7 @@
   <data name="aboutToolStripMenuItem2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAAAWxJREFUSEvdlc1KAzEUhQdEX8PEpQs3voOuFPH3FXyVWpdmSsGlf/QJfAq39fcV
+        vAAADrwBlbxySQAAAWxJREFUSEvdlc1KAzEUhQdEX8PEpQs3voOuFPH3FXyVWpdmSsGlf/QJfAq39fcV
         hCYVcSHx3njTZOA4nRlwoQc+CL33nrbJzEnxv7U68ktq4A61sdfauHtdummA1qq0V1zjHmlvJ31m95Vx
         z2To61Cle9Kl3ZOxBhr5BRroI7N6bJ9nxeVnKWNPsUEDjDsRGyzeFjjYgmVjd8SuKj4s+gUvaIhZO5/6
         x9fPAK9RD8Pntj70i2KbRIUjNBDZvHnzURu0Rj0ZB2KbxI8daKxwfPseQLUcOscLsU2ix+0BNXeBvcQ2
@@ -188,11 +236,12 @@
 2. Locate your SteamCMD (If it isn't located)
 3. Choose your server
 4. Type quit, if the download was successful
+5. Create server startup files(Optional for some games)
 
 Note: This Tool will ONLY install the Server, it can´t forward any ports for you!</value>
   </data>
   <metadata name="SteamCMDtimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>135, 16</value>
+    <value>139, 17</value>
   </metadata>
   <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>277, 16</value>

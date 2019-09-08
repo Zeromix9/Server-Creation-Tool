@@ -58,3 +58,20 @@ C:\Users\nosaj\Desktop\New Version\Server Creation Tool\obj\Debug\Server Creatio
 C:\Users\nosaj\Desktop\New Version\Server Creation Tool\obj\Debug\Server Creation Tool.application
 C:\Users\nosaj\Desktop\New Version\Server Creation Tool\obj\Debug\Server Creation Tool.exe
 C:\Users\nosaj\Desktop\New Version\Server Creation Tool\obj\Debug\Server Creation Tool.pdb
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server Creation Tool.csprojAssemblyReference.cache
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server Creation Tool.exe
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server Creation Tool.pdb
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\bin\Debug\Server Creation Tool.exe.config
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\bin\Debug\Server Creation Tool.exe.manifest
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\bin\Debug\Server Creation Tool.application
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\bin\Debug\Server Creation Tool.exe
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\bin\Debug\Server Creation Tool.pdb
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server_Creation_Tool.AboutFrm.resources
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server_Creation_Tool.MainForm.resources
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server_Creation_Tool.Properties.Resources.resources
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server Creation Tool.csproj.GenerateResource.cache
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server Creation Tool.csproj.CoreCompileInputs.cache
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server Creation Tool.exe.manifest
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server Creation Tool.application
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server_Creation_Tool.changeLogFrm.resources
+C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server_Creation_Tool.PleaseWaitFrm.resources
