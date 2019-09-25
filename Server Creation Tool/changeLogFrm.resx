@@ -118,7 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="textBox1.Text" xml:space="preserve">
-    <value>08.09.2019 - Version 2.7 - Some Visual enhancements also adding the german language and added the creation of the batch and config files.
+    <value>25.09.2019 - Version 2.8 Added 7 Days to Die Server and Guides, also added Left 4 Dead Guides
+
+08.09.2019 - Version 2.7 - Some Visual enhancements also adding the german language and added the creation of the batch and config files.
 
 13.05.2019 - Version 2.6 - Added Left4dead, also the interface was updated and an update system was implemented
                          

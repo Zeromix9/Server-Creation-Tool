@@ -1031,7 +1031,7 @@ namespace Server_Creation_Tool
         public void finishInstallationCSGO()
         {
             string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Langouage
+            //Check Language
 
             string[] askUserToCreateConfigAndBatchFileMsgBox = null;
             string[] failedToCreateServerStartupFilesMsgBox = null;
@@ -1305,7 +1305,7 @@ namespace Server_Creation_Tool
         private void finishInstallationCodBO3()
         {
             string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Langouage
+            //Check Language
             string[] startServerInfo = null;
             string[] installationFailedMsgBox = null;
             string[] importantNoteMsgBox = null;
@@ -1335,7 +1335,9 @@ namespace Server_Creation_Tool
                 MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             serverFolderName = null;
+           
         }
+
 
         private void finishInstallationKf2()
         {
@@ -1493,10 +1495,49 @@ namespace Server_Creation_Tool
                 MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             serverFolderName = null;
+      
+        }
+
+        private void finishInstallation7days()
+        {
+
+            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
+            //Check Language
+            string[] startServerInfo = null;
+            string[] installationFailedMsgBox = null;
+            string[] importantNoteMsgBox = null;
+            switch (Properties.Settings.Default.language)
+            {
+                //Second value of each variable is the title of the messagebox and the first value is the message
+                case "english":
+                    startServerInfo = new string[] { "You can start the server from here: " + serverFolderpath + @"\7days\startdedicated.bat", "7 Days to Die Server" };
+                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install 7 Days to Die Server" };
+                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the config file at: " + serverFolderpath + @"\7days\serverconfig.xml" };
+                    break;
+                case "german":
+                    startServerInfo = new string[] { "Du kannst den Server hier ausführen:" + serverFolderpath + @"\7days\startdedicated.bat", "" };
+                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren 7 Days to Die Server" };
+                    importantNoteMsgBox = new string[] { "Du findest die Config Datei hier: " + serverFolderpath + @"\7days\serverconfig.xml" };
+                    break;
+            }
+            //Check if server's exectable exists
+            if (System.IO.File.Exists(serverFolderpath + @"\7days\startdedicated.bat"))
+            {
+                MessageBox.Show(startServerInfo[0], startServerInfo[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Process.Start(serverFolderpath);
+            }
+            else
+            {
+                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            serverFolderName = null;
+
 
         }
         private void finishInstallation()
         {
+            //here is the switch statement. it works like the IF statement
             switch (serverFolderName)
             {
                 //COUNTER STRIKE 1.6
@@ -1515,6 +1556,7 @@ namespace Server_Creation_Tool
                 case "css":
                     finishInstallationCSSOURCE();
                     break;
+                    //CS:GO
                 case "csgo":
                     finishInstallationCSGO();
                     break;
@@ -1535,6 +1577,9 @@ namespace Server_Creation_Tool
                     break;
                 case "ark":
                     finishInstallationARK();
+                    break;
+                case "7days":
+                    finishInstallation7days();
                     break;
             }
         }
@@ -1720,6 +1765,61 @@ namespace Server_Creation_Tool
         {
             serverFolderName = "l4d2";
             finishInstallationLeft4dead2();
+        }
+
+        private void Left4DeadToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=1872593045");
+            //Left 4 Dead Guide English
+        }
+
+        private void Left4DeadToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=1795236722");
+            //Left 4 Dead Guide German
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                if (steamCmdSpeicherort != null)
+                {
+                    //check if steamCMD exists
+                    if (File.Exists(steamCmdSpeicherort))
+                    {
+                        installSrvProcess = Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./7days/ +app_update 294420 validate");
+                        SteamCMDtimer.Enabled = true;
+                        SteamCMDtimer.Start();
+                       //in the designer, but i cant view it
+                        serverFolderName = @"7days";
+                        disableControls();
+
+                    }
+                    else
+                    {
+
+                        ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install 7 Days to Die Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    }
+
+                }
+
+            }
+            catch (Exception) {; } //7 Days to Die
+        }
+
+        private void DaysToDieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=1728855550");
+            //7 Days to Die English Guide
+        }
+
+        private void DaysToDieToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=1731898014");
+            //7 Days to Die German Guide
+
         }
     }
 }

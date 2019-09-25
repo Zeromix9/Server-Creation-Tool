@@ -45,6 +45,7 @@ namespace Server_Creation_Tool
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button18 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
@@ -66,6 +67,7 @@ namespace Server_Creation_Tool
             this.counterStrikeGlobalOffensiveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.garrysModToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.killingFloor2ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.left4DeadToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.left4Dead2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rustToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.svenCoopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,22 +79,11 @@ namespace Server_Creation_Tool
             this.counterStrikeGlobalOffensiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.garrysModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.killingFloor2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.left4DeadToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.left4Dead2ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.rUstToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.svenCoopToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.forwardingPortsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.langouageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.englishToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.germanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.fAQToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.plannedFeaturesBtn = new System.Windows.Forms.Button();
-            this.SteamCMDtimer = new System.Windows.Forms.Timer(this.components);
-            this.locateSteamCMDBtn = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.serverStartupFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aRKSurvivalEvolvedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.counterStrikeSourceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,6 +94,19 @@ namespace Server_Creation_Tool
             this.counterStrike16ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.garrysModToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.left4Dead2ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.langouageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.englishToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.germanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fAQToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.plannedFeaturesBtn = new System.Windows.Forms.Button();
+            this.SteamCMDtimer = new System.Windows.Forms.Timer(this.components);
+            this.locateSteamCMDBtn = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.daysToDieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.daysToDieToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -123,7 +127,7 @@ namespace Server_Creation_Tool
             // 
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button2.Location = new System.Drawing.Point(22, 16);
+            this.button2.Location = new System.Drawing.Point(6, 69);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(117, 35);
             this.button2.TabIndex = 1;
@@ -135,7 +139,7 @@ namespace Server_Creation_Tool
             // 
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button3.Location = new System.Drawing.Point(145, 16);
+            this.button3.Location = new System.Drawing.Point(129, 28);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(117, 35);
             this.button3.TabIndex = 2;
@@ -147,7 +151,7 @@ namespace Server_Creation_Tool
             // 
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button4.Location = new System.Drawing.Point(145, 57);
+            this.button4.Location = new System.Drawing.Point(129, 69);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(117, 35);
             this.button4.TabIndex = 3;
@@ -159,7 +163,7 @@ namespace Server_Creation_Tool
             // 
             this.button5.FlatAppearance.BorderSize = 0;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button5.Location = new System.Drawing.Point(22, 98);
+            this.button5.Location = new System.Drawing.Point(6, 151);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(117, 35);
             this.button5.TabIndex = 5;
@@ -171,7 +175,7 @@ namespace Server_Creation_Tool
             // 
             this.button6.FlatAppearance.BorderSize = 0;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button6.Location = new System.Drawing.Point(145, 98);
+            this.button6.Location = new System.Drawing.Point(129, 110);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(117, 35);
             this.button6.TabIndex = 6;
@@ -182,6 +186,7 @@ namespace Server_Creation_Tool
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.button7);
             this.groupBox1.Controls.Add(this.button18);
             this.groupBox1.Controls.Add(this.button15);
@@ -195,18 +200,30 @@ namespace Server_Creation_Tool
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Enabled = false;
-            this.groupBox1.Location = new System.Drawing.Point(12, 122);
+            this.groupBox1.Location = new System.Drawing.Point(12, 135);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(525, 139);
+            this.groupBox1.Size = new System.Drawing.Size(525, 192);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Servers";
+            // 
+            // button1
+            // 
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.button1.Location = new System.Drawing.Point(6, 28);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(117, 35);
+            this.button1.TabIndex = 22;
+            this.button1.Text = "7 Days to Die";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // button7
             // 
             this.button7.FlatAppearance.BorderSize = 0;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button7.Location = new System.Drawing.Point(266, 57);
+            this.button7.Location = new System.Drawing.Point(252, 28);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(117, 35);
             this.button7.TabIndex = 21;
@@ -218,7 +235,7 @@ namespace Server_Creation_Tool
             // 
             this.button18.FlatAppearance.BorderSize = 0;
             this.button18.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button18.Location = new System.Drawing.Point(22, 57);
+            this.button18.Location = new System.Drawing.Point(6, 110);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(117, 35);
             this.button18.TabIndex = 20;
@@ -230,7 +247,7 @@ namespace Server_Creation_Tool
             // 
             this.button15.FlatAppearance.BorderSize = 0;
             this.button15.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button15.Location = new System.Drawing.Point(389, 98);
+            this.button15.Location = new System.Drawing.Point(375, 28);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(117, 35);
             this.button15.TabIndex = 15;
@@ -243,7 +260,7 @@ namespace Server_Creation_Tool
             // 
             this.button12.FlatAppearance.BorderSize = 0;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button12.Location = new System.Drawing.Point(389, 16);
+            this.button12.Location = new System.Drawing.Point(252, 110);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(117, 35);
             this.button12.TabIndex = 12;
@@ -255,7 +272,7 @@ namespace Server_Creation_Tool
             // 
             this.button11.FlatAppearance.BorderSize = 0;
             this.button11.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button11.Location = new System.Drawing.Point(389, 57);
+            this.button11.Location = new System.Drawing.Point(252, 151);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(117, 35);
             this.button11.TabIndex = 11;
@@ -267,7 +284,7 @@ namespace Server_Creation_Tool
             // 
             this.button10.FlatAppearance.BorderSize = 0;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button10.Location = new System.Drawing.Point(266, 98);
+            this.button10.Location = new System.Drawing.Point(252, 69);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(117, 35);
             this.button10.TabIndex = 10;
@@ -279,7 +296,7 @@ namespace Server_Creation_Tool
             // 
             this.button8.FlatAppearance.BorderSize = 0;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button8.Location = new System.Drawing.Point(266, 16);
+            this.button8.Location = new System.Drawing.Point(129, 151);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(117, 35);
             this.button8.TabIndex = 8;
@@ -315,7 +332,7 @@ namespace Server_Creation_Tool
             // 
             this.changelogToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("changelogToolStripMenuItem.Image")));
             this.changelogToolStripMenuItem.Name = "changelogToolStripMenuItem";
-            this.changelogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changelogToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.changelogToolStripMenuItem.Text = "Changelog";
             this.changelogToolStripMenuItem.Click += new System.EventHandler(this.ChangelogToolStripMenuItemClick);
             // 
@@ -350,6 +367,7 @@ namespace Server_Creation_Tool
             // englishToolStripMenuItem
             // 
             this.englishToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.daysToDieToolStripMenuItem,
             this.öToolStripMenuItem,
             this.callOfDutyBlackOps3ToolStripMenuItem1,
             this.counterStrike16ToolStripMenuItem1,
@@ -357,12 +375,13 @@ namespace Server_Creation_Tool
             this.counterStrikeGlobalOffensiveToolStripMenuItem1,
             this.garrysModToolStripMenuItem1,
             this.killingFloor2ToolStripMenuItem1,
+            this.left4DeadToolStripMenuItem1,
             this.left4Dead2ToolStripMenuItem,
             this.rustToolStripMenuItem,
             this.svenCoopToolStripMenuItem});
             this.englishToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("englishToolStripMenuItem.Image")));
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.englishToolStripMenuItem.Text = "English";
             // 
             // öToolStripMenuItem
@@ -414,6 +433,13 @@ namespace Server_Creation_Tool
             this.killingFloor2ToolStripMenuItem1.Text = "Killing Floor 2";
             this.killingFloor2ToolStripMenuItem1.Click += new System.EventHandler(this.KillingFloor2ToolStripMenuItem1Click);
             // 
+            // left4DeadToolStripMenuItem1
+            // 
+            this.left4DeadToolStripMenuItem1.Name = "left4DeadToolStripMenuItem1";
+            this.left4DeadToolStripMenuItem1.Size = new System.Drawing.Size(244, 22);
+            this.left4DeadToolStripMenuItem1.Text = "Left 4 Dead";
+            this.left4DeadToolStripMenuItem1.Click += new System.EventHandler(this.Left4DeadToolStripMenuItem1_Click);
+            // 
             // left4Dead2ToolStripMenuItem
             // 
             this.left4Dead2ToolStripMenuItem.Name = "left4Dead2ToolStripMenuItem";
@@ -438,6 +464,7 @@ namespace Server_Creation_Tool
             // germenToolStripMenuItem
             // 
             this.germenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.daysToDieToolStripMenuItem1,
             this.aRKSurvivalEvolcvToolStripMenuItem,
             this.callOfDutyBlackOps3ToolStripMenuItem,
             this.counterStrike16ToolStripMenuItem,
@@ -445,12 +472,13 @@ namespace Server_Creation_Tool
             this.counterStrikeGlobalOffensiveToolStripMenuItem,
             this.garrysModToolStripMenuItem,
             this.killingFloor2ToolStripMenuItem,
+            this.left4DeadToolStripMenuItem2,
             this.left4Dead2ToolStripMenuItem1,
             this.rUstToolStripMenuItem1,
             this.svenCoopToolStripMenuItem1});
             this.germenToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("germenToolStripMenuItem.Image")));
             this.germenToolStripMenuItem.Name = "germenToolStripMenuItem";
-            this.germenToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.germenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.germenToolStripMenuItem.Text = "German";
             // 
             // aRKSurvivalEvolcvToolStripMenuItem
@@ -502,6 +530,13 @@ namespace Server_Creation_Tool
             this.killingFloor2ToolStripMenuItem.Text = "Killing Floor 2";
             this.killingFloor2ToolStripMenuItem.Click += new System.EventHandler(this.KillingFloor2ToolStripMenuItemClick);
             // 
+            // left4DeadToolStripMenuItem2
+            // 
+            this.left4DeadToolStripMenuItem2.Name = "left4DeadToolStripMenuItem2";
+            this.left4DeadToolStripMenuItem2.Size = new System.Drawing.Size(244, 22);
+            this.left4DeadToolStripMenuItem2.Text = "Left 4 Dead";
+            this.left4DeadToolStripMenuItem2.Click += new System.EventHandler(this.Left4DeadToolStripMenuItem2_Click);
+            // 
             // left4Dead2ToolStripMenuItem1
             // 
             this.left4Dead2ToolStripMenuItem1.Name = "left4Dead2ToolStripMenuItem1";
@@ -526,9 +561,89 @@ namespace Server_Creation_Tool
             // forwardingPortsToolStripMenuItem
             // 
             this.forwardingPortsToolStripMenuItem.Name = "forwardingPortsToolStripMenuItem";
-            this.forwardingPortsToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.forwardingPortsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.forwardingPortsToolStripMenuItem.Text = "Forwarding Ports";
             this.forwardingPortsToolStripMenuItem.Click += new System.EventHandler(this.forwardingPortsToolStripMenuItem_Click);
+            // 
+            // serverStartupFilesToolStripMenuItem
+            // 
+            this.serverStartupFilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aRKSurvivalEvolvedToolStripMenuItem,
+            this.counterStrikeSourceToolStripMenuItem1,
+            this.rustToolStripMenuItem2,
+            this.counterStrikeGlobalOffensiveToolStripMenuItem2,
+            this.left4DeadToolStripMenuItem,
+            this.svenCoopToolStripMenuItem2,
+            this.counterStrike16ToolStripMenuItem2,
+            this.garrysModToolStripMenuItem2,
+            this.left4Dead2ToolStripMenuItem2});
+            this.serverStartupFilesToolStripMenuItem.Enabled = false;
+            this.serverStartupFilesToolStripMenuItem.Name = "serverStartupFilesToolStripMenuItem";
+            this.serverStartupFilesToolStripMenuItem.Size = new System.Drawing.Size(118, 20);
+            this.serverStartupFilesToolStripMenuItem.Text = "Server Startup Files";
+            this.serverStartupFilesToolStripMenuItem.Click += new System.EventHandler(this.ServerStartupFilesToolStripMenuItem_Click);
+            // 
+            // aRKSurvivalEvolvedToolStripMenuItem
+            // 
+            this.aRKSurvivalEvolvedToolStripMenuItem.Name = "aRKSurvivalEvolvedToolStripMenuItem";
+            this.aRKSurvivalEvolvedToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.aRKSurvivalEvolvedToolStripMenuItem.Text = "ARK:Survival Evolved";
+            this.aRKSurvivalEvolvedToolStripMenuItem.Click += new System.EventHandler(this.ARKSurvivalEvolvedToolStripMenuItem_Click);
+            // 
+            // counterStrikeSourceToolStripMenuItem1
+            // 
+            this.counterStrikeSourceToolStripMenuItem1.Name = "counterStrikeSourceToolStripMenuItem1";
+            this.counterStrikeSourceToolStripMenuItem1.Size = new System.Drawing.Size(244, 22);
+            this.counterStrikeSourceToolStripMenuItem1.Text = "Counter Strike: Source";
+            this.counterStrikeSourceToolStripMenuItem1.Click += new System.EventHandler(this.CounterStrikeSourceToolStripMenuItem1_Click);
+            // 
+            // rustToolStripMenuItem2
+            // 
+            this.rustToolStripMenuItem2.Name = "rustToolStripMenuItem2";
+            this.rustToolStripMenuItem2.Size = new System.Drawing.Size(244, 22);
+            this.rustToolStripMenuItem2.Text = "Rust";
+            this.rustToolStripMenuItem2.Click += new System.EventHandler(this.RustToolStripMenuItem2_Click);
+            // 
+            // counterStrikeGlobalOffensiveToolStripMenuItem2
+            // 
+            this.counterStrikeGlobalOffensiveToolStripMenuItem2.Name = "counterStrikeGlobalOffensiveToolStripMenuItem2";
+            this.counterStrikeGlobalOffensiveToolStripMenuItem2.Size = new System.Drawing.Size(244, 22);
+            this.counterStrikeGlobalOffensiveToolStripMenuItem2.Text = "Counter-Strike: Global Offensive";
+            this.counterStrikeGlobalOffensiveToolStripMenuItem2.Click += new System.EventHandler(this.CounterStrikeGlobalOffensiveToolStripMenuItem2_Click);
+            // 
+            // left4DeadToolStripMenuItem
+            // 
+            this.left4DeadToolStripMenuItem.Name = "left4DeadToolStripMenuItem";
+            this.left4DeadToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.left4DeadToolStripMenuItem.Text = "Left 4 Dead";
+            // 
+            // svenCoopToolStripMenuItem2
+            // 
+            this.svenCoopToolStripMenuItem2.Name = "svenCoopToolStripMenuItem2";
+            this.svenCoopToolStripMenuItem2.Size = new System.Drawing.Size(244, 22);
+            this.svenCoopToolStripMenuItem2.Text = "Sven Coop";
+            this.svenCoopToolStripMenuItem2.Click += new System.EventHandler(this.SvenCoopToolStripMenuItem2_Click);
+            // 
+            // counterStrike16ToolStripMenuItem2
+            // 
+            this.counterStrike16ToolStripMenuItem2.Name = "counterStrike16ToolStripMenuItem2";
+            this.counterStrike16ToolStripMenuItem2.Size = new System.Drawing.Size(244, 22);
+            this.counterStrike16ToolStripMenuItem2.Text = "Counter-Strike 1.6";
+            this.counterStrike16ToolStripMenuItem2.Click += new System.EventHandler(this.CounterStrike16ToolStripMenuItem2_Click);
+            // 
+            // garrysModToolStripMenuItem2
+            // 
+            this.garrysModToolStripMenuItem2.Name = "garrysModToolStripMenuItem2";
+            this.garrysModToolStripMenuItem2.Size = new System.Drawing.Size(244, 22);
+            this.garrysModToolStripMenuItem2.Text = "Garry\'s Mod";
+            this.garrysModToolStripMenuItem2.Click += new System.EventHandler(this.GarrysModToolStripMenuItem2_Click);
+            // 
+            // left4Dead2ToolStripMenuItem2
+            // 
+            this.left4Dead2ToolStripMenuItem2.Name = "left4Dead2ToolStripMenuItem2";
+            this.left4Dead2ToolStripMenuItem2.Size = new System.Drawing.Size(244, 22);
+            this.left4Dead2ToolStripMenuItem2.Text = "Left 4 Dead 2";
+            this.left4Dead2ToolStripMenuItem2.Click += new System.EventHandler(this.Left4Dead2ToolStripMenuItem2_Click);
             // 
             // langouageToolStripMenuItem
             // 
@@ -592,16 +707,6 @@ namespace Server_Creation_Tool
             this.richTextBox1.TabIndex = 9;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
-            // richTextBox2
-            // 
-            this.richTextBox2.Location = new System.Drawing.Point(12, 464);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.ReadOnly = true;
-            this.richTextBox2.Size = new System.Drawing.Size(467, 23);
-            this.richTextBox2.TabIndex = 10;
-            this.richTextBox2.Text = "                                                  This tool is still under develo" +
-    "pment!";
-            // 
             // plannedFeaturesBtn
             // 
             this.plannedFeaturesBtn.FlatAppearance.BorderSize = 0;
@@ -633,94 +738,27 @@ namespace Server_Creation_Tool
             this.locateSteamCMDBtn.UseVisualStyleBackColor = true;
             this.locateSteamCMDBtn.Click += new System.EventHandler(this.Button7_Click);
             // 
-            // serverStartupFilesToolStripMenuItem
+            // daysToDieToolStripMenuItem
             // 
-            this.serverStartupFilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aRKSurvivalEvolvedToolStripMenuItem,
-            this.counterStrikeSourceToolStripMenuItem1,
-            this.rustToolStripMenuItem2,
-            this.counterStrikeGlobalOffensiveToolStripMenuItem2,
-            this.left4DeadToolStripMenuItem,
-            this.svenCoopToolStripMenuItem2,
-            this.counterStrike16ToolStripMenuItem2,
-            this.garrysModToolStripMenuItem2,
-            this.left4Dead2ToolStripMenuItem2});
-            this.serverStartupFilesToolStripMenuItem.Enabled = false;
-            this.serverStartupFilesToolStripMenuItem.Name = "serverStartupFilesToolStripMenuItem";
-            this.serverStartupFilesToolStripMenuItem.Size = new System.Drawing.Size(118, 20);
-            this.serverStartupFilesToolStripMenuItem.Text = "Server Startup Files";
-            this.serverStartupFilesToolStripMenuItem.Click += new System.EventHandler(this.ServerStartupFilesToolStripMenuItem_Click);
+            this.daysToDieToolStripMenuItem.Name = "daysToDieToolStripMenuItem";
+            this.daysToDieToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.daysToDieToolStripMenuItem.Text = "7 Days to Die";
+            this.daysToDieToolStripMenuItem.Click += new System.EventHandler(this.DaysToDieToolStripMenuItem_Click);
             // 
-            // aRKSurvivalEvolvedToolStripMenuItem
+            // daysToDieToolStripMenuItem1
             // 
-            this.aRKSurvivalEvolvedToolStripMenuItem.Name = "aRKSurvivalEvolvedToolStripMenuItem";
-            this.aRKSurvivalEvolvedToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.aRKSurvivalEvolvedToolStripMenuItem.Text = "ARK:Survival Evolved";
-            this.aRKSurvivalEvolvedToolStripMenuItem.Click += new System.EventHandler(this.ARKSurvivalEvolvedToolStripMenuItem_Click);
-            // 
-            // counterStrikeSourceToolStripMenuItem1
-            // 
-            this.counterStrikeSourceToolStripMenuItem1.Name = "counterStrikeSourceToolStripMenuItem1";
-            this.counterStrikeSourceToolStripMenuItem1.Size = new System.Drawing.Size(244, 22);
-            this.counterStrikeSourceToolStripMenuItem1.Text = "Counter Strike: Source";
-            this.counterStrikeSourceToolStripMenuItem1.Click += new System.EventHandler(this.CounterStrikeSourceToolStripMenuItem1_Click);
-            // 
-            // rustToolStripMenuItem2
-            // 
-            this.rustToolStripMenuItem2.Name = "rustToolStripMenuItem2";
-            this.rustToolStripMenuItem2.Size = new System.Drawing.Size(244, 22);
-            this.rustToolStripMenuItem2.Text = "Rust";
-            this.rustToolStripMenuItem2.Click += new System.EventHandler(this.RustToolStripMenuItem2_Click);
-            // 
-            // counterStrikeGlobalOffensiveToolStripMenuItem2
-            // 
-            this.counterStrikeGlobalOffensiveToolStripMenuItem2.Name = "counterStrikeGlobalOffensiveToolStripMenuItem2";
-            this.counterStrikeGlobalOffensiveToolStripMenuItem2.Size = new System.Drawing.Size(244, 22);
-            this.counterStrikeGlobalOffensiveToolStripMenuItem2.Text = "Counter-Strike: Global Offensive";
-            this.counterStrikeGlobalOffensiveToolStripMenuItem2.Click += new System.EventHandler(this.CounterStrikeGlobalOffensiveToolStripMenuItem2_Click);
-            // 
-            // left4DeadToolStripMenuItem
-            // 
-            this.left4DeadToolStripMenuItem.Name = "left4DeadToolStripMenuItem";
-            this.left4DeadToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
-            this.left4DeadToolStripMenuItem.Text = "Left 4 Dead";
-            // 
-            // svenCoopToolStripMenuItem2
-            // 
-            this.svenCoopToolStripMenuItem2.Name = "svenCoopToolStripMenuItem2";
-            this.svenCoopToolStripMenuItem2.Size = new System.Drawing.Size(244, 22);
-            this.svenCoopToolStripMenuItem2.Text = "Sven Coop";
-            this.svenCoopToolStripMenuItem2.Click += new System.EventHandler(this.SvenCoopToolStripMenuItem2_Click);
-            // 
-            // counterStrike16ToolStripMenuItem2
-            // 
-            this.counterStrike16ToolStripMenuItem2.Name = "counterStrike16ToolStripMenuItem2";
-            this.counterStrike16ToolStripMenuItem2.Size = new System.Drawing.Size(244, 22);
-            this.counterStrike16ToolStripMenuItem2.Text = "Counter-Strike 1.6";
-            this.counterStrike16ToolStripMenuItem2.Click += new System.EventHandler(this.CounterStrike16ToolStripMenuItem2_Click);
-            // 
-            // garrysModToolStripMenuItem2
-            // 
-            this.garrysModToolStripMenuItem2.Name = "garrysModToolStripMenuItem2";
-            this.garrysModToolStripMenuItem2.Size = new System.Drawing.Size(244, 22);
-            this.garrysModToolStripMenuItem2.Text = "Garry\'s Mod";
-            this.garrysModToolStripMenuItem2.Click += new System.EventHandler(this.GarrysModToolStripMenuItem2_Click);
-            // 
-            // left4Dead2ToolStripMenuItem2
-            // 
-            this.left4Dead2ToolStripMenuItem2.Name = "left4Dead2ToolStripMenuItem2";
-            this.left4Dead2ToolStripMenuItem2.Size = new System.Drawing.Size(244, 22);
-            this.left4Dead2ToolStripMenuItem2.Text = "Left 4 Dead 2";
-            this.left4Dead2ToolStripMenuItem2.Click += new System.EventHandler(this.Left4Dead2ToolStripMenuItem2_Click);
+            this.daysToDieToolStripMenuItem1.Name = "daysToDieToolStripMenuItem1";
+            this.daysToDieToolStripMenuItem1.Size = new System.Drawing.Size(244, 22);
+            this.daysToDieToolStripMenuItem1.Text = "7 Days to Die";
+            this.daysToDieToolStripMenuItem1.Click += new System.EventHandler(this.DaysToDieToolStripMenuItem1_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(545, 271);
+            this.ClientSize = new System.Drawing.Size(545, 352);
             this.Controls.Add(this.locateSteamCMDBtn);
             this.Controls.Add(this.plannedFeaturesBtn);
-            this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.downloadSteamCMDbtn);
             this.Controls.Add(this.groupBox1);
@@ -730,7 +768,7 @@ namespace Server_Creation_Tool
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Server Creation Tool Version 2.7";
+            this.Text = "Server Creation Tool Version 2.8";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
@@ -766,7 +804,6 @@ namespace Server_Creation_Tool
 		private System.Windows.Forms.ToolStripMenuItem germenToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem öToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
-		private System.Windows.Forms.RichTextBox richTextBox2;
 		private System.Windows.Forms.RichTextBox richTextBox1;
 		private System.Windows.Forms.ToolStripMenuItem tutorialToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem1;
@@ -804,5 +841,10 @@ namespace Server_Creation_Tool
         private System.Windows.Forms.ToolStripMenuItem counterStrike16ToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem garrysModToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem left4Dead2ToolStripMenuItem2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem left4DeadToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem left4DeadToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem daysToDieToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem daysToDieToolStripMenuItem1;
     }
 }

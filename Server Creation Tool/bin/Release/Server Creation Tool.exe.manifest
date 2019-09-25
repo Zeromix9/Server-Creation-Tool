@@ -4,7 +4,7 @@
   <description asmv2:iconFile="favicon (8).ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="Server Creation Tool" version="2.6.7190.39109" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="Server Creation Tool" version="2.6.7207.40953" language="neutral" processorArchitecture="msil" />
     <commandLine file="Server Creation Tool.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Creation Tool.exe" size="147968">
-      <assemblyIdentity name="Server Creation Tool" version="2.6.7190.39109" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Creation Tool.exe" size="150528">
+      <assemblyIdentity name="Server Creation Tool" version="2.6.7207.40953" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>XzO2dDEzz0WxXt3SR1DF9KnjX6utzTC8x72zTYaU5HA=</dsig:DigestValue>
+        <dsig:DigestValue>jaA5B4j2UfKBy3ctXpKYUy8tf0HIbN9jZCr8PKksUds=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
