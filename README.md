@@ -22,8 +22,10 @@ Why does I need to type the quit command, instead just quitting it via script?
 
 Because so you can see, if the download was sucessful or an error appeared.
 
+
 Where can I suggest new servers?
 
 You can do this right here:
 https://steamcommunity.com/groups/ServerTool
-The is also a list with all servers, which are available.
+
+There is also a list with all servers, which are available.
