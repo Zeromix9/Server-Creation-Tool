@@ -19,3 +19,4 @@ There are also guides avalible which will guide you, through the configuration o
 You will be also get a notification, if an update is available.
 
 https://steamcommunity.com/groups/ServerTool
+https://zeromix.itch.io/server-creation-tool
