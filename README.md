@@ -13,11 +13,11 @@ To use this tool is pretty easy.
 4. Type quit, if the download was successful
 
 There is no need to write any commands beside the "quit" command.
+
 There are also guides avalible which will guide you, through the configuration of your server.
 
+You will be also get a notification, if an update is available.
 
-Questions:
+https://steamcommunity.com/groups/ServerTool
 
-Why does I need to type the quit command, instead just quitting it via script?
-
-Because so you can see, if the download was sucessful or an error appeared.
+https://zeromix.itch.io/server-creation-tool
