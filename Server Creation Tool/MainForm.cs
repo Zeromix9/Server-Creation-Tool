@@ -1607,7 +1607,7 @@ namespace Server_Creation_Tool
             //check for Update and notify the user
             string availableUpdateVersion;
             //the version of the tool
-            string toolVersion = "2.7";
+            string toolVersion = "2.8";
             //
             WebClient client = new WebClient();
             availableUpdateVersion = client.DownloadString("https://pastebin.com/raw/mVYcG7tc");

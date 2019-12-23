@@ -51,7 +51,6 @@ C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Ser
 C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.PleaseWaitFrm.resources
 C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.Properties.Resources.resources
 C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server Creation Tool.csproj.GenerateResource.cache
-C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server Creation Tool.csproj.CoreCompileInputs.cache
 C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server Creation Tool.exe.manifest
 C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server Creation Tool.application
 C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server Creation Tool.exe
