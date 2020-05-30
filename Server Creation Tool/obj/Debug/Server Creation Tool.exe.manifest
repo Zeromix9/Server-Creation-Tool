@@ -4,7 +4,7 @@
   <description asmv2:iconFile="favicon (8).ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="Server Creation Tool" version="2.6.7186.21455" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="Server Creation Tool" version="2.9.0.0" language="neutral" processorArchitecture="x86" />
     <commandLine file="Server Creation Tool.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -15,16 +15,16 @@
       </applicationRequestMinimum>
       <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
         <!--
-          UAC Manifest Options
-          If you want to change the Windows User Account Control level replace the
-          requestedExecutionLevel node with one of the following.
+          UAC-Manifestoptionen
+          Wenn Sie die Zugangsebene für das Windows-Benutzerkonto ändern möchten, ersetzen Sie den 
+          requestedExecutionLevel-Knoten durch eines der folgenden Elemente.
 
         <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
         <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
         <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
 
-         If you want to utilize File and Registry Virtualization for backward
-         compatibility then delete the requestedExecutionLevel node.
+         Löschen Sie den requestedExecutionLevel-Knoten, wenn Sie 
+         zum Gewährleisten der Abwärtskompatibilität die Datei- und Registrierungsvirtualisierung verwenden möchten.
     -->
         <requestedExecutionLevel level="asInvoker" uiAccess="false" />
       </requestedPrivileges>
@@ -43,14 +43,50 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Creation Tool.exe" size="548864">
-      <assemblyIdentity name="Server Creation Tool" version="2.6.7186.21455" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AutoUpdater.NET.dll" size="426496">
+      <assemblyIdentity name="AutoUpdater.NET" version="1.6.0.0" publicKeyToken="501435C91B35F4BC" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ITfmiMz8sCCFb2LCphZ39Q1gxQ5yqDQGKyG33QaSkbQ=</dsig:DigestValue>
+        <dsig:DigestValue>Dysccm5HFmz+MPDtvQk5s3I78+Y/xN2djReNhaS8xy8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="axcsCheck4Update.dll" size="5120">
+      <assemblyIdentity name="axcsCheck4Update" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>oO4rP+EfivyYwVE02yldNUnfTqbMNggDPARK97fZ1yM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="522752">
+      <assemblyIdentity name="Newtonsoft.Json" version="8.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>347C4CRYKd3sW3nxkYw646P6VApaDjxBDitu8L68eSc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Creation Tool.exe" size="157184">
+      <assemblyIdentity name="Server Creation Tool" version="2.9.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>OVLf/DuySv8JVohdlfOWhXIW61pQQt13bF8b5VOm0f0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -69,7 +105,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>wf3fzdyhk/IWF69dxdQOofFzUEuhUmQs0Ux0JtlcU7k=</dsig:DigestValue>
+      <dsig:DigestValue>VW8ULQLHuTrEMOVtVmayGkTaN3PEwz2R3qCjcRSLEKg=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

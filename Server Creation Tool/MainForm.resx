@@ -121,6 +121,28 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="englishToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAklJREFUSEvt
+        lO1LU1Ecx+8/1YtehSXTRkabU9FYpFSQpmEYsR6oBa0XPWBYtIQIswfXSoLZHtRqYqw0yjknaCxMUu92
+        d3ebblPn3d03z+ne7my19iJ6UX7hCxfO7/f9nMPvnMts6j/Rcr8bRPNsCsfPj2Kb7lme6frWLdREP6vR
+        7vXgqX0CwkULwhVayPEMwxnrwLc0QZydpc2+txFUHXy+oZmoEODkhVGEe3rB7ipH/OolSImECmi3BiDY
+        7GDLS9cXLyO7nEIyJaLj9iS2G5wFAcYjQxgf8INvbgS334j0ZJCuj7znVAAprDD2w/XED8F8FuHKPVjx
+        vaKFoZlFNJl89DsXoKlx4273BOKdt8BqNUjaHgKSBF5YheWan8Ll+G8AxS2nXuOTaxiR2irE2lqRYReQ
+        zdLMDYAFxwDC+t10Q5IgIJPJ4nHfDJ2DkiXHMwztKEK5gGIkxzOM0vinLcf/BYB8ot9KaSxWcrw6ZF39
+        IDzeOTpUce4z+GNHEakx4KPDSxtyAXd6PiC9Jq3f9yV6tdmdGnAPHsHSPpY/5BK9k16txaU0sqKIRHcX
+        2LIdiN204kbnOEoqnTQ0F0AC6hpf0vtOtDY9heiBekQPH0LA8w77modUwHQoTotWR94gUq1HzHQCXkcA
+        +obB77sh+hGg2HxlDNHYCn0HSbuNnka43qECMhwH4bQJEYMO830v0GbO/x8R/QpAXFbrxv3eEH0PEs9D
+        OHdGBRDiF6sVXfeCKK125TUTExUCKG5oHUZwSqA1cvym/m0xzFeV+ZDFkYtFbgAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="germenToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAGFJREFUSEvt
+        jTEKgDAQBBcszKdsBK1Tp07jLwJ+LHnZGWHbKxctbmDaGQT/4Cy1KWQeOEo1hczHwJd54M57V8g8YBtM
+        IfMx8GV+Dq6lK2R+DsZqCpmPgS/z7yA1hcwHnwI8qssUvmc9hUwAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="changelogToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -153,28 +175,6 @@
         5uA/GTt3D95eZbhJ8K4fvbvJsAzkQ+ceuDQRyLlfFQnn0yXJ3VPuvSxlUP7eq3xrTaRaTkqRZjlZi+Ty
         z0eoYhmx0+DttJucpEgSR3mK7CMHkPHJYwCxOSrLbUQ5j2iO8E3iXGtkIZczz+ZqI2tyWcrXvo2U5KQ6
         opGTqgh+WNi8JSf4irkfP0qZLoOIRk4QUcsPfowxLzIDFtyPS1EqAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="englishToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAklJREFUSEvt
-        lO1LU1Ecx+8/1YtehSXTRkabU9FYpFSQpmEYsR6oBa0XPWBYtIQIswfXSoLZHtRqYqw0yjknaCxMUu92
-        d3ebblPn3d03z+ne7my19iJ6UX7hCxfO7/f9nMPvnMts6j/Rcr8bRPNsCsfPj2Kb7lme6frWLdREP6vR
-        7vXgqX0CwkULwhVayPEMwxnrwLc0QZydpc2+txFUHXy+oZmoEODkhVGEe3rB7ipH/OolSImECmi3BiDY
-        7GDLS9cXLyO7nEIyJaLj9iS2G5wFAcYjQxgf8INvbgS334j0ZJCuj7znVAAprDD2w/XED8F8FuHKPVjx
-        vaKFoZlFNJl89DsXoKlx4273BOKdt8BqNUjaHgKSBF5YheWan8Ll+G8AxS2nXuOTaxiR2irE2lqRYReQ
-        zdLMDYAFxwDC+t10Q5IgIJPJ4nHfDJ2DkiXHMwztKEK5gGIkxzOM0vinLcf/BYB8ot9KaSxWcrw6ZF39
-        IDzeOTpUce4z+GNHEakx4KPDSxtyAXd6PiC9Jq3f9yV6tdmdGnAPHsHSPpY/5BK9k16txaU0sqKIRHcX
-        2LIdiN204kbnOEoqnTQ0F0AC6hpf0vtOtDY9heiBekQPH0LA8w77modUwHQoTotWR94gUq1HzHQCXkcA
-        +obB77sh+hGg2HxlDNHYCn0HSbuNnka43qECMhwH4bQJEYMO830v0GbO/x8R/QpAXFbrxv3eEH0PEs9D
-        OHdGBRDiF6sVXfeCKK125TUTExUCKG5oHUZwSqA1cvym/m0xzFeV+ZDFkYtFbgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="germenToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAGFJREFUSEvt
-        jTEKgDAQBBcszKdsBK1Tp07jLwJ+LHnZGWHbKxctbmDaGQT/4Cy1KWQeOEo1hczHwJd54M57V8g8YBtM
-        IfMx8GV+Dq6lK2R+DsZqCpmPgS/z7yA1hcwHnwI8qssUvmc9hUwAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="englishToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -239,11 +239,8 @@ Note: This Tool will ONLY install the Server, it can´t forward any ports for yo
   <metadata name="SteamCMDtimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>139, 17</value>
   </metadata>
-  <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>277, 16</value>
-  </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>61</value>
+    <value>46</value>
   </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

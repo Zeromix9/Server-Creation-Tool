@@ -31,6 +31,15 @@ namespace Server_Creation_Tool
         {
         }
 
+        private void changeLogFrm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

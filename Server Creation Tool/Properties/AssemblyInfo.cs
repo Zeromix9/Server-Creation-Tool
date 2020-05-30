@@ -12,10 +12,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Server Creation Tool")]
 [assembly: AssemblyDescription("A simple tool to create game server using SteamCMD")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("By Zeromix-And a small help by BasisBit and cookieoreo18")]
+[assembly: AssemblyCompany("By Zeromix-And a ittle help by BasisBit and cookieoreo18")]
 [assembly: AssemblyProduct("Server Creation Tool")]
-[assembly: AssemblyCopyright("Copyright 2019")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright 2020")]
+[assembly: AssemblyTrademark("2020")]
 [assembly: AssemblyCulture("")]
 
 // This sets the default COM visibility of types in the assembly to invisible.
@@ -28,4 +28,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can use the default the Revision and 
 // Build Numbers by using the '*' as shown below:
-[assembly: AssemblyVersion("2.6.*")]
+[assembly: AssemblyVersion("2.9.0")]
+[assembly: AssemblyFileVersion("2.9.0")]

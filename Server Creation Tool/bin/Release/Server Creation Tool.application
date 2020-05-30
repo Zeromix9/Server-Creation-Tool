@@ -4,17 +4,17 @@
   <description asmv2:publisher="Server Creation Tool" asmv2:product="Server Creation Tool" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Server Creation Tool.exe.manifest" size="4103">
+    <dependentAssembly dependencyType="install" codebase="Server Creation Tool.exe.manifest" size="6104">
       <assemblyIdentity name="Server Creation Tool.exe" version="1.0.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ihdOJKBevv1Ta723oWSGSvoxRtIg97ZdU4ps7gVQDWQ=</dsig:DigestValue>
+        <dsig:DigestValue>1hcj5ifzZR90G7zXxCyP0VKhdQDlYOxG8MRq+JMP/Rs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

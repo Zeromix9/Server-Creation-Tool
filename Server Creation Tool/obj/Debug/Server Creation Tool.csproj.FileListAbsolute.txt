@@ -75,3 +75,50 @@ C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Serv
 C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server Creation Tool.application
 C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server_Creation_Tool.changeLogFrm.resources
 C:\Users\Stelios L LAPTOP\Desktop\Server Creation Tool\Server Creation Tool\Server Creation Tool\obj\Debug\Server_Creation_Tool.PleaseWaitFrm.resources
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\Server Creation Tool.exe.config
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\Server Creation Tool.exe.manifest
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\Server Creation Tool.application
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\Server Creation Tool.exe
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\Server Creation Tool.pdb
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server_Creation_Tool.AboutFrm.resources
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server_Creation_Tool.changeLogFrm.resources
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server_Creation_Tool.MainForm.resources
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server_Creation_Tool.PleaseWaitFrm.resources
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server_Creation_Tool.Properties.Resources.resources
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server Creation Tool.csproj.GenerateResource.cache
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server Creation Tool.exe.manifest
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server Creation Tool.application
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server Creation Tool.exe
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server Creation Tool.pdb
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server Creation Tool.csprojAssemblyReference.cache
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\AutoUpdater.NET.dll
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\axcsCheck4Update.dll
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\Newtonsoft.Json.dll
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\AutoUpdater.NET.pdb
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\AutoUpdater.NET.xml
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\axcsCheck4Update.pdb
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\Newtonsoft.Json.xml
+I:\My Projects\Batch and VBScript\Visual Studio Projects\Server-Creation-Tool-master\Server-Creation-Tool-2.8\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server Creation Tool.csproj.CopyComplete
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\Server Creation Tool.exe.config
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\Server Creation Tool.exe.manifest
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\Server Creation Tool.application
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\Server Creation Tool.exe
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\Server Creation Tool.pdb
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\AutoUpdater.NET.dll
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\Newtonsoft.Json.dll
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\AutoUpdater.NET.pdb
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\AutoUpdater.NET.xml
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\axcsCheck4Update.pdb
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\bin\Debug\Newtonsoft.Json.xml
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server Creation Tool.csprojAssemblyReference.cache
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server_Creation_Tool.AboutFrm.resources
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server_Creation_Tool.changeLogFrm.resources
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server_Creation_Tool.MainForm.resources
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server_Creation_Tool.PleaseWaitFrm.resources
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server_Creation_Tool.Properties.Resources.resources
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server Creation Tool.csproj.GenerateResource.cache
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server Creation Tool.exe.manifest
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server Creation Tool.application
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server Creation Tool.csproj.CopyComplete
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server Creation Tool.exe
+C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\obj\Debug\Server Creation Tool.pdb

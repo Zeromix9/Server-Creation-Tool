@@ -4,7 +4,7 @@
   <description asmv2:iconFile="favicon (8).ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="Server Creation Tool" version="2.6.7230.38051" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="Server Creation Tool" version="2.9.0.0" language="neutral" processorArchitecture="msil" />
     <commandLine file="Server Creation Tool.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,14 +43,50 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Creation Tool.exe" size="150528">
-      <assemblyIdentity name="Server Creation Tool" version="2.6.7230.38051" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AutoUpdater.NET.dll" size="426496">
+      <assemblyIdentity name="AutoUpdater.NET" version="1.6.0.0" publicKeyToken="501435C91B35F4BC" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>XUROnGVN2DQ98Nqh2OpNPUilwas7OCGDvnwLO5BKNhA=</dsig:DigestValue>
+        <dsig:DigestValue>Dysccm5HFmz+MPDtvQk5s3I78+Y/xN2djReNhaS8xy8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="axcsCheck4Update.dll" size="5120">
+      <assemblyIdentity name="axcsCheck4Update" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>oO4rP+EfivyYwVE02yldNUnfTqbMNggDPARK97fZ1yM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="522752">
+      <assemblyIdentity name="Newtonsoft.Json" version="8.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>347C4CRYKd3sW3nxkYw646P6VApaDjxBDitu8L68eSc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Creation Tool.exe" size="157184">
+      <assemblyIdentity name="Server Creation Tool" version="2.9.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>NcdkHLBvorck2JP4LQA9ZMMlCUMxuqbgN5bc7OJ/JA0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -69,7 +105,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>wf3fzdyhk/IWF69dxdQOofFzUEuhUmQs0Ux0JtlcU7k=</dsig:DigestValue>
+      <dsig:DigestValue>VW8ULQLHuTrEMOVtVmayGkTaN3PEwz2R3qCjcRSLEKg=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

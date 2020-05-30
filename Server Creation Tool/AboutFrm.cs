@@ -8,7 +8,7 @@ namespace Server_Creation_Tool
 
     public partial class AboutFrm : Form
     {
-        Form MainForm11 = null;
+      //  Form MainForm11 = null;
         public AboutFrm()
         {
             InitializeComponent();

@@ -13,7 +13,9 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
+using System.Reflection;
 using System.Windows.Forms;
+
 namespace Server_Creation_Tool
 {
     /// <summary>
@@ -111,7 +113,7 @@ namespace Server_Creation_Tool
             }
             catch { }
             MessageBox.Show("Download completed!", "Download SteamCMD", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            pleaseWaitFrom.Close();
+            pleaseWaitFrom.Hide();
             this.Enabled = true;
             this.BringToFront();
             if (File.Exists(folder + @"\steamcmd.exe"))
@@ -226,6 +228,7 @@ namespace Server_Creation_Tool
                 //check if steamCMD exists
                 if (File.Exists(steamCmdSpeicherort))
                 {
+                    //start the installation
                     installSrvProcess = Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./cs/ +app_update 90 validate");
                     disableControls();
                     serverFolderName = "cs";
@@ -598,7 +601,7 @@ namespace Server_Creation_Tool
                 }
                 else
                 {
-                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Rust Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Call of Duty: Black Ops 3 Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
 
                 }
             }
@@ -728,7 +731,7 @@ namespace Server_Creation_Tool
         {
             if (installSrvProcess.HasExited)
             {
-                // outputReaderTimer.Stop;
+
                 SteamCMDtimer.Enabled = false;
                 enableControls();
                 //Complete installation and ask user to create batch-config file
@@ -749,14 +752,14 @@ namespace Server_Creation_Tool
             {
                 //Second value of each variable is the title of the messagebox and the first value is the message
                 case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Do you want to create a batch file for starting the server?The Batch file will be created in the server's folder.It is optional.The server can run without it", "Create Batch file" };
+                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Do you want to create a batch file for starting the server?The Batch file will be created in the server's ROOT folder.It is optional.The server can run without it", "Create Batch file" };
                     failedToCreateServerBatchFileMsgBox = new string[] { "Failed to create Batch File!You can create the file yourself using the code in the server's guide", "Create Batch File" };
                     installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Counter Strike 1.6 Server" };
                     importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch file later to change player slots, map, password etc. For more info, go to the Counter Strike 1.6 Server guide", "Note" };
                     lanOrInternet = new string[] { "Please select if the server will run via lan or on the internet", "Create batch file" };
                     break;
                 case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Möchtest du eine Batch Datei zum starten des Servers erstellen? Diese Datei wir in deinem Server Ordner erstellt. Dies ist optional, der Server kann auch ohne diese Datei starten.", "Erstellen Sie eine Batchdatei" };
+                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Möchtest du eine Batch Datei zum starten des Servers erstellen? Die Batch Datei wird im Server Root Verzeichnis erstellt. Dies ist optional, der Server kann auch ohne diese Datei starten.", "Erstellen Sie eine Batchdatei" };
                     failedToCreateServerBatchFileMsgBox = new string[] { "Erstellung der Batch Datei fehlgeschlagen! Du kannst diese auch selbst erstellen, mithilfe des Codes im Server-Guide.", "Erstellen Sie eine Batchdatei" };
                     installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Counter Strike 1.6 Server" };
                     importantNoteMsgBox = new string[] { "WICHTIG:Sie können die Batchdatei später bearbeiten, um die Spieleranzahl, Karten usw. zu ändern. Für weitere Informationen öffnen Sie die, öffne den Counter Strike 1.6 Guide.", "Notieren" };
@@ -852,7 +855,7 @@ namespace Server_Creation_Tool
             {
                 //Second value of each variable is the title of the messagebox and the first value is the message
                 case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"You have to create a batch file and a configuration file in order to start the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's folder and the configuration file will be created at: " + serverFolderpath + @"\garrysmod\cfg\server.cfg", "Create server's startup files" };
+                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"You have to create a batch file and a configuration file in order to start the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's ROOT folder and the configuration file will be created at: " + serverFolderpath + @"\garrysmod\cfg\server.cfg", "Create server's startup files" };
                     failedToCreateServerStartupFilesMsgBox = new string[] { "Failed to create server's startup files!You can create the files yourself using the code in the server's guide", "Create server's startup files" };
                     installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Gmod Server" };
                     importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch and config file later to change player slots, map, password etc. For more info, go to the Gmod Server guide", "Note" };
@@ -860,7 +863,7 @@ namespace Server_Creation_Tool
                     break;
 
                 case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Eine Batch Datei wird benötigt, um den Server zu starten, sowie eine server.cfg. Sollen diese automatisch erstellt werden, oder nicht? Die Batch Datei wird im Server Ordner generiert und die server.cfg befindet sich in: " + serverFolderpath + @"\garrysmod\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
+                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Eine Batch Datei wird benötigt, um den Server zu starten, sowie eine server.cfg. Sollen diese automatisch erstellt werden, oder nicht? Die Batch Datei wird im Server Verzeichnis erstellt und die Konfigurationsdatei in: " + serverFolderpath + @"\garrysmod\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
                     failedToCreateServerStartupFilesMsgBox = new string[] { "Fehler beim Erstellen der Server-Startdateien! Sie können diese Dateien mithilfe des Codes des Server-Guides selbst erstellen.", "Erstellen Sie die Startdateien des Servers" };
                     installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Gmod Server" };
                     importantNoteMsgBox = new string[] { "WICHTIG: Du kannst diese Dateien später noch editieren. Für mehr Informationen, öffne den Gmod Server Guide.", "Notieren" };
@@ -901,11 +904,10 @@ namespace Server_Creation_Tool
             serverFolderName = null;
         }
 
-        private void finishInstallationLeft4dead2()
+        private void finishInstallationL4d2()
         {
             string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
             //Check Langouage
-
             string[] askUserToCreateConfigAndBatchFileMsgBox = null;
             string[] failedToCreateServerStartupFilesMsgBox = null;
             string[] installationFailedMsgBox = null;
@@ -915,7 +917,7 @@ namespace Server_Creation_Tool
             {
                 //Second value of each variable is the title of the messagebox and the first value is the message
                 case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"You have to create a batch file and a configuration file in order to start the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's folder and the configuration file will be created at: " + serverFolderpath + @"\l4d2\cfg\server.cfg", "Create server's startup files" };
+                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"It is recommended to create a batch file for starting the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's ROOT folder and the configuration file will be created at: " + serverFolderpath + @"\left4dead2\cfg\server.cfg", "Create server's startup files" };
                     failedToCreateServerStartupFilesMsgBox = new string[] { "Failed to create server's startup files!You can create the files yourself using the code in the server's guide", "Create server's startup files" };
                     installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Left 4 Dead 2 Server" };
                     importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch and config file later to change player slots, map, password etc. For more info, go to the Left 4 dead 2 Server guide", "Note" };
@@ -923,7 +925,7 @@ namespace Server_Creation_Tool
                     break;
 
                 case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Eine Batch Datei wird benötigt, um den Server zu starten, sowie eine server.cfg. Sollen diese automatisch erstellt werden, oder nicht? Die Batch Datei wird im Server Ordner generiert und die server.cfg befindet sich in: " + serverFolderpath + @"\l4d2\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
+                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"Es wird empfohlen eine Batch Datei zu erstellen. um den Server zu starten. Soll die Datei jetzt automatisch erstellt werden? Die Batch Datei wird im Server Verzeichnis erstellt und die Konfigurationsdatei in: " + serverFolderpath + @"\left4dead2\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
                     failedToCreateServerStartupFilesMsgBox = new string[] { "Fehler beim Erstellen der Server-Startdateien! Sie können diese Dateien mithilfe des Codes des Server-Guides selbst erstellen.", "Erstellen Sie die Startdateien des Servers" };
                     installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Left 4 dead 2 Server" };
                     importantNoteMsgBox = new string[] { "WICHTIG: Du kannst diese Dateien später noch editieren. Für mehr Informationen, öffne den Left 4 dead 2 Server Guide.", "Notieren" };
@@ -944,8 +946,8 @@ namespace Server_Creation_Tool
                         Stream stream = client.OpenRead(configFileURLforEachLangouage);
                         StreamReader reader = new StreamReader(stream);
                         String content = reader.ReadToEnd();
-                        System.IO.Directory.CreateDirectory(serverFolderpath + @"\l4d2\cfg");
-                        System.IO.File.WriteAllText(serverFolderpath + @"\l4d2\cfg\server.cfg", content);
+                        System.IO.Directory.CreateDirectory(serverFolderpath + @"\left4dead2\cfg");
+                        System.IO.File.WriteAllText(serverFolderpath + @"\left4dead2\cfg\server.cfg", content);
                     }
                     catch (Exception)
                     {
@@ -978,7 +980,7 @@ namespace Server_Creation_Tool
             {
                 //Second value of each variable is the title of the messagebox and the first value is the message
                 case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"You have to create a batch file and a configuration file in order to start the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's folder and the configuration file will be created at: " + serverFolderpath + @"\cstrike\cfg\server.cfg", "Create server's startup files" };
+                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"You have to create a batch file and a configuration file in order to start the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's ROOT folder and the configuration file will be created at: " + serverFolderpath + @"\cstrike\cfg\server.cfg", "Create server's startup files" };
                     failedToCreateServerStartupFilesMsgBox = new string[] { "Failed to create server's startup files!You can create the files yourself using the code in the server's guide", "Create server's startup files" };
                     installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Counter Strike Source Server" };
                     importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch and config file later to change player slots, map, password etc. For more info, go to the Counter Strike Source Server guide", "Note" };
@@ -986,7 +988,7 @@ namespace Server_Creation_Tool
                     break;
 
                 case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Eine Batch Datei wird benötigt, um den Server zu starten, sowie eine server.cfg. Sollen diese automatisch erstellt werden, oder nicht? Die Batch Datei wird im Server Ordner generiert und die server.cfg befindet sich in: " + serverFolderpath + @"\cstrike\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
+                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Eine Batch Datei wird benötigt, um den Server zu starten, sowie eine server.cfg. Sollen diese automatisch erstellt werden, oder nicht? Die Batch Datei wird im Server Verzeichnis erstellt und die Konfigurationsdatei in: " + serverFolderpath + @"\cstrike\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
                     failedToCreateServerStartupFilesMsgBox = new string[] { "Fehler beim Erstellen der Server-Startdateien! Sie können diese Dateien mithilfe des Codes des Server-Guides selbst erstellen.", "Erstellen Sie die Startdateien des Servers" };
                     installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Counter Strike Source Server" };
                     importantNoteMsgBox = new string[] { "WICHTIG: Du kannst diese Dateien später noch editieren. Für mehr Informationen, öffne den Counter Strike Source Server Guide.", "Notieren" };
@@ -1044,7 +1046,7 @@ namespace Server_Creation_Tool
             {
                 //Second value of each variable is the title of the messagebox and the first value is the message
                 case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"You have to create a batch file and a configuration file in order to start the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's folder and the configuration file will be created at: " + serverFolderpath + @"\csgo\cfg\server.cfg", "Create server's startup files" };
+                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"You have to create a batch file and a configuration file in order to start the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's ROOT folder and the configuration file will be created at: " + serverFolderpath + @"\csgo\cfg\server.cfg", "Create server's startup files" };
                     failedToCreateServerStartupFilesMsgBox = new string[] { "Failed to create server's startup files!You can create the files yourself using the code in the server's guide", "Create server's startup files" };
                     installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Counter Strike Global Offensive Server" };
                     importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch and config file later to change player slots, map, password etc. For more info, go to the Counter Strike Global Offensive Server guide", "Note" };
@@ -1053,7 +1055,7 @@ namespace Server_Creation_Tool
                     break;
 
                 case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Eine Batch Datei wird benötigt, um den Server zu starten, sowie eine server.cfg. Sollen diese automatisch erstellt werden, oder nicht? Die Batch Datei wird im Server Ordner generiert und die server.cfg befindet sich in: " + serverFolderpath + @"\csgo\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
+                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Eine Batch Datei wird benötigt, um den Server zu starten, sowie eine server.cfg. Sollen diese automatisch erstellt werden, oder nicht? Die Batch Datei wird im Server Verzeichnis erstellt und die Konfigurationsdatei in: " + serverFolderpath + @"\csgo\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
                     failedToCreateServerStartupFilesMsgBox = new string[] { "Fehler beim Erstellen der Server-Startdateien! Sie können diese Dateien mithilfe des Codes des Server-Guides selbst erstellen.", "Erstellen Sie die Startdateien des Servers" };
                     installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Counter Strike Global Offensive Server" };
                     importantNoteMsgBox = new string[] { "WICHTIG: Du kannst diese Dateien später noch editieren. Für mehr Informationen, öffne den Counter Strike Global Offensive Server Guide.", "Notieren" };
@@ -1335,9 +1337,44 @@ namespace Server_Creation_Tool
                 MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             serverFolderName = null;
-           
+
         }
 
+        private void finishInstallationHurtworld()
+        {
+            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
+            //Check Language
+            string[] startServerInfo = null;
+            string[] installationFailedMsgBox = null;
+            string[] importantNoteMsgBox = null;
+            switch (Properties.Settings.Default.language)
+            {
+                //Second value of each variable is the title of the messagebox and the first value is the message
+                case "english":
+                    startServerInfo = new string[] { "You can start the server from here: " + serverFolderpath + @"\Host.bat", "Hurtworld Server" };
+                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Hurtworld Server" };
+                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the config file at: " + serverFolderpath + @"\autoexec_default.cfg" + " to change player slots, map, password etc. For more info, go to the Hurtworld Server guide", "Note" };
+                    break;
+                case "german":
+                    startServerInfo = new string[] { "Du kannst den Server hier ausführen:" + serverFolderpath + @"\Host.bat", "Hurtworld Server" };
+                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Hurtworld Server" };
+                    importantNoteMsgBox = new string[] { "Du findest die Config Datei hier: " + serverFolderpath + @"\autoexec_default.cfg" + " Dort kannst du unter anderem die maximale Anzahl an Spielern ändern, sowie das Server Passwort und die Karte. Für mehr Informationen schau dir den Hurtworld Server Guide an.", "Notieren" };
+                    break;
+            }
+            //Check if server's exectable exists
+            if (System.IO.File.Exists(serverFolderpath + @"\Host.bat"))
+            {
+                MessageBox.Show(startServerInfo[0], startServerInfo[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Process.Start(serverFolderpath);
+            }
+            else
+            {
+                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            serverFolderName = null;
+
+        }
 
         private void finishInstallationKf2()
         {
@@ -1376,7 +1413,63 @@ namespace Server_Creation_Tool
         private void finishInstallationL4d()
         {
             string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            Process.Start(serverFolderpath);
+            //Check Langouage
+            string[] askUserToCreateConfigAndBatchFileMsgBox = null;
+            string[] failedToCreateServerStartupFilesMsgBox = null;
+            string[] installationFailedMsgBox = null;
+            string[] importantNoteMsgBox = null;
+            string configFileURLforEachLangouage = null;
+            switch (Properties.Settings.Default.language)
+            {
+                //Second value of each variable is the title of the messagebox and the first value is the message
+                case "english":
+                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"It is recommended to create a batch file for starting the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's ROOT folder and the configuration file will be created at: " + serverFolderpath + @"\left4dead\cfg\server.cfg", "Create server's startup files" };
+                    failedToCreateServerStartupFilesMsgBox = new string[] { "Failed to create server's startup files!You can create the files yourself using the code in the server's guide", "Create server's startup files" };
+                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Left 4 Dead Server" };
+                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch and config file later to change player slots, map, password etc. For more info, go to the Left 4 dead Server guide", "Note" };
+                    configFileURLforEachLangouage = "https://pastebin.com/raw/d2CJ08wX";
+                    break;
+
+                case "german":
+                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"Es wird empfohlen eine Batch Datei zu erstellen. um den Server zu starten. Soll die Datei jetzt automatisch erstellt werden? Die Batch Datei wird im Server Verzeichnis erstellt und die Konfigurationsdatei in: " + serverFolderpath + @"\left4dead\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
+                    failedToCreateServerStartupFilesMsgBox = new string[] { "Fehler beim Erstellen der Server-Startdateien! Sie können diese Dateien mithilfe des Codes des Server-Guides selbst erstellen.", "Erstellen Sie die Startdateien des Servers" };
+                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Left 4 dead Server" };
+                    importantNoteMsgBox = new string[] { "WICHTIG: Du kannst diese Dateien später noch editieren. Für mehr Informationen, öffne den Left 4 dead Server Guide.", "Notieren" };
+                    configFileURLforEachLangouage = "https://pastebin.com/raw/2EALxXDw";
+                    break;
+            }
+            //Check if server's exectable exists
+            if (System.IO.File.Exists(serverFolderpath + @"\srcds.exe"))
+            {
+                if (MessageBox.Show(askUserToCreateConfigAndBatchFileMsgBox[0], askUserToCreateConfigAndBatchFileMsgBox[1], MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        //Batch file
+                        System.IO.File.WriteAllText(serverFolderpath + "\\Run.bat", "start srcds.exe -console -game left4dead -port 27015 +map l4d_hospital01_apartment +mp_gamemode coop");
+                        //DOWNLOAD CONFIG FILE AND WRITE IT
+                        WebClient client = new WebClient();
+                        Stream stream = client.OpenRead(configFileURLforEachLangouage);
+                        StreamReader reader = new StreamReader(stream);
+                        String content = reader.ReadToEnd();
+                        System.IO.Directory.CreateDirectory(serverFolderpath + @"\left4dead\cfg");
+                        System.IO.File.WriteAllText(serverFolderpath + @"\left4dead\cfg\server.cfg", content);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show(failedToCreateServerStartupFilesMsgBox[0], failedToCreateServerStartupFilesMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                Process.Start(serverFolderpath);
+            }
+            else
+            {
+                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            serverFolderName = null;
         }
 
         private void finishInstallationRust()
@@ -1393,7 +1486,7 @@ namespace Server_Creation_Tool
             {
                 //Second value of each variable is the title of the messagebox and the first value is the message
                 case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"You have to create a batch file and a configuration file in order to start the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's folder and the configuration file will be created at: " + serverFolderpath + @"\server\my_server_identity\cfg\server.cfg", "Create server's startup files" };
+                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"You have to create a batch file and a configuration file in order to start the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's ROOT folder and the configuration file will be created at: " + serverFolderpath + @"\server\my_server_identity\cfg\server.cfg", "Create server's startup files" };
                     failedToCreateServerStartupFilesMsgBox = new string[] { "Failed to create server's startup files!You can create the files yourself using the code in the server's guide", "Create server's startup files" };
                     installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Rust Server" };
                     importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch and config file later to change player slots, map, password etc. For more info, go to the Rust Server guide", "Note" };
@@ -1401,7 +1494,7 @@ namespace Server_Creation_Tool
                     break;
 
                 case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Eine Batch Datei wird benötigt, um den Server zu starten, sowie eine server.cfg. Sollen diese automatisch erstellt werden, oder nicht? Die Batch Datei wird im Server Ordner generiert und die server.cfg befindet sich in: " + serverFolderpath + @"\server\my_server_identity\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
+                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Eine Batch Datei wird benötigt, um den Server zu starten, sowie eine server.cfg. Sollen diese automatisch erstellt werden, oder nicht? Die Batch Datei wird im Server Verzeichnis erstellt und die Konfigurationsdatei in: " + serverFolderpath + @"\server\my_server_identity\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
                     failedToCreateServerStartupFilesMsgBox = new string[] { "Fehler beim Erstellen der Server-Startdateien! Sie können diese Dateien mithilfe des Codes des Server-Guides selbst erstellen.", "Erstellen Sie die Startdateien des Servers" };
                     installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Rust Server" };
                     importantNoteMsgBox = new string[] { "WICHTIG: Du kannst diese Dateien später noch editieren. Für mehr Informationen, öffne den Rust Server Guide.", "Notieren" };
@@ -1450,7 +1543,7 @@ namespace Server_Creation_Tool
             string[] failedToCreateServerStartupFilesMsgBox = null;
             string[] installationFailedMsgBox = null;
             string[] importantNoteMsgBox = null;
-            string configFileURLforEachLangouage = null;
+
             switch (Properties.Settings.Default.language)
             {
                 //Second value of each variable is the title of the messagebox and the first value is the message
@@ -1459,7 +1552,6 @@ namespace Server_Creation_Tool
                     failedToCreateServerStartupFilesMsgBox = new string[] { "Failed to create server's startup files!You can create the files yourself using the code in the server's guide", "Create server's startup files" };
                     installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Ark:Survival Evolved Server" };
                     importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch and config file later to change player slots, map, password etc. The config file is located at:" + serverFolderpath + @"\ShooterGame\Saved\Config\WindowsServer\GameUserSettings.ini .For more info, go to the Ark:Survival Evolved Server guide", "Note" };
-                    configFileURLforEachLangouage = "https://pastebin.com/raw/e3f89ijz";
                     break;
 
                 case "german":
@@ -1467,7 +1559,6 @@ namespace Server_Creation_Tool
                     failedToCreateServerStartupFilesMsgBox = new string[] { "Fehler beim Erstellen der Server-Startdateien! Sie können diese Dateien mithilfe des Codes des Server-Guides selbst erstellen.", "Erstellen Sie die Startdateien des Servers" };
                     installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Ark:Survival Evolved Server" };
                     importantNoteMsgBox = new string[] { "WICHTIG: Du kannst diese Dateien später noch editieren.Die Konfiguration findest du hier: " + serverFolderpath + @"\ShooterGame\Saved\Config\WindowsServer\GameUserSettings.ini. Für mehr Informationen, öffne den Ark:Survival Evolved.", "Notieren" };
-                    configFileURLforEachLangouage = "https://pastebin.com/raw/mQCitqtv";
                     break;
             }
             //Check if server's exectable exists
@@ -1495,7 +1586,7 @@ namespace Server_Creation_Tool
                 MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             serverFolderName = null;
-      
+
         }
 
         private void finishInstallation7days()
@@ -1510,18 +1601,18 @@ namespace Server_Creation_Tool
             {
                 //Second value of each variable is the title of the messagebox and the first value is the message
                 case "english":
-                    startServerInfo = new string[] { "You can start the server from here: " + serverFolderpath + @"\7days\startdedicated.bat", "7 Days to Die Server" };
+                    startServerInfo = new string[] { "You can start the server from here: " + serverFolderpath + @"\startdedicated.bat", "7 Days to Die Server" };
                     installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install 7 Days to Die Server" };
-                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the config file at: " + serverFolderpath + @"\7days\serverconfig.xml" };
+                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the config file at: " + serverFolderpath + @"\serverconfig.xml", "7 Days to Die Server" };
                     break;
                 case "german":
-                    startServerInfo = new string[] { "Du kannst den Server hier ausführen:" + serverFolderpath + @"\7days\startdedicated.bat", "" };
+                    startServerInfo = new string[] { "Du kannst den Server hier ausführen:" + serverFolderpath + @"\startdedicated.bat", "Installieren 7 Days to Die Server" };
                     installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren 7 Days to Die Server" };
-                    importantNoteMsgBox = new string[] { "Du findest die Config Datei hier: " + serverFolderpath + @"\7days\serverconfig.xml" };
+                    importantNoteMsgBox = new string[] { "Du findest die Config Datei hier: " + serverFolderpath + @"\serverconfig.xml", "Installieren 7 Days to Die Server" };
                     break;
             }
             //Check if server's exectable exists
-            if (System.IO.File.Exists(serverFolderpath + @"\7days\startdedicated.bat"))
+            if (System.IO.File.Exists(serverFolderpath + @"\startdedicated.bat"))
             {
                 MessageBox.Show(startServerInfo[0], startServerInfo[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1535,6 +1626,8 @@ namespace Server_Creation_Tool
 
 
         }
+
+ 
         private void finishInstallation()
         {
             //here is the switch statement. it works like the IF statement
@@ -1550,37 +1643,49 @@ namespace Server_Creation_Tool
                     break;
                 //LEFT 4 DEAD 2
                 case "l4d2":
-                    finishInstallationLeft4dead2();
+                    finishInstallationL4d2();
                     break;
                 //COUNTER STRIKE SOURCE
                 case "css":
                     finishInstallationCSSOURCE();
                     break;
-                    //CS:GO
+                //CS:GO
                 case "csgo":
                     finishInstallationCSGO();
                     break;
+                //Sven Coop
                 case "svencoop":
                     finishInstallationSvenCoop();
                     break;
+                //Call of Duty Black ops 3
                 case "bo3":
                     finishInstallationCodBO3();
                     break;
+                //Rust
                 case "rust":
                     finishInstallationRust();
                     break;
+                //Killing floor 2
                 case "kf2":
                     finishInstallationKf2();
                     break;
+                //Left 4 dead
                 case "l4d":
                     finishInstallationL4d();
                     break;
+                //ARK
                 case "ark":
                     finishInstallationARK();
                     break;
+                //7 days to die
                 case "7days":
                     finishInstallation7days();
                     break;
+                //Hurtworld
+                case "hurtworld":
+                    finishInstallationHurtworld();
+                    break;
+
             }
         }
         private void disableControls()
@@ -1595,32 +1700,51 @@ namespace Server_Creation_Tool
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            //Message to show if update is found. variable
+            string[] updateMessage = { };
+            //
             if (Properties.Settings.Default.language == "english")
             {
                 englishToolStripMenuItem1.PerformClick();
+                //set text to the update variable
+                updateMessage = new string[] { "An update is available! Do you want to download it?", "Update Available" };
             }
             else if (Properties.Settings.Default.language == "german")
             {
                 germanToolStripMenuItem.PerformClick();
+                updateMessage = new string[] { "Ein Update ist verfügbar! Möchtest du es downloaden?", "Update verfügbar" };
             }
 
-            //check for Update and notify the user
-            string availableUpdateVersion;
-            //the version of the tool
-            string toolVersion = "2.8";
-            //
-            WebClient client = new WebClient();
-            availableUpdateVersion = client.DownloadString("https://pastebin.com/raw/mVYcG7tc");
-            //If the version from the pastebin does not equal with the tool's, version notify the user
-            if (availableUpdateVersion != toolVersion)
+           //get available version
+            axcsCheck4Update.axMain oCheckClient = new axcsCheck4Update.axMain("https://drive.google.com/uc?export=download&id=1wB8JbiUU4Sd58YUXBV-elRl8befiEpey");
+
+            int nMajor = oCheckClient.GetVersion(axcsCheck4Update.enVerion.EMajor);
+            int nMinor = oCheckClient.GetVersion(axcsCheck4Update.enVerion.EMinor);
+            int nBuild = oCheckClient.GetVersion(axcsCheck4Update.enVerion.EBuild);
+
+            string avaliableVer = nMajor.ToString() + nMinor.ToString() + nBuild.ToString();
+            string strPath = oCheckClient.GetNewVersionPath();
+
+            // Get my own version's numbers
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+
+            int nAppMajor = fileVersionInfo.FileMajorPart;
+            int nAppMinor = fileVersionInfo.FileMinorPart;
+            int nAppBuild = fileVersionInfo.FileBuildPart;
+            string currentVer = nAppMajor.ToString() + nAppMinor.ToString() + nAppBuild.ToString();
+
+            
+            if (Int32.Parse(avaliableVer) > Int32.Parse(currentVer))
             {
-                if (MessageBox.Show("An update is available! Do you want to download it?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    //Latest version of the tool download website
-                    Process.Start("https://github.com/Zeromix9/Server-Creation-Tool/releases");
-                }
+                if (MessageBox.Show(updateMessage[0], updateMessage[1], MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+              {
+               // Latest version of the tool download website
+                 Process.Start(strPath);
+               }
             }
-            //
+
+           
         }
         string steamCMDFolder;
         private void Button7_Click(object sender, EventArgs e)
@@ -1714,7 +1838,7 @@ namespace Server_Creation_Tool
 
         private void ARKSurvivalEvolvedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+
             serverFolderName = "ark";
             finishInstallationARK();
         }
@@ -1728,7 +1852,7 @@ namespace Server_Creation_Tool
 
         private void ServerStartupFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void RustToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -1764,7 +1888,7 @@ namespace Server_Creation_Tool
         private void Left4Dead2ToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             serverFolderName = "l4d2";
-            finishInstallationLeft4dead2();
+            finishInstallationL4d2();
         }
 
         private void Left4DeadToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1792,7 +1916,7 @@ namespace Server_Creation_Tool
                         installSrvProcess = Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./7days/ +app_update 294420 validate");
                         SteamCMDtimer.Enabled = true;
                         SteamCMDtimer.Start();
-                       //in the designer, but i cant view it
+                        //in the designer, but i cant view it
                         serverFolderName = @"7days";
                         disableControls();
 
@@ -1821,5 +1945,55 @@ namespace Server_Creation_Tool
             //7 Days to Die German Guide
 
         }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void left4DeadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            serverFolderName = "l4d";
+            finishInstallationL4d();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //check if steamCMD exists
+                if (File.Exists(steamCmdSpeicherort))
+                {
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./hurtworld/ +app_update 405100 validate");
+                    disableControls();
+                    serverFolderName = "hurtworld";
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                }
+                else
+                {
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Hurtworld Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+
+                }
+            }
+            catch (Exception) {; } //Hurtworld
+        }
+
+        private void hurtworldToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=1912242476");
+            //Hurtworld Guide German	
+        }
+
+        private void hurtworldToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=1893124522");
+            //Hurtworld Guide English	
+        }
     }
-}
+    }

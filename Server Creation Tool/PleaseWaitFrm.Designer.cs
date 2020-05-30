@@ -62,6 +62,7 @@
             this.MinimizeBox = false;
             this.Name = "PleaseWaitFrm";
             this.Text = "Downloading...";
+            this.Load += new System.EventHandler(this.PleaseWaitFrm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -40,5 +40,10 @@ namespace Server_Creation_Tool
                 label1.Text = label1.Text + ".";
             }
         }
+
+        private void PleaseWaitFrm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
