@@ -97,3 +97,46 @@ C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\obj\Rele
 C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\obj\Release\Server Creation Tool.exe
 C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\bin\Release\AutoUpdater.NET.dll
 C:\Users\nosaj\Desktop\Server-Creation-Tool-master\Server Creation Tool\bin\Release\Newtonsoft.Json.dll
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\bin\Release\Server Creation Tool.exe.config
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\bin\Release\Server Creation Tool.exe.manifest
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\bin\Release\Server Creation Tool.application
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\bin\Release\Server Creation Tool.exe
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\bin\Release\AutoUpdater.NET.dll
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\bin\Release\Newtonsoft.Json.dll
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\bin\Release\AutoUpdater.NET.pdb
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\bin\Release\AutoUpdater.NET.xml
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\bin\Release\Newtonsoft.Json.xml
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server Creation Tool.csprojAssemblyReference.cache
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.AboutFrm.resources
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.changeLogFrm.resources
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.MainForm.resources
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.PleaseWaitFrm.resources
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.Properties.Resources.resources
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server Creation Tool.csproj.GenerateResource.cache
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server Creation Tool.exe.manifest
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server Creation Tool.application
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server Creation Tool.csproj.CopyComplete
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server Creation Tool.exe
+C:\Users\Stelios L\Desktop\Server Creation Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.updateOrOpenFolderFrm.resources
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\bin\Release\Server Creation Tool.exe.config
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\bin\Release\Server Creation Tool.exe.manifest
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\bin\Release\Server Creation Tool.application
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\bin\Release\Server Creation Tool.exe
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\bin\Release\AutoUpdater.NET.dll
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\bin\Release\Newtonsoft.Json.dll
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\bin\Release\AutoUpdater.NET.pdb
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\bin\Release\AutoUpdater.NET.xml
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\bin\Release\Newtonsoft.Json.xml
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.csprojAssemblyReference.cache
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.AboutFrm.resources
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.changeLogFrm.resources
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.MainForm.resources
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.PleaseWaitFrm.resources
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.Properties.Resources.resources
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.updateOrOpenFolderFrm.resources
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.csproj.GenerateResource.cache
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.csproj.CoreCompileInputs.cache
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.exe.manifest
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.application
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.csproj.CopyComplete
+C:\Users\nosaj\Documents\GitHub\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.exe

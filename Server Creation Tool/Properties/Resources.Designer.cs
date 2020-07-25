@@ -63,6 +63,16 @@ namespace Server_Creation_Tool.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _previmg {
+            get {
+                object obj = ResourceManager.GetObject("_previmg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_checkmark_24 {
             get {
                 object obj = ResourceManager.GetObject("icons8-checkmark-24", resourceCulture);
@@ -76,6 +86,16 @@ namespace Server_Creation_Tool.Properties {
         internal static System.Drawing.Bitmap icons8_delete_24 {
             get {
                 object obj = ResourceManager.GetObject("icons8-delete-24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_edit_file_24 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-edit-file-24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

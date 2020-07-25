@@ -18,19 +18,6 @@ namespace Server_Creation_Tool
             InitializeComponent();
         }
 
-       
-
-
-        private void ChangeLogFrm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void formClosing(object sender, FormClosedEventArgs e)
-        {
-        }
-
         private void changeLogFrm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;

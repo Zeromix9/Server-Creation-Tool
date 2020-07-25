@@ -118,7 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="textBox1.Text" xml:space="preserve">
-    <value>30.05.2020 - Version 2.9 -Changed the update system, also added Hurtworld Guides and Server
+    <value>26.07.2020 - Version 3.0 - Improved performance, Minor bug fixes, 
+Buttons turn Green if server is installed, 
+Added small menus on each server for easier management
+Added automatic config file creation for Counter Strike 1.6
+Language Improvements
+Now the tool will automatically locate steamCMD on startup
+
+30.05.2020 - Version 2.9 - Changed the update system, also added Hurtworld Guides and Server
 
 25.09.2019 - Version 2.8 - Added 7 Days to Die Server and Guides, also added Left 4 Dead Guides
 

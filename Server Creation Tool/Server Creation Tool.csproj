@@ -23,7 +23,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -84,6 +84,7 @@
     <Reference Include="axcsCheck4Update">
       <HintPath>C:\Users\Stelios L\Downloads\UpdateChecker\bin\Release\axcsCheck4Update.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -118,12 +119,15 @@
     <Compile Include="changeLogFrm.Designer.cs">
       <DependentUpon>changeLogFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="gameFinishInstallFunc.cs" />
+    <Compile Include="LANGUAGES.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="METHODSandFUNCTIONS.cs" />
     <Compile Include="PleaseWaitFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +146,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="updateOrOpenFolderFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="updateOrOpenFolderFrm.Designer.cs">
+      <DependentUpon>updateOrOpenFolderFrm.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AboutFrm.resx">
@@ -159,6 +169,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="updateOrOpenFolderFrm.resx">
+      <DependentUpon>updateOrOpenFolderFrm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +204,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon %288%29.ico" />
+    <None Include="Resources\icons8-edit-file-24.png" />
+    <None Include="Resources\_previmg.png" />
     <None Include="Resources\icons8-checkmark-24.png" />
     <None Include="Resources\icons8-delete-24.png" />
   </ItemGroup>

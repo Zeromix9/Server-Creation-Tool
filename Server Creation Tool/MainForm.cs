@@ -6,13 +6,14 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
+using Microsoft.VisualBasic;
+using statServer_Creation_Tool;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
-using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -21,13 +22,17 @@ namespace Server_Creation_Tool
     /// <summary>
     /// Description of MainForm.
     /// </summary>
+    ///
     public partial class MainForm : Form
     {
         //muss mal kurz googlen... war in letzter zeit nur in Java am entwickeln
         String steamCmdSpeicherort = null;
         Process installSrvProcess = new Process();
         string serverFolderName = null;
-        // string gameServerName;
+
+        //Create new instances of the classes
+        METHODSandFUNCTIONS methodsClass = new METHODSandFUNCTIONS();
+        gameFinishInstallFunc finInstallFunc = new gameFinishInstallFunc();
         public MainForm()
         {
             //
@@ -39,12 +44,13 @@ namespace Server_Creation_Tool
             // TODO: Add constructor code after the InitializeComponent() call.
             //
         }
-        String folder;
+        string steamCMDFolder;
         PleaseWaitFrm pleaseWaitFrom = new PleaseWaitFrm();
         void Button1Click(object sender, EventArgs e)
         {
 
-            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+
+            if (methodsClass.HasInternet() == true)
             {
                 using (System.Net.WebClient client = new System.Net.WebClient())
                 {
@@ -69,28 +75,25 @@ namespace Server_Creation_Tool
                     if (dlgResult.Equals(DialogResult.OK))
                     {
                         //Send content to string
-                        folder = folderBrowserDialog.SelectedPath;
-                        MessageBox.Show(folder.ToString(), "Selected Path");
-                        client.DownloadFileAsync(new Uri("https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"), folder + "\\steamcmd.zip");
+                        steamCMDFolder = folderBrowserDialog.SelectedPath;
+                        MessageBox.Show(steamCMDFolder.ToString(), "Selected Path");
+                        client.DownloadFileAsync(new Uri("https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"), steamCMDFolder + "\\steamcmd.zip");
                         pleaseWaitFrom.Show();
                         this.Enabled = false;
 
+                        steamCmdSpeicherort = Path.Combine(steamCMDFolder, "steamcmd.exe");
                         client.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadSteamCmdZip);
-                        steamCmdSpeicherort = Path.Combine(folder, "steamcmd.exe");
                     }
                     else
                     {
                         //MessageBox.Show("No folder for storing the downloaded files selected. Can not continue.");
                     }
-
                 }
-
             }
             else
             {
                 MessageBox.Show("Download failed. Please check your internet connection!", "Download SteamCMD", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
         }
 
 
@@ -98,11 +101,11 @@ namespace Server_Creation_Tool
         {
 
             //nun wurde die zip-Datei fertig gedownloadet.
-            string steamCMDzip = Path.Combine(folder + @"\steamcmd.zip");
+            string steamCMDzip = Path.Combine(steamCMDFolder + @"\steamcmd.zip");
             //try to extract the zip file
             try
             {
-                ZipFile.ExtractToDirectory(steamCMDzip, folder);
+                ZipFile.ExtractToDirectory(steamCMDzip, steamCMDFolder);
             }
 
             catch { }
@@ -116,19 +119,21 @@ namespace Server_Creation_Tool
             pleaseWaitFrom.Hide();
             this.Enabled = true;
             this.BringToFront();
-            if (File.Exists(folder + @"\steamcmd.exe"))
+            if (File.Exists(steamCmdSpeicherort))
             {
                 serverStartupFilesToolStripMenuItem.Enabled = true;
                 groupBox1.Enabled = true;
                 locateSteamCMDBtn.Text = "      SteamCMD Located";
                 locateSteamCMDBtn.ForeColor = Color.Green;
                 locateSteamCMDBtn.Image = Properties.Resources.icons8_checkmark_24;
-                steamCmdSpeicherort = folder + @"\steamcmd.exe";
+                Properties.Settings.Default.lastSavedSteamCMDLoc = steamCmdSpeicherort;
+                Properties.Settings.Default.Save();
+                //   steamCmdSpeicherort = steamCMDFolder + @"\steamcmd.exe";
             }
 
         }
 
-        private void ChangeLocateSteamCMDStatus(string englishErrorMessage, string MsgBoxtitle, string germanErrorMessage)
+        public void ChangeLocateSteamCMDStatus(string englishErrorMessage, string MsgBoxtitle, string germanErrorMessage)
         {
             //Check Langouage
             if (Properties.Settings.Default.language == "english")
@@ -147,127 +152,99 @@ namespace Server_Creation_Tool
             locateSteamCMDBtn.Image = Properties.Resources.icons8_delete_24;
         }
         void Button2Click(object sender, EventArgs e)
-
         {
-
-            try
+            serverFolderName = @"ark";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(arkBtn, sender, arkSvrMenu, steamCmdSpeicherort))
             {
-                if (steamCmdSpeicherort != null)
-                {
-                    //check if steamCMD exists
-                    if (File.Exists(steamCmdSpeicherort))
-                    {
-                        installSrvProcess = Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./ark/ +app_update 376030 validate");
-                        SteamCMDtimer.Enabled = true;
-                        SteamCMDtimer.Start();
-                        serverFolderName = @"ark";
-                        disableControls();
+                case "NotInstalled":
+                    installSrvProcess = Process.Start(steamCmdSpeicherort, Properties.Settings.Default.arkInstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
 
-                    }
-                    else
-                    {
-
-                        ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Ark: Survival Evolved Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
-                    }
-
-                }
-
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Ark: Survival Evolved Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
             }
-            catch (Exception) {; } //ARK: Survivel Evolved  
-        }
+        }//ark
 
         void Button3Click(object sender, EventArgs e)
         {
-            try
+            serverFolderName = @"css";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(CSsourceBtn, sender, CsSourceSvrMenu, steamCmdSpeicherort))
             {
-                //check if steamCMD exists
-                if (File.Exists(steamCmdSpeicherort))
-                {
-                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./css/ +app_update 232330 validate");
-                    disableControls();
-                    serverFolderName = "css";
+                case "NotInstalled":
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, Properties.Settings.Default.cssInstallCmd);
                     SteamCMDtimer.Enabled = true;
                     SteamCMDtimer.Start();
-                }
-                else
-                {
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
                     ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Counter Strike: Source Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
-
-                }
+                    serverFolderName = null;
+                    break;
             }
-            catch (Exception) {; } //CS:S
-
-        }
+        }//Counter Strike: Source
 
         void Button4Click(object sender, EventArgs e)
         {
-            try
+            serverFolderName = @"csgo";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(CSGOBtn, sender, csgoSvrMenu, steamCmdSpeicherort))
             {
-                //check if steamCMD exists
-                if (File.Exists(steamCmdSpeicherort))
-                {
-                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./csgo/ +app_update 740 validate");
-                    disableControls();
-                    serverFolderName = "csgo";
+                case "NotInstalled":
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, Properties.Settings.Default.csgoInstallCmd);
                     SteamCMDtimer.Enabled = true;
                     SteamCMDtimer.Start();
-                }
-                else
-                {
-                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Counter Strike: Global Offensive Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
-                }
-            }
-            catch (Exception) {; } //CS:GO
+                    disableControls();
+                    break;
 
-        }
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Counter Strike: Global Offensive Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }//CS:GO
 
         void Button5Click(object sender, EventArgs e)
         {
-            try
+            serverFolderName = @"cs";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(csOnePointsixBtn, sender, csOneSixSvrMenu, steamCmdSpeicherort))
             {
-                //check if steamCMD exists
-                if (File.Exists(steamCmdSpeicherort))
-                {
-                    //start the installation
-                    installSrvProcess = Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./cs/ +app_update 90 validate");
-                    disableControls();
-                    serverFolderName = "cs";
+                case "NotInstalled":
+                    installSrvProcess = Process.Start(steamCmdSpeicherort, Properties.Settings.Default.cs16InstallCmd);
                     SteamCMDtimer.Enabled = true;
                     SteamCMDtimer.Start();
+                    disableControls();
+                    break;
 
-                }
-                else
-                {
+                case "steamCMDNotFound":
                     ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Counter Strike 1.6 Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
-
-                }
+                    serverFolderName = null;
+                    break;
             }
-            catch (Exception) {; } //CS 1.6
-
-        }
+        }//Counter Strike: 1.6
 
         void Button6Click(object sender, EventArgs e)
         {
-            try
+            serverFolderName = @"gmod";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(garrysModBtn, sender, gmodSvrMenu, steamCmdSpeicherort))
             {
-                //check if steamCMD exists
-                if (File.Exists(steamCmdSpeicherort))
-                {
-                    installSrvProcess = Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./gmod/ +app_update 4020 validate");
-                    disableControls();
-                    serverFolderName = "gmod";
+                case "NotInstalled":
+                    installSrvProcess = Process.Start(steamCmdSpeicherort, Properties.Settings.Default.gmodInstallCmd);
                     SteamCMDtimer.Enabled = true;
                     SteamCMDtimer.Start();
-                }
-                else
-                {
-                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Garry's mod Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    disableControls();
+                    break;
 
-                }
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Garry's Mod Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
             }
-            catch (Exception) {; } //Garry´s Mod
-
-        }
+        }//Garry's Mod
 
         void Button7Click(object sender, EventArgs e)
         {
@@ -284,26 +261,22 @@ namespace Server_Creation_Tool
 
         void Button8Click(object sender, EventArgs e)
         {
-            try
+            serverFolderName = @"kf2";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(KillingFloorTwoBtn, sender, Kf2SvrMenu, steamCmdSpeicherort))
             {
-                //check if steamCMD exists
-                if (File.Exists(steamCmdSpeicherort))
-                {
-                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./kf2/ +app_update 232130 validate");
-                    disableControls();
-                    serverFolderName = "kf2";
+                case "NotInstalled":
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, Properties.Settings.Default.kf2InstallCmd);
                     SteamCMDtimer.Enabled = true;
                     SteamCMDtimer.Start();
-                }
-                else
-                {
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
                     ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Killing Floor 2 Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
-
-                }
+                    serverFolderName = null;
+                    break;
             }
-            catch (Exception) {; } //Killing Floor 2
-
-        }
+        }//Killing Floor 2
 
         void Button9Click(object sender, EventArgs e)
         {
@@ -320,73 +293,60 @@ namespace Server_Creation_Tool
 
         void Button10Click(object sender, EventArgs e)
         {
-            try
+            serverFolderName = @"l4d2";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(l4dTwoBtn, sender, l4dTwoSvrMenu, steamCmdSpeicherort))
             {
-                //check if steamCMD exists
-                if (File.Exists(steamCmdSpeicherort))
-                {
-                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./l4d2/ +app_update 222860 validate");
-                    disableControls();
-                    serverFolderName = "l4d2";
+                case "NotInstalled":
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, Properties.Settings.Default.l4d2InstallCmd);
                     SteamCMDtimer.Enabled = true;
                     SteamCMDtimer.Start();
-                }
-                else
-                {
-                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Left 4 Dead 2 Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    disableControls();
+                    break;
 
-                }
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Left 4 Dead 2 Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
             }
-            catch (Exception) {; } //Left 4 Dead 2
-        }
+        }//Left 4 Dead 2
 
         void Button11Click(object sender, EventArgs e)
         {
-            try
+            serverFolderName = @"sven";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(SvenCoopBtn, sender, SvenSvrMenu, steamCmdSpeicherort))
             {
-                //check if steamCMD exists
-                if (File.Exists(steamCmdSpeicherort))
-                {
-                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./svencoop/ +app_update 276060 validate");
-                    disableControls();
-                    serverFolderName = "svencoop";
+                case "NotInstalled":
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, Properties.Settings.Default.svenInstallCmd);
                     SteamCMDtimer.Enabled = true;
                     SteamCMDtimer.Start();
-                }
-                else
-                {
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
                     ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Sven Coop Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
-
-                }
+                    serverFolderName = null;
+                    break;
             }
-            catch (Exception) {; } //Sven Coop
-
-        }
+        }//Sven COOP
 
         void Button12Click(object sender, EventArgs e)
         {
-            try
+            serverFolderName = @"rust";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(RustBtn, sender, RustSvrMenu, steamCmdSpeicherort))
             {
-                //check if steamCMD exists
-                if (File.Exists(steamCmdSpeicherort))
-                {
-                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./rust/ +app_update 258550 validate");
-                    disableControls();
-                    serverFolderName = "rust";
+                case "NotInstalled":
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, Properties.Settings.Default.rustInstallCmd);
                     SteamCMDtimer.Enabled = true;
                     SteamCMDtimer.Start();
-                }
-                else
-                {
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
                     ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Rust Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
-
-                }
-
+                    serverFolderName = null;
+                    break;
             }
-            catch (Exception) {; } //Rust
-
-
-        }
+        }//Rust
 
         void Button13Click(object sender, EventArgs e)
         {
@@ -411,32 +371,27 @@ namespace Server_Creation_Tool
                 }
             }
             catch (Exception) {; } //Sniper Elite 3
-
         }
 
         void Button15Click(object sender, EventArgs e)
         //DIS IS NOT WORKING.SYNERGY SERVER UNDER CONSTRUCTION
         {
-            try
+            serverFolderName = @"synergy";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(synergyBtn, sender, SynergySvrMenu, steamCmdSpeicherort))
             {
-                //check if steamCMD exists
-                if (File.Exists(steamCmdSpeicherort))
-                {
-                    installSrvProcess = Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./synergy/ +app_update 17525 validate");
-                    disableControls();
-                    serverFolderName = "";
+                case "NotInstalled":
+                    installSrvProcess = Process.Start(steamCmdSpeicherort, Properties.Settings.Default.synergyInstallCmd);
                     SteamCMDtimer.Enabled = true;
                     SteamCMDtimer.Start();
-                }
-                else
-                {
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
                     ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Synergy Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
-
-                }
+                    serverFolderName = null;
+                    break;
             }
-            catch (Exception) {; } //Synergy
-
-        }
+        }//Synergy
 
         void Button16Click(object sender, EventArgs e)
         {
@@ -537,7 +492,7 @@ namespace Server_Creation_Tool
             Environment.NewLine +
             "Where can I suggest a Server?" +
             Environment.NewLine +
-            "You can do this in the linked Group.","FAQ" };
+            "You can do this in the linked Group." + Environment.NewLine + "If a server's button is green it means that the server is installed. Click the button to Update the server or Open the folder or Delete it etc.","FAQ" };
             }
             else if (Properties.Settings.Default.language == "german")
             {
@@ -548,7 +503,7 @@ namespace Server_Creation_Tool
             Environment.NewLine +
             "Wo kann ich einen Server Vorschlag machen?" +
             Environment.NewLine +
-            "Dies ist möglich in der verlinken Gruppe.","FAQ" };
+            "Dies ist möglich in der verlinken Gruppe."+ Environment.NewLine + "Wenn ein Button grün angezeigt wird, so ist der Server installiert. Klicke auf diesen Button, um den Server zu updaten, den Order zu öffnen oder zu löschen.","FAQ" };////heeeere
             }
             MessageBox.Show(msgBox[0], msgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -588,25 +543,23 @@ namespace Server_Creation_Tool
 
         void Button18Click(object sender, EventArgs e)
         {
-            try
+            serverFolderName = @"bo3";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(CODblackOpsThreeBtn, sender, codBoThreeSvrMenu, steamCmdSpeicherort))
             {
-                //check if steamCMD exists
-                if (File.Exists(steamCmdSpeicherort))
-                {
-                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./bo3/ +app_update 545990 validate");
-                    disableControls();
-                    serverFolderName = "bo3";
+                case "NotInstalled":
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, Properties.Settings.Default.codbo3InstallCmd);
                     SteamCMDtimer.Enabled = true;
                     SteamCMDtimer.Start();
-                }
-                else
-                {
-                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Call of Duty: Black Ops 3 Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    disableControls();
+                    break;
 
-                }
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Call of Duty: Black Ops 3 Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
             }
-            catch (Exception) {; } //Call of Duty: Black Ops 3		
-        }
+        }//CoD Black Ops 3
+
         public bool aboutFormIsVisible = false;
         private AboutFrm aboutform = new AboutFrm();
         void AboutToolStripMenuItem2Click(object sender, EventArgs e)
@@ -673,6 +626,9 @@ namespace Server_Creation_Tool
                             return false; //Der Nutzer hat keine gültige Datei ausgewählt.
                         }
                         steamCmdSpeicherort = result;
+                        //save steamCMD.exe location for the program to automatically locate it next time it starts up
+                        Properties.Settings.Default.lastSavedSteamCMDLoc = steamCmdSpeicherort;
+                        Properties.Settings.Default.Save();
                         return true;
                     }
                     catch (Exception ex)
@@ -738,952 +694,83 @@ namespace Server_Creation_Tool
                 finishInstallation();
             }
         }
-        private void finishInstallationCS16()
-        {
-            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Langouage
 
-            string[] askUserToCreateConfigAndBatchFileMsgBox = null;
-            string[] failedToCreateServerBatchFileMsgBox = null;
-            string[] installationFailedMsgBox = null;
-            string[] importantNoteMsgBox = null;
-            string[] lanOrInternet = null;
-            switch (Properties.Settings.Default.language)
-            {
-                //Second value of each variable is the title of the messagebox and the first value is the message
-                case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Do you want to create a batch file for starting the server?The Batch file will be created in the server's ROOT folder.It is optional.The server can run without it", "Create Batch file" };
-                    failedToCreateServerBatchFileMsgBox = new string[] { "Failed to create Batch File!You can create the file yourself using the code in the server's guide", "Create Batch File" };
-                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Counter Strike 1.6 Server" };
-                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch file later to change player slots, map, password etc. For more info, go to the Counter Strike 1.6 Server guide", "Note" };
-                    lanOrInternet = new string[] { "Please select if the server will run via lan or on the internet", "Create batch file" };
-                    break;
-                case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Möchtest du eine Batch Datei zum starten des Servers erstellen? Die Batch Datei wird im Server Root Verzeichnis erstellt. Dies ist optional, der Server kann auch ohne diese Datei starten.", "Erstellen Sie eine Batchdatei" };
-                    failedToCreateServerBatchFileMsgBox = new string[] { "Erstellung der Batch Datei fehlgeschlagen! Du kannst diese auch selbst erstellen, mithilfe des Codes im Server-Guide.", "Erstellen Sie eine Batchdatei" };
-                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Counter Strike 1.6 Server" };
-                    importantNoteMsgBox = new string[] { "WICHTIG:Sie können die Batchdatei später bearbeiten, um die Spieleranzahl, Karten usw. zu ändern. Für weitere Informationen öffnen Sie die, öffne den Counter Strike 1.6 Guide.", "Notieren" };
-                    lanOrInternet = new string[] { "Wähle aus, ob der Server im Lan oder im Internet verfügbar sein soll.", "Erstellen Sie eine Batchdatei" };
-                    break;
-            }
-            //Check if server's exectable exists
-            if (System.IO.File.Exists(serverFolderpath + @"\hlds.exe"))
-            {
-                if (MessageBox.Show(askUserToCreateConfigAndBatchFileMsgBox[0], askUserToCreateConfigAndBatchFileMsgBox[1], MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    string lanOrInternetCommand = null;
-                    string InternetOrLan(string text, string caption)
-                    {
-                        Form prompt = new Form();
-                        prompt.FormBorderStyle = FormBorderStyle.FixedSingle;
-                        prompt.MaximizeBox = false;
-                        prompt.MinimizeBox = false;
-                        prompt.Width = 343;
-                        prompt.Height = 140;
-                        prompt.Text = caption;
-                        Label textLabel = new Label() { Left = 4, Top = 10, Text = text, Width = 500, Height = 40 };
-                        Button Lan = new Button() { Text = "LAN", Left = 170, Width = 100, Top = 70 };
-                        Button Internet = new Button() { Text = "Internet", Left = 50, Width = 100, Top = 70 };
-                        string returnString = null;
-                        Lan.FlatStyle = FlatStyle.System;
-                        //Lan
-                        Lan.Click += (sender, e) =>
-                        {
-                            returnString = "lan";
-                            prompt.Close();
-                        };
-                        //Internet
-                        Internet.Click += (sender, e) =>
-                        {
-                            returnString = "internet";
-                            prompt.Close();
-                        };
-                        Internet.FlatStyle = FlatStyle.System;
-                        prompt.Controls.Add(Lan);
-                        prompt.Controls.Add(Internet);
-                        prompt.Controls.Add(textLabel);
-                        prompt.ShowDialog();
-                        return (string)returnString;
-                    }
-                    string internetOrLanUserChoice = InternetOrLan(lanOrInternet[0], lanOrInternet[1]);
-                    //check what user entered
-                    if (internetOrLanUserChoice == null)
-                    {
-                        MessageBox.Show("Canceled!");
-                        return;
-                    }
-                    else if (internetOrLanUserChoice == "lan")
-                    {
-                        lanOrInternetCommand = "start hlds -game cstrike -console -insecure -nomaster +sv_lan 1 +maxplayers 12 +map de_dust";
-                    }
-                    else if (internetOrLanUserChoice == "internet")
-                    {
-                        lanOrInternetCommand = "start hlds -game cstrike -console +maxplayers 12 +map de_dust";
-                    }
-                    //Write Batch file
-                    try
-                    {
-                        System.IO.File.WriteAllText(serverFolderpath + "\\Run.bat", lanOrInternetCommand);
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show(failedToCreateServerBatchFileMsgBox[0], failedToCreateServerBatchFileMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        serverFolderName = null;
-                        return;
-                    }
-                    MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                Process.Start(serverFolderpath);
-            }
-            else
-            {
-                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            serverFolderName = null;
-        }
-        private void finishInstallationGmod()
-        {
-            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Langouage
-
-            string[] askUserToCreateConfigAndBatchFileMsgBox = null;
-            string[] failedToCreateServerStartupFilesMsgBox = null;
-            string[] installationFailedMsgBox = null;
-            string[] importantNoteMsgBox = null;
-            string configFileURLforEachLangouage = null;
-            switch (Properties.Settings.Default.language)
-            {
-                //Second value of each variable is the title of the messagebox and the first value is the message
-                case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"You have to create a batch file and a configuration file in order to start the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's ROOT folder and the configuration file will be created at: " + serverFolderpath + @"\garrysmod\cfg\server.cfg", "Create server's startup files" };
-                    failedToCreateServerStartupFilesMsgBox = new string[] { "Failed to create server's startup files!You can create the files yourself using the code in the server's guide", "Create server's startup files" };
-                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Gmod Server" };
-                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch and config file later to change player slots, map, password etc. For more info, go to the Gmod Server guide", "Note" };
-                    configFileURLforEachLangouage = "https://pastebin.com/raw/vtdYsHLG";
-                    break;
-
-                case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Eine Batch Datei wird benötigt, um den Server zu starten, sowie eine server.cfg. Sollen diese automatisch erstellt werden, oder nicht? Die Batch Datei wird im Server Verzeichnis erstellt und die Konfigurationsdatei in: " + serverFolderpath + @"\garrysmod\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
-                    failedToCreateServerStartupFilesMsgBox = new string[] { "Fehler beim Erstellen der Server-Startdateien! Sie können diese Dateien mithilfe des Codes des Server-Guides selbst erstellen.", "Erstellen Sie die Startdateien des Servers" };
-                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Gmod Server" };
-                    importantNoteMsgBox = new string[] { "WICHTIG: Du kannst diese Dateien später noch editieren. Für mehr Informationen, öffne den Gmod Server Guide.", "Notieren" };
-                    configFileURLforEachLangouage = "https://pastebin.com/raw/YzEbTBVy";
-                    break;
-            }
-            //Check if server's exectable exists
-            if (System.IO.File.Exists(serverFolderpath + @"\srcds.exe"))
-            {
-                if (MessageBox.Show(askUserToCreateConfigAndBatchFileMsgBox[0], askUserToCreateConfigAndBatchFileMsgBox[1], MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        //Batch File
-                        System.IO.File.WriteAllText(serverFolderpath + "\\Run.bat", "start srcds.exe -console -game cstrike -secure +maxplayers 22  +map gm_flatgrass");
-                        //DOWNLOAD CONFIG FILE AND WRITE IT
-                        WebClient client = new WebClient();
-                        Stream stream = client.OpenRead(configFileURLforEachLangouage);
-                        StreamReader reader = new StreamReader(stream);
-                        String content = reader.ReadToEnd();
-                        System.IO.Directory.CreateDirectory(serverFolderpath + @"\garrysmod\cfg");
-                        System.IO.File.WriteAllText(serverFolderpath + @"\garrysmod\cfg\server.cfg", content);
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show(failedToCreateServerStartupFilesMsgBox[0], failedToCreateServerStartupFilesMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                }
-                Process.Start(serverFolderpath);
-            }
-            else
-            {
-                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            serverFolderName = null;
-        }
-
-        private void finishInstallationL4d2()
-        {
-            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Langouage
-            string[] askUserToCreateConfigAndBatchFileMsgBox = null;
-            string[] failedToCreateServerStartupFilesMsgBox = null;
-            string[] installationFailedMsgBox = null;
-            string[] importantNoteMsgBox = null;
-            string configFileURLforEachLangouage = null;
-            switch (Properties.Settings.Default.language)
-            {
-                //Second value of each variable is the title of the messagebox and the first value is the message
-                case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"It is recommended to create a batch file for starting the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's ROOT folder and the configuration file will be created at: " + serverFolderpath + @"\left4dead2\cfg\server.cfg", "Create server's startup files" };
-                    failedToCreateServerStartupFilesMsgBox = new string[] { "Failed to create server's startup files!You can create the files yourself using the code in the server's guide", "Create server's startup files" };
-                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Left 4 Dead 2 Server" };
-                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch and config file later to change player slots, map, password etc. For more info, go to the Left 4 dead 2 Server guide", "Note" };
-                    configFileURLforEachLangouage = "https://pastebin.com/raw/1i8xK3L4";
-                    break;
-
-                case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"Es wird empfohlen eine Batch Datei zu erstellen. um den Server zu starten. Soll die Datei jetzt automatisch erstellt werden? Die Batch Datei wird im Server Verzeichnis erstellt und die Konfigurationsdatei in: " + serverFolderpath + @"\left4dead2\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
-                    failedToCreateServerStartupFilesMsgBox = new string[] { "Fehler beim Erstellen der Server-Startdateien! Sie können diese Dateien mithilfe des Codes des Server-Guides selbst erstellen.", "Erstellen Sie die Startdateien des Servers" };
-                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Left 4 dead 2 Server" };
-                    importantNoteMsgBox = new string[] { "WICHTIG: Du kannst diese Dateien später noch editieren. Für mehr Informationen, öffne den Left 4 dead 2 Server Guide.", "Notieren" };
-                    configFileURLforEachLangouage = "https://pastebin.com/raw/NWjDxe4G";
-                    break;
-            }
-            //Check if server's exectable exists
-            if (System.IO.File.Exists(serverFolderpath + @"\srcds.exe"))
-            {
-                if (MessageBox.Show(askUserToCreateConfigAndBatchFileMsgBox[0], askUserToCreateConfigAndBatchFileMsgBox[1], MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        //Batch file
-                        System.IO.File.WriteAllText(serverFolderpath + "\\Run.bat", "start srcds.exe -console -game left4dead2 -secure +maxplayers 4  +map c1m1_hotel");
-                        //DOWNLOAD CONFIG FILE AND WRITE IT
-                        WebClient client = new WebClient();
-                        Stream stream = client.OpenRead(configFileURLforEachLangouage);
-                        StreamReader reader = new StreamReader(stream);
-                        String content = reader.ReadToEnd();
-                        System.IO.Directory.CreateDirectory(serverFolderpath + @"\left4dead2\cfg");
-                        System.IO.File.WriteAllText(serverFolderpath + @"\left4dead2\cfg\server.cfg", content);
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show(failedToCreateServerStartupFilesMsgBox[0], failedToCreateServerStartupFilesMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                }
-                Process.Start(serverFolderpath);
-            }
-            else
-            {
-                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            serverFolderName = null;
-
-        }
-        private void finishInstallationCSSOURCE()
-        {
-            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Langouage
-
-            string[] askUserToCreateConfigAndBatchFileMsgBox = null;
-            string[] failedToCreateServerStartupFilesMsgBox = null;
-            string[] installationFailedMsgBox = null;
-            string[] importantNoteMsgBox = null;
-            string configFileURLforEachLangouage = null;
-            switch (Properties.Settings.Default.language)
-            {
-                //Second value of each variable is the title of the messagebox and the first value is the message
-                case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"You have to create a batch file and a configuration file in order to start the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's ROOT folder and the configuration file will be created at: " + serverFolderpath + @"\cstrike\cfg\server.cfg", "Create server's startup files" };
-                    failedToCreateServerStartupFilesMsgBox = new string[] { "Failed to create server's startup files!You can create the files yourself using the code in the server's guide", "Create server's startup files" };
-                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Counter Strike Source Server" };
-                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch and config file later to change player slots, map, password etc. For more info, go to the Counter Strike Source Server guide", "Note" };
-                    configFileURLforEachLangouage = "https://pastebin.com/raw/e3f89ijz";
-                    break;
-
-                case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Eine Batch Datei wird benötigt, um den Server zu starten, sowie eine server.cfg. Sollen diese automatisch erstellt werden, oder nicht? Die Batch Datei wird im Server Verzeichnis erstellt und die Konfigurationsdatei in: " + serverFolderpath + @"\cstrike\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
-                    failedToCreateServerStartupFilesMsgBox = new string[] { "Fehler beim Erstellen der Server-Startdateien! Sie können diese Dateien mithilfe des Codes des Server-Guides selbst erstellen.", "Erstellen Sie die Startdateien des Servers" };
-                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Counter Strike Source Server" };
-                    importantNoteMsgBox = new string[] { "WICHTIG: Du kannst diese Dateien später noch editieren. Für mehr Informationen, öffne den Counter Strike Source Server Guide.", "Notieren" };
-                    configFileURLforEachLangouage = "https://pastebin.com/raw/mQCitqtv";
-                    break;
-            }
-            //Check if server's exectable exists
-            if (System.IO.File.Exists(serverFolderpath + @"\srcds.exe"))
-            {
-                if (MessageBox.Show(askUserToCreateConfigAndBatchFileMsgBox[0], askUserToCreateConfigAndBatchFileMsgBox[1], MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        //Batch file
-                        System.IO.File.WriteAllText(serverFolderpath + "\\Run.bat", "start srcds.exe -console -game cstrike -secure +maxplayers 22 +map de_dust");
-                        //DOWNLOAD CONFIG FILE AND WRITE IT
-                        WebClient client = new WebClient();
-                        Stream stream = client.OpenRead(configFileURLforEachLangouage);
-                        StreamReader reader = new StreamReader(stream);
-                        String content = reader.ReadToEnd();
-                        System.IO.Directory.CreateDirectory(serverFolderpath + @"\cstrike\cfg");
-                        System.IO.File.WriteAllText(serverFolderpath + @"\cstrike\cfg\server.cfg", content);
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show(failedToCreateServerStartupFilesMsgBox[0], failedToCreateServerStartupFilesMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                }
-                Process.Start(serverFolderpath);
-            }
-            else
-            {
-                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            serverFolderName = null;
-
-        }
-
-        public void finishInstallationCSGO()
-        {
-            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Language
-
-            string[] askUserToCreateConfigAndBatchFileMsgBox = null;
-            string[] failedToCreateServerStartupFilesMsgBox = null;
-            string[] installationFailedMsgBox = null;
-            string[] importantNoteMsgBox = null;
-            string configFileURLforEachLangouage = null;
-            string[] askTokenDialog = null;
-
-            switch (Properties.Settings.Default.language)
-            {
-                //Second value of each variable is the title of the messagebox and the first value is the message
-                case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"You have to create a batch file and a configuration file in order to start the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's ROOT folder and the configuration file will be created at: " + serverFolderpath + @"\csgo\cfg\server.cfg", "Create server's startup files" };
-                    failedToCreateServerStartupFilesMsgBox = new string[] { "Failed to create server's startup files!You can create the files yourself using the code in the server's guide", "Create server's startup files" };
-                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Counter Strike Global Offensive Server" };
-                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch and config file later to change player slots, map, password etc. For more info, go to the Counter Strike Global Offensive Server guide", "Note" };
-                    askTokenDialog = new string[] { "Please enter a VALID server token to show" + System.Environment.NewLine + "your server in the server list(Optional)", "Create server's startup files" };
-                    configFileURLforEachLangouage = "https://pastebin.com/raw/n1XcFu5F";
-                    break;
-
-                case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Eine Batch Datei wird benötigt, um den Server zu starten, sowie eine server.cfg. Sollen diese automatisch erstellt werden, oder nicht? Die Batch Datei wird im Server Verzeichnis erstellt und die Konfigurationsdatei in: " + serverFolderpath + @"\csgo\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
-                    failedToCreateServerStartupFilesMsgBox = new string[] { "Fehler beim Erstellen der Server-Startdateien! Sie können diese Dateien mithilfe des Codes des Server-Guides selbst erstellen.", "Erstellen Sie die Startdateien des Servers" };
-                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Counter Strike Global Offensive Server" };
-                    importantNoteMsgBox = new string[] { "WICHTIG: Du kannst diese Dateien später noch editieren. Für mehr Informationen, öffne den Counter Strike Global Offensive Server Guide.", "Notieren" };
-                    askTokenDialog = new string[] { "Bitte geben Sie ein GÜLTIGES Server-Token ein, um Ihren" + System.Environment.NewLine + "Server in der Serverliste anzuzeigen(optional)", "Erstellen Sie die Startdateien des Servers" };
-                    configFileURLforEachLangouage = "https://pastebin.com/raw/n1XcFu5F";
-                    break;
-            }
-
-
-            //Check if server's exectable exists
-            if (System.IO.File.Exists(serverFolderpath + @"\srcds.exe"))
-            {
-                if (MessageBox.Show(askUserToCreateConfigAndBatchFileMsgBox[0], askUserToCreateConfigAndBatchFileMsgBox[1], MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    string askToken(string text, string caption)
-                    {
-                        Form prompt = new Form();
-                        prompt.FormBorderStyle = FormBorderStyle.FixedSingle;
-                        prompt.MaximizeBox = false;
-                        prompt.MinimizeBox = false;
-                        prompt.Width = 330;
-                        prompt.Height = 140;
-                        prompt.Text = caption;
-                        Label textLabel = new Label() { Left = 30, Top = 10, Text = text, Width = 500, Height = 40 };
-                        TextBox inputBox = new TextBox() { Left = 30, Top = 50, Width = 250 };
-                        Button confirmation = new Button() { Text = "Ok", Left = 180, Width = 100, Top = 70 };
-                        LinkLabel tokenGenerator = new LinkLabel() { Text = "Server Token Generator Link", Left = 30, Top = 78, Width = 200 };
-                        tokenGenerator.Click += (sender, e) => { Process.Start("https://steamcommunity.com/dev/managegameservers"); };
-                        confirmation.FlatStyle = FlatStyle.System;
-                        confirmation.Click += (sender, e) => { prompt.Close(); };
-                        prompt.Controls.Add(confirmation);
-                        prompt.Controls.Add(textLabel);
-                        prompt.Controls.Add(inputBox);
-                        prompt.Controls.Add(tokenGenerator);
-                        prompt.ShowDialog();
-                        return (string)inputBox.Text;
-                    }
-                    string serverToken = askToken(askTokenDialog[0], askTokenDialog[1]).Trim();
-
-                    string askGamemode(string caption)
-                    {
-                        Form prompt = new Form();
-                        prompt.FormBorderStyle = FormBorderStyle.FixedSingle;
-                        prompt.MaximizeBox = false;
-                        prompt.MinimizeBox = false;
-                        prompt.Width = 200;
-                        prompt.Height = 220;
-                        prompt.Text = caption;
-                        //gamemode radiobuttons
-                        RadioButton classicCasual = new RadioButton() { Text = "Classic Casual", Name = "classicCasual", Left = 2, Top = 0, FlatStyle = FlatStyle.System };
-                        RadioButton ClassicCompetitive = new RadioButton() { Text = "Classic Competitive", Name = "ClassicCompetitive", Left = 2, Top = 24, Width = 500, FlatStyle = FlatStyle.System };
-                        RadioButton ArmsRace = new RadioButton() { Text = "Arms Race", Name = "ArmsRace", Left = 2, Top = 48, Width = 500, FlatStyle = FlatStyle.System };
-                        RadioButton Demolition = new RadioButton() { Text = "Demolition", Name = "Demolition", Left = 2, Top = 72, Width = 500, FlatStyle = FlatStyle.System };
-                        RadioButton Deathmatch = new RadioButton() { Text = "Deathmatch", Name = "Deathmatch", Left = 2, Top = 96, Width = 500, FlatStyle = FlatStyle.System };
-                        Button confirmation = new Button() { Text = "Ok", Left = 45, Width = 100, Top = 155, FlatStyle = FlatStyle.System };
-                        confirmation.FlatStyle = FlatStyle.System;
-                        string checkedButton = null;
-                        confirmation.Click += (sender, e) =>
-                        {
-                            if (classicCasual.Checked == true)
-                            {
-                                checkedButton = classicCasual.Name;
-                            }
-                            else if (ClassicCompetitive.Checked == true)
-                            {
-                                checkedButton = ClassicCompetitive.Name;
-                            }
-                            else if (ArmsRace.Checked == true)
-                            {
-                                checkedButton = ArmsRace.Name;
-                            }
-                            else if (Demolition.Checked == true)
-                            {
-                                checkedButton = Demolition.Name;
-                            }
-                            else if (Deathmatch.Checked == true)
-                            {
-                                checkedButton = Deathmatch.Name;
-                            }
-                            prompt.Close();
-                        };
-                        prompt.Controls.Add(confirmation);
-                        prompt.Controls.Add(classicCasual);
-                        prompt.Controls.Add(ArmsRace);
-                        prompt.Controls.Add(ClassicCompetitive);
-                        prompt.Controls.Add(Demolition);
-                        prompt.Controls.Add(Deathmatch);
-                        classicCasual.Checked = true;
-                        prompt.ShowDialog();
-                        //get checked radionbutton
-                        return (string)checkedButton;
-                    }
-                    //check if user has entered valid info 
-                    string gamemodeBatchCommand = null;
-                    string gamemode = askGamemode("Select a Gamemode");
-                    switch (gamemode)
-                    {
-                        case "classicCasual":
-                            gamemodeBatchCommand = "+game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2";
-                            break;
-
-                        case "ArmsRace":
-                            gamemodeBatchCommand = "+game_type 1 +game_mode 0 +mapgroup mg_armsrace +map ar_shoots";
-                            break;
-
-                        case "ClassicCompetitive":
-                            gamemodeBatchCommand = "+game_type 0 +game_mode 1 +mapgroup mg_active +map de_dust2";
-                            break;
-
-                        case "Demolition":
-                            gamemodeBatchCommand = "+game_type 1 +game_mode 1 +mapgroup mg_demolition +map de_lake";
-                            break;
-
-                        case "Deathmatch":
-                            gamemodeBatchCommand = "+game_type 1 +game_mode 2 +mapgroup mg_allclassic +map de_dust";
-                            break;
-                    }
-
-                    try
-                    {
-                        //Batch file
-
-                        System.IO.File.WriteAllText(serverFolderpath + "\\Run.bat", "start srcds -game csgo -console -usercon " + gamemodeBatchCommand + " +sv_setsteamaccount " + serverToken + " -maxplayers_override 24");
-                        //DOWNLOAD CONFIG FILE AND WRITE IT
-                        WebClient client = new WebClient();
-                        Stream stream = client.OpenRead(configFileURLforEachLangouage);
-                        StreamReader reader = new StreamReader(stream);
-                        String content = reader.ReadToEnd();
-                        System.IO.Directory.CreateDirectory(serverFolderpath + @"\csgo\cfg");
-                        System.IO.File.WriteAllText(serverFolderpath + @"\csgo\cfg\server.cfg", content);
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show(failedToCreateServerStartupFilesMsgBox[0], failedToCreateServerStartupFilesMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                Process.Start(serverFolderpath);
-            }
-            else
-            {
-                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private void finishInstallationSvenCoop()
-        {
-            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Langouage
-
-            string[] askUserToCreateConfigAndBatchFileMsgBox = null;
-            string[] failedToCreateServerBatchFileMsgBox = null;
-            string[] installationFailedMsgBox = null;
-            string[] importantNoteMsgBox = null;
-            string[] lanOrInternet = null;
-            switch (Properties.Settings.Default.language)
-            {
-                //Second value of each variable is the title of the messagebox and the first value is the message
-                case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Do you want to create a batch file for starting the server?The Batch file will be created in the server's folder.It is optional.The server can run without it", "Create Batch file" };
-                    failedToCreateServerBatchFileMsgBox = new string[] { "Failed to create Batch File!You can create the file yourself using the code in the server's guide", "Create Batch File" };
-                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Sven Coop Server" };
-                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch file later to change player slots, map, password etc. For more info, go to the Sven Coop Server guide", "Note" };
-                    lanOrInternet = new string[] { "Please select if the server will run via lan or on the internet", "Create batch file" };
-                    break;
-                case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Möchtest du eine Batch Datei zum starten des Servers erstellen? Diese Datei wir in deinem Server Ordner erstellt. Dies ist optional, der Server kann auch ohne diese Datei starten.", "Erstellen Sie eine Batchdatei" };
-                    failedToCreateServerBatchFileMsgBox = new string[] { "Erstellung der Batch Datei fehlgeschlagen! Du kannst diese auch selbst erstellen, mithilfe des Codes im Server-Guide.", "Erstellen Sie eine Batchdatei" };
-                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Sven Coop Server" };
-                    importantNoteMsgBox = new string[] { "WICHTIG:Sie können die Batchdatei später bearbeiten, um die Spieleranzahl, Karten usw. zu ändern. Für weitere Informationen öffnen Sie die, öffne den Sven Coop Guide.", "Notieren" };
-                    lanOrInternet = new string[] { "Wähle aus, ob der Server im Lan oder im Internet verfügbar sein soll.", "Erstellen Sie eine Batchdatei" };
-                    break;
-            }
-            //Check if server's exectable exists
-            if (System.IO.File.Exists(serverFolderpath + @"\SvenDS.exe"))
-            {
-                if (MessageBox.Show(askUserToCreateConfigAndBatchFileMsgBox[0], askUserToCreateConfigAndBatchFileMsgBox[1], MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    string lanOrInternetCommand = null;
-                    string InternetOrLan(string text, string caption)
-                    {
-                        Form prompt = new Form();
-                        prompt.FormBorderStyle = FormBorderStyle.FixedSingle;
-                        prompt.MaximizeBox = false;
-                        prompt.MinimizeBox = false;
-                        prompt.Width = 343;
-                        prompt.Height = 140;
-                        prompt.Text = caption;
-                        Label textLabel = new Label() { Left = 3, Top = 10, Text = text, Width = 500, Height = 40 };
-                        Button Lan = new Button() { Text = "LAN", Left = 170, Width = 100, Top = 70 };
-                        Button Internet = new Button() { Text = "Internet", Left = 50, Width = 100, Top = 70 };
-                        string returnString = null;
-                        Lan.FlatStyle = FlatStyle.System;
-                        //Lan
-                        Lan.Click += (sender, e) =>
-                        {
-                            returnString = "lan";
-                            prompt.Close();
-                        };
-                        //Internet
-                        Internet.Click += (sender, e) =>
-                        {
-                            returnString = "internet";
-                            prompt.Close();
-                        };
-                        Internet.FlatStyle = FlatStyle.System;
-                        prompt.Controls.Add(Lan);
-                        prompt.Controls.Add(Internet);
-                        prompt.Controls.Add(textLabel);
-                        prompt.ShowDialog();
-                        return (string)returnString;
-                    }
-                    string internetOrLanUserChoice = InternetOrLan(lanOrInternet[0], lanOrInternet[1]);
-                    //check what user entered
-                    if (internetOrLanUserChoice == null)
-                    {
-                        MessageBox.Show("Canceled!");
-                        return;
-                    }
-                    else if (internetOrLanUserChoice == "lan")
-                    {
-                        lanOrInternetCommand = "start SvenDS -console -port 27015 +maxplayers 8 -insecure -nomaster +sv_lan 1 +map _server_start";
-                    }
-                    else if (internetOrLanUserChoice == "internet")
-                    {
-                        lanOrInternetCommand = "start SvenDS -console -port 27015 +maxplayers 8 +log on +map _server_start";
-                    }
-                    //Write Batch file
-                    try
-                    {
-                        System.IO.File.WriteAllText(serverFolderpath + "\\Run.bat", lanOrInternetCommand);
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show(failedToCreateServerBatchFileMsgBox[0], failedToCreateServerBatchFileMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        serverFolderName = null;
-                        return;
-                    }
-                    MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                Process.Start(serverFolderpath);
-            }
-            else
-            {
-                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            serverFolderName = null;
-        }
-        private void finishInstallationCodBO3()
-        {
-            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Language
-            string[] startServerInfo = null;
-            string[] installationFailedMsgBox = null;
-            string[] importantNoteMsgBox = null;
-            switch (Properties.Settings.Default.language)
-            {
-                //Second value of each variable is the title of the messagebox and the first value is the message
-                case "english":
-                    startServerInfo = new string[] { "You can start the server from here: " + serverFolderpath + @"\UnrankedServer\Launch_Server.bat", "Call of Duty Black Ops 3 Server" };
-                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Call of Duty Black Ops 3 Server" };
-                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the config file at: " + serverFolderpath + @"\machinecfg\playlists.info" + " to change player slots, map, password etc. For more info, go to the Call of Duty Black Ops 3 Server guide", "Note" };
-                    break;
-                case "german":
-                    startServerInfo = new string[] { "Du kannst den Server hier ausführen:" + serverFolderpath + @"\UnrankedServer\Launch_Server.bat", "" };
-                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Call of Duty Black Ops 3 Server" };
-                    importantNoteMsgBox = new string[] { "Du findest die Config Datei hier: " + serverFolderpath + @"\machinecfg\playlists.info" + " Dort kannst du unter anderem die maximale Anzahl an Spielern ändern, sowie das Server Passwort und die Karte. Für mehr Informationen schau dir den Call of Duty Black Ops 3 Server Guide an.", "Notieren" };
-                    break;
-            }
-            //Check if server's exectable exists
-            if (System.IO.File.Exists(serverFolderpath + @"\UnrankedServer\Launch_Server.bat"))
-            {
-                MessageBox.Show(startServerInfo[0], startServerInfo[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Process.Start(serverFolderpath);
-            }
-            else
-            {
-                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            serverFolderName = null;
-
-        }
-
-        private void finishInstallationHurtworld()
-        {
-            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Language
-            string[] startServerInfo = null;
-            string[] installationFailedMsgBox = null;
-            string[] importantNoteMsgBox = null;
-            switch (Properties.Settings.Default.language)
-            {
-                //Second value of each variable is the title of the messagebox and the first value is the message
-                case "english":
-                    startServerInfo = new string[] { "You can start the server from here: " + serverFolderpath + @"\Host.bat", "Hurtworld Server" };
-                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Hurtworld Server" };
-                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the config file at: " + serverFolderpath + @"\autoexec_default.cfg" + " to change player slots, map, password etc. For more info, go to the Hurtworld Server guide", "Note" };
-                    break;
-                case "german":
-                    startServerInfo = new string[] { "Du kannst den Server hier ausführen:" + serverFolderpath + @"\Host.bat", "Hurtworld Server" };
-                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Hurtworld Server" };
-                    importantNoteMsgBox = new string[] { "Du findest die Config Datei hier: " + serverFolderpath + @"\autoexec_default.cfg" + " Dort kannst du unter anderem die maximale Anzahl an Spielern ändern, sowie das Server Passwort und die Karte. Für mehr Informationen schau dir den Hurtworld Server Guide an.", "Notieren" };
-                    break;
-            }
-            //Check if server's exectable exists
-            if (System.IO.File.Exists(serverFolderpath + @"\Host.bat"))
-            {
-                MessageBox.Show(startServerInfo[0], startServerInfo[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Process.Start(serverFolderpath);
-            }
-            else
-            {
-                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            serverFolderName = null;
-
-        }
-
-        private void finishInstallationKf2()
-        {
-            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Langouage
-            string[] startServerInfo = null;
-            string[] installationFailedMsgBox = null;
-            string[] importantNoteMsgBox = null;
-            switch (Properties.Settings.Default.language)
-            {
-                //Second value of each variable is the title of the messagebox and the first value is the message
-                case "english":
-                    startServerInfo = new string[] { "You can start the server from here: " + serverFolderpath + @"\KF2Server.bat", "Killing Floor 2 Server" };
-                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Killing floor 2 Server" };
-                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the config file at: " + serverFolderpath + @"\KFGame\Config\DefaultGame.ini" + " to change player slots, map, password etc. For more info, go to the Killing floor 2 Server guide", "Note" };
-                    break;
-                case "german":
-                    startServerInfo = new string[] { "Du kannst den Server hier ausführen:" + serverFolderpath + @"\KFGame\Config\DefaultGame.ini", "" };
-                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Killing Floor 2 Server" };
-                    importantNoteMsgBox = new string[] { "Du findest die Config Datei hier: " + serverFolderpath + @"\KFGame\Config\DefaultGame.ini" + " Dort kannst du unter anderem die maximale Anzahl an Spielern ändern, sowie das Server Passwort und die Karte. Für mehr Informationen schau dir den Killing floor 2 Server Guide an.", "Notieren" };
-                    break;
-            }
-            //Check if server's exectable exists
-            if (System.IO.File.Exists(serverFolderpath + @"\KF2Server.bat"))
-            {
-                MessageBox.Show(startServerInfo[0], startServerInfo[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Process.Start(serverFolderpath);
-            }
-            else
-            {
-                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            serverFolderName = null;
-        }
-        private void finishInstallationL4d()
-        {
-            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Langouage
-            string[] askUserToCreateConfigAndBatchFileMsgBox = null;
-            string[] failedToCreateServerStartupFilesMsgBox = null;
-            string[] installationFailedMsgBox = null;
-            string[] importantNoteMsgBox = null;
-            string configFileURLforEachLangouage = null;
-            switch (Properties.Settings.Default.language)
-            {
-                //Second value of each variable is the title of the messagebox and the first value is the message
-                case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"It is recommended to create a batch file for starting the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's ROOT folder and the configuration file will be created at: " + serverFolderpath + @"\left4dead\cfg\server.cfg", "Create server's startup files" };
-                    failedToCreateServerStartupFilesMsgBox = new string[] { "Failed to create server's startup files!You can create the files yourself using the code in the server's guide", "Create server's startup files" };
-                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Left 4 Dead Server" };
-                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch and config file later to change player slots, map, password etc. For more info, go to the Left 4 dead Server guide", "Note" };
-                    configFileURLforEachLangouage = "https://pastebin.com/raw/d2CJ08wX";
-                    break;
-
-                case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"Es wird empfohlen eine Batch Datei zu erstellen. um den Server zu starten. Soll die Datei jetzt automatisch erstellt werden? Die Batch Datei wird im Server Verzeichnis erstellt und die Konfigurationsdatei in: " + serverFolderpath + @"\left4dead\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
-                    failedToCreateServerStartupFilesMsgBox = new string[] { "Fehler beim Erstellen der Server-Startdateien! Sie können diese Dateien mithilfe des Codes des Server-Guides selbst erstellen.", "Erstellen Sie die Startdateien des Servers" };
-                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Left 4 dead Server" };
-                    importantNoteMsgBox = new string[] { "WICHTIG: Du kannst diese Dateien später noch editieren. Für mehr Informationen, öffne den Left 4 dead Server Guide.", "Notieren" };
-                    configFileURLforEachLangouage = "https://pastebin.com/raw/2EALxXDw";
-                    break;
-            }
-            //Check if server's exectable exists
-            if (System.IO.File.Exists(serverFolderpath + @"\srcds.exe"))
-            {
-                if (MessageBox.Show(askUserToCreateConfigAndBatchFileMsgBox[0], askUserToCreateConfigAndBatchFileMsgBox[1], MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        //Batch file
-                        System.IO.File.WriteAllText(serverFolderpath + "\\Run.bat", "start srcds.exe -console -game left4dead -port 27015 +map l4d_hospital01_apartment +mp_gamemode coop");
-                        //DOWNLOAD CONFIG FILE AND WRITE IT
-                        WebClient client = new WebClient();
-                        Stream stream = client.OpenRead(configFileURLforEachLangouage);
-                        StreamReader reader = new StreamReader(stream);
-                        String content = reader.ReadToEnd();
-                        System.IO.Directory.CreateDirectory(serverFolderpath + @"\left4dead\cfg");
-                        System.IO.File.WriteAllText(serverFolderpath + @"\left4dead\cfg\server.cfg", content);
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show(failedToCreateServerStartupFilesMsgBox[0], failedToCreateServerStartupFilesMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                }
-                Process.Start(serverFolderpath);
-            }
-            else
-            {
-                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            serverFolderName = null;
-        }
-
-        private void finishInstallationRust()
-        {
-            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Langouage
-
-            string[] askUserToCreateConfigAndBatchFileMsgBox = null;
-            string[] failedToCreateServerStartupFilesMsgBox = null;
-            string[] installationFailedMsgBox = null;
-            string[] importantNoteMsgBox = null;
-            string configFileURLforEachLangouage = null;
-            switch (Properties.Settings.Default.language)
-            {
-                //Second value of each variable is the title of the messagebox and the first value is the message
-                case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"You have to create a batch file and a configuration file in order to start the server.You want it to be created automatically or create it yourself?The Batch file will be created in the server's ROOT folder and the configuration file will be created at: " + serverFolderpath + @"\server\my_server_identity\cfg\server.cfg", "Create server's startup files" };
-                    failedToCreateServerStartupFilesMsgBox = new string[] { "Failed to create server's startup files!You can create the files yourself using the code in the server's guide", "Create server's startup files" };
-                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Rust Server" };
-                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch and config file later to change player slots, map, password etc. For more info, go to the Rust Server guide", "Note" };
-                    configFileURLforEachLangouage = "https://pastebin.com/raw/7AAK7itF";
-                    break;
-
-                case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Eine Batch Datei wird benötigt, um den Server zu starten, sowie eine server.cfg. Sollen diese automatisch erstellt werden, oder nicht? Die Batch Datei wird im Server Verzeichnis erstellt und die Konfigurationsdatei in: " + serverFolderpath + @"\server\my_server_identity\cfg\server.cfg", "Erstellen Sie die Startdateien des Servers" };
-                    failedToCreateServerStartupFilesMsgBox = new string[] { "Fehler beim Erstellen der Server-Startdateien! Sie können diese Dateien mithilfe des Codes des Server-Guides selbst erstellen.", "Erstellen Sie die Startdateien des Servers" };
-                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Rust Server" };
-                    importantNoteMsgBox = new string[] { "WICHTIG: Du kannst diese Dateien später noch editieren. Für mehr Informationen, öffne den Rust Server Guide.", "Notieren" };
-                    configFileURLforEachLangouage = "https://pastebin.com/raw/7AAK7itF";
-                    break;
-            }
-            //Check if server's exectable exists
-            if (System.IO.File.Exists(serverFolderpath + @"\RustDedicated.exe"))
-            {
-                if (MessageBox.Show(askUserToCreateConfigAndBatchFileMsgBox[0], askUserToCreateConfigAndBatchFileMsgBox[1], MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        //Batch file
-                        System.IO.File.WriteAllText(serverFolderpath + "\\Run.bat", "start RustDedicated.exe -batchmode +server.port 28015 +server.level " + @"""Procedural Map""" + " server.seed 1234 +server.worldsize 4000 +server.maxplayers 10");
-                        //DOWNLOAD CONFIG FILE AND WRITE IT
-                        WebClient client = new WebClient();
-                        Stream stream = client.OpenRead(configFileURLforEachLangouage);
-                        StreamReader reader = new StreamReader(stream);
-                        String content = reader.ReadToEnd();
-                        System.IO.Directory.CreateDirectory(serverFolderpath + @"\server\my_server_identity\cfg");
-                        System.IO.File.WriteAllText(serverFolderpath + @"\server\my_server_identity\cfg\server.cfg", content);
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show(failedToCreateServerStartupFilesMsgBox[0], failedToCreateServerStartupFilesMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                Process.Start(serverFolderpath);
-            }
-            else
-            {
-                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            serverFolderName = null;
-        }
-
-        private void finishInstallationARK()
-        {
-            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Langouage
-
-            string[] askUserToCreateConfigAndBatchFileMsgBox = null;
-            string[] failedToCreateServerStartupFilesMsgBox = null;
-            string[] installationFailedMsgBox = null;
-            string[] importantNoteMsgBox = null;
-
-            switch (Properties.Settings.Default.language)
-            {
-                //Second value of each variable is the title of the messagebox and the first value is the message
-                case "english":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { @"You have to create a batch file in order to start the server.You want it to be created automatically or create it yourself?The Batch file will be created at: " + serverFolderpath + @"\ShooterGame\Binaries\Win64\Run.bat", "Create server's startup files" };
-                    failedToCreateServerStartupFilesMsgBox = new string[] { "Failed to create server's startup files!You can create the files yourself using the code in the server's guide", "Create server's startup files" };
-                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install Ark:Survival Evolved Server" };
-                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the batch and config file later to change player slots, map, password etc. The config file is located at:" + serverFolderpath + @"\ShooterGame\Saved\Config\WindowsServer\GameUserSettings.ini .For more info, go to the Ark:Survival Evolved Server guide", "Note" };
-                    break;
-
-                case "german":
-                    askUserToCreateConfigAndBatchFileMsgBox = new string[] { "Eine Batch Datei wird benötigt, um den Server zu starten. Sollen diese automatisch erstellt werden, oder nicht? Die Batch Datei befindet sich in: " + serverFolderpath + @"\ShooterGame\Binaries\Win64\Run.bat", "Erstellen Sie die Startdateien des Servers" };
-                    failedToCreateServerStartupFilesMsgBox = new string[] { "Fehler beim Erstellen der Server-Startdateien! Sie können diese Dateien mithilfe des Codes des Server-Guides selbst erstellen.", "Erstellen Sie die Startdateien des Servers" };
-                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren Sie Ark:Survival Evolved Server" };
-                    importantNoteMsgBox = new string[] { "WICHTIG: Du kannst diese Dateien später noch editieren.Die Konfiguration findest du hier: " + serverFolderpath + @"\ShooterGame\Saved\Config\WindowsServer\GameUserSettings.ini. Für mehr Informationen, öffne den Ark:Survival Evolved.", "Notieren" };
-                    break;
-            }
-            //Check if server's exectable exists
-            if (System.IO.File.Exists(serverFolderpath + @"\ShooterGame\Binaries\Win64\ShooterGameServer.exe"))
-            {
-                if (MessageBox.Show(askUserToCreateConfigAndBatchFileMsgBox[0], askUserToCreateConfigAndBatchFileMsgBox[1], MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        //Batch file
-                        System.IO.File.WriteAllText(serverFolderpath + @"\ShooterGame\Binaries\Win64\Run.bat", "start ShooterGameServer " + @"""TheIsland?listen?SessionName=Mein_Server?ServerPassword=TEST?ServerAdminPassword=RCONADMIN?MaxPlayers=50""" + Environment.NewLine + "exit");
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show(failedToCreateServerStartupFilesMsgBox[0], failedToCreateServerStartupFilesMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                }
-                Process.Start(serverFolderpath + @"\ShooterGame\Binaries\Win64");
-            }
-            else
-            {
-                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            serverFolderName = null;
-
-        }
-
-        private void finishInstallation7days()
-        {
-
-            string serverFolderpath = steamCmdSpeicherort.Substring(steamCmdSpeicherort.IndexOf(":") - 1, steamCmdSpeicherort.LastIndexOf("\\")) + "\\" + serverFolderName;
-            //Check Language
-            string[] startServerInfo = null;
-            string[] installationFailedMsgBox = null;
-            string[] importantNoteMsgBox = null;
-            switch (Properties.Settings.Default.language)
-            {
-                //Second value of each variable is the title of the messagebox and the first value is the message
-                case "english":
-                    startServerInfo = new string[] { "You can start the server from here: " + serverFolderpath + @"\startdedicated.bat", "7 Days to Die Server" };
-                    installationFailedMsgBox = new string[] { "It looks like the installation failed!", "Install 7 Days to Die Server" };
-                    importantNoteMsgBox = new string[] { "IMPORTANT NOTE: You can edit the config file at: " + serverFolderpath + @"\serverconfig.xml", "7 Days to Die Server" };
-                    break;
-                case "german":
-                    startServerInfo = new string[] { "Du kannst den Server hier ausführen:" + serverFolderpath + @"\startdedicated.bat", "Installieren 7 Days to Die Server" };
-                    installationFailedMsgBox = new string[] { "Die Installation ist fehlgeschlagen!", "Installieren 7 Days to Die Server" };
-                    importantNoteMsgBox = new string[] { "Du findest die Config Datei hier: " + serverFolderpath + @"\serverconfig.xml", "Installieren 7 Days to Die Server" };
-                    break;
-            }
-            //Check if server's exectable exists
-            if (System.IO.File.Exists(serverFolderpath + @"\startdedicated.bat"))
-            {
-                MessageBox.Show(startServerInfo[0], startServerInfo[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MessageBox.Show(importantNoteMsgBox[0], importantNoteMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Process.Start(serverFolderpath);
-            }
-            else
-            {
-                MessageBox.Show(installationFailedMsgBox[0], installationFailedMsgBox[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            serverFolderName = null;
-
-
-        }
-
- 
         private void finishInstallation()
         {
-            //here is the switch statement. it works like the IF statement
+
+
+            //here is a switch statement. it works like the IF statement
             switch (serverFolderName)
             {
                 //COUNTER STRIKE 1.6
                 case "cs":
-                    finishInstallationCS16();
+                    finInstallFunc.finishInstallationCS16(steamCmdSpeicherort, serverFolderName);
+                    serverFolderName = null;
                     break;
                 //GMOD
                 case "gmod":
-                    finishInstallationGmod();
+                    finInstallFunc.finishInstallationGmod(steamCmdSpeicherort, serverFolderName);
+                    serverFolderName = null;
                     break;
                 //LEFT 4 DEAD 2
                 case "l4d2":
-                    finishInstallationL4d2();
+                    finInstallFunc.finishInstallationL4d2(steamCmdSpeicherort, serverFolderName);
+                    serverFolderName = null;
                     break;
                 //COUNTER STRIKE SOURCE
                 case "css":
-                    finishInstallationCSSOURCE();
+                    finInstallFunc.finishInstallationCSSOURCE(steamCmdSpeicherort, serverFolderName);
+                    serverFolderName = null;
                     break;
                 //CS:GO
                 case "csgo":
-                    finishInstallationCSGO();
+                    finInstallFunc.finishInstallationCSGO(steamCmdSpeicherort, serverFolderName);
+                    serverFolderName = null;
                     break;
                 //Sven Coop
                 case "svencoop":
-                    finishInstallationSvenCoop();
+                    finInstallFunc.finishInstallationSvenCoop(steamCmdSpeicherort, serverFolderName);
+                    serverFolderName = null;
                     break;
                 //Call of Duty Black ops 3
                 case "bo3":
-                    finishInstallationCodBO3();
+                    finInstallFunc.finishInstallationCodBO3(steamCmdSpeicherort, serverFolderName);
+                    serverFolderName = null;
                     break;
                 //Rust
                 case "rust":
-                    finishInstallationRust();
+                    finInstallFunc.finishInstallationRust(steamCmdSpeicherort, serverFolderName);
+                    serverFolderName = null;
                     break;
                 //Killing floor 2
                 case "kf2":
-                    finishInstallationKf2();
+                    finInstallFunc.finishInstallationKf2(steamCmdSpeicherort, serverFolderName);
+                    serverFolderName = null;
                     break;
                 //Left 4 dead
                 case "l4d":
-                    finishInstallationL4d();
+                    finInstallFunc.finishInstallationL4d(steamCmdSpeicherort, serverFolderName);
+                    serverFolderName = null;
                     break;
                 //ARK
                 case "ark":
-                    finishInstallationARK();
+                    finInstallFunc.finishInstallationARK(steamCmdSpeicherort, serverFolderName);
+                    serverFolderName = null;
                     break;
                 //7 days to die
                 case "7days":
-                    finishInstallation7days();
+                    finInstallFunc.finishInstallation7days(steamCmdSpeicherort, serverFolderName);
+                    serverFolderName = null;
                     break;
                 //Hurtworld
                 case "hurtworld":
-                    finishInstallationHurtworld();
+                    finInstallFunc.finishInstallationHurtworld(steamCmdSpeicherort, serverFolderName);
+                    serverFolderName = null;
+                    break;
+                //Synergy
+                case "synergy":
+                    //EMPTY
+                    serverFolderName = null;
                     break;
 
             }
@@ -1700,6 +787,13 @@ namespace Server_Creation_Tool
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            //locate steamCMD automatically
+            steamCmdSpeicherort = Properties.Settings.Default.lastSavedSteamCMDLoc;
+            if (File.Exists(steamCmdSpeicherort))
+            {
+                steamCMDLocated();
+            }
+
             //Message to show if update is found. variable
             string[] updateMessage = { };
             //
@@ -1715,7 +809,7 @@ namespace Server_Creation_Tool
                 updateMessage = new string[] { "Ein Update ist verfügbar! Möchtest du es downloaden?", "Update verfügbar" };
             }
 
-           //get available version
+            //get available version
             axcsCheck4Update.axMain oCheckClient = new axcsCheck4Update.axMain("https://drive.google.com/uc?export=download&id=1wB8JbiUU4Sd58YUXBV-elRl8befiEpey");
 
             int nMajor = oCheckClient.GetVersion(axcsCheck4Update.enVerion.EMajor);
@@ -1734,68 +828,69 @@ namespace Server_Creation_Tool
             int nAppBuild = fileVersionInfo.FileBuildPart;
             string currentVer = nAppMajor.ToString() + nAppMinor.ToString() + nAppBuild.ToString();
 
-            
             if (Int32.Parse(avaliableVer) > Int32.Parse(currentVer))
             {
                 if (MessageBox.Show(updateMessage[0], updateMessage[1], MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-              {
-               // Latest version of the tool download website
-                 Process.Start(strPath);
-               }
+                {
+                    // Latest version of the tool download website
+                    Process.Start(strPath);
+                }
             }
 
-           
         }
-        string steamCMDFolder;
+
+        void steamCMDLocated()
+        {
+
+            groupBox1.Enabled = true;
+            serverStartupFilesToolStripMenuItem.Enabled = true;
+            //Check Langouage
+            if (Properties.Settings.Default.language == "english")
+            {
+                locateSteamCMDBtn.Text = "      SteamCMD Located";
+            }
+            else if (Properties.Settings.Default.language == "german")
+            {
+                locateSteamCMDBtn.Text = "     Lokalisiere SteamCMD";
+            }
+            locateSteamCMDBtn.ForeColor = Color.Green;
+            locateSteamCMDBtn.Image = Properties.Resources.icons8_checkmark_24;
+            int CMDnameLetterCount = steamCmdSpeicherort.Substring(steamCmdSpeicherort.LastIndexOf(@"\") + 1).Length;
+            steamCMDFolder = steamCmdSpeicherort.Remove(steamCmdSpeicherort.Length - CMDnameLetterCount);
+        }
+
         private void Button7_Click(object sender, EventArgs e)
         {
             if (OpenSteamCmd() == true)
             {
-                groupBox1.Enabled = true;
-                serverStartupFilesToolStripMenuItem.Enabled = true;
-                //Check Langouage
-                if (Properties.Settings.Default.language == "english")
-                {
-                    locateSteamCMDBtn.Text = "      SteamCMD Located";
-                }
-                else if (Properties.Settings.Default.language == "german")
-                {
-                    locateSteamCMDBtn.Text = "     Lokalisiere SteamCMD";
-                }
-                locateSteamCMDBtn.ForeColor = Color.Green;
-                locateSteamCMDBtn.Image = Properties.Resources.icons8_checkmark_24;
-                int CMDnameLetterCount = steamCmdSpeicherort.Substring(steamCmdSpeicherort.LastIndexOf(@"\") + 1).Length;
-                steamCMDFolder = steamCmdSpeicherort.Remove(steamCmdSpeicherort.Length - CMDnameLetterCount);
+                steamCMDLocated();
             }
         }
 
         private void button7_Click_1(object sender, EventArgs e)
         {
-            try
+            serverFolderName = @"l4d";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(l4dBtn, sender, l4dSvrMenu, steamCmdSpeicherort))
             {
-                //check if steamCMD exists
-                if (File.Exists(steamCmdSpeicherort))
-                {
-                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./l4d/ +app_update 222840 validate");
-                    disableControls();
-                    serverFolderName = "l4d";
+                case "NotInstalled":
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, Properties.Settings.Default.l4dInstallCmd);
                     SteamCMDtimer.Enabled = true;
                     SteamCMDtimer.Start();
+                    disableControls();
+                    break;
 
-                }
-                else
-                {
+                case "steamCMDNotFound":
                     ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Left 4 Dead Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
-
-                }
+                    serverFolderName = null;
+                    break;
             }
-            catch (Exception) {; } //Left 4 Dead 2
-        }
-        private void LangouageToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        }//Left 4 Dead 
 
-        }
-
+        string[] serverNotInstalledCreateFiles;
+        string[] serverBatchOrConfigFileDoesntExist;
+        string[] serverBatchOrConfigFileDoesntExist2;
+        string[] hurtworldRenameAutoexec;
+        string[] svrCntxMnu;
         private void EnglishToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.language = "english";
@@ -1812,8 +907,16 @@ namespace Server_Creation_Tool
             serverGroupToolStripMenuItem.Text = "Server Group";
             closeToolStripMenuItem1.Text = "Exit";
             closeToolStripMenuItem1.ToolTipText = "Close the program";
-            serverStartupFilesToolStripMenuItem.Text = "Server Startup Files";
-            richTextBox1.Text = "1.Click " + @"""Download SteamCMD""" + " (If you haven't)" + Environment.NewLine + "2.Locate your SteamCMD(If it isn't located)" + Environment.NewLine + "3.Choose your server" + Environment.NewLine + "4.Type" + @"""quit,""" + "if the download was successful" + Environment.NewLine + "5.Create server startup files(Optional for some games)" + Environment.NewLine + Environment.NewLine + "Note: This Tool will ONLY install the Server, it can´t forward any ports for you!";
+            serverStartupFilesToolStripMenuItem.Text = "Create Server Files(.cfg and .bat)";
+            richTextBox1.Text = "1. Click " + @"""Download SteamCMD""" + " (If you haven't)" + Environment.NewLine + "2. Locate your SteamCMD (If it isn't located)" + Environment.NewLine + "3. Choose your server" + Environment.NewLine + "4. Type" + @"""quit""" + "if the download was successful" + Environment.NewLine + "5. Create server files (Optional for some games)" + Environment.NewLine + @"6. Edit your server's settings (Optional) (Edit .cfg and .bat files)" + Environment.NewLine + "7. Start the server and have fun!" + Environment.NewLine + Environment.NewLine + "Note: This Tool will ONLY install the Server, it can´t forward any ports for you!";
+            serverNotInstalledCreateFiles = new string[] { "The selected game is not installed!", "Create Server files" };
+            //ServerMenuStrip
+            svrCntxMnu = new string[] { "Start Server", "Update/Repair Server", "Open Server Folder", "Delete Server", "Edit Server Settings" };
+            changeSrvMenuButtonLang(svrCntxMnu);
+            //--------
+            serverBatchOrConfigFileDoesntExist = new string[] { @"doesn't exist! Please create the file yourself or by clicking the ""Create server files"" button", "Edit" };
+            serverBatchOrConfigFileDoesntExist2 = new string[] { @"doesn't exist! Create the file yourself or try repairing the server installation", "Edit" };
+            hurtworldRenameAutoexec = new string[] { @"Please rename ""autoexec_default.cfg"" to ""autoexec.cfg"" for any changes in the server to take effect. You can find this file inside the server's ROOT folder", "Edit autoexec_default.cfg" };
         }
 
         private void GermanToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1832,63 +935,212 @@ namespace Server_Creation_Tool
             serverGroupToolStripMenuItem.Text = "Server Gruppe";
             closeToolStripMenuItem1.Text = "Ende";
             closeToolStripMenuItem1.ToolTipText = "Schließe das Programm";
-            serverStartupFilesToolStripMenuItem.Text = "Server Start Dateien";
-            richTextBox1.Text = "1.Klicke auf " + @"""Download SteamCMD""" + " (Sollte sie nicht bereits vorhanden sein.)" + Environment.NewLine + "2.Lokalisiere deine SteamCMD(Wenn diese nicht bereits lokalisiert sein sollte)" + Environment.NewLine + "3.Wähle deinen Server aus." + Environment.NewLine + "4.Tippe " + @"""quit""" + " ein, wenn der Download beendet wurde." + Environment.NewLine + "5.Erstelle Server Start Dateien. (Für manche Server optional.)" + Environment.NewLine + Environment.NewLine + "Hinweis: Dieses Programm installiert NUR die Server, es wird keine Ports für dich freigeben!";
+            serverStartupFilesToolStripMenuItem.Text = "Erstelle Server Dateien(.bat und .cfg) ";
+            richTextBox1.Text = "1. Klicke auf " + @"""Download SteamCMD""" + " (Sollte sie nicht bereits vorhanden sein.)" + Environment.NewLine + "2. Lokalisiere deine SteamCMD (Wenn diese nicht bereits lokalisiert sein sollte)" + Environment.NewLine + "3. Wähle deinen Server aus." + Environment.NewLine + "4. Tippe " + @"""quit""" + " ein, wenn der Download beendet wurde." + Environment.NewLine + "5. Erstelle Server Dateien (.bat und .cfg) (Für manche Server optional.)" + Environment.NewLine + @"6. Editiere deine Servereinstellungen (Optional) (Editiere die .cfg and .bat Datei)" + Environment.NewLine + "7. Starte den Server und los geht´s!" + Environment.NewLine + Environment.NewLine + "Hinweis: Dieses Programm installiert NUR die Server, es wird keine Ports für dich freigeben!";
+            serverNotInstalledCreateFiles = new string[] { "The selected game is not installed!", "Create Server files" };
+            //ServerMenuStrip
+            svrCntxMnu = new string[] { "Starte Server", "Update/Repariere Server", "Öffne Order des Servers", "Lösche Server", "Editiere Server Einstellungen" };
+            changeSrvMenuButtonLang(svrCntxMnu);
+            //--------
+            serverBatchOrConfigFileDoesntExist = new string[] { @"exestiert nicht! Bitte erstelle die Datei selbst mit einem Klick auf ""Erstelle Server Dateien""", "Editiere" };
+            serverBatchOrConfigFileDoesntExist2 = new string[] { @"exestiert nicht! Erstelle die Datei selbst oder versuche die Installation zu reparieren.", "Edit" };
+            hurtworldRenameAutoexec = new string[] { @"Bitte benne die Datei ""autoexec_default.cfg"" in ""autoexec.cfg"" um, damit die Änderungen übernommen werden. Du kannst diese Datei im Root Verzeichnes des Servers finden.", "Editiere autoexec_default.cfg" };
         }
+
+        #region change Server Menu Strip Button language
+        public void changeSrvMenuButtonLang(string[] translArrey)
+        {
+            //7 days to die
+            ToolStripMenuItem93.Text = translArrey[0];
+            ToolStripMenuItem94.Text = translArrey[1];
+            ToolStripMenuItem95.Text = translArrey[2];
+            ToolStripMenuItem96.Text = translArrey[3];
+            ToolStripMenuItem97.Text = translArrey[4];
+            //Counter Strike: Source
+            toolStripMenuItem2.Text = translArrey[0];
+            toolStripMenuItem3.Text = translArrey[1];
+            toolStripMenuItem4.Text = translArrey[2];
+            toolStripMenuItem5.Text = translArrey[3];
+            toolStripMenuItem6.Text = translArrey[4];
+            //Killing Floor 2
+            toolStripMenuItem9.Text = translArrey[0];
+            toolStripMenuItem10.Text = translArrey[1];
+            toolStripMenuItem11.Text = translArrey[2];
+            toolStripMenuItem12.Text = translArrey[3];
+            toolStripMenuItem13.Text = translArrey[4];
+            //Sven Coop
+            toolStripMenuItem16.Text = translArrey[0];
+            toolStripMenuItem17.Text = translArrey[1];
+            toolStripMenuItem18.Text = translArrey[2];
+            toolStripMenuItem19.Text = translArrey[3];
+            toolStripMenuItem20.Text = translArrey[4];
+            //ARK: Survival Evolved
+            toolStripMenuItem23.Text = translArrey[0];
+            toolStripMenuItem24.Text = translArrey[1];
+            toolStripMenuItem25.Text = translArrey[2];
+            toolStripMenuItem26.Text = translArrey[3];
+            toolStripMenuItem27.Text = translArrey[4];
+            //CS:GO
+            toolStripMenuItem30.Text = translArrey[0];
+            toolStripMenuItem31.Text = translArrey[1];
+            toolStripMenuItem32.Text = translArrey[2];
+            toolStripMenuItem33.Text = translArrey[3];
+            toolStripMenuItem34.Text = translArrey[4];
+            //Left 4 Dead
+            toolStripMenuItem38.Text = translArrey[0];
+            toolStripMenuItem39.Text = translArrey[1];
+            toolStripMenuItem40.Text = translArrey[2];
+            toolStripMenuItem41.Text = translArrey[3];
+            toolStripMenuItem42.Text = translArrey[4];
+            //CoD: Black Ops 3
+            toolStripMenuItem44.Text = translArrey[0];
+            toolStripMenuItem45.Text = translArrey[1];
+            toolStripMenuItem46.Text = translArrey[2];
+            toolStripMenuItem47.Text = translArrey[3];
+            toolStripMenuItem48.Text = translArrey[4];
+            //Garry's Mod
+            toolStripMenuItem51.Text = translArrey[0];
+            toolStripMenuItem52.Text = translArrey[1];
+            toolStripMenuItem53.Text = translArrey[2];
+            toolStripMenuItem54.Text = translArrey[3];
+            toolStripMenuItem55.Text = translArrey[4];
+            //Left 4 Dead 2
+            toolStripMenuItem58.Text = translArrey[0];
+            toolStripMenuItem59.Text = translArrey[1];
+            toolStripMenuItem60.Text = translArrey[2];
+            toolStripMenuItem61.Text = translArrey[3];
+            toolStripMenuItem62.Text = translArrey[4];
+            //Counter Strike 1.6
+            toolStripMenuItem65.Text = translArrey[0];
+            toolStripMenuItem66.Text = translArrey[1];
+            toolStripMenuItem67.Text = translArrey[2];
+            toolStripMenuItem68.Text = translArrey[3];
+            toolStripMenuItem69.Text = translArrey[4];
+            //Hurtworld
+            toolStripMenuItem72.Text = translArrey[0];
+            toolStripMenuItem73.Text = translArrey[1];
+            toolStripMenuItem74.Text = translArrey[2];
+            toolStripMenuItem75.Text = translArrey[3];
+            toolStripMenuItem76.Text = translArrey[4];
+            //Rust
+            toolStripMenuItem79.Text = translArrey[0];
+            toolStripMenuItem80.Text = translArrey[1];
+            toolStripMenuItem81.Text = translArrey[2];
+            toolStripMenuItem82.Text = translArrey[3];
+            toolStripMenuItem83.Text = translArrey[4];
+            //Synergy
+            toolStripMenuItem86.Text = translArrey[0];
+            toolStripMenuItem87.Text = translArrey[1];
+            toolStripMenuItem88.Text = translArrey[2];
+            toolStripMenuItem89.Text = translArrey[3];
+            toolStripMenuItem90.Text = translArrey[4];
+
+        }
+        #endregion
 
         private void ARKSurvivalEvolvedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            serverFolderName = "ark";
-            finishInstallationARK();
+            //check if the server is installed
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "ark") == true)
+            {
+                finInstallFunc.finishInstallationARK(steamCmdSpeicherort, "ark");
+            }
+            else
+            {
+                MessageBox.Show(serverNotInstalledCreateFiles[0], serverNotInstalledCreateFiles[1], MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void CounterStrikeSourceToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            serverFolderName = "css";
-            finishInstallationCSSOURCE();
-        }
-
-
-        private void ServerStartupFilesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
+            //check if the server is installed
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "css") == true)
+            {
+                finInstallFunc.finishInstallationCSSOURCE(steamCmdSpeicherort, "css");
+            }
+            else
+            {
+                MessageBox.Show(serverNotInstalledCreateFiles[0], serverNotInstalledCreateFiles[1], MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void RustToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            serverFolderName = "rust";
-            finishInstallationRust();
+            //check if the server is installed
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "rust") == true)
+            {
+                finInstallFunc.finishInstallationRust(steamCmdSpeicherort, "rust");
+            }
+            else
+            {
+                MessageBox.Show(serverNotInstalledCreateFiles[0], serverNotInstalledCreateFiles[1], MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void CounterStrikeGlobalOffensiveToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            serverFolderName = "csgo";
-            finishInstallationCSGO();
+            //check if the server is installed
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "csgo") == true)
+            {
+                finInstallFunc.finishInstallationCSGO(steamCmdSpeicherort, "csgo");
+            }
+            else
+            {
+                MessageBox.Show(serverNotInstalledCreateFiles[0], serverNotInstalledCreateFiles[1], MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
         }
 
         private void SvenCoopToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            serverFolderName = "svencoop";
-            finishInstallationSvenCoop();
+            //check if the server is installed
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "sven") == true)
+            {
+                finInstallFunc.finishInstallationSvenCoop(steamCmdSpeicherort, "sven");
+            }
+            else
+            {
+                MessageBox.Show(serverNotInstalledCreateFiles[0], serverNotInstalledCreateFiles[1], MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void CounterStrike16ToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            serverFolderName = "cs";
-            finishInstallationCS16();
+            //check if the server is installed
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "cs") == true)
+            {
+                finInstallFunc.finishInstallationCS16(steamCmdSpeicherort, "cs");
+            }
+            else
+            {
+                MessageBox.Show(serverNotInstalledCreateFiles[0], serverNotInstalledCreateFiles[1], MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void GarrysModToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            serverFolderName = "gmod";
-            finishInstallationGmod();
+            //check if the server is installed
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "gmod") == true)
+            {
+                finInstallFunc.finishInstallationGmod(steamCmdSpeicherort, "gmod");
+            }
+            else
+            {
+                MessageBox.Show(serverNotInstalledCreateFiles[0], serverNotInstalledCreateFiles[1], MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void Left4Dead2ToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            serverFolderName = "l4d2";
-            finishInstallationL4d2();
+            //check if the server is installed
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "l4d2") == true)
+            {
+                finInstallFunc.finishInstallationL4d2(steamCmdSpeicherort, "l4d2");
+            }
+            else
+            {
+                MessageBox.Show(serverNotInstalledCreateFiles[0], serverNotInstalledCreateFiles[1], MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void Left4DeadToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1905,33 +1157,22 @@ namespace Server_Creation_Tool
 
         private void Button1_Click(object sender, EventArgs e)
         {
-
-            try
+            serverFolderName = @"7days";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(daysToDieBtn, sender, daysToDieSvrMenu, steamCmdSpeicherort))
             {
-                if (steamCmdSpeicherort != null)
-                {
-                    //check if steamCMD exists
-                    if (File.Exists(steamCmdSpeicherort))
-                    {
-                        installSrvProcess = Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./7days/ +app_update 294420 validate");
-                        SteamCMDtimer.Enabled = true;
-                        SteamCMDtimer.Start();
-                        //in the designer, but i cant view it
-                        serverFolderName = @"7days";
-                        disableControls();
+                case "NotInstalled":
+                    installSrvProcess = Process.Start(steamCmdSpeicherort, Properties.Settings.Default.daysInstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
 
-                    }
-                    else
-                    {
-
-                        ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install 7 Days to Die Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
-                    }
-
-                }
-
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install 7 Days to Die Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
             }
-            catch (Exception) {; } //7 Days to Die
-        }
+        }//7 days to die
 
         private void DaysToDieToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1946,43 +1187,37 @@ namespace Server_Creation_Tool
 
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void left4DeadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            serverFolderName = "l4d";
-            finishInstallationL4d();
+            //check if the server is installed
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "l4d") == true)
+            {
+                finInstallFunc.finishInstallationL4d(steamCmdSpeicherort, "l4d");
+            }
+            else
+            {
+                MessageBox.Show(serverNotInstalledCreateFiles[0], serverNotInstalledCreateFiles[1], MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
-            try
+            serverFolderName = @"hurtworld";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(hurtWorldBtn, sender, hurtworldSvrMenu, steamCmdSpeicherort))
             {
-                //check if steamCMD exists
-                if (File.Exists(steamCmdSpeicherort))
-                {
-                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, "+login anonymous +force_install_dir ./hurtworld/ +app_update 405100 validate");
-                    disableControls();
-                    serverFolderName = "hurtworld";
+                case "NotInstalled":
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, Properties.Settings.Default.hurtworldInstallCmd);
                     SteamCMDtimer.Enabled = true;
                     SteamCMDtimer.Start();
-                }
-                else
-                {
-                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Hurtworld Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    disableControls();
+                    break;
 
-                }
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Hurtworld Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
             }
-            catch (Exception) {; } //Hurtworld
-        }
+        }//Hurtworld
 
         private void hurtworldToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1995,5 +1230,797 @@ namespace Server_Creation_Tool
             System.Diagnostics.Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=1893124522");
             //Hurtworld Guide English	
         }
+
+        //States of server buttons when a server is installed or not installed
+        void gameInstBtnState(Button button)
+        {
+            button.FlatStyle = FlatStyle.Standard;
+            button.BackColor = Color.LimeGreen;
+        }
+        void gameNotInstBtnState(Button button)
+        {
+            button.FlatStyle = FlatStyle.System;
+            button.BackColor = SystemColors.Control;
+        }
+        //
+        private void generalTimer_Tick(object sender, EventArgs e)
+        {
+            //7 days to die
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "7days"))
+            {
+                gameInstBtnState(daysToDieBtn);
+            }
+            else
+            {
+                gameNotInstBtnState(daysToDieBtn);
+            }
+            //Counter Strike Source
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "css"))
+            {
+                gameInstBtnState(CSsourceBtn);
+            }
+            else
+            {
+                gameNotInstBtnState(CSsourceBtn);
+            }
+            //Killing Floor 2
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "kf2"))
+            {
+                gameInstBtnState(KillingFloorTwoBtn);
+            }
+            else
+            {
+                gameNotInstBtnState(KillingFloorTwoBtn);
+            }
+            //Sven Coop
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "sven"))
+            {
+                gameInstBtnState(SvenCoopBtn);
+            }
+            else
+            {
+                gameNotInstBtnState(SvenCoopBtn);
+            }
+            //ARK: Survival Evolved
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "ark"))
+            {
+                gameInstBtnState(arkBtn);
+            }
+            else
+            {
+                gameNotInstBtnState(arkBtn);
+            }
+            //CS:GO
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "csgo"))
+            {
+                gameInstBtnState(CSGOBtn);
+            }
+            else
+            {
+                gameNotInstBtnState(CSGOBtn);
+            }
+            //Left 4 dead
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "l4d"))
+            {
+                gameInstBtnState(l4dBtn);
+            }
+            else
+            {
+                gameNotInstBtnState(l4dBtn);
+            }
+            //Call of Duty: Black Ops 3
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "bo3"))
+            {
+                gameInstBtnState(CODblackOpsThreeBtn);
+            }
+            else
+            {
+                gameNotInstBtnState(CODblackOpsThreeBtn);
+            }
+            //Garry's Mod
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "gmod"))
+            {
+                gameInstBtnState(garrysModBtn);
+            }
+            else
+            {
+                gameNotInstBtnState(garrysModBtn);
+            }
+            //Left 4 Dead 2
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "l4d2"))
+            {
+                gameInstBtnState(l4dTwoBtn);
+            }
+            else
+            {
+                gameNotInstBtnState(l4dTwoBtn);
+            }
+            //HurtWorld
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "hurtworld"))
+            {
+                gameInstBtnState(hurtWorldBtn);
+            }
+            else
+            {
+                gameNotInstBtnState(hurtWorldBtn);
+            }
+            //Couter Strike 1.6
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "cs"))
+            {
+                gameInstBtnState(csOnePointsixBtn);
+            }
+            else
+            {
+                gameNotInstBtnState(csOnePointsixBtn);
+            }
+            //Rust
+            if (methodsClass.checkIfGameInstalled(steamCMDFolder, "rust"))
+            {
+                gameInstBtnState(RustBtn);
+            }
+            else
+            {
+                gameNotInstBtnState(RustBtn);
+            }
+            //Synergy
+            if (System.IO.File.Exists(""))
+            {
+                gameInstBtnState(synergyBtn);
+            }
+            else
+            {
+                gameNotInstBtnState(synergyBtn);
+            }
+
+        }
+
+        //Update/Repair Server
+        private void updateServerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            serverFolderName = @"7days";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(daysToDieBtn, sender, daysToDieSvrMenu, steamCmdSpeicherort))
+            {
+                case "NotInstalled":
+                    installSrvProcess = Process.Start(steamCmdSpeicherort, Properties.Settings.Default.daysInstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install 7 Days to Die Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }
+
+        //Start Server
+        Process daysToDieProc = new Process();
+        private void startServerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string gameFold = Path.Combine(steamCMDFolder + serverFolderName);
+            daysToDieProc.StartInfo.WorkingDirectory = gameFold;
+            daysToDieProc.StartInfo.FileName = gameFold + @"\startdedicated.bat";
+            daysToDieProc.Start();
+        }
+
+        //Open Server Folder
+        private void openServerFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(steamCMDFolder + serverFolderName));
+        }
+
+        //Delete Server
+        private void deleteServerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void editCONFIGFILEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\serverconfig.xml");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("serverconfig.xml " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " serverconfig.xml", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            serverFolderName = @"css";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(daysToDieBtn, sender, daysToDieSvrMenu, steamCmdSpeicherort))
+            {
+                case "NotInstalled":
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, Properties.Settings.Default.cssInstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Counter Strike: Source Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }
+
+        private void Kf2SvrMenu_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem10_Click(object sender, EventArgs e)
+        {
+            serverFolderName = @"kf2";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(daysToDieBtn, sender, daysToDieSvrMenu, steamCmdSpeicherort))
+            {
+                case "NotInstalled":
+                    installSrvProcess = Process.Start(steamCmdSpeicherort, Properties.Settings.Default.kf2InstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Killing Floor 2 Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }
+
+        private void toolStripMenuItem17_Click(object sender, EventArgs e)
+        {
+            serverFolderName = @"sven";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(daysToDieBtn, sender, daysToDieSvrMenu, steamCmdSpeicherort))
+            {
+                case "NotInstalled":
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, Properties.Settings.Default.svenInstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Sven Coop Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }
+
+        private void toolStripMenuItem24_Click(object sender, EventArgs e)
+        {
+            serverFolderName = @"ark";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(SvenCoopBtn, sender, SvenSvrMenu, steamCmdSpeicherort))
+            {
+                case "NotInstalled":
+                    installSrvProcess = Process.Start(steamCmdSpeicherort, Properties.Settings.Default.arkInstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install ARK: Survival Evolved Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }
+
+        private void toolStripMenuItem31_Click(object sender, EventArgs e)
+        {
+            serverFolderName = @"csgo";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(SvenCoopBtn, sender, SvenSvrMenu, steamCmdSpeicherort))
+            {
+                case "NotInstalled":
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, Properties.Settings.Default.csgoInstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Counter Strike: Global Offensive Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }
+
+        private void toolStripMenuItem38_Click(object sender, EventArgs e)
+        {
+            serverFolderName = @"l4d";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(SvenCoopBtn, sender, SvenSvrMenu, steamCmdSpeicherort))
+            {
+                case "NotInstalled":
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, Properties.Settings.Default.l4dInstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Left 4 dead Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }
+
+        private void toolStripMenuItem45_Click(object sender, EventArgs e)
+        {
+            serverFolderName = @"bo3";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(SvenCoopBtn, sender, SvenSvrMenu, steamCmdSpeicherort))
+            {
+                case "NotInstalled":
+                    installSrvProcess = System.Diagnostics.Process.Start(steamCmdSpeicherort, Properties.Settings.Default.codbo3InstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Call of duty: Black Ops 3 Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }
+
+        private void toolStripMenuItem80_Click(object sender, EventArgs e)
+        {
+            serverFolderName = @"rust";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(daysToDieBtn, sender, daysToDieSvrMenu, steamCmdSpeicherort))
+            {
+                case "NotInstalled":
+                    installSrvProcess = Process.Start(steamCmdSpeicherort, Properties.Settings.Default.rustInstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Rust Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }
+
+        private void toolStripMenuItem59_Click(object sender, EventArgs e)
+        {
+            serverFolderName = @"l4d2";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(daysToDieBtn, sender, daysToDieSvrMenu, steamCmdSpeicherort))
+            {
+                case "NotInstalled":
+                    installSrvProcess = Process.Start(steamCmdSpeicherort, Properties.Settings.Default.l4d2InstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Left 4 dead 2 Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }
+
+        private void toolStripMenuItem66_Click(object sender, EventArgs e)
+        {
+            serverFolderName = @"cs";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(daysToDieBtn, sender, daysToDieSvrMenu, steamCmdSpeicherort))
+            {
+                case "NotInstalled":
+                    installSrvProcess = Process.Start(steamCmdSpeicherort, Properties.Settings.Default.cs16InstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Counter Strike 1.6 Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }
+
+        private void toolStripMenuItem73_Click(object sender, EventArgs e)
+        {
+            serverFolderName = @"hurtworld";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(daysToDieBtn, sender, daysToDieSvrMenu, steamCmdSpeicherort))
+            {
+                case "NotInstalled":
+                    installSrvProcess = Process.Start(steamCmdSpeicherort, Properties.Settings.Default.hurtworldInstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Hurtworld Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }
+
+        private void toolStripMenuItem87_Click(object sender, EventArgs e)
+        {
+            serverFolderName = @"synergy";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(daysToDieBtn, sender, daysToDieSvrMenu, steamCmdSpeicherort))
+            {
+                case "NotInstalled":
+                    installSrvProcess = Process.Start(steamCmdSpeicherort, Properties.Settings.Default.synergyInstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Synergy Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }
+
+        private void toolStripMenuItem52_Click(object sender, EventArgs e)
+        {
+            serverFolderName = @"gmod";
+            switch (methodsClass.checkIfGameInstalledAndCheckSteamCMD(daysToDieBtn, sender, daysToDieSvrMenu, steamCmdSpeicherort))
+            {
+                case "NotInstalled":
+                    installSrvProcess = Process.Start(steamCmdSpeicherort, Properties.Settings.Default.gmodInstallCmd);
+                    SteamCMDtimer.Enabled = true;
+                    SteamCMDtimer.Start();
+                    disableControls();
+                    break;
+
+                case "steamCMDNotFound":
+                    ChangeLocateSteamCMDStatus("SteamCMD could not be found!Please select its location again", "Install Garry's Mod Server", "SteamCMD konnte nicht gefunden werden. Bitte lokalisieren sie erneut.");
+                    serverFolderName = null;
+                    break;
+            }
+        }
+
+        private void toolStripMenuItem18_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(steamCMDFolder + serverFolderName));
+        }
+
+        private void SvenSvrMenu_Closing(object sender, ToolStripDropDownClosingEventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem25_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(steamCMDFolder + serverFolderName));
+        }
+
+        private void toolStripMenuItem32_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(steamCMDFolder + serverFolderName));
+        }
+
+        private void toolStripMenuItem39_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(steamCMDFolder + serverFolderName));
+        }
+
+        private void toolStripMenuItem46_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(steamCMDFolder + serverFolderName));
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(steamCMDFolder + serverFolderName));
+        }
+
+        private void toolStripMenuItem60_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(steamCMDFolder + serverFolderName));
+        }
+
+        private void toolStripMenuItem67_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(steamCMDFolder + serverFolderName));
+        }
+
+        private void toolStripMenuItem74_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(steamCMDFolder + serverFolderName));
+        }
+
+        private void toolStripMenuItem81_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(steamCMDFolder + serverFolderName));
+        }
+
+        private void toolStripMenuItem88_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(steamCMDFolder + serverFolderName));
+        }
+
+        private void toolStripMenuItem53_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(steamCMDFolder + serverFolderName));
+        }
+
+        private void toolStripMenuItem11_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(steamCMDFolder + serverFolderName));
+        }
+
+        private void toolStripMenuItem21_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\Run.bat");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("Run.bat " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " Run.bat", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem28_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\ShooterGame\Binaries\Win64\Run.bat");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("Run.bat " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " Run.bat", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem29_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\ShooterGame\Saved\Config\WindowsServer\GameUserSettings.ini");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("GameUserSettings.ini " + serverBatchOrConfigFileDoesntExist2[0], serverBatchOrConfigFileDoesntExist2[1] + " GameUserSettings.ini", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem35_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\Run.bat");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("Run.bat " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " Run.bat", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem36_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\csgo\cfg\server.cfg");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("server.cfg " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " server.cfg", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem42_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\Run.bat");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("Run.bat " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " Run.bat", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem43_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\left4dead\cfg\server.cfg");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("server.cfg " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " server.cfg", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem50_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\machinecfg\playlists.info");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("playlists.info " + serverBatchOrConfigFileDoesntExist2[0], serverBatchOrConfigFileDoesntExist2[1] + " playlists.info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem22_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\svencoop\cfg\server.cfg");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("server.cfg " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " server.cfg", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem7_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\Run.bat");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("Run.bat " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " Run.bat", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem8_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\cstrike\cfg\server.cfg");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("server.cfg " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " server.cfg", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem63_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\Run.bat");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("Run.bat " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " Run.bat", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem64_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\left4dead\cfg\server.cfg");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("server.cfg " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " server.cfg", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem70_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\Run.bat");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("Run.bat " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " Run.bat", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem71_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\cstrike\server.cfg");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("server.cfg " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " server.cfg", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem78_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\autoexec_default.cfg");
+            string FileLoc2 = Path.Combine(steamCMDFolder + serverFolderName + @"\autoexec.cfg");
+            bool defaultExists = true;
+            bool renamedExists = true;
+            if (File.Exists(FileLoc2))
+            { Process.Start("notepad.exe", FileLoc2); }
+            else { renamedExists = false; }
+            if (System.IO.File.Exists(FileLoc))
+            {
+                try
+                {
+                    FileSystem.Rename(FileLoc, FileLoc2);
+                    Process.Start("notepad.exe", FileLoc2);
+                }
+                catch
+                {
+                    MessageBox.Show(hurtworldRenameAutoexec[0], hurtworldRenameAutoexec[1], MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    Process.Start("notepad.exe", FileLoc);
+                }
+            }
+            else { defaultExists = false; }
+
+            if (defaultExists == false && renamedExists == false)
+            {
+                MessageBox.Show("autoexec_default.cfg " + serverBatchOrConfigFileDoesntExist2[0], serverBatchOrConfigFileDoesntExist2[1] + " autoexec_default.cfg", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+        }
+
+        private void toolStripMenuItem84_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\Run.bat");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("Run.bat " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " Run.bat", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem85_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\server\my_server_identity\cfg\server.cfg");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("server.cfg " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " server.cfg", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem91_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\Run.bat");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("Run.bat " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " Run.bat", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem92_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"SYNERGY_CONFIG_FILE_LOCATION");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("server.cfg " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " server.cfg", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem56_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\Run.bat");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("Run.bat " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " Run.bat", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem57_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\garrysmod\cfg\server.cfg");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("server.cfg " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " server.cfg", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        private void toolStripMenuItem15_Click(object sender, EventArgs e)
+        {
+            string FileLoc = Path.Combine(steamCMDFolder + serverFolderName + @"\KFGame\Config\DefaultGame.ini");
+            if (System.IO.File.Exists(FileLoc))
+            { Process.Start("notepad.exe", FileLoc); }
+            else { MessageBox.Show("DefaultGame.ini " + serverBatchOrConfigFileDoesntExist[0], serverBatchOrConfigFileDoesntExist[1] + " DefaultGame.ini", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+        }
+
+        Process cssProc = new Process();
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            string gameFold = Path.Combine(steamCMDFolder + serverFolderName);
+            cssProc.StartInfo.WorkingDirectory = gameFold;
+            if (System.IO.File.Exists(gameFold + @"\Run.bat")) { cssProc.StartInfo.FileName = gameFold + @"\Run.bat"; }
+            else { cssProc.StartInfo.FileName = gameFold + @"\srcds.exe"; }
+            cssProc.Start();
+        }
+
+        Process kf2 = new Process();
+        private void toolStripMenuItem9_Click(object sender, EventArgs e)
+        {
+            string gameFold = Path.Combine(steamCMDFolder + serverFolderName);
+            kf2.StartInfo.WorkingDirectory = gameFold;
+            kf2.StartInfo.FileName = gameFold + @"\KF2Server.bat";
+            kf2.Start();
+        }
+
+        Process svenProc = new Process();
+        private void toolStripMenuItem16_Click(object sender, EventArgs e)
+        {
+            string gameFold = Path.Combine(steamCMDFolder + serverFolderName);
+            svenProc.StartInfo.WorkingDirectory = gameFold;
+            if (System.IO.File.Exists(gameFold + @"\Run.bat")) { svenProc.StartInfo.FileName = gameFold + @"\Run.bat"; }
+            else { svenProc.StartInfo.FileName = gameFold + @"\svends.exe"; }
+            svenProc.Start();
+        }
+
+        Process arkProc = new Process();
+        private void toolStripMenuItem23_Click(object sender, EventArgs e)
+        {
+            string gameFold = Path.Combine(steamCMDFolder + serverFolderName + @"\ShooterGame\Binaries\Win64");
+            arkProc.StartInfo.WorkingDirectory = gameFold;
+            arkProc.StartInfo.FileName = gameFold + @"\Run.bat";
+          arkProc.Start();
+        }
+
+        private void serverStartupFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void internetCheckTimer_Tick(object sender, EventArgs e)
+        {
+            if (methodsClass.HasInternet() != true)
+            {
+                serverStartupFilesToolStripMenuItem.Enabled = false;
+                downloadSteamCMDbtn.Enabled = false;
+                label1.Visible = true;
+                refreshInternetBtn.Visible = true;
+                internetCheckTimer.Enabled = false;
+            }
+            else
+            {
+                label1.Visible = false;
+                refreshInternetBtn.Visible = false;
+                serverStartupFilesToolStripMenuItem.Enabled = true;
+                downloadSteamCMDbtn.Enabled = true;
+            }
+        }
+
+        private void refreshInternetBtn_Click(object sender, EventArgs e)
+        {
+            internetCheckTimer.Enabled = true;
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
-    }
+}
