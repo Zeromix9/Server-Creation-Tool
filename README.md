@@ -3,7 +3,7 @@ A Tool to easily create Server via SteamCMD
 
 Requirements:
 - Internet connection
-- Net Framework 4.5
+- Net Framework 4.6.1
 
 To use this tool is pretty easy.
 
