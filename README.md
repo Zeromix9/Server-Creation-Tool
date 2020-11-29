@@ -21,3 +21,6 @@ You will be also get a notification, if an update is available.
 https://steamcommunity.com/groups/ServerTool
 
 https://zeromix.itch.io/server-creation-tool
+
+Roadmap:
+https://trello.com/b/9dsN6TIT
