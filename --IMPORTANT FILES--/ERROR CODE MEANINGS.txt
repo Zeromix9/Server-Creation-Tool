@@ -1,0 +1,2 @@
+ERROR CODE 3 : CAN'T UNZIP STEAMCMD
+ERROR CODE 2 : SteamCMD download failed

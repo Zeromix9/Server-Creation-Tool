@@ -1,0 +1,7 @@
+1) Select the game you want and click the "Install Server" button.
+2) If its the first time that you're installing a server, select the installation folder, 
+and then wait to finish.
+3) If its a steam server, after the installation has finished type "quit" in the command line.
+4) Configure the server the way you like by editing the config files (optional).
+5) If you need extra help some servers include a guide in the "Extra" section or go
+ to the "Help-Language-Options" tab.

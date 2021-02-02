@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.formFrameSkinner = new Elegant.Ui.FormFrameSkinner();
             this.SuspendLayout();
             // 
             // label1
@@ -50,11 +51,16 @@
             this.timer1.Interval = 400;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
+            // formFrameSkinner
+            // 
+            this.formFrameSkinner.AllowGlass = false;
+            this.formFrameSkinner.Form = this;
+            // 
             // PleaseWaitFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 79);
+            this.ClientSize = new System.Drawing.Size(305, 89);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -72,5 +78,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer1;
+        private Elegant.Ui.FormFrameSkinner formFrameSkinner;
     }
 }

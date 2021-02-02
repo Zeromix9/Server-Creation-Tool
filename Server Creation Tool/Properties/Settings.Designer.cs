@@ -12,7 +12,7 @@ namespace Server_Creation_Tool.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -37,25 +37,13 @@ namespace Server_Creation_Tool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string lastSavedSteamCMDLoc {
+        [global::System.Configuration.DefaultSettingValueAttribute("empty")]
+        public string lastSavedSteamCMDAndServerLoc {
             get {
-                return ((string)(this["lastSavedSteamCMDLoc"]));
+                return ((string)(this["lastSavedSteamCMDAndServerLoc"]));
             }
             set {
-                this["lastSavedSteamCMDLoc"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("+login anonymous +force_install_dir ./7days/ +app_update 294420 validate")]
-        public string daysInstallCmd {
-            get {
-                return ((string)(this["daysInstallCmd"]));
-            }
-            set {
-                this["daysInstallCmd"] = value;
+                this["lastSavedSteamCMDAndServerLoc"] = value;
             }
         }
         
@@ -212,6 +200,42 @@ namespace Server_Creation_Tool.Properties {
             }
             set {
                 this["synergyInstallCmd"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("blue")]
+        public string theme {
+            get {
+                return ((string)(this["theme"]));
+            }
+            set {
+                this["theme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("steam")]
+        public string lastSavedServerTab {
+            get {
+                return ((string)(this["lastSavedServerTab"]));
+            }
+            set {
+                this["lastSavedServerTab"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int lastSelectedNavBarGame {
+            get {
+                return ((int)(this["lastSelectedNavBarGame"]));
+            }
+            set {
+                this["lastSelectedNavBarGame"] = value;
             }
         }
     }

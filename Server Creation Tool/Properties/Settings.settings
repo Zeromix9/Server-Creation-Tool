@@ -5,11 +5,8 @@
     <Setting Name="language" Type="System.String" Scope="User">
       <Value Profile="(Default)">english</Value>
     </Setting>
-    <Setting Name="lastSavedSteamCMDLoc" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="daysInstallCmd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+login anonymous +force_install_dir ./7days/ +app_update 294420 validate</Value>
+    <Setting Name="lastSavedSteamCMDAndServerLoc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">empty</Value>
     </Setting>
     <Setting Name="cssInstallCmd" Type="System.String" Scope="User">
       <Value Profile="(Default)">+login anonymous +force_install_dir ./css/ +app_update 232330 validate</Value>
@@ -49,6 +46,15 @@
     </Setting>
     <Setting Name="synergyInstallCmd" Type="System.String" Scope="User">
       <Value Profile="(Default)">+login anonymous +force_install_dir ./synergy/ +app_update 17525 validate</Value>
+    </Setting>
+    <Setting Name="theme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">blue</Value>
+    </Setting>
+    <Setting Name="lastSavedServerTab" Type="System.String" Scope="User">
+      <Value Profile="(Default)">steam</Value>
+    </Setting>
+    <Setting Name="lastSelectedNavBarGame" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

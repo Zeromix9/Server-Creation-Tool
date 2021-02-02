@@ -16,10 +16,10 @@
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
+    <UpdateMode>Background</UpdateMode>
+    <UpdateInterval>1</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
@@ -61,34 +61,72 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Optimize>false</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <Prefer32Bit>false</Prefer32Bit>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
+    <StartupObject>Server_Creation_Tool.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup />
-  <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <ApplicationIcon>favicon %288%29.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>None</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoUpdater.NET, Version=1.6.0.0, Culture=neutral, PublicKeyToken=501435c91b35f4bc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autoupdater.NET.Official.1.6.0\lib\net40\AutoUpdater.NET.dll</HintPath>
+    <Reference Include="Ap.Log, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ap.Log.1.0.5\lib\Ap.Log.dll</HintPath>
     </Reference>
-    <Reference Include="axcsCheck4Update">
-      <HintPath>C:\Users\Stelios L\Downloads\UpdateChecker\bin\Release\axcsCheck4Update.dll</HintPath>
+    <Reference Include="Ap.Log.Message, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ap.Log.Message.1.0.4\lib\Ap.Log.Message.dll</HintPath>
     </Reference>
+    <Reference Include="BalaReva.DirFileSize, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BalaReva.DirFileSize.Activities.2019.1.1\lib\BalaReva.DirFileSize.dll</HintPath>
+    </Reference>
+    <Reference Include="BalaReva.DirFileSize.Design, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BalaReva.DirFileSize.Activities.2019.1.1\lib\BalaReva.DirFileSize.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="ByteSize, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ByteSize.2.0.0\lib\net45\ByteSize.dll</HintPath>
+    </Reference>
+    <Reference Include="Elegant.Ui.Common, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3a2b400713aae6e0" />
+    <Reference Include="Elegant.Ui.Ribbon, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3a2b400713aae6e0, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -96,6 +134,7 @@
     <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Net" />
@@ -105,6 +144,7 @@
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutFrm.cs">
@@ -113,21 +153,36 @@
     <Compile Include="AboutFrm.Designer.cs">
       <DependentUpon>AboutFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationCommands.cs" />
     <Compile Include="changeLogFrm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="changeLogFrm.Designer.cs">
       <DependentUpon>changeLogFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="gameFinishInstallFunc.cs" />
-    <Compile Include="LANGUAGES.cs" />
+    <Compile Include="additFileCreateFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="additFileCreateFrm.Designer.cs">
+      <DependentUpon>additFileCreateFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="addFiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addFiles.Designer.cs">
+      <DependentUpon>addFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="myClasses\global_Variables.cs" />
+    <Compile Include="myClasses\log.cs" />
+    <Compile Include="myClasses\non_steamServerInstallFunc.cs" />
+    <Compile Include="myClasses\steamServerInstallFunc.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="METHODSandFUNCTIONS.cs" />
+    <Compile Include="myClasses\METHODSclass.cs" />
     <Compile Include="PleaseWaitFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,12 +201,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="updateOrOpenFolderFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="updateOrOpenFolderFrm.Designer.cs">
-      <DependentUpon>updateOrOpenFolderFrm.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AboutFrm.resx">
@@ -163,15 +212,18 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="additFileCreateFrm.resx">
+      <DependentUpon>additFileCreateFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="addFiles.resx">
+      <DependentUpon>addFiles.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PleaseWaitFrm.resx">
       <DependentUpon>PleaseWaitFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="updateOrOpenFolderFrm.resx">
-      <DependentUpon>updateOrOpenFolderFrm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +248,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -204,10 +257,98 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon %288%29.ico" />
+    <None Include="Resources\622.png" />
+    <None Include="Resources\donate 31.png" />
+    <None Include="Resources\donate 3.png" />
+    <None Include="Resources\paypal-donate-button-high-quality-png-1_orig 2.png" />
+    <None Include="Resources\paypal-donate-button-high-quality-png-1_orig1.png" />
+    <None Include="Resources\paypal-donate-button-high-quality-png-1_orig.png" />
+    <None Include="Resources\kissclipart-portable-network-graphics-paypal-image-payment-com-00586eb4e0aa97bc.png" />
+    <None Include="Resources\donate 2.png" />
+    <None Include="Resources\paypal-donate-icon-151.jpg" />
+    <None Include="Resources\3-2-paypal-donate-button-png-image1.png" />
+    <None Include="Resources\3-2-paypal-donate-button-png-image.png" />
+    <None Include="Resources\paypal-donate-icon-15.jpg" />
+    <None Include="Resources\l4d2_logo.png" />
+    <None Include="Resources\svenCoop_logo.png" />
+    <None Include="Resources\rust_logo.png" />
+    <None Include="Resources\kf2.png" />
+    <None Include="Resources\l4d_logo.png" />
+    <None Include="Resources\hurtworld_logo.png" />
+    <None Include="Resources\gmod_logo.png" />
+    <None Include="Resources\csgo_logo.png" />
+    <None Include="Resources\csgo_logo.jpg" />
+    <None Include="Resources\counter-strike-source-png-logo-21.png" />
+    <None Include="Resources\d7f0049-a816d6ab-034c-4c2e-8091-82b8486000ea.png" />
+    <None Include="Resources\cs_logo.png" />
+    <None Include="Resources\58b00905829958a978a4a6dc.png" />
+    <None Include="Resources\ark-survival-evolved-logo FULL.png" />
+    <None Include="Resources\ark-survival-evolved-logo1.png" />
+    <None Include="Resources\ark-survival-evolved-logo.png" />
+    <None Include="Resources\1091.png" />
+    <None Include="Resources\1334.png" />
+    <None Include="Resources\icons8-stop-48.png" />
+    <None Include="Resources\icons8-stop-24.png" />
+    <None Include="Resources\7DaysToDie-logo.png" />
+    <None Include="Resources\settings %284%291.png" />
+    <None Include="Resources\settings %284%29.png" />
+    <None Include="Resources\settings %282%29.png" />
+    <None Include="Resources\Icon-20 %282%29.png" />
+    <None Include="Resources\1645.png" />
+    <None Include="Resources\2233.png" />
+    <None Include="Resources\reinstall.png" />
+    <None Include="Resources\Icon-20.png" />
+    <None Include="Resources\Icon-16.png" />
+    <None Include="Resources\output-onlinepngtools3.png" />
+    <None Include="Resources\output-onlinepngtools2.png" />
+    <None Include="Resources\output-onlinepngtools1.png" />
+    <None Include="Resources\output-onlinepngtools.png" />
+    <None Include="Resources\download.png" />
+    <None Include="Resources\1263.png" />
+    <None Include="Resources\468.png" />
+    <None Include="Resources\FolderWithGreenArrow.png" />
+    <None Include="Resources\black theme.png" />
+    <None Include="Resources\blue theme.png" />
+    <None Include="Resources\kisspng-light-orb-photography-png-background-transparent-orb-5ab14504bbd6d8.2548965015215669807694.jpg" />
+    <None Include="Resources\1502.png" />
+    <None Include="Resources\2191.png" />
+    <None Include="Resources\world-wide-web.png" />
+    <None Include="Resources\captcha.png" />
+    <None Include="Resources\CHECK BOARD 48 48.png" />
+    <None Include="Resources\CHECK BOARD.png" />
+    <None Include="Resources\refresh16x16.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\folderOpen.png" />
+    <None Include="Resources\2276.png" />
+    <None Include="Resources\2274.png" />
+    <None Include="Resources\pencil.png" />
+    <None Include="Resources\desktopWithcolors1.png" />
+    <None Include="Resources\desktopWithcolors.png" />
+    <None Include="Resources\8408098_ark-survival-evolved-logo-ark-survival-evolved-transparent.png" />
+    <None Include="Resources\202-2022719_my-server-icon-gmod-hd-png-download.png" />
+    <None Include="Resources\d1q5t9p-a8392e7b-fe8d-46df-b5fd-245906290690.jpg" />
+    <None Include="Resources\chat-group.png" />
+    <None Include="Resources\icons8-edit-property-48.png" />
+    <None Include="Resources\translate %281%29.png" />
+    <None Include="Resources\settings.png" />
+    <None Include="Resources\icons8-info-squared-24.png" />
+    <None Include="Resources\icons8-info-squared-48.png" />
+    <None Include="Resources\icons8-puzzled-48.png" />
+    <None Include="Resources\port.png" />
+    <None Include="Resources\translate.png" />
+    <None Include="Resources\icons8-edit-property-24.png" />
+    <None Include="Resources\icons8-conference-foreground-selected-241.png" />
+    <None Include="Resources\icons8-conference-foreground-selected-24.png" />
+    <None Include="Resources\icons8-germany-24.png" />
+    <None Include="Resources\icons8-great-britain-24.png" />
     <None Include="Resources\icons8-edit-file-24.png" />
     <None Include="Resources\_previmg.png" />
     <None Include="Resources\icons8-checkmark-24.png" />
     <None Include="Resources\icons8-delete-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="easy settings editor forms\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
