@@ -16,7 +16,7 @@ There is no need to write any commands beside the "quit" command.
 
 There are also guides avalible which will guide you, through the configuration of your server.
 
-You will be also get a notification, if an update is available.
+The tool will notify you when a new version is available.
 
 https://steamcommunity.com/groups/ServerTool
 
