@@ -7,10 +7,10 @@ Requirements:
 
 To use this tool is pretty easy.
 
-1. Click "Download SteamCMD" (If you haven't)
-2. Locate your SteamCMD (If it isn't located)
-3. Choose your server
-4. Type quit, if the download was successful
+1. Choose a server
+2. Click Install
+3. Wait for the installation to complete (if its a steam server you must type "quit" in the command line when the installation is doe)
+4. Enjoy!
 
 There is no need to write any commands beside the "quit" command.
 
