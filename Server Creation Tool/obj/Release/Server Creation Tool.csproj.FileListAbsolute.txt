@@ -1,0 +1,51 @@
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\Server Creation Tool.exe.config
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\Server Creation Tool.exe.manifest
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\Server Creation Tool.application
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\Server Creation Tool.exe
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\ByteSize.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\Elegant.Ui.Common.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\Elegant.Ui.Ribbon.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\Elegant.Ui.Common.xml
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\Elegant.Ui.Ribbon.xml
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\da-DK\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\de-DE\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\es-ES\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\fi-FI\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\fr-FR\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\it-IT\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\nb-NO\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\nl-NL\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\pl-PL\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\pt-PT\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\ru-RU\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\sv-SE\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\uk-UA\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\da-DK\Elegant.Ui.Ribbon.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\de-DE\Elegant.Ui.Ribbon.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\es-ES\Elegant.Ui.Ribbon.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\fi-FI\Elegant.Ui.Ribbon.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\fr-FR\Elegant.Ui.Ribbon.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\it-IT\Elegant.Ui.Ribbon.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\nb-NO\Elegant.Ui.Ribbon.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\nl-NL\Elegant.Ui.Ribbon.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\pl-PL\Elegant.Ui.Ribbon.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\pt-PT\Elegant.Ui.Ribbon.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\ru-RU\Elegant.Ui.Ribbon.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\sv-SE\Elegant.Ui.Ribbon.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\Release\uk-UA\Elegant.Ui.Ribbon.resources.dll
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.AboutFrm.resources
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.changeLogFrm.resources
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.MainForm.resources
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.myClasses.additFileCreateFrm.resources
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.myClasses.addFiles.resources
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.PleaseWaitFrm.resources
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server_Creation_Tool.Properties.Resources.resources
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.csproj.GenerateResource.cache
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.csproj.CoreCompileInputs.cache
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.TrustInfo.xml
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.exe.manifest
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.application
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.csproj.CopyComplete
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.exe
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.csprojAssemblyReference.cache
+C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\Release\Server Creation Tool.csproj.Fody.CopyLocal.cache

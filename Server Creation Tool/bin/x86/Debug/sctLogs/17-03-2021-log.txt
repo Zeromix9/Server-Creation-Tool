@@ -1,0 +1,36 @@
+06:24 μμ>>> System.Net.WebException: The remote name could not be resolved: 'pastebin.com'
+   at System.Net.WebClient.DownloadDataInternal(Uri address, WebRequest& request)
+   at System.Net.WebClient.DownloadString(Uri address)
+   at System.Net.WebClient.DownloadString(String address)
+   at statServer_Creation_Tool.METHODSandFUNCTIONS.check4Updates(String updtCheckURL, Int32 currentVer) in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\myClasses\METHODSclass.cs:line 59
+06:24 μμ>>> System.ArgumentOutOfRangeException: Length cannot be less than zero.
+Parameter name: length
+   at System.String.Substring(Int32 startIndex, Int32 length)
+   at Server_Creation_Tool.MainForm.<gameChckResultPanelSet>b__63_0() in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\MainForm.cs:line 525
+06:24 μμ>>> System.ComponentModel.Win32Exception (0x80004005): Δεν είναι δυνατή η εύρεση του καθορισμένου αρχείου από το σύστημα
+   at System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start(String fileName)
+   at Server_Creation_Tool.MainForm.openFoldBtn_Click(Object sender, EventArgs e) in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\MainForm.cs:line 748
+06:24 μμ>>> System.ArgumentOutOfRangeException: Length cannot be less than zero.
+Parameter name: length
+   at System.String.Substring(Int32 startIndex, Int32 length)
+   at Server_Creation_Tool.MainForm.<gameChckResultPanelSet>b__63_0() in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\MainForm.cs:line 525
+06:24 μμ>>> System.ComponentModel.Win32Exception (0x80004005): Δεν είναι δυνατή η εύρεση του καθορισμένου αρχείου από το σύστημα
+   at System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start(String fileName)
+   at Server_Creation_Tool.MainForm.openFoldBtn_Click(Object sender, EventArgs e) in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\MainForm.cs:line 748
+06:24 μμ>>> System.ComponentModel.Win32Exception (0x80004005): Δεν είναι δυνατή η εύρεση του καθορισμένου αρχείου από το σύστημα
+   at System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start(String fileName)
+   at Server_Creation_Tool.MainForm.openFoldBtn_Click(Object sender, EventArgs e) in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\MainForm.cs:line 748
+06:25 μμ>>> System.Net.WebException: The remote name could not be resolved: 'pastebin.com'
+   at System.Net.WebClient.DownloadDataInternal(Uri address, WebRequest& request)
+   at System.Net.WebClient.DownloadString(Uri address)
+   at System.Net.WebClient.DownloadString(String address)
+   at statServer_Creation_Tool.METHODSandFUNCTIONS.check4Updates(String updtCheckURL, Int32 currentVer) in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\myClasses\METHODSclass.cs:line 59

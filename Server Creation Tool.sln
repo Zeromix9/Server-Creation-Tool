@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server Creation Tool", "Server Creation Tool\Server Creation Tool.csproj", "{85E71E8C-9E94-400F-99D1-C9C33CADE381}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{10744169-EC50-4DD5-AA97-2BDD0CF08F3E}"
+	ProjectSection(SolutionItems) = preProject
+		Server Creation Tool\FodyWeavers.xml = Server Creation Tool\FodyWeavers.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

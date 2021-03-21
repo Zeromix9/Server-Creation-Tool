@@ -4,7 +4,7 @@
   <description asmv2:iconFile="favicon (8).ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="Server Creation Tool" version="3.0.0.0" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="Server Creation Tool" version="3.1.0.0" language="neutral" processorArchitecture="x86" />
     <commandLine file="Server Creation Tool.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -40,78 +40,6 @@
   <dependency>
     <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
       <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Ap.Log.dll" size="7680">
-      <assemblyIdentity name="Ap.Log" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>WhwS2730ha06BsXC57F1jdvE4k61C0AburVeMr5ZbDE=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Ap.Log.Message.dll" size="5120">
-      <assemblyIdentity name="Ap.Log.Message" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>LrNbSNEEelGef5OaNZgX0SVeW/TbfOzUewE2/IiZMBg=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BalaReva.DirFileSize.dll" size="8704">
-      <assemblyIdentity name="BalaReva.DirFileSize" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>o8KKOrcZbNFh9RyR+OBssrHPzxm07GDlbhY3/F2wWRg=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BalaReva.DirFileSize.Design.dll" size="15360">
-      <assemblyIdentity name="BalaReva.DirFileSize.Design" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>bWWI0Uf0E5fmaViyuJSGqXzm6mmvEBxs1tR2jCFQu7g=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ByteSize.dll" size="13824">
-      <assemblyIdentity name="ByteSize" version="2.0.0.0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>1JM3zjLarBfE5eQmN5L+JjfJ0DrWMf676jR8xVXP9XU=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Elegant.Ui.Common.dll" size="2123264">
-      <assemblyIdentity name="Elegant.Ui.Common" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>jWSvotbz6/1Aq6OyqXKkGkU6sWXWY0N9Gb/kwIcR1x8=</dsig:DigestValue>
-      </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
@@ -267,18 +195,6 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>gntFfvgW3cbaaJIMH11pI0Y+W8cdtYnMIf2M/672mG0=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Elegant.Ui.Ribbon.dll" size="445952">
-      <assemblyIdentity name="Elegant.Ui.Ribbon" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>0qWO+wyDisSJVPkR+9IneNOMPwA4msoRkt8EImboVC8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -439,14 +355,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Creation Tool.exe" size="3157504">
-      <assemblyIdentity name="Server Creation Tool" version="3.0.0.0" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Creation Tool.exe" size="7576576">
+      <assemblyIdentity name="Server Creation Tool" version="3.1.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>z2M4YBsVXGcIUlzROZW1vXt/6pZkvc45SaamG9+Livo=</dsig:DigestValue>
+        <dsig:DigestValue>RMEA1rvo0pLfDMKsiUlM+tGbkbNTPdvHt+1pWnB4gHY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -459,13 +375,22 @@
       <dsig:DigestValue>T1QK/Yv6v5CCrzMjj3lwKyRWby/eSnDORMBdGMLAL1I=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Server Creation Tool.exe.config" size="3940">
+  <file name="FodyWeavers.xml" size="141" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>yo6gL1OpQrGwugBCebX6PVXpn5G7+DAoiQoG2FYB2l8=</dsig:DigestValue>
+      <dsig:DigestValue>ecaIyNOXm0OdwGhEO7eNJ9Q+6NP94Dg4Et5jMwPirk8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Server Creation Tool.exe.config" size="1811">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>SCKdPIALPKIzqaABi/qyooVCSmISvZGdnGmbeDDH1fI=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

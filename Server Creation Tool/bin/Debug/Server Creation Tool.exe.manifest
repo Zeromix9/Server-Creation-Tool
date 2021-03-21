@@ -43,30 +43,6 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BalaReva.DirFileSize.dll" size="8704">
-      <assemblyIdentity name="BalaReva.DirFileSize" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>o8KKOrcZbNFh9RyR+OBssrHPzxm07GDlbhY3/F2wWRg=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BalaReva.DirFileSize.Design.dll" size="15360">
-      <assemblyIdentity name="BalaReva.DirFileSize.Design" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>bWWI0Uf0E5fmaViyuJSGqXzm6mmvEBxs1tR2jCFQu7g=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ByteSize.dll" size="13824">
       <assemblyIdentity name="ByteSize" version="2.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -415,14 +391,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Creation Tool.exe" size="3210752">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Creation Tool.exe" size="3212800">
       <assemblyIdentity name="Server Creation Tool" version="3.0.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>OhLLKggJ+s0E5aM9XQ2Vv8AMv0MCi9zHJSQX8G14syA=</dsig:DigestValue>
+        <dsig:DigestValue>C2KMQRJtcAlKQxgdU9N3HEauKtOtfwYeWyL5wig22BA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

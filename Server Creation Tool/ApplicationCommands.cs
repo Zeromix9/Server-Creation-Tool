@@ -17,35 +17,5 @@ namespace Server_Creation_Tool
 
 public class ApplicationCommands
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command updateSrv = new Elegant.Ui.Command("updateSrv");
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command reinstallSrv = new Elegant.Ui.Command("reinstallSrv");
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command openFoldSrv = new Elegant.Ui.Command("openFoldSrv");
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command deleteSrv = new Elegant.Ui.Command("deleteSrv");
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command editConfSrv = new Elegant.Ui.Command("editConfSrv");
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command instGuideSrv = new Elegant.Ui.Command("instGuideSrv");
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command InstallServerBtn = new Elegant.Ui.Command("InstallServerBtn");
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command ForceStopInstall = new Elegant.Ui.Command("ForceStopInstall");
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command runSrv = new Elegant.Ui.Command("runSrv");
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command test = new Elegant.Ui.Command("test");
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command extraBtn1Cmd = new Elegant.Ui.Command("extraBtn1Cmd");
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command extraBtn2Cmd = new Elegant.Ui.Command("extraBtn2Cmd");
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command extraBtn3Cmd = new Elegant.Ui.Command("extraBtn3Cmd");
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command extraBtn4Cmd = new Elegant.Ui.Command("extraBtn4Cmd");
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
-        public static Elegant.Ui.Command easyStgBtnCmd = new Elegant.Ui.Command("easyStgBtnCmd");
     }
 }

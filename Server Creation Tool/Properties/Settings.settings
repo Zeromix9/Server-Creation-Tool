@@ -8,45 +8,6 @@
     <Setting Name="lastSavedSteamCMDAndServerLoc" Type="System.String" Scope="User">
       <Value Profile="(Default)">empty</Value>
     </Setting>
-    <Setting Name="cssInstallCmd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+login anonymous +force_install_dir ./css/ +app_update 232330 validate</Value>
-    </Setting>
-    <Setting Name="kf2InstallCmd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+login anonymous +force_install_dir ./kf2/ +app_update 232130 validate</Value>
-    </Setting>
-    <Setting Name="svenInstallCmd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+login anonymous +force_install_dir ./sven/ +app_update 276060 validate</Value>
-    </Setting>
-    <Setting Name="arkInstallCmd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+login anonymous +force_install_dir ./ark/ +app_update 376030 validate</Value>
-    </Setting>
-    <Setting Name="csgoInstallCmd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+login anonymous +force_install_dir ./csgo/ +app_update 740 validate</Value>
-    </Setting>
-    <Setting Name="l4dInstallCmd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+login anonymous +force_install_dir ./l4d/ +app_update 222840 validate</Value>
-    </Setting>
-    <Setting Name="codbo3InstallCmd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+login anonymous +force_install_dir ./bo3/ +app_update 545990 validate</Value>
-    </Setting>
-    <Setting Name="gmodInstallCmd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+login anonymous +force_install_dir ./gmod/ +app_update 4020 validate</Value>
-    </Setting>
-    <Setting Name="l4d2InstallCmd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+login anonymous +force_install_dir ./l4d2/ +app_update 222860 validate</Value>
-    </Setting>
-    <Setting Name="cs16InstallCmd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+login anonymous +force_install_dir ./cs/ +app_update 90 validate</Value>
-    </Setting>
-    <Setting Name="hurtworldInstallCmd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+login anonymous +force_install_dir ./hurtworld/ +app_update 405100 validate</Value>
-    </Setting>
-    <Setting Name="rustInstallCmd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+login anonymous +force_install_dir ./rust/ +app_update 258550 validate</Value>
-    </Setting>
-    <Setting Name="synergyInstallCmd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+login anonymous +force_install_dir ./synergy/ +app_update 17525 validate</Value>
-    </Setting>
     <Setting Name="theme" Type="System.String" Scope="User">
       <Value Profile="(Default)">blue</Value>
     </Setting>

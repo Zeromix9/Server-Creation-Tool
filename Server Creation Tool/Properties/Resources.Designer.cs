@@ -203,6 +203,16 @@ namespace Server_Creation_Tool.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap atlas_logo {
+            get {
+                object obj = ResourceManager.GetObject("atlas_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap black_theme {
             get {
                 object obj = ResourceManager.GetObject("black theme", resourceCulture);
@@ -736,6 +746,16 @@ namespace Server_Creation_Tool.Properties {
         internal static System.Drawing.Bitmap translate__1_ {
             get {
                 object obj = ResourceManager.GetObject("translate (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap unturned {
+            get {
+                object obj = ResourceManager.GetObject("unturned", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

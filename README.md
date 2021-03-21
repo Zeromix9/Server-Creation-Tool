@@ -7,16 +7,16 @@ Requirements:
 
 To use this tool is pretty easy.
 
-1. Choose a server
-2. Click Install
-3. Wait for the installation to complete (if its a steam server you must type "quit" in the command line when the installation is done)
-4. Start the server and enjoy!
+1. Click "Download SteamCMD" (If you haven't)
+2. Locate your SteamCMD (If it isn't located)
+3. Choose your server
+4. Type quit, if the download was successful
 
 There is no need to write any commands beside the "quit" command.
 
 There are also guides avalible which will guide you, through the configuration of your server.
 
-The tool will notify you when a new version is available.
+You will be also get a notification, if an update is available.
 
 https://steamcommunity.com/groups/ServerTool
 

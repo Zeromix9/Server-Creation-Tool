@@ -10,12 +10,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Server Creation Tool")]
-[assembly: AssemblyDescription("A simple tool for creating game servers using SteamCMD")]
+[assembly: AssemblyDescription("A simple tool for making game servers using SteamCMD")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("By Zeromix-And a little help by BasisBit and cookieoreo18")]
+[assembly: AssemblyCompany("By Zeromix-And some help by BasisBit and cookieoreo18")]
 [assembly: AssemblyProduct("Server Creation Tool")]
-[assembly: AssemblyCopyright("Copyright 2020")]
-[assembly: AssemblyTrademark("2020")]
+[assembly: AssemblyCopyright("Copyright (C) 2021 Server Creation Tool")]
+[assembly: AssemblyTrademark("2021")]
 [assembly: AssemblyCulture("")]
 
 // This sets the default COM visibility of types in the assembly to invisible.
@@ -28,6 +28,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can use the default the Revision and 
 // Build Numbers by using the '*' as shown below:
-[assembly: AssemblyVersion("3.0.0")]
-[assembly: AssemblyFileVersion("3.0.0")]
+[assembly: AssemblyVersion("3.1.0")]
+[assembly: AssemblyFileVersion("3.1.0")]
 [assembly: Elegant.Ui.DefaultThemeAttribute(Elegant.Ui.EmbeddedTheme.Office2007Blue)]

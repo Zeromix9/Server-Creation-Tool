@@ -16,7 +16,7 @@ namespace statServer_Creation_Tool
     public class METHODSandFUNCTIONS
     {
         global_Variables gVars = new global_Variables();
-        public  StringBuilder sb = new StringBuilder();
+        public StringBuilder sb = new StringBuilder();
         public bool HasInternet()
         {
             try
@@ -55,16 +55,10 @@ namespace statServer_Creation_Tool
         public bool check4Updates(string updtCheckURL, int currentVer)
         {
             var url = updtCheckURL;
-            var textFromFile = "";
-            try
-            {
-                textFromFile = (new WebClient()).DownloadString(url);
-            }
-            catch (Exception)
-            {
-                Elegant.Ui.MessageBox.Show("Download error", "Update", Elegant.Ui.MessageBoxButtons.OK, Elegant.Ui.MessageBoxIcon.Error);
-                return false;
-            }
+            string textFromFile;
+            try { textFromFile = (new WebClient()).DownloadString(url); }
+            catch (Exception a)
+            { log.LogAppend(a.ToString()); return false; }
             int latestVer = int.Parse(textFromFile);
             if (latestVer > currentVer)
             { return true; }
@@ -113,7 +107,7 @@ namespace statServer_Creation_Tool
             catch (DirectoryNotFoundException) { return 0; }
             return result;
         }
-        public bool downloadnWriteFile(string link, string writePath)
+        public bool downloadnWriteFile(string link, string writePath,bool createFold=true)
         {
             try
             {
@@ -122,6 +116,11 @@ namespace statServer_Creation_Tool
                 Stream stream = client.OpenRead(link);
                 StreamReader reader = new StreamReader(stream);
                 String content = reader.ReadToEnd();
+                string foldPath = Path.GetDirectoryName(writePath);
+                if (!System.IO.Directory.Exists(foldPath) && createFold)
+                {
+                    System.IO.Directory.CreateDirectory(foldPath); 
+                }
                 System.IO.File.WriteAllText(writePath, content);
                 return true;
             }
@@ -154,7 +153,6 @@ namespace statServer_Creation_Tool
             EventHandlerList list = (EventHandlerList)pi.GetValue(b, null);
             list.RemoveHandler(obj, list[obj]);
         }
-
     }
 }
 

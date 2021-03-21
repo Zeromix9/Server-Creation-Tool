@@ -37,5 +37,14 @@ namespace Server_Creation_Tool
             
         }
 
+        private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void linkLabel2_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
     }
 }

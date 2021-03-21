@@ -9,11 +9,13 @@ namespace Server_Creation_Tool.myClasses
     class global_Variables
     {
         #region General Stuff
-        public string[] updateCheckingInfo = new string[] { 
-            "https://pastebin.com/raw/ALjTvBx1",//website which contains the new version number and other info
-            "https://www.google.com",//Website to download new version
-            "30" };//The version of this tool. Remove the comma.   e.g 3,2 is 32
-        public string logs = @"\sctLogs";
+        public int lgNum;
+        public int lgNumQuad;
+        public string[] updateCheckingInfo = new string[] {
+            "https://pastebin.com/raw/mVYcG7tc",//website which contains the new version number and other info
+            "https://zeromix.itch.io/server-creation-tool",//Website to download new version
+            "31" };//The version of this tool. Remove the comma.   e.g 3,2 is 32
+        public string logs = @"\sctLogs";//name of the logs folder.
         #endregion
 
         #region serverVars
@@ -37,20 +39,20 @@ namespace Server_Creation_Tool.myClasses
         //------
         //----CoD:BO3----
         public string bo3RootFold = "bo3";
-        public string[] bo3StartFilesLoc = new string[1] { @"\BlackOps3_UnrankedDedicatedServer.exe" };
+        public string[] bo3StartFilesLoc = new string[1] { @"\Launch_Server.bat" };
         public string[] bo3ConfFilesLoc = new string[1] { @"\machinecfg\playlists.info" };
         public int bo3FoldSize = 600;//FIX THAT
         public string bo3InstCode = @"+login anonymous +force_install_dir ./bo3/ +app_update 545990 validate";
         public string[] bo3GuideLink = new string[] { "http://steamcommunity.com/sharedfiles/filedetails/?id=819848285", "http://steamcommunity.com/sharedfiles/filedetails/?id=818635244" };
         //------
         //----CS 1.6----
-        public string cs16RootFold = "cs";
-        public string[] cs16StartFilesLoc = new string[2] { @"\hlds.exe", @"\Run.bat" };
-        public string[] cs16ConfFilesLoc = new string[2] { @"\Run.bat", @"\cstrike\server.cfg" };
-        public int cs16FoldSize = 150;
-        public string cs16InstCode = @"+login anonymous +force_install_dir ./cs/ +app_update 90 validate";
-        public string[] cs16GuideLink = new string[] { "http://steamcommunity.com/sharedfiles/filedetails/?id=729345010", "http://steamcommunity.com/sharedfiles/filedetails/?id=710511353" };
-        public string[] cs16CfgFilelink = new string[] { "https://pastebin.com/raw/JbsxsQuE", "https://pastebin.com/raw/XGtEw9Qp" };
+        public string csRootFold = "cs";
+        public string[] csStartFilesLoc = new string[2] { @"\Run.bat" ,@"\hlds.exe" };
+        public string[] csConfFilesLoc = new string[2] { @"\Run.bat", @"\cstrike\server.cfg" };
+        public int csFoldSize = 150;
+        public string csInstCode = @"+login anonymous +force_install_dir ./cs/ +app_update 90 validate";
+        public string[] csGuideLink = new string[] { "http://steamcommunity.com/sharedfiles/filedetails/?id=729345010", "http://steamcommunity.com/sharedfiles/filedetails/?id=710511353" };
+        public string[] csCfgFilelink = new string[] { "https://pastebin.com/raw/JbsxsQuE", "https://pastebin.com/raw/XGtEw9Qp" };
         //------
         //----CS SOURCE----
         public string cssRootFold = "css";
@@ -117,7 +119,7 @@ namespace Server_Creation_Tool.myClasses
         public string rustRootFold = "rust";
         public string[] rustStartFilesLoc = new string[1] { @"\Run.bat" };
         public string[] rustConfFilesLoc = new string[2] { @"\Run.bat", @"\server\my_server_identity\cfg\server.cfg" };
-        public int rustFoldSize = 150;
+        public int rustFoldSize = 4000;
         public string rustInstCode = @"+login anonymous +force_install_dir ./rust/ +app_update 258550 validate";
         public string[] rustGuideLink = new string[] { "http://steamcommunity.com/sharedfiles/filedetails/?id=874293589", "http://steamcommunity.com/sharedfiles/filedetails/?id=874080531" };
         public string[] rustCfgFilelink = new string[] { "https://pastebin.com/raw/7AAK7itF", "https://pastebin.com/raw/7AAK7itF" };
@@ -130,6 +132,24 @@ namespace Server_Creation_Tool.myClasses
         public string svenInstCode = @"+login anonymous +force_install_dir ./sven/ +app_update 276060 validate";
         public string[] svenGuideLink = new string[] { "http://steamcommunity.com/sharedfiles/filedetails/?id=874293589", "http://steamcommunity.com/sharedfiles/filedetails/?id=874080531" };
         //------
+        //----Unturned----
+        public string unturnedRootFold = "unturned";
+        public string[] unturnedStartFilesLoc = new string[1] { @"\Run.bat" };
+        public string[] unturnedConfFilesLoc = new string[1] { @"\Run.bat" };
+        public int unturnedFoldSize = 1350;
+        public string unturnedInstCode = @"+login anonymous +force_install_dir ./unturned/ +app_update 1110390 validate";
+        public string[] unturnedExtrLink = new string[] { "https://unturned.fandom.com/wiki/Hosting_a_Dedicated_Server#Configuring_your_Server:" };
+        //----ATLAS----
+        public string atlasRootFold = ".emtpyF";
+        public string[] atlasStartFilesLoc = new string[1] { @"\Run.bat" };
+        public string[] atlasConfFilesLoc = new string[2] { @"\Run.bat", @"\svencoop\server.cfg" };
+        public int atlasFoldSize = 1300;
+        public string atlasInstCode = @"+login anonymous +force_install_dir ./atlas/ +app_update 1110390 validate";
+        public string[] atlasGuideLink = new string[] {"https://steamcommunity.com/sharedfiles/filedetails/?id=2317120456","https://steamcommunity.com/sharedfiles/filedetails/?id=2317122651"
+        
+        
+        };
+
         #endregion
     }
 }

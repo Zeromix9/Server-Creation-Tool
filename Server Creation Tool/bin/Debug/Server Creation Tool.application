@@ -7,14 +7,14 @@
     <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Server Creation Tool.exe.manifest" size="26913">
+    <dependentAssembly dependencyType="install" codebase="Server Creation Tool.exe.manifest" size="25584">
       <assemblyIdentity name="Server Creation Tool.exe" version="3.0.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="amd64" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>OgB66F1bEtEOCpk33AV7EB8VYXV7f8Fn5TVa+Q3IaMA=</dsig:DigestValue>
+        <dsig:DigestValue>KojHCsDJjFhflYs9gdyfwDmOPr8S9JsCoTTvR7f/f5E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

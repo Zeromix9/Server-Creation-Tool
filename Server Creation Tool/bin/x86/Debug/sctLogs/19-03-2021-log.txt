@@ -1,0 +1,27 @@
+04:34 μμ>>> System.IO.DirectoryNotFoundException: Could not find a part of the path 'F:\my_servers\cs\cstrike\server.cfg'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.File.InternalWriteAllText(String path, String contents, Encoding encoding, Boolean checkHost)
+   at System.IO.File.WriteAllText(String path, String contents)
+   at statServer_Creation_Tool.METHODSandFUNCTIONS.downloadnWriteFile(String link, String writePath) in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\myClasses\METHODSclass.cs:line 119
+04:38 μμ>>> System.UnauthorizedAccessException: Access to the path 'F:\my_servers\cs\cstrike\server.cfg' is denied.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.File.InternalWriteAllText(String path, String contents, Encoding encoding, Boolean checkHost)
+   at System.IO.File.WriteAllText(String path, String contents)
+   at statServer_Creation_Tool.METHODSandFUNCTIONS.downloadnWriteFile(String link, String writePath, Boolean createFold) in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\myClasses\METHODSclass.cs:line 121
+04:41 μμ>>> System.UnauthorizedAccessException: Access to the path 'F:\my_servers\cs\cstrike\server.cfg' is denied.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.File.InternalWriteAllText(String path, String contents, Encoding encoding, Boolean checkHost)
+   at System.IO.File.WriteAllText(String path, String contents)
+   at statServer_Creation_Tool.METHODSandFUNCTIONS.downloadnWriteFile(String link, String writePath, Boolean createFold) in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\myClasses\METHODSclass.cs:line 125

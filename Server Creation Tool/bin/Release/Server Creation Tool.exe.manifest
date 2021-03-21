@@ -1,0 +1,440 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Server Creation Tool.exe" version="3.0.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="favicon (8).ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Server Creation Tool" version="3.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="Server Creation Tool.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet version="1" class="System.Security.NamedPermissionSet" Name="LocalIntranet" Description="Default rights given to applications on the local intranet" Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!-- UAC Manifest Options
+             If you want to change the Windows User Account Control level replace the 
+             requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+            Specifying requestedExecutionLevel element will disable file and registry virtualization. 
+            Remove this element if your application requires this virtualization for backwards
+            compatibility.
+        -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ByteSize.dll" size="13824">
+      <assemblyIdentity name="ByteSize" version="2.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>1JM3zjLarBfE5eQmN5L+JjfJ0DrWMf676jR8xVXP9XU=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Elegant.Ui.Common.dll" size="2123264">
+      <assemblyIdentity name="Elegant.Ui.Common" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>jWSvotbz6/1Aq6OyqXKkGkU6sWXWY0N9Gb/kwIcR1x8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="da-DK\Elegant.Ui.Common.resources.dll" size="6144">
+      <assemblyIdentity name="Elegant.Ui.Common.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="da-DK" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>tC3w19dDJ1N1U6bA6czK7eJ+VmqGzK2skfo2v2nz2j4=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="de-DE\Elegant.Ui.Common.resources.dll" size="10240">
+      <assemblyIdentity name="Elegant.Ui.Common.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="de-DE" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>fTOly0vsUIaJ1VLolUYH1//rKoGiVlImvXbtcD28BZM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="es-ES\Elegant.Ui.Common.resources.dll" size="13312">
+      <assemblyIdentity name="Elegant.Ui.Common.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="es-ES" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>sZFlEQ+t7889HkF4ODWWZWMkJCgzaSP2OkLbQ5bNBJY=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="fi-FI\Elegant.Ui.Common.resources.dll" size="10240">
+      <assemblyIdentity name="Elegant.Ui.Common.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="fi-FI" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>FcN685tKo2Urb9UH0lAvdRge7nwpf0NDi9YzxdqecFc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="fr-FR\Elegant.Ui.Common.resources.dll" size="24576">
+      <assemblyIdentity name="Elegant.Ui.Common.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="fr-FR" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>m5hv+4Ixd+nqNh/0FMO+A3+LxBS9eyDjB/B126w8P5s=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="it-IT\Elegant.Ui.Common.resources.dll" size="24576">
+      <assemblyIdentity name="Elegant.Ui.Common.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="it-IT" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>5xYOeReGfcR3TDfi60j4nCZ1wCTkXVS0sQrKPqh7zmg=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="nb-NO\Elegant.Ui.Common.resources.dll" size="6144">
+      <assemblyIdentity name="Elegant.Ui.Common.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="nb-NO" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>u6rb9j1jS1ik+37XfYKqUvEsUNyXW1FPFTuB5CnUqaU=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="nl-NL\Elegant.Ui.Common.resources.dll" size="24576">
+      <assemblyIdentity name="Elegant.Ui.Common.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="nl-NL" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>sq+P8XJkXO/nmwNGeggPlxefkBk58HWiXTRTCvpfd0w=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pl-PL\Elegant.Ui.Common.resources.dll" size="12288">
+      <assemblyIdentity name="Elegant.Ui.Common.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="pl-PL" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>Zscsvd53WPXCXDxmZ+K805gAt2zH+PfrUJS0j3pbIJo=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pt-PT\Elegant.Ui.Common.resources.dll" size="24576">
+      <assemblyIdentity name="Elegant.Ui.Common.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="pt-PT" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>C9zVVwBTCqb7evVZO/4bhMzbnO+Zw5WrN7XFUIKz5Gk=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ru-RU\Elegant.Ui.Common.resources.dll" size="24576">
+      <assemblyIdentity name="Elegant.Ui.Common.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="ru-RU" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>JrsB37VAx9e40wUdQj4QKD9iS+6mXdB+pBQvRtkYnDQ=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="sv-SE\Elegant.Ui.Common.resources.dll" size="6144">
+      <assemblyIdentity name="Elegant.Ui.Common.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="sv-SE" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>Z/oWyw8+e8NMnrIks+SjAHa6aF/R/PBXcW5IlrfsbRA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="uk-UA\Elegant.Ui.Common.resources.dll" size="14848">
+      <assemblyIdentity name="Elegant.Ui.Common.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="uk-UA" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>gntFfvgW3cbaaJIMH11pI0Y+W8cdtYnMIf2M/672mG0=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Elegant.Ui.Ribbon.dll" size="445952">
+      <assemblyIdentity name="Elegant.Ui.Ribbon" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>0qWO+wyDisSJVPkR+9IneNOMPwA4msoRkt8EImboVC8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="da-DK\Elegant.Ui.Ribbon.resources.dll" size="5632">
+      <assemblyIdentity name="Elegant.Ui.Ribbon.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="da-DK" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>GopBWDOiFH8egg6ApVENmkU4hlqC/ZYj/F1VJYgg9zo=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="de-DE\Elegant.Ui.Ribbon.resources.dll" size="6144">
+      <assemblyIdentity name="Elegant.Ui.Ribbon.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="de-DE" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>Cm3iPRKPOj7e5rSg4CL8ZDGczNkZsP/Lwmwcxz/QnM8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="es-ES\Elegant.Ui.Ribbon.resources.dll" size="6144">
+      <assemblyIdentity name="Elegant.Ui.Ribbon.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="es-ES" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>UEODsdM97pnosK0pZabLWXhnoS5lLljnweBJacgMJvA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="fi-FI\Elegant.Ui.Ribbon.resources.dll" size="5632">
+      <assemblyIdentity name="Elegant.Ui.Ribbon.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="fi-FI" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>BHOED4H0Ka9RrNHKTUCboI1/Cs/XejxLqhWGW/rPv/k=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="fr-FR\Elegant.Ui.Ribbon.resources.dll" size="6656">
+      <assemblyIdentity name="Elegant.Ui.Ribbon.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="fr-FR" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>JIBBkKXzQEo4X/qqNdUswbpTsYiukJ+qKzbEIavaN5A=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="it-IT\Elegant.Ui.Ribbon.resources.dll" size="5632">
+      <assemblyIdentity name="Elegant.Ui.Ribbon.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="it-IT" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>NnaFqWZ5BjHsi/TwUAd/shVVBgfAFD0RGkt488kjF7g=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="nb-NO\Elegant.Ui.Ribbon.resources.dll" size="5632">
+      <assemblyIdentity name="Elegant.Ui.Ribbon.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="nb-NO" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>6IWeva0fb5B8haJ1tQdzOqbjC8L9PlDRnau0M2I0Xhg=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="nl-NL\Elegant.Ui.Ribbon.resources.dll" size="5632">
+      <assemblyIdentity name="Elegant.Ui.Ribbon.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="nl-NL" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>2fPEHJNtS7J2+MU9WscNPXDpk213Kh0o58daN3vDBrg=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pl-PL\Elegant.Ui.Ribbon.resources.dll" size="8704">
+      <assemblyIdentity name="Elegant.Ui.Ribbon.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="pl-PL" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>H/XbSdGeeIUF0OL7eJXOYs4ac0QMSy6i156dU5ksVDg=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pt-PT\Elegant.Ui.Ribbon.resources.dll" size="8192">
+      <assemblyIdentity name="Elegant.Ui.Ribbon.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="pt-PT" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>ZH5hU5EO0GtvZmMSkl2sd3hP9zTCPDg+cya9OjqxBQ4=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ru-RU\Elegant.Ui.Ribbon.resources.dll" size="6144">
+      <assemblyIdentity name="Elegant.Ui.Ribbon.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="ru-RU" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>Y2ZtWnXrBk51Rv7eEQGomzDKpb1QmbKqxr0Z6Ooalj8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="sv-SE\Elegant.Ui.Ribbon.resources.dll" size="5632">
+      <assemblyIdentity name="Elegant.Ui.Ribbon.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="sv-SE" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>bJkWYqn7dPfcLN5DQXuEnrA9y2C40XwO4bUA1WmQwBw=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="uk-UA\Elegant.Ui.Ribbon.resources.dll" size="6144">
+      <assemblyIdentity name="Elegant.Ui.Ribbon.resources" version="4.3.0.0" publicKeyToken="3A2B400713AAE6E0" language="uk-UA" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>sp24NY2eeGvuBuGeRDWyjC3ggmYNx0Vo0CbuOz4oVbs=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Creation Tool.exe" size="3149312">
+      <assemblyIdentity name="Server Creation Tool" version="3.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>KOq1qAD9paiI+xhLs6LEqR8S5E1Bvap1dtzf24NpLA4=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="favicon (8).ico" size="15086">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>T1QK/Yv6v5CCrzMjj3lwKyRWby/eSnDORMBdGMLAL1I=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Server Creation Tool.exe.config" size="3940">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>yo6gL1OpQrGwugBCebX6PVXpn5G7+DAoiQoG2FYB2l8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
+    <application>
+      <!-- A list of the Windows versions that this application has been tested on
+           and is designed to work with. Uncomment the appropriate elements
+           and Windows will automatically select the most compatible environment. -->
+      <!-- Windows Vista -->
+      <!--<supportedOS Id="{e2011457-1546-43c5-a5fe-008deee3d3f0}" />-->
+      <!-- Windows 7 -->
+      <!--<supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}" />-->
+      <!-- Windows 8 -->
+      <!--<supportedOS Id="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}" />-->
+      <!-- Windows 8.1 -->
+      <!--<supportedOS Id="{1f676c76-80e1-4239-95bb-83d0f6d0da78}" />-->
+      <!-- Windows 10 -->
+      <!--<supportedOS Id="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}" />-->
+    </application>
+  </compatibility>
+</asmv1:assembly>

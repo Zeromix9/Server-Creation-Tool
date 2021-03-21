@@ -52,7 +52,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(288, 134);
+            this.panel1.Size = new System.Drawing.Size(298, 143);
             this.panel1.TabIndex = 6;
             this.panel1.Text = "panel1";
             // 
@@ -61,19 +61,20 @@
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.linkLabel2.Location = new System.Drawing.Point(132, 34);
+            this.linkLabel2.Location = new System.Drawing.Point(136, 36);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(133, 20);
             this.linkLabel2.TabIndex = 8;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "Youtube Channel";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked_1);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label2.Location = new System.Drawing.Point(23, 80);
+            this.label2.Location = new System.Drawing.Point(27, 82);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(214, 40);
             this.label2.TabIndex = 7;
@@ -85,7 +86,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(23, 14);
+            this.label1.Location = new System.Drawing.Point(27, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(242, 20);
             this.label1.TabIndex = 6;
@@ -96,23 +97,26 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.linkLabel1.Location = new System.Drawing.Point(23, 34);
+            this.linkLabel1.Location = new System.Drawing.Point(27, 36);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(104, 20);
             this.linkLabel1.TabIndex = 5;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Steam Profile";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_1);
             // 
             // AboutFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(288, 134);
+            this.ClientSize = new System.Drawing.Size(298, 143);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(304, 172);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(304, 172);
             this.Name = "AboutFrm";
             this.Text = "About";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AboutFrm_FormClosing);

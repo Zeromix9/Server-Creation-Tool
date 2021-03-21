@@ -1,0 +1,45 @@
+08:05 μμ>>> System.InvalidOperationException: Cross-thread operation not valid: Control '' accessed from a thread other than the thread it was created on.
+   at System.Windows.Forms.Control.get_Handle()
+   at System.Windows.Forms.Control.set_WindowText(String value)
+   at System.Windows.Forms.TextBoxBase.set_WindowText(String value)
+   at System.Windows.Forms.Control.set_Text(String value)
+   at System.Windows.Forms.TextBoxBase.set_Text(String value)
+   at System.Windows.Forms.TextBox.set_Text(String value)
+   at Elegant.Ui.TextEditorBasedControl`1.set_Text(String value)
+   at Server_Creation_Tool.MainForm.<gameChckResultPanelSet>b__63_3() in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\MainForm.cs:line 529
+08:05 μμ>>> System.InvalidOperationException: Cross-thread operation not valid: Control '' accessed from a thread other than the thread it was created on.
+   at System.Windows.Forms.Control.get_Handle()
+   at System.Windows.Forms.Control.set_WindowText(String value)
+   at System.Windows.Forms.TextBoxBase.set_WindowText(String value)
+   at System.Windows.Forms.Control.set_Text(String value)
+   at System.Windows.Forms.TextBoxBase.set_Text(String value)
+   at System.Windows.Forms.TextBox.set_Text(String value)
+   at Elegant.Ui.TextEditorBasedControl`1.set_Text(String value)
+   at Server_Creation_Tool.MainForm.<gameChckResultPanelSet>b__63_3() in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\MainForm.cs:line 527
+08:05 μμ>>> System.InvalidOperationException: Cross-thread operation not valid: Control '' accessed from a thread other than the thread it was created on.
+   at System.Windows.Forms.Control.get_Handle()
+   at System.Windows.Forms.Control.set_WindowText(String value)
+   at System.Windows.Forms.TextBoxBase.set_WindowText(String value)
+   at System.Windows.Forms.Control.set_Text(String value)
+   at System.Windows.Forms.TextBoxBase.set_Text(String value)
+   at System.Windows.Forms.TextBox.set_Text(String value)
+   at Elegant.Ui.TextEditorBasedControl`1.set_Text(String value)
+   at Server_Creation_Tool.MainForm.<gameChckResultPanelSet>b__63_3() in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\MainForm.cs:line 529
+08:05 μμ>>> System.InvalidOperationException: Cross-thread operation not valid: Control '' accessed from a thread other than the thread it was created on.
+   at System.Windows.Forms.Control.get_Handle()
+   at System.Windows.Forms.Control.set_WindowText(String value)
+   at System.Windows.Forms.TextBoxBase.set_WindowText(String value)
+   at System.Windows.Forms.Control.set_Text(String value)
+   at System.Windows.Forms.TextBoxBase.set_Text(String value)
+   at System.Windows.Forms.TextBox.set_Text(String value)
+   at Elegant.Ui.TextEditorBasedControl`1.set_Text(String value)
+   at Server_Creation_Tool.MainForm.<gameChckResultPanelSet>b__63_3() in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\MainForm.cs:line 529
+08:05 μμ>>> System.InvalidOperationException: Cross-thread operation not valid: Control '' accessed from a thread other than the thread it was created on.
+   at System.Windows.Forms.Control.get_Handle()
+   at System.Windows.Forms.Control.set_WindowText(String value)
+   at System.Windows.Forms.TextBoxBase.set_WindowText(String value)
+   at System.Windows.Forms.Control.set_Text(String value)
+   at System.Windows.Forms.TextBoxBase.set_Text(String value)
+   at System.Windows.Forms.TextBox.set_Text(String value)
+   at Elegant.Ui.TextEditorBasedControl`1.set_Text(String value)
+   at Server_Creation_Tool.MainForm.<gameChckResultPanelSet>b__63_3() in C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\MainForm.cs:line 529

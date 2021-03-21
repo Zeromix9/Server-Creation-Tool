@@ -124,7 +124,15 @@
     <value>48</value>
   </metadata>
   <data name="textBox1.Text" xml:space="preserve">
-    <value>26.07.2020 - Version 3.0 - Improved performance, Minor bug fixes,
+    <value>21.3.2021 - Version 3.1 - Completely redesigned UI, SteamCMD is now downloaded automatically,
+Easier server management (Show server size, delete, reinstall, update, edit settings etc)
+Added ATLAS Guides
+Added server search bar
+Added error logging
+Added Unturned Server
+Added a donate button for supporting the tool :3
+
+26.07.2020 - Version 3.0 - Improved performance, Minor bug fixes,
 Buttons turn Green if server is installed,
 Added small menus on each server for easier management
 Added automatic config file creation for Counter Strike 1.6

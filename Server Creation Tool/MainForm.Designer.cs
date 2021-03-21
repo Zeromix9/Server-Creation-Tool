@@ -47,51 +47,51 @@ namespace Server_Creation_Tool
             this.ribbonGroup6 = new Elegant.Ui.RibbonGroup();
             this.refreshConnBtn = new Elegant.Ui.Button();
             this.noInternetTxtBox = new Elegant.Ui.TextBox();
-            this.langRibbon = new Elegant.Ui.RibbonTabPage();
-            this.ribbonGroup1 = new Elegant.Ui.RibbonGroup();
-            this.dropDown3 = new Elegant.Ui.DropDown();
-            this.popupMenu3 = new Elegant.Ui.PopupMenu(this.components);
-            this.button34 = new Elegant.Ui.Button();
-            this.button5 = new Elegant.Ui.Button();
-            this.serverGroupBtn = new Elegant.Ui.Button();
-            this.separator1 = new Elegant.Ui.Separator();
-            this.button32 = new Elegant.Ui.Button();
-            this.plannedFeaturesBtn = new Elegant.Ui.Button();
-            this.button9 = new Elegant.Ui.Button();
-            this.changeLogBtn = new Elegant.Ui.Button();
-            this.button8 = new Elegant.Ui.Button();
-            this.aboutBtn = new Elegant.Ui.Button();
             this.mainTabPage = new Elegant.Ui.RibbonTabPage();
             this.generalSvrOptGroup = new Elegant.Ui.RibbonGroup();
-            this.openServersFoldBtn = new Elegant.Ui.Button();
-            this.changeSrvrInstFoldBtn = new Elegant.Ui.Button();
+            this.openSrvsFoldBtn = new Elegant.Ui.Button();
+            this.selectInstFoldBtn = new Elegant.Ui.Button();
             this.optionsRibbon = new Elegant.Ui.RibbonGroup();
-            this.check4UpdatesBtn = new Elegant.Ui.Button();
-            this.dropDown2 = new Elegant.Ui.DropDown();
+            this.chck4UpdatesBtn = new Elegant.Ui.Button();
+            this.styleBtn = new Elegant.Ui.DropDown();
             this.popupMenu2 = new Elegant.Ui.PopupMenu(this.components);
             this.button2 = new Elegant.Ui.Button();
             this.button11 = new Elegant.Ui.Button();
-            this.dropDown1 = new Elegant.Ui.DropDown();
+            this.langBtn = new Elegant.Ui.DropDown();
             this.popupMenu1 = new Elegant.Ui.PopupMenu(this.components);
             this.engBtn = new Elegant.Ui.Button();
             this.gerBtn = new Elegant.Ui.Button();
-            this.currentOperRibGrp = new Elegant.Ui.RibbonGroup();
-            this.currentOperNameLbl = new Elegant.Ui.Label();
+            this.currentTaskRibGrp = new Elegant.Ui.RibbonGroup();
+            this.currentTaskNameLbl = new Elegant.Ui.Label();
             this.progressBar1 = new Elegant.Ui.ProgressBar();
+            this.helpInfTab = new Elegant.Ui.RibbonTabPage();
+            this.helpInfGrpBox = new Elegant.Ui.RibbonGroup();
+            this.variousStuffBtn = new Elegant.Ui.DropDown();
+            this.popupMenu3 = new Elegant.Ui.PopupMenu(this.components);
+            this.portFwRouterBtn = new Elegant.Ui.Button();
+            this.faqBtn = new Elegant.Ui.Button();
+            this.serverGroupBtn = new Elegant.Ui.Button();
+            this.separator1 = new Elegant.Ui.Separator();
+            this.plannedFeaturesBtn = new Elegant.Ui.Button();
+            this.appLogsbtn = new Elegant.Ui.Button();
+            this.changeLogBtn = new Elegant.Ui.Button();
+            this.donateBtn = new Elegant.Ui.Button();
+            this.aboutBtn = new Elegant.Ui.Button();
             this.formFrameSkinner = new Elegant.Ui.FormFrameSkinner();
             this.ribbonContextualTabGroup2 = new Elegant.Ui.RibbonContextualTabGroup(this.components);
             this.ribbonGroup4 = new Elegant.Ui.RibbonGroup();
             this.groupBox2 = new Elegant.Ui.GroupBox();
             this.steamGameSrchBox = new Elegant.Ui.TextBox();
-            this.searchSteamGameLbl = new Elegant.Ui.Label();
+            this.searchGameLbl = new Elegant.Ui.Label();
             this.tabControl1 = new Elegant.Ui.TabControl();
             this.tabPage1 = new Elegant.Ui.TabPage();
             this.steamSvrNavBar = new Elegant.Ui.NavigationBar();
             this.welcomeBtn = new Elegant.Ui.ToggleButton();
             this.daysToDieBtn = new Elegant.Ui.ToggleButton();
             this.arkBtn = new Elegant.Ui.ToggleButton();
-            this.CODblackOpsThreeBtn = new Elegant.Ui.ToggleButton();
-            this.csOnePointsixBtn = new Elegant.Ui.ToggleButton();
+            this.atlasBtn = new Elegant.Ui.ToggleButton();
+            this.CodBo3Btn = new Elegant.Ui.ToggleButton();
+            this.cs16Btn = new Elegant.Ui.ToggleButton();
             this.CSsourceBtn = new Elegant.Ui.ToggleButton();
             this.CSGOBtn = new Elegant.Ui.ToggleButton();
             this.garrysModBtn = new Elegant.Ui.ToggleButton();
@@ -102,6 +102,7 @@ namespace Server_Creation_Tool
             this.RustBtn = new Elegant.Ui.ToggleButton();
             this.SvenCoopBtn = new Elegant.Ui.ToggleButton();
             this.synergyBtn = new Elegant.Ui.ToggleButton();
+            this.unturnedBtn = new Elegant.Ui.ToggleButton();
             this.separator3 = new Elegant.Ui.Separator();
             this.tabPage2 = new Elegant.Ui.TabPage();
             this.label1 = new Elegant.Ui.Label();
@@ -122,12 +123,12 @@ namespace Server_Creation_Tool
             this.button28 = new Elegant.Ui.Button();
             this.button29 = new Elegant.Ui.Button();
             this.button30 = new Elegant.Ui.Button();
-            this.updtTimer = new System.Windows.Forms.Timer(this.components);
             this.separator2 = new Elegant.Ui.Separator();
-            this.srvPanelGrpBox = new Elegant.Ui.GroupBox();
+            this.panel1 = new Elegant.Ui.Panel();
+            this.serverPnl = new Elegant.Ui.GroupBox();
             this.groupBox7 = new Elegant.Ui.GroupBox();
-            this.label2 = new Elegant.Ui.Label();
-            this.srvTxtBox = new Elegant.Ui.TextBox();
+            this.srvSizeLbl = new Elegant.Ui.Label();
+            this.srvSizeTxtBox = new Elegant.Ui.TextBox();
             this.extraGrpBox = new Elegant.Ui.GroupBox();
             this.extraBtn4 = new Elegant.Ui.Button();
             this.extraBtn3 = new Elegant.Ui.Button();
@@ -142,26 +143,25 @@ namespace Server_Creation_Tool
             this.editSettingsDropBtn = new Elegant.Ui.DropDown();
             this.popupMenu4 = new Elegant.Ui.PopupMenu(this.components);
             this.easyStgBtn = new Elegant.Ui.Button();
+            this.button8 = new Elegant.Ui.Button();
+            this.button9 = new Elegant.Ui.Button();
             this.button10 = new Elegant.Ui.Button();
             this.button12 = new Elegant.Ui.Button();
-            this.button13 = new Elegant.Ui.Button();
-            this.button14 = new Elegant.Ui.Button();
             this.reinstBtn = new Elegant.Ui.Button();
             this.openFoldBtn = new Elegant.Ui.Button();
             this.updtSvrBtn = new Elegant.Ui.Button();
             this.delBtn = new Elegant.Ui.Button();
-            this.panel1 = new Elegant.Ui.Panel();
             this.button16 = new Elegant.Ui.Button();
             this.groupBox3 = new Elegant.Ui.GroupBox();
-            this.label4 = new Elegant.Ui.Label();
-            this.label5 = new Elegant.Ui.Label();
-            this.label3 = new Elegant.Ui.Label();
+            this.welcomeLbl = new Elegant.Ui.Label();
+            this.welcomeDesclbl = new Elegant.Ui.Label();
+            this.basicInstrLbl = new Elegant.Ui.Label();
             this.basicInstrTxtBox = new Elegant.Ui.TextBox();
             this.nonSteamServerTimer = new System.Windows.Forms.Timer(this.components);
             this.contextMenuExtenderProvider1 = new Elegant.Ui.ContextMenuExtenderProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.slowTimer = new System.Windows.Forms.Timer(this.components);
             this.editServerSettigsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logTimer = new System.Windows.Forms.Timer(this.components);
             themeSelector = new Elegant.Ui.ThemeSelector(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.applicationMenu1)).BeginInit();
@@ -169,11 +169,6 @@ namespace Server_Creation_Tool
             this.noInternetTab2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonGroup6)).BeginInit();
             this.ribbonGroup6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.langRibbon)).BeginInit();
-            this.langRibbon.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ribbonGroup1)).BeginInit();
-            this.ribbonGroup1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.popupMenu3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainTabPage)).BeginInit();
             this.mainTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.generalSvrOptGroup)).BeginInit();
@@ -182,8 +177,13 @@ namespace Server_Creation_Tool
             this.optionsRibbon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.currentOperRibGrp)).BeginInit();
-            this.currentOperRibGrp.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.currentTaskRibGrp)).BeginInit();
+            this.currentTaskRibGrp.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.helpInfTab)).BeginInit();
+            this.helpInfTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.helpInfGrpBox)).BeginInit();
+            this.helpInfGrpBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.popupMenu3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonGroup4)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).BeginInit();
@@ -191,14 +191,14 @@ namespace Server_Creation_Tool
             this.steamSvrNavBar.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.srvPanelGrpBox.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.serverPnl.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.extraGrpBox.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gameImgPicBox)).BeginInit();
             this.actionsGrpBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu4)).BeginInit();
-            this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -209,7 +209,6 @@ namespace Server_Creation_Tool
             // 
             // generalTimer
             // 
-            this.generalTimer.Enabled = true;
             this.generalTimer.Interval = 1500;
             this.generalTimer.Tick += new System.EventHandler(this.generalTimer_Tick);
             // 
@@ -223,9 +222,9 @@ namespace Server_Creation_Tool
             this.ribbon1.ApplicationButtonVisible = false;
             this.ribbon1.ContextualTabGroups.AddRange(new Elegant.Ui.RibbonContextualTabGroup[] {
             this.noInternetTab});
-            this.ribbon1.CurrentTabPage = this.langRibbon;
+            this.ribbon1.CurrentTabPage = this.mainTabPage;
             this.ribbon1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ribbon1.Id = "f194746d-ef81-4736-9469-969158232f18";
+            this.ribbon1.Id = "58c83fc8-0d5e-49f9-8731-e7ffea83c55d";
             this.ribbon1.Location = new System.Drawing.Point(0, 0);
             this.ribbon1.MinimizeButtonVisible = false;
             this.ribbon1.Name = "ribbon1";
@@ -235,7 +234,7 @@ namespace Server_Creation_Tool
             this.ribbon1.TabIndex = 22;
             this.ribbon1.TabPages.AddRange(new Elegant.Ui.RibbonTabPage[] {
             this.mainTabPage,
-            this.langRibbon});
+            this.helpInfTab});
             this.ribbon1.Text = "Server Creation Tool 3.1";
             // 
             // applicationMenu1
@@ -273,16 +272,16 @@ namespace Server_Creation_Tool
             this.ribbonGroup6.Controls.Add(this.noInternetTxtBox);
             this.ribbonGroup6.Location = new System.Drawing.Point(4, 3);
             this.ribbonGroup6.Name = "ribbonGroup6";
-            this.ribbonGroup6.Size = new System.Drawing.Size(245, 94);
+            this.ribbonGroup6.Size = new System.Drawing.Size(245, 0);
             this.ribbonGroup6.TabIndex = 0;
             this.ribbonGroup6.Text = "Actions";
             // 
             // refreshConnBtn
             // 
-            this.refreshConnBtn.Id = "33ea7943-be5d-4a4c-ab7a-427696de20fd";
+            this.refreshConnBtn.Id = "ac6c45ae-cca5-4252-a79f-8c400b84bc93";
             this.refreshConnBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.refresh)});
-            this.refreshConnBtn.Location = new System.Drawing.Point(26, 2);
+            this.refreshConnBtn.Location = new System.Drawing.Point(4, 2);
             this.refreshConnBtn.Name = "refreshConnBtn";
             this.refreshConnBtn.Size = new System.Drawing.Size(46, 0);
             this.refreshConnBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
@@ -293,8 +292,8 @@ namespace Server_Creation_Tool
             // 
             // noInternetTxtBox
             // 
-            this.noInternetTxtBox.Id = "821bb26a-0060-45cd-9bca-360cf23d825b";
-            this.noInternetTxtBox.Location = new System.Drawing.Point(26, 2);
+            this.noInternetTxtBox.Id = "ff1caed2-a8ea-464f-ae63-5c05ca6c7c9f";
+            this.noInternetTxtBox.Location = new System.Drawing.Point(52, 2);
             this.noInternetTxtBox.Multiline = true;
             this.noInternetTxtBox.Name = "noInternetTxtBox";
             this.noInternetTxtBox.Size = new System.Drawing.Size(191, 72);
@@ -302,192 +301,11 @@ namespace Server_Creation_Tool
             this.noInternetTxtBox.Text = "There is no internet connection!\r\n----\r\nPlease check your internet access!\r\n";
             this.noInternetTxtBox.TextEditorWidth = 185;
             // 
-            // langRibbon
-            // 
-            this.langRibbon.Controls.Add(this.ribbonGroup1);
-            this.langRibbon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.langRibbon.KeyTip = null;
-            this.langRibbon.Location = new System.Drawing.Point(0, 0);
-            this.langRibbon.Name = "langRibbon";
-            this.langRibbon.Size = new System.Drawing.Size(629, 101);
-            this.langRibbon.TabIndex = 0;
-            this.langRibbon.Text = "Help-Information";
-            // 
-            // ribbonGroup1
-            // 
-            this.ribbonGroup1.Controls.Add(this.dropDown3);
-            this.ribbonGroup1.Controls.Add(this.button5);
-            this.ribbonGroup1.Controls.Add(this.serverGroupBtn);
-            this.ribbonGroup1.Controls.Add(this.separator1);
-            this.ribbonGroup1.Controls.Add(this.button32);
-            this.ribbonGroup1.Controls.Add(this.plannedFeaturesBtn);
-            this.ribbonGroup1.Controls.Add(this.button9);
-            this.ribbonGroup1.Controls.Add(this.changeLogBtn);
-            this.ribbonGroup1.Controls.Add(this.button8);
-            this.ribbonGroup1.Controls.Add(this.aboutBtn);
-            this.ribbonGroup1.Location = new System.Drawing.Point(4, 3);
-            this.ribbonGroup1.Name = "ribbonGroup1";
-            this.ribbonGroup1.Size = new System.Drawing.Size(466, 94);
-            this.ribbonGroup1.TabIndex = 0;
-            this.ribbonGroup1.Text = "Help-Information";
-            // 
-            // dropDown3
-            // 
-            this.dropDown3.Id = "de417b21-e7f6-4566-b4b6-b772a870c4d5";
-            this.dropDown3.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.settings__4_)});
-            this.dropDown3.Location = new System.Drawing.Point(4, 2);
-            this.dropDown3.Name = "dropDown3";
-            this.dropDown3.Popup = this.popupMenu3;
-            this.dropDown3.Size = new System.Drawing.Size(88, 72);
-            this.dropDown3.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.settings__4_)});
-            this.dropDown3.TabIndex = 7;
-            this.dropDown3.Text = "Help for setting up servers";
-            // 
-            // popupMenu3
-            // 
-            this.popupMenu3.Items.AddRange(new System.Windows.Forms.Control[] {
-            this.button34});
-            this.popupMenu3.KeepPopupsWithOffsetPlacementWithinPlacementArea = false;
-            this.popupMenu3.PlacementMode = Elegant.Ui.PopupPlacementMode.Bottom;
-            this.popupMenu3.Size = new System.Drawing.Size(100, 100);
-            // 
-            // button34
-            // 
-            this.button34.Id = "a065ba1c-06b5-4e49-860d-8c907eeeff7e";
-            this.button34.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.port)});
-            this.button34.Location = new System.Drawing.Point(2, 2);
-            this.button34.Name = "button34";
-            this.button34.Size = new System.Drawing.Size(233, 23);
-            this.button34.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.Icon_20__2_)});
-            this.button34.TabIndex = 3;
-            this.button34.Text = "How to port forward your router";
-            this.button34.Click += new System.EventHandler(this.button34_Click_1);
-            // 
-            // button5
-            // 
-            this.button5.Id = "05812acb-de7a-4cb6-b47d-db8fbe9bf039";
-            this.button5.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._1502)});
-            this.button5.Location = new System.Drawing.Point(94, 2);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(42, 72);
-            this.button5.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._1502)});
-            this.button5.TabIndex = 2;
-            this.button5.Text = "FAQ";
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // serverGroupBtn
-            // 
-            this.serverGroupBtn.Id = "0e1fd651-cc6b-4b9d-a6a0-0d2ac588bd5a";
-            this.serverGroupBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.chat_group)});
-            this.serverGroupBtn.Location = new System.Drawing.Point(138, 2);
-            this.serverGroupBtn.Name = "serverGroupBtn";
-            this.serverGroupBtn.Size = new System.Drawing.Size(42, 72);
-            this.serverGroupBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.chat_group)});
-            this.serverGroupBtn.TabIndex = 1;
-            this.serverGroupBtn.Text = "Server Group";
-            this.serverGroupBtn.Click += new System.EventHandler(this.serverGroupBtn_Click_1);
-            // 
-            // separator1
-            // 
-            this.separator1.Id = "34dff717-ee67-4b91-ad36-90995729da61";
-            this.separator1.Location = new System.Drawing.Point(184, 7);
-            this.separator1.Name = "separator1";
-            this.separator1.Size = new System.Drawing.Size(2, 60);
-            this.separator1.TabIndex = 3;
-            this.separator1.Text = "separator1";
-            // 
-            // button32
-            // 
-            this.button32.Id = "06f16e20-038b-4209-9877-4de187dff9f1";
-            this.button32.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.world_wide_web)});
-            this.button32.Location = new System.Drawing.Point(190, 2);
-            this.button32.Name = "button32";
-            this.button32.Size = new System.Drawing.Size(42, 72);
-            this.button32.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.world_wide_web)});
-            this.button32.TabIndex = 6;
-            this.button32.Text = "Tool\'s page";
-            this.button32.Click += new System.EventHandler(this.button32_Click);
-            // 
-            // plannedFeaturesBtn
-            // 
-            this.plannedFeaturesBtn.Id = "89b60cbb-01d2-4be0-9174-6376d7c02bbc";
-            this.plannedFeaturesBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.pencil)});
-            this.plannedFeaturesBtn.Location = new System.Drawing.Point(234, 2);
-            this.plannedFeaturesBtn.Name = "plannedFeaturesBtn";
-            this.plannedFeaturesBtn.Size = new System.Drawing.Size(48, 72);
-            this.plannedFeaturesBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.pencil)});
-            this.plannedFeaturesBtn.TabIndex = 4;
-            this.plannedFeaturesBtn.Text = "Planned Features";
-            this.plannedFeaturesBtn.Click += new System.EventHandler(this.plannedFeaturesBtn_Click);
-            // 
-            // button9
-            // 
-            this.button9.Id = "297e6b1f-4afe-4502-9e13-4c7ba04cdbdb";
-            this.button9.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._622)});
-            this.button9.Location = new System.Drawing.Point(284, 2);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(42, 72);
-            this.button9.TabIndex = 9;
-            this.button9.Text = "App Logs";
-            this.button9.Click += new System.EventHandler(this.button9_Click_1);
-            // 
-            // changeLogBtn
-            // 
-            this.changeLogBtn.Id = "2e46f931-fe47-4631-b619-c898a8e94743";
-            this.changeLogBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.CHECK_BOARD_48_48)});
-            this.changeLogBtn.Location = new System.Drawing.Point(328, 2);
-            this.changeLogBtn.Name = "changeLogBtn";
-            this.changeLogBtn.Size = new System.Drawing.Size(45, 72);
-            this.changeLogBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.CHECK_BOARD)});
-            this.changeLogBtn.TabIndex = 0;
-            this.changeLogBtn.Text = "Change Log";
-            this.changeLogBtn.Click += new System.EventHandler(this.changeLogBtn_Click_1);
-            // 
-            // button8
-            // 
-            this.button8.Id = "8fd67815-e9e1-4581-ab7f-c6fde8f5eb53";
-            this.button8.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", ((System.Drawing.Image)(resources.GetObject("button8.LargeImages.Images"))))});
-            this.button8.Location = new System.Drawing.Point(375, 2);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(42, 72);
-            this.button8.TabIndex = 8;
-            this.button8.Text = "Donate";
-            // 
-            // aboutBtn
-            // 
-            this.aboutBtn.Id = "d9df181f-cb0b-4e2d-be98-7409ed08db1c";
-            this.aboutBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._2191)});
-            this.aboutBtn.Location = new System.Drawing.Point(419, 2);
-            this.aboutBtn.Name = "aboutBtn";
-            this.aboutBtn.Size = new System.Drawing.Size(42, 72);
-            this.aboutBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
-            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._2191)});
-            this.aboutBtn.TabIndex = 5;
-            this.aboutBtn.Text = "About";
-            this.aboutBtn.Click += new System.EventHandler(this.button6_Click);
-            // 
             // mainTabPage
             // 
             this.mainTabPage.Controls.Add(this.generalSvrOptGroup);
             this.mainTabPage.Controls.Add(this.optionsRibbon);
-            this.mainTabPage.Controls.Add(this.currentOperRibGrp);
+            this.mainTabPage.Controls.Add(this.currentTaskRibGrp);
             this.mainTabPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainTabPage.KeyTip = null;
             this.mainTabPage.Location = new System.Drawing.Point(0, 0);
@@ -498,79 +316,80 @@ namespace Server_Creation_Tool
             // 
             // generalSvrOptGroup
             // 
-            this.generalSvrOptGroup.Controls.Add(this.openServersFoldBtn);
-            this.generalSvrOptGroup.Controls.Add(this.changeSrvrInstFoldBtn);
+            this.generalSvrOptGroup.Controls.Add(this.openSrvsFoldBtn);
+            this.generalSvrOptGroup.Controls.Add(this.selectInstFoldBtn);
             this.generalSvrOptGroup.Location = new System.Drawing.Point(4, 3);
             this.generalSvrOptGroup.Name = "generalSvrOptGroup";
             this.generalSvrOptGroup.Size = new System.Drawing.Size(179, 94);
             this.generalSvrOptGroup.TabIndex = 2;
             this.generalSvrOptGroup.Text = "General Server Options";
             // 
-            // openServersFoldBtn
+            // openSrvsFoldBtn
             // 
-            this.openServersFoldBtn.Id = "42ee3df9-1c92-45d3-ad19-acacb20739c6";
-            this.openServersFoldBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            this.openSrvsFoldBtn.Id = "13794610-c326-4089-b9c8-ea1436877188";
+            this.openSrvsFoldBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.folderOpen)});
-            this.openServersFoldBtn.Location = new System.Drawing.Point(12, 2);
-            this.openServersFoldBtn.Name = "openServersFoldBtn";
-            this.openServersFoldBtn.Size = new System.Drawing.Size(101, 0);
-            this.openServersFoldBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            this.openSrvsFoldBtn.Location = new System.Drawing.Point(4, 2);
+            this.openSrvsFoldBtn.Name = "openSrvsFoldBtn";
+            this.openSrvsFoldBtn.Size = new System.Drawing.Size(72, 72);
+            this.openSrvsFoldBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.folder)});
-            this.openServersFoldBtn.TabIndex = 1;
-            this.openServersFoldBtn.Text = "Open servers folder";
-            this.openServersFoldBtn.Click += new System.EventHandler(this.openServersFoldBtn_Click);
+            this.openSrvsFoldBtn.TabIndex = 1;
+            this.openSrvsFoldBtn.Text = "Open servers folder";
+            this.openSrvsFoldBtn.Click += new System.EventHandler(this.openServersFoldBtn_Click);
             // 
-            // changeSrvrInstFoldBtn
+            // selectInstFoldBtn
             // 
-            this.changeSrvrInstFoldBtn.Id = "06bbf161-17aa-4ac7-ab21-097a5d98bff0";
-            this.changeSrvrInstFoldBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            this.selectInstFoldBtn.Id = "88de8fc1-cc80-4148-ba64-42748bd7b632";
+            this.selectInstFoldBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._2274)});
-            this.changeSrvrInstFoldBtn.Location = new System.Drawing.Point(12, 2);
-            this.changeSrvrInstFoldBtn.Name = "changeSrvrInstFoldBtn";
-            this.changeSrvrInstFoldBtn.Size = new System.Drawing.Size(154, 0);
-            this.changeSrvrInstFoldBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            this.selectInstFoldBtn.Location = new System.Drawing.Point(78, 2);
+            this.selectInstFoldBtn.Name = "selectInstFoldBtn";
+            this.selectInstFoldBtn.Size = new System.Drawing.Size(96, 72);
+            this.selectInstFoldBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._2276)});
-            this.changeSrvrInstFoldBtn.TabIndex = 0;
-            this.changeSrvrInstFoldBtn.Text = "Select Server installation folder";
-            this.changeSrvrInstFoldBtn.Click += new System.EventHandler(this.changeSrvrInstFoldBtn_Click);
+            this.selectInstFoldBtn.TabIndex = 0;
+            this.selectInstFoldBtn.Text = "Select Server installation folder";
+            this.selectInstFoldBtn.Click += new System.EventHandler(this.changeSrvrInstFoldBtn_Click);
             // 
             // optionsRibbon
             // 
-            this.optionsRibbon.Controls.Add(this.check4UpdatesBtn);
-            this.optionsRibbon.Controls.Add(this.dropDown2);
-            this.optionsRibbon.Controls.Add(this.dropDown1);
+            this.optionsRibbon.Controls.Add(this.chck4UpdatesBtn);
+            this.optionsRibbon.Controls.Add(this.styleBtn);
+            this.optionsRibbon.Controls.Add(this.langBtn);
             this.optionsRibbon.Location = new System.Drawing.Point(185, 3);
             this.optionsRibbon.Name = "optionsRibbon";
             this.optionsRibbon.Size = new System.Drawing.Size(176, 94);
             this.optionsRibbon.TabIndex = 4;
             this.optionsRibbon.Text = "Other Options";
             // 
-            // check4UpdatesBtn
+            // chck4UpdatesBtn
             // 
-            this.check4UpdatesBtn.Id = "3eaae1a8-f5e6-462e-a007-5772cd760ed9";
-            this.check4UpdatesBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            this.chck4UpdatesBtn.Id = "8f34342d-d968-40a3-a3da-c2785b5f62d3";
+            this.chck4UpdatesBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.captcha)});
-            this.check4UpdatesBtn.Location = new System.Drawing.Point(38, 2);
-            this.check4UpdatesBtn.Name = "check4UpdatesBtn";
-            this.check4UpdatesBtn.Size = new System.Drawing.Size(96, 0);
-            this.check4UpdatesBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            this.chck4UpdatesBtn.Location = new System.Drawing.Point(4, 2);
+            this.chck4UpdatesBtn.Name = "chck4UpdatesBtn";
+            this.chck4UpdatesBtn.Size = new System.Drawing.Size(55, 72);
+            this.chck4UpdatesBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.captcha)});
-            this.check4UpdatesBtn.TabIndex = 1;
-            this.check4UpdatesBtn.Text = "Check for updates";
+            this.chck4UpdatesBtn.TabIndex = 1;
+            this.chck4UpdatesBtn.Text = "Check for updates";
+            this.chck4UpdatesBtn.Click += new System.EventHandler(this.chck4UpdatesBtn_Click);
             // 
-            // dropDown2
+            // styleBtn
             // 
-            this.dropDown2.Id = "279522bb-2088-4e64-8899-c729b9f02c3b";
-            this.dropDown2.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            this.styleBtn.Id = "c75eb6a7-cc16-4f3a-a8ba-3aa513ef3ee0";
+            this.styleBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.desktopWithcolors)});
-            this.dropDown2.Location = new System.Drawing.Point(38, 2);
-            this.dropDown2.Name = "dropDown2";
-            this.dropDown2.Popup = this.popupMenu2;
-            this.dropDown2.Size = new System.Drawing.Size(40, 0);
-            this.dropDown2.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            this.styleBtn.Location = new System.Drawing.Point(61, 2);
+            this.styleBtn.Name = "styleBtn";
+            this.styleBtn.Popup = this.popupMenu2;
+            this.styleBtn.Size = new System.Drawing.Size(42, 72);
+            this.styleBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.desktopWithcolors)});
-            this.dropDown2.TabIndex = 0;
-            this.dropDown2.Text = "Style";
+            this.styleBtn.TabIndex = 0;
+            this.styleBtn.Text = "Style";
             // 
             // popupMenu2
             // 
@@ -583,7 +402,7 @@ namespace Server_Creation_Tool
             // 
             // button2
             // 
-            this.button2.Id = "a200069f-38ab-4cd6-99d0-40674928bdae";
+            this.button2.Id = "24ef012d-6625-424a-851f-0b8f797cc486";
             this.button2.Location = new System.Drawing.Point(2, 2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(142, 35);
@@ -595,7 +414,7 @@ namespace Server_Creation_Tool
             // 
             // button11
             // 
-            this.button11.Id = "2ee69117-a6bd-4484-935f-524082ef6257";
+            this.button11.Id = "dfc04c7f-fed5-4b09-819f-f16d51894bc4";
             this.button11.Location = new System.Drawing.Point(2, 37);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(142, 35);
@@ -605,19 +424,19 @@ namespace Server_Creation_Tool
             this.button11.Text = "Black";
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
-            // dropDown1
+            // langBtn
             // 
-            this.dropDown1.Id = "fc44b2cf-d579-4a30-a6b5-4beee1883528";
-            this.dropDown1.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            this.langBtn.Id = "6cf0f22c-72cc-42a2-8271-25fc12804d62";
+            this.langBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.translate__1_)});
-            this.dropDown1.Location = new System.Drawing.Point(38, 2);
-            this.dropDown1.Name = "dropDown1";
-            this.dropDown1.Popup = this.popupMenu1;
-            this.dropDown1.Size = new System.Drawing.Size(98, 0);
-            this.dropDown1.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            this.langBtn.Location = new System.Drawing.Point(105, 2);
+            this.langBtn.Name = "langBtn";
+            this.langBtn.Popup = this.popupMenu1;
+            this.langBtn.Size = new System.Drawing.Size(66, 72);
+            this.langBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.translate)});
-            this.dropDown1.TabIndex = 0;
-            this.dropDown1.Text = "Select Language";
+            this.langBtn.TabIndex = 0;
+            this.langBtn.Text = "Select Language";
             // 
             // popupMenu1
             // 
@@ -630,7 +449,7 @@ namespace Server_Creation_Tool
             // 
             // engBtn
             // 
-            this.engBtn.Id = "d1995150-54c8-4c52-b321-35bc99b3ea75";
+            this.engBtn.Id = "11a748a4-49f9-4409-8865-9d3043cc81dc";
             this.engBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.icons8_great_britain_24)});
             this.engBtn.Location = new System.Drawing.Point(2, 2);
@@ -644,7 +463,7 @@ namespace Server_Creation_Tool
             // 
             // gerBtn
             // 
-            this.gerBtn.Id = "41a1c2bb-4473-4ba3-865c-63ee8869bf58";
+            this.gerBtn.Id = "e3a8d5e3-fce0-4a3f-af60-1c42d04a45e5";
             this.gerBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.icons8_germany_24)});
             this.gerBtn.Location = new System.Drawing.Point(2, 29);
@@ -656,37 +475,204 @@ namespace Server_Creation_Tool
             this.gerBtn.Text = "German";
             this.gerBtn.Click += new System.EventHandler(this.gerBtn_Click_1);
             // 
-            // currentOperRibGrp
+            // currentTaskRibGrp
             // 
-            this.currentOperRibGrp.Controls.Add(this.currentOperNameLbl);
-            this.currentOperRibGrp.Controls.Add(this.progressBar1);
-            this.currentOperRibGrp.Location = new System.Drawing.Point(363, 3);
-            this.currentOperRibGrp.Name = "currentOperRibGrp";
-            this.currentOperRibGrp.Size = new System.Drawing.Size(184, 94);
-            this.currentOperRibGrp.TabIndex = 3;
-            this.currentOperRibGrp.Text = "Current Task";
-            this.currentOperRibGrp.Visible = false;
+            this.currentTaskRibGrp.Controls.Add(this.currentTaskNameLbl);
+            this.currentTaskRibGrp.Controls.Add(this.progressBar1);
+            this.currentTaskRibGrp.Location = new System.Drawing.Point(363, 3);
+            this.currentTaskRibGrp.Name = "currentTaskRibGrp";
+            this.currentTaskRibGrp.Size = new System.Drawing.Size(194, 94);
+            this.currentTaskRibGrp.TabIndex = 3;
+            this.currentTaskRibGrp.Text = "Current Task";
+            this.currentTaskRibGrp.Visible = false;
             // 
-            // currentOperNameLbl
+            // currentTaskNameLbl
             // 
-            this.currentOperNameLbl.Location = new System.Drawing.Point(3, 2);
-            this.currentOperNameLbl.Name = "currentOperNameLbl";
-            this.currentOperNameLbl.Size = new System.Drawing.Size(97, 13);
-            this.currentOperNameLbl.TabIndex = 8;
-            this.currentOperNameLbl.Text = "OPERATION NAME";
+            this.currentTaskNameLbl.Location = new System.Drawing.Point(3, 2);
+            this.currentTaskNameLbl.Name = "currentTaskNameLbl";
+            this.currentTaskNameLbl.Size = new System.Drawing.Size(63, 24);
+            this.currentTaskNameLbl.TabIndex = 8;
+            this.currentTaskNameLbl.Text = "TASK NAME";
             // 
             // progressBar1
             // 
-            this.progressBar1.DesiredWidth = 175;
-            this.progressBar1.Id = "3f4e45a2-d670-4e07-9173-b946a77deeb4";
-            this.progressBar1.Location = new System.Drawing.Point(4, 15);
+            this.progressBar1.DesiredWidth = 185;
+            this.progressBar1.Id = "77834854-e80c-45bc-bb6f-1cafcd361cc1";
+            this.progressBar1.Location = new System.Drawing.Point(4, 26);
             this.progressBar1.MarqueeAnimationSpeed = 400;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(175, 12);
+            this.progressBar1.Size = new System.Drawing.Size(185, 12);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 7;
             this.progressBar1.Text = "progressBar1";
             this.progressBar1.Value = 50;
+            // 
+            // helpInfTab
+            // 
+            this.helpInfTab.Controls.Add(this.helpInfGrpBox);
+            this.helpInfTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.helpInfTab.KeyTip = null;
+            this.helpInfTab.Location = new System.Drawing.Point(0, 0);
+            this.helpInfTab.Name = "helpInfTab";
+            this.helpInfTab.Size = new System.Drawing.Size(629, 101);
+            this.helpInfTab.TabIndex = 0;
+            this.helpInfTab.Text = "Help-Information";
+            // 
+            // helpInfGrpBox
+            // 
+            this.helpInfGrpBox.Controls.Add(this.variousStuffBtn);
+            this.helpInfGrpBox.Controls.Add(this.faqBtn);
+            this.helpInfGrpBox.Controls.Add(this.serverGroupBtn);
+            this.helpInfGrpBox.Controls.Add(this.separator1);
+            this.helpInfGrpBox.Controls.Add(this.plannedFeaturesBtn);
+            this.helpInfGrpBox.Controls.Add(this.appLogsbtn);
+            this.helpInfGrpBox.Controls.Add(this.changeLogBtn);
+            this.helpInfGrpBox.Controls.Add(this.donateBtn);
+            this.helpInfGrpBox.Controls.Add(this.aboutBtn);
+            this.helpInfGrpBox.Location = new System.Drawing.Point(4, 3);
+            this.helpInfGrpBox.Name = "helpInfGrpBox";
+            this.helpInfGrpBox.Size = new System.Drawing.Size(378, 94);
+            this.helpInfGrpBox.TabIndex = 0;
+            this.helpInfGrpBox.Text = "Help-Information";
+            // 
+            // variousStuffBtn
+            // 
+            this.variousStuffBtn.Id = "0ef63bb6-3792-4208-aaef-0925b97c8eb5";
+            this.variousStuffBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.settings__4_)});
+            this.variousStuffBtn.Location = new System.Drawing.Point(142, 2);
+            this.variousStuffBtn.Name = "variousStuffBtn";
+            this.variousStuffBtn.Popup = this.popupMenu3;
+            this.variousStuffBtn.Size = new System.Drawing.Size(77, 0);
+            this.variousStuffBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.settings__4_)});
+            this.variousStuffBtn.TabIndex = 7;
+            this.variousStuffBtn.Text = "Various Stuff";
+            // 
+            // popupMenu3
+            // 
+            this.popupMenu3.Items.AddRange(new System.Windows.Forms.Control[] {
+            this.portFwRouterBtn});
+            this.popupMenu3.KeepPopupsWithOffsetPlacementWithinPlacementArea = false;
+            this.popupMenu3.PlacementMode = Elegant.Ui.PopupPlacementMode.Bottom;
+            this.popupMenu3.Size = new System.Drawing.Size(100, 100);
+            // 
+            // portFwRouterBtn
+            // 
+            this.portFwRouterBtn.Id = "4325dcb7-bc3a-4235-a11d-ccb2b560f3b3";
+            this.portFwRouterBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.port)});
+            this.portFwRouterBtn.Location = new System.Drawing.Point(2, 2);
+            this.portFwRouterBtn.Name = "portFwRouterBtn";
+            this.portFwRouterBtn.Size = new System.Drawing.Size(233, 23);
+            this.portFwRouterBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.Icon_20__2_)});
+            this.portFwRouterBtn.TabIndex = 3;
+            this.portFwRouterBtn.Text = "How to port forward your router";
+            this.portFwRouterBtn.Click += new System.EventHandler(this.button34_Click_1);
+            // 
+            // faqBtn
+            // 
+            this.faqBtn.Id = "28ce35f1-ceb3-4204-bc35-0b7fbd611ab5";
+            this.faqBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._1502)});
+            this.faqBtn.Location = new System.Drawing.Point(142, 2);
+            this.faqBtn.Name = "faqBtn";
+            this.faqBtn.Size = new System.Drawing.Size(30, 0);
+            this.faqBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._1502)});
+            this.faqBtn.TabIndex = 2;
+            this.faqBtn.Text = "FAQ";
+            this.faqBtn.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // serverGroupBtn
+            // 
+            this.serverGroupBtn.Id = "e14cf0e8-1259-4e46-a333-1d53fd6cd24d";
+            this.serverGroupBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.chat_group)});
+            this.serverGroupBtn.Location = new System.Drawing.Point(142, 2);
+            this.serverGroupBtn.Name = "serverGroupBtn";
+            this.serverGroupBtn.Size = new System.Drawing.Size(62, 0);
+            this.serverGroupBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.chat_group)});
+            this.serverGroupBtn.TabIndex = 1;
+            this.serverGroupBtn.Text = "Tool Group";
+            this.serverGroupBtn.Click += new System.EventHandler(this.serverGroupBtn_Click_1);
+            // 
+            // separator1
+            // 
+            this.separator1.Id = "ad8d34a0-5126-4a2d-9d97-db4c8517ccc4";
+            this.separator1.Location = new System.Drawing.Point(144, 7);
+            this.separator1.Name = "separator1";
+            this.separator1.Size = new System.Drawing.Size(2, 60);
+            this.separator1.TabIndex = 3;
+            this.separator1.Text = "separator1";
+            // 
+            // plannedFeaturesBtn
+            // 
+            this.plannedFeaturesBtn.Id = "3cc6cadf-f3da-445c-8337-012a84a808e3";
+            this.plannedFeaturesBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.pencil)});
+            this.plannedFeaturesBtn.Location = new System.Drawing.Point(142, 74);
+            this.plannedFeaturesBtn.Name = "plannedFeaturesBtn";
+            this.plannedFeaturesBtn.Size = new System.Drawing.Size(92, 0);
+            this.plannedFeaturesBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.pencil)});
+            this.plannedFeaturesBtn.TabIndex = 4;
+            this.plannedFeaturesBtn.Text = "Planned Features";
+            this.plannedFeaturesBtn.Click += new System.EventHandler(this.plannedFeaturesBtn_Click);
+            // 
+            // appLogsbtn
+            // 
+            this.appLogsbtn.Id = "68d1a90c-9eea-4b6b-9da0-e41db427e89b";
+            this.appLogsbtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._622)});
+            this.appLogsbtn.Location = new System.Drawing.Point(142, 74);
+            this.appLogsbtn.Name = "appLogsbtn";
+            this.appLogsbtn.Size = new System.Drawing.Size(54, 0);
+            this.appLogsbtn.TabIndex = 9;
+            this.appLogsbtn.Text = "App Logs";
+            this.appLogsbtn.Click += new System.EventHandler(this.button9_Click_1);
+            // 
+            // changeLogBtn
+            // 
+            this.changeLogBtn.Id = "3139bf5f-b471-47eb-ac8b-4b722eab6b98";
+            this.changeLogBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.CHECK_BOARD_48_48)});
+            this.changeLogBtn.Location = new System.Drawing.Point(142, 74);
+            this.changeLogBtn.Name = "changeLogBtn";
+            this.changeLogBtn.Size = new System.Drawing.Size(67, 0);
+            this.changeLogBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.CHECK_BOARD)});
+            this.changeLogBtn.TabIndex = 0;
+            this.changeLogBtn.Text = "Change Log";
+            this.changeLogBtn.Click += new System.EventHandler(this.changeLogBtn_Click_1);
+            // 
+            // donateBtn
+            // 
+            this.donateBtn.Id = "8308b23c-1734-40ae-aa36-345dadc5cda6";
+            this.donateBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", ((System.Drawing.Image)(resources.GetObject("donateBtn.LargeImages.Images"))))});
+            this.donateBtn.Location = new System.Drawing.Point(142, 74);
+            this.donateBtn.Name = "donateBtn";
+            this.donateBtn.Size = new System.Drawing.Size(44, 0);
+            this.donateBtn.TabIndex = 8;
+            this.donateBtn.Text = "Donate";
+            this.donateBtn.Click += new System.EventHandler(this.donateBtn_Click);
+            // 
+            // aboutBtn
+            // 
+            this.aboutBtn.Id = "58c1dfcf-a1c1-4cc3-bc6c-b5cbac8b4759";
+            this.aboutBtn.LargeImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._2191)});
+            this.aboutBtn.Location = new System.Drawing.Point(142, 74);
+            this.aboutBtn.Name = "aboutBtn";
+            this.aboutBtn.Size = new System.Drawing.Size(37, 0);
+            this.aboutBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
+            new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._2191)});
+            this.aboutBtn.TabIndex = 5;
+            this.aboutBtn.Text = "About";
+            this.aboutBtn.Click += new System.EventHandler(this.button6_Click);
             // 
             // formFrameSkinner
             // 
@@ -709,9 +695,9 @@ namespace Server_Creation_Tool
             // 
             this.groupBox2.BackColor = System.Drawing.Color.Transparent;
             this.groupBox2.Controls.Add(this.steamGameSrchBox);
-            this.groupBox2.Controls.Add(this.searchSteamGameLbl);
+            this.groupBox2.Controls.Add(this.searchGameLbl);
             this.groupBox2.Controls.Add(this.tabControl1);
-            this.groupBox2.Id = "378a1e9e-9e31-4eb5-9cc5-993b67792cbc";
+            this.groupBox2.Id = "80e3828c-b5ac-4319-ad5a-7ade73bcb6ed";
             this.groupBox2.Location = new System.Drawing.Point(1, 148);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(267, 257);
@@ -720,7 +706,7 @@ namespace Server_Creation_Tool
             // 
             // steamGameSrchBox
             // 
-            this.steamGameSrchBox.Id = "562008cb-6a95-4e59-8bee-cf4de4812db3";
+            this.steamGameSrchBox.Id = "fda031e4-5f0a-4bc7-bd87-2f91e76efced";
             this.steamGameSrchBox.Location = new System.Drawing.Point(149, 10);
             this.steamGameSrchBox.Name = "steamGameSrchBox";
             this.steamGameSrchBox.Size = new System.Drawing.Size(110, 21);
@@ -728,13 +714,13 @@ namespace Server_Creation_Tool
             this.steamGameSrchBox.TextEditorWidth = 104;
             this.steamGameSrchBox.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
-            // searchSteamGameLbl
+            // searchGameLbl
             // 
-            this.searchSteamGameLbl.Location = new System.Drawing.Point(80, 14);
-            this.searchSteamGameLbl.Name = "searchSteamGameLbl";
-            this.searchSteamGameLbl.Size = new System.Drawing.Size(68, 13);
-            this.searchSteamGameLbl.TabIndex = 0;
-            this.searchSteamGameLbl.Text = "Search game:";
+            this.searchGameLbl.Location = new System.Drawing.Point(80, 14);
+            this.searchGameLbl.Name = "searchGameLbl";
+            this.searchGameLbl.Size = new System.Drawing.Size(68, 13);
+            this.searchGameLbl.TabIndex = 0;
+            this.searchGameLbl.Text = "Search game:";
             // 
             // tabControl1
             // 
@@ -762,11 +748,15 @@ namespace Server_Creation_Tool
             // 
             // steamSvrNavBar
             // 
+            this.steamSvrNavBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.steamSvrNavBar.Controls.Add(this.welcomeBtn);
             this.steamSvrNavBar.Controls.Add(this.daysToDieBtn);
             this.steamSvrNavBar.Controls.Add(this.arkBtn);
-            this.steamSvrNavBar.Controls.Add(this.CODblackOpsThreeBtn);
-            this.steamSvrNavBar.Controls.Add(this.csOnePointsixBtn);
+            this.steamSvrNavBar.Controls.Add(this.atlasBtn);
+            this.steamSvrNavBar.Controls.Add(this.CodBo3Btn);
+            this.steamSvrNavBar.Controls.Add(this.cs16Btn);
             this.steamSvrNavBar.Controls.Add(this.CSsourceBtn);
             this.steamSvrNavBar.Controls.Add(this.CSGOBtn);
             this.steamSvrNavBar.Controls.Add(this.garrysModBtn);
@@ -777,19 +767,19 @@ namespace Server_Creation_Tool
             this.steamSvrNavBar.Controls.Add(this.RustBtn);
             this.steamSvrNavBar.Controls.Add(this.SvenCoopBtn);
             this.steamSvrNavBar.Controls.Add(this.synergyBtn);
-            this.steamSvrNavBar.Id = "c1c935da-2591-4245-ac58-354bafcd0120";
+            this.steamSvrNavBar.Controls.Add(this.unturnedBtn);
+            this.steamSvrNavBar.Id = "55a8b331-7488-48be-a11d-5a0c33070b68";
             this.steamSvrNavBar.Location = new System.Drawing.Point(2, 0);
             this.steamSvrNavBar.Name = "steamSvrNavBar";
             this.steamSvrNavBar.Size = new System.Drawing.Size(258, 201);
             this.steamSvrNavBar.TabIndex = 0;
-            this.steamSvrNavBar.Text = "navigationBar1";
             this.steamSvrNavBar.UseTabToNavigate = false;
             this.steamSvrNavBar.WrapNavigation = false;
             // 
             // welcomeBtn
             // 
             this.welcomeBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.welcomeBtn.Id = "374317c1-3547-4c4c-b593-3518c5db23a2";
+            this.welcomeBtn.Id = "ac9a18cf-7a87-462e-b7ef-1a0602d79d03";
             this.welcomeBtn.Location = new System.Drawing.Point(2, 2);
             this.welcomeBtn.Name = "welcomeBtn";
             this.welcomeBtn.Pressed = true;
@@ -807,7 +797,7 @@ namespace Server_Creation_Tool
             this.daysToDieBtn.CommandName = "";
             this.daysToDieBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.daysToDieBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.daysToDieBtn.Id = "494c093a-302d-422f-abf9-68e081bf4974";
+            this.daysToDieBtn.Id = "100755d3-fc2d-40da-a4cf-55a9e0220f45";
             this.daysToDieBtn.Location = new System.Drawing.Point(2, 33);
             this.daysToDieBtn.Name = "daysToDieBtn";
             this.daysToDieBtn.RadioGroupName = "NavigationBarToggleButtons";
@@ -822,7 +812,7 @@ namespace Server_Creation_Tool
             // arkBtn
             // 
             this.arkBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.arkBtn.Id = "c188fb2e-d0b2-45f2-8eb3-d9cc745369a3";
+            this.arkBtn.Id = "985f46f7-389d-422b-8a64-270f82350580";
             this.arkBtn.Location = new System.Drawing.Point(2, 60);
             this.arkBtn.Name = "arkBtn";
             this.arkBtn.RadioGroupName = "NavigationBarToggleButtons";
@@ -834,41 +824,55 @@ namespace Server_Creation_Tool
             this.arkBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.arkBtn.Click += new System.EventHandler(this.arkBtn_Click);
             // 
-            // CODblackOpsThreeBtn
+            // atlasBtn
             // 
-            this.CODblackOpsThreeBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.CODblackOpsThreeBtn.Id = "5683f765-34dc-42de-98a9-8571199ac3d2";
-            this.CODblackOpsThreeBtn.Location = new System.Drawing.Point(2, 87);
-            this.CODblackOpsThreeBtn.Name = "CODblackOpsThreeBtn";
-            this.CODblackOpsThreeBtn.RadioGroupName = "NavigationBarToggleButtons";
-            this.CODblackOpsThreeBtn.Size = new System.Drawing.Size(237, 25);
-            this.CODblackOpsThreeBtn.TabIndex = 3;
-            this.CODblackOpsThreeBtn.Tag = "bo3";
-            this.CODblackOpsThreeBtn.Text = "Call of Duty: Black Ops 3";
-            this.CODblackOpsThreeBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CODblackOpsThreeBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.CODblackOpsThreeBtn.Click += new System.EventHandler(this.CODblackOpsThreeBtn_Click);
+            this.atlasBtn.Id = "0cdbc559-2c0a-4560-ac22-8a73bd108b54";
+            this.atlasBtn.Location = new System.Drawing.Point(2, 87);
+            this.atlasBtn.Name = "atlasBtn";
+            this.atlasBtn.RadioGroupName = "NavigationBarToggleButtons";
+            this.atlasBtn.Size = new System.Drawing.Size(237, 25);
+            this.atlasBtn.TabIndex = 16;
+            this.atlasBtn.Tag = ".emtpyF";
+            this.atlasBtn.Text = "ATLAS";
+            this.atlasBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.atlasBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.atlasBtn.Click += new System.EventHandler(this.atlasBtn_Click);
             // 
-            // csOnePointsixBtn
+            // CodBo3Btn
             // 
-            this.csOnePointsixBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.csOnePointsixBtn.Id = "bdc74a35-5973-4afc-a2bb-6e8d7d0d8e72";
-            this.csOnePointsixBtn.Location = new System.Drawing.Point(2, 114);
-            this.csOnePointsixBtn.Name = "csOnePointsixBtn";
-            this.csOnePointsixBtn.RadioGroupName = "NavigationBarToggleButtons";
-            this.csOnePointsixBtn.Size = new System.Drawing.Size(237, 25);
-            this.csOnePointsixBtn.TabIndex = 4;
-            this.csOnePointsixBtn.Tag = "cs";
-            this.csOnePointsixBtn.Text = "Counter-Strike: 1.6";
-            this.csOnePointsixBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.csOnePointsixBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.csOnePointsixBtn.Click += new System.EventHandler(this.csOnePointsixBtn_Click);
+            this.CodBo3Btn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.CodBo3Btn.Id = "495d81f0-1c92-46d9-b644-24a8715126fd";
+            this.CodBo3Btn.Location = new System.Drawing.Point(2, 114);
+            this.CodBo3Btn.Name = "CodBo3Btn";
+            this.CodBo3Btn.RadioGroupName = "NavigationBarToggleButtons";
+            this.CodBo3Btn.Size = new System.Drawing.Size(237, 25);
+            this.CodBo3Btn.TabIndex = 3;
+            this.CodBo3Btn.Tag = "bo3";
+            this.CodBo3Btn.Text = "Call of Duty: Black Ops 3";
+            this.CodBo3Btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CodBo3Btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.CodBo3Btn.Click += new System.EventHandler(this.CODblackOpsThreeBtn_Click);
+            // 
+            // cs16Btn
+            // 
+            this.cs16Btn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.cs16Btn.Id = "188c972f-c7b0-4dce-be2e-9a52846c6685";
+            this.cs16Btn.Location = new System.Drawing.Point(2, 141);
+            this.cs16Btn.Name = "cs16Btn";
+            this.cs16Btn.RadioGroupName = "NavigationBarToggleButtons";
+            this.cs16Btn.Size = new System.Drawing.Size(237, 25);
+            this.cs16Btn.TabIndex = 4;
+            this.cs16Btn.Tag = "cs";
+            this.cs16Btn.Text = "Counter-Strike: 1.6";
+            this.cs16Btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cs16Btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cs16Btn.Click += new System.EventHandler(this.csOnePointsixBtn_Click);
             // 
             // CSsourceBtn
             // 
             this.CSsourceBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.CSsourceBtn.Id = "42ac0f8f-409a-45c2-86d7-1fed1e6fb269";
-            this.CSsourceBtn.Location = new System.Drawing.Point(2, 141);
+            this.CSsourceBtn.Id = "b8aea746-2381-4346-8c63-3282c6e7ebd7";
+            this.CSsourceBtn.Location = new System.Drawing.Point(2, 168);
             this.CSsourceBtn.Name = "CSsourceBtn";
             this.CSsourceBtn.RadioGroupName = "NavigationBarToggleButtons";
             this.CSsourceBtn.Size = new System.Drawing.Size(237, 25);
@@ -882,8 +886,8 @@ namespace Server_Creation_Tool
             // CSGOBtn
             // 
             this.CSGOBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.CSGOBtn.Id = "d4efdfda-e7b8-48c7-a131-bdcc1eb8f72e";
-            this.CSGOBtn.Location = new System.Drawing.Point(2, 168);
+            this.CSGOBtn.Id = "21ae176b-4478-487c-bd84-fa9bcbac13cf";
+            this.CSGOBtn.Location = new System.Drawing.Point(2, 195);
             this.CSGOBtn.Name = "CSGOBtn";
             this.CSGOBtn.RadioGroupName = "NavigationBarToggleButtons";
             this.CSGOBtn.Size = new System.Drawing.Size(237, 25);
@@ -897,8 +901,8 @@ namespace Server_Creation_Tool
             // garrysModBtn
             // 
             this.garrysModBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.garrysModBtn.Id = "da71cf5b-ca05-4c82-a6ff-bd382dab2329";
-            this.garrysModBtn.Location = new System.Drawing.Point(2, 195);
+            this.garrysModBtn.Id = "d2409877-e2f4-4060-9ee7-46a2b188318e";
+            this.garrysModBtn.Location = new System.Drawing.Point(2, 222);
             this.garrysModBtn.Name = "garrysModBtn";
             this.garrysModBtn.RadioGroupName = "NavigationBarToggleButtons";
             this.garrysModBtn.Size = new System.Drawing.Size(237, 25);
@@ -912,8 +916,8 @@ namespace Server_Creation_Tool
             // hurtWorldBtn
             // 
             this.hurtWorldBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.hurtWorldBtn.Id = "64445731-54ca-4884-a491-df6633d41c60";
-            this.hurtWorldBtn.Location = new System.Drawing.Point(2, 222);
+            this.hurtWorldBtn.Id = "f78ab720-2347-4165-a6da-49a5300393da";
+            this.hurtWorldBtn.Location = new System.Drawing.Point(2, 249);
             this.hurtWorldBtn.Name = "hurtWorldBtn";
             this.hurtWorldBtn.RadioGroupName = "NavigationBarToggleButtons";
             this.hurtWorldBtn.Size = new System.Drawing.Size(237, 25);
@@ -927,8 +931,8 @@ namespace Server_Creation_Tool
             // KillingFloorTwoBtn
             // 
             this.KillingFloorTwoBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.KillingFloorTwoBtn.Id = "bc2dae92-901b-4b4e-b227-a7831f81de2a";
-            this.KillingFloorTwoBtn.Location = new System.Drawing.Point(2, 249);
+            this.KillingFloorTwoBtn.Id = "65aa8032-940f-4ae8-83a4-b4e2380febc4";
+            this.KillingFloorTwoBtn.Location = new System.Drawing.Point(2, 276);
             this.KillingFloorTwoBtn.Name = "KillingFloorTwoBtn";
             this.KillingFloorTwoBtn.RadioGroupName = "NavigationBarToggleButtons";
             this.KillingFloorTwoBtn.Size = new System.Drawing.Size(237, 25);
@@ -942,8 +946,8 @@ namespace Server_Creation_Tool
             // l4dBtn
             // 
             this.l4dBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.l4dBtn.Id = "eac33f6a-5296-4791-99cd-fa30d87b5b58";
-            this.l4dBtn.Location = new System.Drawing.Point(2, 276);
+            this.l4dBtn.Id = "e271bded-110c-4fa9-8910-6363fdb7099c";
+            this.l4dBtn.Location = new System.Drawing.Point(2, 303);
             this.l4dBtn.Name = "l4dBtn";
             this.l4dBtn.RadioGroupName = "NavigationBarToggleButtons";
             this.l4dBtn.Size = new System.Drawing.Size(237, 25);
@@ -957,8 +961,8 @@ namespace Server_Creation_Tool
             // l4d2Btn
             // 
             this.l4d2Btn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.l4d2Btn.Id = "52f84a99-4470-4d42-b0bc-f13c994f27ba";
-            this.l4d2Btn.Location = new System.Drawing.Point(2, 303);
+            this.l4d2Btn.Id = "3a27024b-d3c7-4aa6-bb6c-1fbf7a7602c2";
+            this.l4d2Btn.Location = new System.Drawing.Point(2, 330);
             this.l4d2Btn.Name = "l4d2Btn";
             this.l4d2Btn.RadioGroupName = "NavigationBarToggleButtons";
             this.l4d2Btn.Size = new System.Drawing.Size(237, 25);
@@ -972,8 +976,8 @@ namespace Server_Creation_Tool
             // RustBtn
             // 
             this.RustBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.RustBtn.Id = "83056a08-f2d6-4634-a7e7-0e23dfed19c6";
-            this.RustBtn.Location = new System.Drawing.Point(2, 330);
+            this.RustBtn.Id = "18372002-66c5-4a33-9b2b-6dca479d0681";
+            this.RustBtn.Location = new System.Drawing.Point(2, 357);
             this.RustBtn.Name = "RustBtn";
             this.RustBtn.RadioGroupName = "NavigationBarToggleButtons";
             this.RustBtn.Size = new System.Drawing.Size(237, 25);
@@ -987,8 +991,8 @@ namespace Server_Creation_Tool
             // SvenCoopBtn
             // 
             this.SvenCoopBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.SvenCoopBtn.Id = "bf503d6c-d483-4aaf-9d0b-6f60c853a647";
-            this.SvenCoopBtn.Location = new System.Drawing.Point(2, 357);
+            this.SvenCoopBtn.Id = "ea65df30-78cf-4836-9eec-1a04e67ca347";
+            this.SvenCoopBtn.Location = new System.Drawing.Point(2, 384);
             this.SvenCoopBtn.Name = "SvenCoopBtn";
             this.SvenCoopBtn.RadioGroupName = "NavigationBarToggleButtons";
             this.SvenCoopBtn.Size = new System.Drawing.Size(237, 25);
@@ -1002,21 +1006,35 @@ namespace Server_Creation_Tool
             // synergyBtn
             // 
             this.synergyBtn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.synergyBtn.Id = "b6536169-5e9b-47a7-8971-8ada42204ffd";
-            this.synergyBtn.Location = new System.Drawing.Point(2, 384);
+            this.synergyBtn.Id = "9b42c672-1196-46c8-93ec-446b1663e144";
+            this.synergyBtn.Location = new System.Drawing.Point(2, 411);
             this.synergyBtn.Name = "synergyBtn";
             this.synergyBtn.RadioGroupName = "NavigationBarToggleButtons";
             this.synergyBtn.Size = new System.Drawing.Size(237, 25);
             this.synergyBtn.TabIndex = 14;
-            this.synergyBtn.Tag = "synergy";
+            this.synergyBtn.Tag = "noTag";
             this.synergyBtn.Text = "Synergy";
             this.synergyBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.synergyBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.synergyBtn.Visible = false;
             // 
+            // unturnedBtn
+            // 
+            this.unturnedBtn.Id = "62113d56-149c-476d-8b9f-627d881c9b1a";
+            this.unturnedBtn.Location = new System.Drawing.Point(2, 438);
+            this.unturnedBtn.Name = "unturnedBtn";
+            this.unturnedBtn.RadioGroupName = "NavigationBarToggleButtons";
+            this.unturnedBtn.Size = new System.Drawing.Size(237, 25);
+            this.unturnedBtn.TabIndex = 15;
+            this.unturnedBtn.Tag = "unturned";
+            this.unturnedBtn.Text = "Unturned";
+            this.unturnedBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.unturnedBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.unturnedBtn.Click += new System.EventHandler(this.unturnedBtn_Click);
+            // 
             // separator3
             // 
-            this.separator3.Id = "30c08f2c-1a8a-48af-b8b3-a199c45c2ca1";
+            this.separator3.Id = "b32e81c0-788e-4a08-b9a0-e03684a34f0a";
             this.separator3.Location = new System.Drawing.Point(8, -4);
             this.separator3.Name = "separator3";
             this.separator3.Orientation = Elegant.Ui.SeparatorOrientation.Horizontal;
@@ -1029,7 +1047,7 @@ namespace Server_Creation_Tool
             this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.KeyTip = null;
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(257, 193);
+            this.tabPage2.Size = new System.Drawing.Size(260, 203);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Other Servers";
             // 
@@ -1046,7 +1064,7 @@ namespace Server_Creation_Tool
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.textBox1.Id = "a6d447f7-8c6d-4bca-aafa-3754734ae39d";
+            this.textBox1.Id = "7e648fb2-3990-4c7e-a4e6-1c25a7ba960b";
             this.textBox1.Location = new System.Drawing.Point(4, 2);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -1058,7 +1076,7 @@ namespace Server_Creation_Tool
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Id = "0f4430c6-15d1-4ded-aa44-ada151a6f6f3";
+            this.groupBox1.Id = "d6dad4e3-7a00-41b0-b9e7-59c6265d138d";
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(200, 100);
@@ -1082,7 +1100,7 @@ namespace Server_Creation_Tool
             // 
             // button1
             // 
-            this.button1.Id = "3f30c86a-9b5c-4ad1-afe0-b7372a8fb5e2";
+            this.button1.Id = "40b313b4-2106-4cb6-bbbc-ec505217300f";
             this.button1.Location = new System.Drawing.Point(205, 69);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(193, 21);
@@ -1092,7 +1110,7 @@ namespace Server_Creation_Tool
             // 
             // button4
             // 
-            this.button4.Id = "f3c6c028-2b78-45ea-a5cf-e81a95ca4157";
+            this.button4.Id = "c06ab29a-06fb-4b49-8d37-a99e1ae68a95";
             this.button4.Location = new System.Drawing.Point(205, 91);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(193, 21);
@@ -1102,7 +1120,7 @@ namespace Server_Creation_Tool
             // 
             // button7
             // 
-            this.button7.Id = "83cd313f-936e-41a2-b658-de2df5579729";
+            this.button7.Id = "d85e1aef-00e1-4ea4-9536-1885611b32e7";
             this.button7.Location = new System.Drawing.Point(205, 3);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(193, 21);
@@ -1112,7 +1130,7 @@ namespace Server_Creation_Tool
             // 
             // button23
             // 
-            this.button23.Id = "41428d64-3bb0-4046-8fd2-f215769fa61c";
+            this.button23.Id = "863c6f6a-ff70-4335-82aa-4e1f413b947a";
             this.button23.Location = new System.Drawing.Point(205, 25);
             this.button23.Name = "button23";
             this.button23.Size = new System.Drawing.Size(193, 21);
@@ -1122,7 +1140,7 @@ namespace Server_Creation_Tool
             // 
             // button25
             // 
-            this.button25.Id = "5184cb6c-6560-453e-af82-d16330df2019";
+            this.button25.Id = "7251a2ee-29b4-459d-acc2-107751cc1729";
             this.button25.Location = new System.Drawing.Point(205, 47);
             this.button25.Name = "button25";
             this.button25.Size = new System.Drawing.Size(193, 21);
@@ -1132,7 +1150,7 @@ namespace Server_Creation_Tool
             // 
             // button3
             // 
-            this.button3.Id = "5676bd23-c17a-435f-a4a5-860ec45a5914";
+            this.button3.Id = "ed1a9fcc-5ecf-44ee-b9ce-ecf5298e78a4";
             this.button3.Location = new System.Drawing.Point(0, 0);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
@@ -1140,7 +1158,7 @@ namespace Server_Creation_Tool
             // 
             // button6
             // 
-            this.button6.Id = "fe3d17eb-8c9e-4618-bacf-d2a38230d862";
+            this.button6.Id = "6ba33833-dcc1-47b5-954a-014ce156e781";
             this.button6.Location = new System.Drawing.Point(0, 0);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
@@ -1148,7 +1166,7 @@ namespace Server_Creation_Tool
             // 
             // button21
             // 
-            this.button21.Id = "0b92fe5f-2c23-4274-9b43-42f86e389277";
+            this.button21.Id = "e2cd65fd-0db7-452a-968b-d857c1e76545";
             this.button21.Location = new System.Drawing.Point(0, 0);
             this.button21.Name = "button21";
             this.button21.Size = new System.Drawing.Size(75, 23);
@@ -1156,7 +1174,7 @@ namespace Server_Creation_Tool
             // 
             // button24
             // 
-            this.button24.Id = "89c1d9c8-d078-40b6-a4ce-d358bc96c4e6";
+            this.button24.Id = "8c38544a-6d15-4064-97e9-aeaaa3710796";
             this.button24.Location = new System.Drawing.Point(0, 0);
             this.button24.Name = "button24";
             this.button24.Size = new System.Drawing.Size(75, 23);
@@ -1164,7 +1182,7 @@ namespace Server_Creation_Tool
             // 
             // button26
             // 
-            this.button26.Id = "2ee3d875-7a5d-410a-ba8e-74a813b014e9";
+            this.button26.Id = "8af91525-21c4-4e2e-a081-9e47e3aefc99";
             this.button26.Location = new System.Drawing.Point(0, 0);
             this.button26.Name = "button26";
             this.button26.Size = new System.Drawing.Size(75, 23);
@@ -1172,7 +1190,7 @@ namespace Server_Creation_Tool
             // 
             // button27
             // 
-            this.button27.Id = "788071e9-8f4a-47c5-b0e8-7d0513eef2aa";
+            this.button27.Id = "b3858852-c9dc-454e-9619-afd67f8452c0";
             this.button27.Location = new System.Drawing.Point(0, 0);
             this.button27.Name = "button27";
             this.button27.Size = new System.Drawing.Size(75, 23);
@@ -1180,7 +1198,7 @@ namespace Server_Creation_Tool
             // 
             // button28
             // 
-            this.button28.Id = "b1100076-1cb0-4f8d-9914-d76c03f015d4";
+            this.button28.Id = "ac690cbc-e559-41c8-8854-874ee3b460a8";
             this.button28.Location = new System.Drawing.Point(0, 0);
             this.button28.Name = "button28";
             this.button28.Size = new System.Drawing.Size(75, 23);
@@ -1188,7 +1206,7 @@ namespace Server_Creation_Tool
             // 
             // button29
             // 
-            this.button29.Id = "540f4055-94eb-4f71-8294-7b59a213843e";
+            this.button29.Id = "ba73769b-f61c-4f56-be0f-329b3a163818";
             this.button29.Location = new System.Drawing.Point(0, 0);
             this.button29.Name = "button29";
             this.button29.Size = new System.Drawing.Size(75, 23);
@@ -1196,71 +1214,78 @@ namespace Server_Creation_Tool
             // 
             // button30
             // 
-            this.button30.Id = "213fe207-3f50-4ce7-ac69-859875f4dd05";
+            this.button30.Id = "2dc5ab87-2698-4c36-beae-447c8ee6d1fd";
             this.button30.Location = new System.Drawing.Point(0, 0);
             this.button30.Name = "button30";
             this.button30.Size = new System.Drawing.Size(75, 23);
             this.button30.TabIndex = 0;
             // 
-            // updtTimer
-            // 
-            this.updtTimer.Enabled = true;
-            this.updtTimer.Interval = 1300;
-            this.updtTimer.Tick += new System.EventHandler(this.updtTimer_Tick);
-            // 
             // separator2
             // 
-            this.separator2.Id = "fb7ba343-ae55-4d35-96aa-80c376b13bf0";
+            this.separator2.Id = "723a6092-5b0a-49ce-9637-59136bd47f44";
             this.separator2.Location = new System.Drawing.Point(0, 0);
             this.separator2.Name = "separator2";
             this.separator2.Size = new System.Drawing.Size(100, 23);
             this.separator2.TabIndex = 0;
             // 
-            // srvPanelGrpBox
+            // panel1
             // 
-            this.srvPanelGrpBox.Controls.Add(this.groupBox7);
-            this.srvPanelGrpBox.Controls.Add(this.extraGrpBox);
-            this.srvPanelGrpBox.Controls.Add(this.groupBox5);
-            this.srvPanelGrpBox.Controls.Add(this.gameImgPicBox);
-            this.srvPanelGrpBox.Controls.Add(this.actionsGrpBox);
-            this.srvPanelGrpBox.Id = "495c98b0-9f89-42c4-adb6-15450ca4f11f";
-            this.srvPanelGrpBox.Location = new System.Drawing.Point(1, 0);
-            this.srvPanelGrpBox.Name = "srvPanelGrpBox";
-            this.srvPanelGrpBox.Size = new System.Drawing.Size(360, 257);
-            this.srvPanelGrpBox.TabIndex = 25;
-            this.srvPanelGrpBox.Text = "SELECT A GAME ";
-            this.srvPanelGrpBox.Visible = false;
+            this.panel1.Controls.Add(this.serverPnl);
+            this.panel1.Controls.Add(this.button16);
+            this.panel1.Controls.Add(this.groupBox3);
+            this.panel1.Controls.Add(this.basicInstrLbl);
+            this.panel1.Controls.Add(this.basicInstrTxtBox);
+            this.panel1.Location = new System.Drawing.Point(267, 148);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(362, 257);
+            this.panel1.TabIndex = 26;
+            this.panel1.Text = "panel1";
+            // 
+            // serverPnl
+            // 
+            this.serverPnl.Controls.Add(this.groupBox7);
+            this.serverPnl.Controls.Add(this.extraGrpBox);
+            this.serverPnl.Controls.Add(this.groupBox5);
+            this.serverPnl.Controls.Add(this.gameImgPicBox);
+            this.serverPnl.Controls.Add(this.actionsGrpBox);
+            this.serverPnl.Id = "9c35aab6-3195-4bff-99b9-00c9be860aec";
+            this.serverPnl.Location = new System.Drawing.Point(186, 220);
+            this.serverPnl.Name = "serverPnl";
+            this.serverPnl.Size = new System.Drawing.Size(360, 257);
+            this.serverPnl.TabIndex = 25;
+            this.serverPnl.Text = "SERVER_NAME";
+            this.serverPnl.Visible = false;
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.label2);
-            this.groupBox7.Controls.Add(this.srvTxtBox);
-            this.groupBox7.Id = "8c7f9d00-ee88-477f-92c8-e941e83f2e1a";
+            this.groupBox7.Controls.Add(this.srvSizeLbl);
+            this.groupBox7.Controls.Add(this.srvSizeTxtBox);
+            this.groupBox7.Id = "01b13104-461f-4676-9eaf-ad88d6dac816";
             this.groupBox7.Location = new System.Drawing.Point(130, 123);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(107, 68);
+            this.groupBox7.Size = new System.Drawing.Size(104, 68);
             this.groupBox7.TabIndex = 6;
             this.groupBox7.Text = "Server Info";
             // 
-            // label2
+            // srvSizeLbl
             // 
-            this.label2.Location = new System.Drawing.Point(40, 17);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(26, 15);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Size:";
+            this.srvSizeLbl.Location = new System.Drawing.Point(40, 17);
+            this.srvSizeLbl.Name = "srvSizeLbl";
+            this.srvSizeLbl.Size = new System.Drawing.Size(26, 15);
+            this.srvSizeLbl.TabIndex = 0;
+            this.srvSizeLbl.Text = "Size:";
             // 
-            // srvTxtBox
+            // srvSizeTxtBox
             // 
-            this.srvTxtBox.Id = "f38f7882-e9bd-4ba0-8ba4-b803e38b2d73";
-            this.srvTxtBox.Location = new System.Drawing.Point(14, 32);
-            this.srvTxtBox.Name = "srvTxtBox";
-            this.srvTxtBox.ReadOnly = true;
-            this.srvTxtBox.Size = new System.Drawing.Size(80, 21);
-            this.srvTxtBox.TabIndex = 1;
-            this.srvTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.srvTxtBox.TextEditorWidth = 74;
-            this.srvTxtBox.UseVisualThemeForForeground = false;
+            this.srvSizeTxtBox.Id = "9eff4d81-0c27-43f3-b2a8-08b20386e24f";
+            this.srvSizeTxtBox.Location = new System.Drawing.Point(14, 32);
+            this.srvSizeTxtBox.Name = "srvSizeTxtBox";
+            this.srvSizeTxtBox.ReadOnly = true;
+            this.srvSizeTxtBox.Size = new System.Drawing.Size(80, 21);
+            this.srvSizeTxtBox.TabIndex = 1;
+            this.srvSizeTxtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.srvSizeTxtBox.TextEditorWidth = 74;
+            this.srvSizeTxtBox.UseVisualThemeForForeground = false;
             // 
             // extraGrpBox
             // 
@@ -1269,7 +1294,7 @@ namespace Server_Creation_Tool
             this.extraGrpBox.Controls.Add(this.extraBtn2);
             this.extraGrpBox.Controls.Add(this.extraBtn1);
             this.extraGrpBox.Controls.Add(this.instGuideBtn);
-            this.extraGrpBox.Id = "5985e57f-53ed-4dc0-b11e-99e130e0cf2d";
+            this.extraGrpBox.Id = "756d47e8-ee3a-4ea7-8ded-1eb8fccdcf0d";
             this.extraGrpBox.Location = new System.Drawing.Point(3, 123);
             this.extraGrpBox.Name = "extraGrpBox";
             this.extraGrpBox.Size = new System.Drawing.Size(126, 134);
@@ -1279,7 +1304,7 @@ namespace Server_Creation_Tool
             // extraBtn4
             // 
             this.extraBtn4.CommandName = "extraBtn4Cmd";
-            this.extraBtn4.Id = "3ca315cb-92ef-4582-8a7b-35c6dc870a83";
+            this.extraBtn4.Id = "85d15f2b-84d5-4eb5-81b5-6b6f82f2c0e3";
             this.extraBtn4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.extraBtn4.Location = new System.Drawing.Point(3, 109);
             this.extraBtn4.Name = "extraBtn4";
@@ -1290,7 +1315,7 @@ namespace Server_Creation_Tool
             // extraBtn3
             // 
             this.extraBtn3.CommandName = "extraBtn3Cmd";
-            this.extraBtn3.Id = "dc9b6e34-c85b-4ca1-bc85-232ab5642c42";
+            this.extraBtn3.Id = "b74b4b34-0818-46af-aa87-3d50c66be743";
             this.extraBtn3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.extraBtn3.Location = new System.Drawing.Point(3, 85);
             this.extraBtn3.Name = "extraBtn3";
@@ -1301,7 +1326,7 @@ namespace Server_Creation_Tool
             // extraBtn2
             // 
             this.extraBtn2.CommandName = "extraBtn2Cmd";
-            this.extraBtn2.Id = "9f447427-ab32-4fe4-a753-7d1639316947";
+            this.extraBtn2.Id = "88c218d6-99ef-4c24-9510-31b2ce5a5b9c";
             this.extraBtn2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.extraBtn2.Location = new System.Drawing.Point(3, 61);
             this.extraBtn2.Name = "extraBtn2";
@@ -1312,18 +1337,18 @@ namespace Server_Creation_Tool
             // extraBtn1
             // 
             this.extraBtn1.CommandName = "extraBtn1Cmd";
-            this.extraBtn1.Id = "1608facb-1659-4f3d-8500-cf891f38bd91";
+            this.extraBtn1.Id = "ba58be1a-58ab-4bc9-922e-bd59999f999b";
             this.extraBtn1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.extraBtn1.Location = new System.Drawing.Point(3, 37);
             this.extraBtn1.Name = "extraBtn1";
             this.extraBtn1.Size = new System.Drawing.Size(120, 23);
             this.extraBtn1.TabIndex = 4;
-            this.extraBtn1.Text = "extraBtn1";
+            this.extraBtn1.Text = "Premade server.cfg file";
             // 
             // instGuideBtn
             // 
-            this.instGuideBtn.CommandName = "instGuideSrv";
-            this.instGuideBtn.Id = "19f15f10-a024-445e-8977-169184e2552c";
+            this.instGuideBtn.CommandName = "";
+            this.instGuideBtn.Id = "ef8a40e2-27c2-485b-840e-84c59bb0043d";
             this.instGuideBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.instGuideBtn.Location = new System.Drawing.Point(3, 13);
             this.instGuideBtn.Name = "instGuideBtn";
@@ -1331,13 +1356,14 @@ namespace Server_Creation_Tool
             this.instGuideBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._1091)});
             this.instGuideBtn.TabIndex = 2;
+            this.instGuideBtn.Tag = "guide";
             this.instGuideBtn.Text = "   Installation Guide";
             this.instGuideBtn.Click += new System.EventHandler(this.instGuideBtn_Click);
             // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.installSvrBtn);
-            this.groupBox5.Id = "1b4fcd40-0061-4997-b0f0-5d337b6c91d2";
+            this.groupBox5.Id = "119abb03-245e-4ca8-a205-d345049ecd96";
             this.groupBox5.Location = new System.Drawing.Point(3, 83);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(115, 40);
@@ -1346,9 +1372,9 @@ namespace Server_Creation_Tool
             // installSvrBtn
             // 
             this.installSvrBtn.CommandName = "InstallServerBtn";
-            this.installSvrBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.installSvrBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.installSvrBtn.ForeColor = System.Drawing.Color.Green;
-            this.installSvrBtn.Id = "5062984b-2591-46f3-bfda-68a0e57989a8";
+            this.installSvrBtn.Id = "30b8ad99-c041-43eb-b076-73c5fb7300cb";
             this.installSvrBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.installSvrBtn.Location = new System.Drawing.Point(3, 4);
             this.installSvrBtn.Name = "installSvrBtn";
@@ -1364,7 +1390,7 @@ namespace Server_Creation_Tool
             this.gameImgPicBox.BackColor = System.Drawing.Color.Transparent;
             this.gameImgPicBox.BackgroundImage = global::Server_Creation_Tool.Properties.Resources._7DaysToDie_logo;
             this.gameImgPicBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.gameImgPicBox.Location = new System.Drawing.Point(17, 12);
+            this.gameImgPicBox.Location = new System.Drawing.Point(9, 11);
             this.gameImgPicBox.Name = "gameImgPicBox";
             this.gameImgPicBox.Size = new System.Drawing.Size(322, 69);
             this.gameImgPicBox.TabIndex = 3;
@@ -1378,17 +1404,17 @@ namespace Server_Creation_Tool
             this.actionsGrpBox.Controls.Add(this.openFoldBtn);
             this.actionsGrpBox.Controls.Add(this.updtSvrBtn);
             this.actionsGrpBox.Controls.Add(this.delBtn);
-            this.actionsGrpBox.Id = "319350b1-cc98-4d8f-8f7b-3c1069d1824a";
-            this.actionsGrpBox.Location = new System.Drawing.Point(238, 81);
+            this.actionsGrpBox.Id = "fc599d8b-c74a-4e5e-95a9-3c5f5e283753";
+            this.actionsGrpBox.Location = new System.Drawing.Point(235, 81);
             this.actionsGrpBox.Name = "actionsGrpBox";
-            this.actionsGrpBox.Size = new System.Drawing.Size(119, 138);
+            this.actionsGrpBox.Size = new System.Drawing.Size(123, 138);
             this.actionsGrpBox.TabIndex = 2;
             this.actionsGrpBox.Text = "Actions";
             // 
             // act_Btn1
             // 
             this.act_Btn1.CommandName = "deleteSrv";
-            this.act_Btn1.Id = "a9d7e1fe-3a41-4506-b784-10caa0b6eced";
+            this.act_Btn1.Id = "85286d3f-17ba-4a98-9914-294e1d8ec0a0";
             this.act_Btn1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.act_Btn1.Location = new System.Drawing.Point(4, 135);
             this.act_Btn1.Name = "act_Btn1";
@@ -1400,97 +1426,89 @@ namespace Server_Creation_Tool
             // editSettingsDropBtn
             // 
             this.editSettingsDropBtn.CommandName = "editConfSrv";
-            this.editSettingsDropBtn.Id = "972bdc11-b09c-4478-9123-1a8e507fcffa";
+            this.editSettingsDropBtn.Id = "951da695-21f0-4580-901d-9d16659dce4d";
             this.editSettingsDropBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.editSettingsDropBtn.Location = new System.Drawing.Point(4, 111);
             this.editSettingsDropBtn.Name = "editSettingsDropBtn";
             this.editSettingsDropBtn.Popup = this.popupMenu4;
-            this.editSettingsDropBtn.Size = new System.Drawing.Size(112, 23);
+            this.editSettingsDropBtn.Size = new System.Drawing.Size(116, 23);
             this.editSettingsDropBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._1645)});
             this.editSettingsDropBtn.TabIndex = 8;
             this.editSettingsDropBtn.Text = "    Edit settings";
             this.editSettingsDropBtn.WordWrap = true;
-            this.editSettingsDropBtn.Click += new System.EventHandler(this.editSettingsDropBtn_Click);
             // 
             // popupMenu4
             // 
             this.popupMenu4.Items.AddRange(new System.Windows.Forms.Control[] {
             this.easyStgBtn,
+            this.button8,
+            this.button9,
             this.button10,
-            this.button12,
-            this.button13,
-            this.button14});
+            this.button12});
             this.popupMenu4.KeepPopupsWithOffsetPlacementWithinPlacementArea = false;
             this.popupMenu4.PlacementMode = Elegant.Ui.PopupPlacementMode.Bottom;
             this.popupMenu4.Size = new System.Drawing.Size(100, 100);
             // 
             // easyStgBtn
             // 
-            this.easyStgBtn.CommandName = "easyStgBtnCmd";
-            this.easyStgBtn.Id = "113e9c01-0247-46e0-af12-86910ed83a52";
+            this.easyStgBtn.Id = "9224e92b-fef1-4f23-9ef6-3660a70673cb";
             this.easyStgBtn.Location = new System.Drawing.Point(2, 2);
             this.easyStgBtn.Name = "easyStgBtn";
-            this.easyStgBtn.Size = new System.Drawing.Size(160, 23);
+            this.easyStgBtn.Size = new System.Drawing.Size(161, 23);
             this.easyStgBtn.TabIndex = 3;
-            this.easyStgBtn.Tag = "stgDrp_easyStgEditBtn";
-            this.easyStgBtn.Text = "Easy settings editor";
-            this.easyStgBtn.Click += new System.EventHandler(this.button9_Click);
+            this.easyStgBtn.Tag = "0";
+            this.easyStgBtn.Text = "Easy Settings Editor";
+            this.easyStgBtn.Visible = false;
+            // 
+            // button8
+            // 
+            this.button8.Id = "1d40e929-aecd-4d50-a89c-32b6b4569793";
+            this.button8.Location = new System.Drawing.Point(2, 25);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(161, 23);
+            this.button8.TabIndex = 4;
+            this.button8.Tag = "1";
+            this.button8.Text = "button8";
+            // 
+            // button9
+            // 
+            this.button9.Id = "6b42cb43-11e5-4778-8310-6a8ef0416569";
+            this.button9.Location = new System.Drawing.Point(2, 48);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(161, 23);
+            this.button9.TabIndex = 5;
+            this.button9.Tag = "2";
+            this.button9.Text = "button9";
             // 
             // button10
             // 
-            this.button10.CommandName = "editConfSrv";
-            this.button10.Id = "46ae873a-fca9-4baf-bdc5-1c60db31f3ad";
-            this.button10.Location = new System.Drawing.Point(2, 25);
+            this.button10.Id = "51cecd83-5e58-4448-8dd5-62d03d2a6ea4";
+            this.button10.Location = new System.Drawing.Point(2, 71);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(160, 23);
-            this.button10.TabIndex = 4;
-            this.button10.Tag = "stgDrp";
+            this.button10.Size = new System.Drawing.Size(161, 23);
+            this.button10.TabIndex = 6;
+            this.button10.Tag = "3";
             this.button10.Text = "button10";
-            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button12
             // 
-            this.button12.CommandName = "editConfSrv";
-            this.button12.Id = "7b8e9bd9-eeb6-4eb5-8d34-aacac73367db";
-            this.button12.Location = new System.Drawing.Point(2, 48);
+            this.button12.Id = "1ae8a63b-0d01-4918-acf0-2cc68a05e189";
+            this.button12.Location = new System.Drawing.Point(2, 94);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(160, 23);
-            this.button12.TabIndex = 6;
-            this.button12.Tag = "stgDrp";
+            this.button12.Size = new System.Drawing.Size(161, 23);
+            this.button12.TabIndex = 7;
+            this.button12.Tag = "4";
             this.button12.Text = "button12";
-            this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
-            // button13
-            // 
-            this.button13.CommandName = "editConfSrv";
-            this.button13.Id = "8963af42-003d-4d9f-9d30-a2d76b0160cd";
-            this.button13.Location = new System.Drawing.Point(2, 71);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(160, 23);
-            this.button13.TabIndex = 7;
-            this.button13.Tag = "stgDrp";
-            this.button13.Text = "button13";
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
-            // button14
-            // 
-            this.button14.Id = "15f7006c-dfb3-4774-aa87-3d4737721a08";
-            this.button14.Location = new System.Drawing.Point(2, 94);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(160, 23);
-            this.button14.TabIndex = 9;
-            this.button14.Text = "button14";
-            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // reinstBtn
             // 
             this.reinstBtn.CommandName = "reinstallSrv";
-            this.reinstBtn.Id = "01dbccaa-503a-4133-9a0f-9d44c8d4f052";
+            this.reinstBtn.Id = "c23115bb-f7b2-42d9-b9b0-96e83109bb92";
             this.reinstBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.reinstBtn.Location = new System.Drawing.Point(4, 39);
             this.reinstBtn.Name = "reinstBtn";
-            this.reinstBtn.Size = new System.Drawing.Size(112, 23);
+            this.reinstBtn.Size = new System.Drawing.Size(116, 23);
             this.reinstBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._2233)});
             this.reinstBtn.TabIndex = 4;
@@ -1499,11 +1517,11 @@ namespace Server_Creation_Tool
             // openFoldBtn
             // 
             this.openFoldBtn.CommandName = "openFoldSrv";
-            this.openFoldBtn.Id = "b9182e27-e47b-4e8f-ade5-91cb9ceed3cb";
+            this.openFoldBtn.Id = "ddf33851-4e1c-4918-8731-79ee8ef6b554";
             this.openFoldBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.openFoldBtn.Location = new System.Drawing.Point(4, 63);
             this.openFoldBtn.Name = "openFoldBtn";
-            this.openFoldBtn.Size = new System.Drawing.Size(112, 23);
+            this.openFoldBtn.Size = new System.Drawing.Size(116, 23);
             this.openFoldBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._468)});
             this.openFoldBtn.TabIndex = 1;
@@ -1513,11 +1531,11 @@ namespace Server_Creation_Tool
             // updtSvrBtn
             // 
             this.updtSvrBtn.CommandName = "updateSrv";
-            this.updtSvrBtn.Id = "78fbd6dc-8cbf-4b00-bf0c-2948e0e71fe8";
+            this.updtSvrBtn.Id = "6b144d59-642a-434e-91d8-519024bd707d";
             this.updtSvrBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.updtSvrBtn.Location = new System.Drawing.Point(4, 15);
             this.updtSvrBtn.Name = "updtSvrBtn";
-            this.updtSvrBtn.Size = new System.Drawing.Size(112, 23);
+            this.updtSvrBtn.Size = new System.Drawing.Size(116, 23);
             this.updtSvrBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources.refresh16x16)});
             this.updtSvrBtn.TabIndex = 0;
@@ -1526,82 +1544,71 @@ namespace Server_Creation_Tool
             // delBtn
             // 
             this.delBtn.CommandName = "deleteSrv";
-            this.delBtn.Id = "dfb0f3ea-d8de-4953-9596-f2e086b8574c";
+            this.delBtn.Id = "2a3fd4f5-5c1b-45fd-bcdc-adaa776165f2";
             this.delBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.delBtn.Location = new System.Drawing.Point(4, 87);
             this.delBtn.Name = "delBtn";
-            this.delBtn.Size = new System.Drawing.Size(112, 23);
+            this.delBtn.Size = new System.Drawing.Size(116, 23);
             this.delBtn.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", global::Server_Creation_Tool.Properties.Resources._1263)});
             this.delBtn.TabIndex = 2;
             this.delBtn.Tag = "sgtDrp";
             this.delBtn.Text = " Delete";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.srvPanelGrpBox);
-            this.panel1.Controls.Add(this.button16);
-            this.panel1.Controls.Add(this.groupBox3);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.basicInstrTxtBox);
-            this.panel1.Location = new System.Drawing.Point(267, 148);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(362, 257);
-            this.panel1.TabIndex = 26;
-            this.panel1.Text = "panel1";
+            this.delBtn.Click += new System.EventHandler(this.delBtn_Click);
             // 
             // button16
             // 
-            this.button16.Id = "37e59111-0b26-4a97-aa3a-8e66f64b86fd";
+            this.button16.Id = "c0f9687f-f565-4f4d-baa3-0fe0893fe243";
             this.button16.Location = new System.Drawing.Point(9, 77);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(109, 39);
             this.button16.SmallImages.Images.AddRange(new Elegant.Ui.ControlImage[] {
             new Elegant.Ui.ControlImage("Normal", ((System.Drawing.Image)(resources.GetObject("button16.SmallImages.Images"))))});
             this.button16.TabIndex = 33;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Id = "090d8a8c-eb49-4cc2-895b-6ffc57ab53d0";
+            this.groupBox3.Controls.Add(this.welcomeLbl);
+            this.groupBox3.Controls.Add(this.welcomeDesclbl);
+            this.groupBox3.Id = "5d5e9b40-f0a2-48ae-b5ca-66c4098d502a";
             this.groupBox3.Location = new System.Drawing.Point(3, 6);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(355, 69);
             this.groupBox3.TabIndex = 31;
             // 
-            // label4
+            // welcomeLbl
             // 
-            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label4.Location = new System.Drawing.Point(17, 3);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(317, 25);
-            this.label4.TabIndex = 29;
-            this.label4.Text = "Welcome to Server Creation Tool 3.1";
+            this.welcomeLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 12.22F, System.Drawing.FontStyle.Bold);
+            this.welcomeLbl.Location = new System.Drawing.Point(39, 4);
+            this.welcomeLbl.Name = "welcomeLbl";
+            this.welcomeLbl.Size = new System.Drawing.Size(277, 25);
+            this.welcomeLbl.TabIndex = 29;
+            this.welcomeLbl.Text = "Welcome to Server Creation Tool 3.1";
             // 
-            // label5
+            // welcomeDesclbl
             // 
-            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label5.Location = new System.Drawing.Point(34, 30);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(281, 39);
-            this.label5.TabIndex = 30;
-            this.label5.Text = "This tool allows you to download, install and manage\r\n      steam and non-steam s" +
+            this.welcomeDesclbl.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.welcomeDesclbl.Location = new System.Drawing.Point(34, 30);
+            this.welcomeDesclbl.Name = "welcomeDesclbl";
+            this.welcomeDesclbl.Size = new System.Drawing.Size(281, 39);
+            this.welcomeDesclbl.TabIndex = 30;
+            this.welcomeDesclbl.Text = "This tool allows you to download, install and manage\r\n      steam and non-steam s" +
     "ervers quick and easy.";
             // 
-            // label3
+            // basicInstrLbl
             // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label3.Location = new System.Drawing.Point(135, 103);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(98, 15);
-            this.label3.TabIndex = 28;
-            this.label3.Text = "Basic Instructions:";
+            this.basicInstrLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.basicInstrLbl.Location = new System.Drawing.Point(133, 103);
+            this.basicInstrLbl.Name = "basicInstrLbl";
+            this.basicInstrLbl.Size = new System.Drawing.Size(98, 15);
+            this.basicInstrLbl.TabIndex = 28;
+            this.basicInstrLbl.Text = "Basic Instructions:";
             // 
             // basicInstrTxtBox
             // 
             this.basicInstrTxtBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.basicInstrTxtBox.Id = "8f75761a-4259-4537-aecd-69480e8ac8ab";
+            this.basicInstrTxtBox.Id = "4c33a4bb-dc0c-4f36-bfee-73e24ac6ec87";
             this.basicInstrTxtBox.Location = new System.Drawing.Point(7, 119);
             this.basicInstrTxtBox.Multiline = true;
             this.basicInstrTxtBox.Name = "basicInstrTxtBox";
@@ -1610,6 +1617,7 @@ namespace Server_Creation_Tool
             this.basicInstrTxtBox.TabIndex = 27;
             this.basicInstrTxtBox.Text = resources.GetString("basicInstrTxtBox.Text");
             this.basicInstrTxtBox.TextEditorWidth = 344;
+            this.basicInstrTxtBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.basicInstrTxtBox_KeyDown);
             // 
             // nonSteamServerTimer
             // 
@@ -1624,18 +1632,18 @@ namespace Server_Creation_Tool
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Tips-Info";
             // 
+            // slowTimer
+            // 
+            this.slowTimer.Enabled = true;
+            this.slowTimer.Interval = 12000;
+            this.slowTimer.Tick += new System.EventHandler(this.logTimer_Tick);
+            // 
             // editServerSettigsToolStripMenuItem
             // 
             this.editServerSettigsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("editServerSettigsToolStripMenuItem.Image")));
             this.editServerSettigsToolStripMenuItem.Name = "editServerSettigsToolStripMenuItem";
             this.editServerSettigsToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.editServerSettigsToolStripMenuItem.Text = "Edit Server Settings";
-            // 
-            // logTimer
-            // 
-            this.logTimer.Enabled = true;
-            this.logTimer.Interval = 10000;
-            this.logTimer.Tick += new System.EventHandler(this.logTimer_Tick);
             // 
             // MainForm
             // 
@@ -1661,13 +1669,6 @@ namespace Server_Creation_Tool
             ((System.ComponentModel.ISupportInitialize)(this.ribbonGroup6)).EndInit();
             this.ribbonGroup6.ResumeLayout(false);
             this.ribbonGroup6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.langRibbon)).EndInit();
-            this.langRibbon.ResumeLayout(false);
-            this.langRibbon.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ribbonGroup1)).EndInit();
-            this.ribbonGroup1.ResumeLayout(false);
-            this.ribbonGroup1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.popupMenu3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainTabPage)).EndInit();
             this.mainTabPage.ResumeLayout(false);
             this.mainTabPage.PerformLayout();
@@ -1679,9 +1680,16 @@ namespace Server_Creation_Tool
             this.optionsRibbon.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.currentOperRibGrp)).EndInit();
-            this.currentOperRibGrp.ResumeLayout(false);
-            this.currentOperRibGrp.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.currentTaskRibGrp)).EndInit();
+            this.currentTaskRibGrp.ResumeLayout(false);
+            this.currentTaskRibGrp.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.helpInfTab)).EndInit();
+            this.helpInfTab.ResumeLayout(false);
+            this.helpInfTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.helpInfGrpBox)).EndInit();
+            this.helpInfGrpBox.ResumeLayout(false);
+            this.helpInfGrpBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.popupMenu3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonGroup4)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -1692,7 +1700,9 @@ namespace Server_Creation_Tool
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.srvPanelGrpBox.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.serverPnl.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.extraGrpBox.ResumeLayout(false);
@@ -1700,8 +1710,6 @@ namespace Server_Creation_Tool
             ((System.ComponentModel.ISupportInitialize)(this.gameImgPicBox)).EndInit();
             this.actionsGrpBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu4)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
@@ -1717,15 +1725,15 @@ namespace Server_Creation_Tool
         private Elegant.Ui.RibbonGroup ribbonGroup4;
         private Elegant.Ui.GroupBox groupBox2;
         private Elegant.Ui.TextBox textBox1;
-        private Elegant.Ui.RibbonTabPage langRibbon;
-        private Elegant.Ui.RibbonGroup ribbonGroup1;
+        private Elegant.Ui.RibbonTabPage helpInfTab;
+        private Elegant.Ui.RibbonGroup helpInfGrpBox;
         private Elegant.Ui.Button changeLogBtn;
-        private Elegant.Ui.Button button5;
+        private Elegant.Ui.Button faqBtn;
         private Elegant.Ui.Button serverGroupBtn;
         private Elegant.Ui.Separator separator1;
         private Elegant.Ui.Button plannedFeaturesBtn;
         private Elegant.Ui.Button aboutBtn;
-        private Elegant.Ui.DropDown dropDown1;
+        private Elegant.Ui.DropDown langBtn;
         private Elegant.Ui.PopupMenu popupMenu1;
         private Elegant.Ui.Button engBtn;
         private Elegant.Ui.Button gerBtn;
@@ -1747,8 +1755,8 @@ namespace Server_Creation_Tool
         private Elegant.Ui.Button button28;
         private Elegant.Ui.Button button29;
         private Elegant.Ui.Button button30;
-        private Elegant.Ui.Button changeSrvrInstFoldBtn;
-        private Elegant.Ui.Button openServersFoldBtn;
+        private Elegant.Ui.Button selectInstFoldBtn;
+        private Elegant.Ui.Button openSrvsFoldBtn;
         private Elegant.Ui.RibbonContextualTabGroup noInternetTab;
         private Elegant.Ui.RibbonGroup ribbonGroup6;
         private Elegant.Ui.Button refreshConnBtn;
@@ -1756,9 +1764,7 @@ namespace Server_Creation_Tool
         private Elegant.Ui.TabControl tabControl1;
         private Elegant.Ui.TabPage tabPage1;
         private Elegant.Ui.TabPage tabPage2;
-        private Elegant.Ui.Button button32;
         private Elegant.Ui.RibbonTabPage noInternetTab2;
-        private System.Windows.Forms.Timer updtTimer;
         private Elegant.Ui.NavigationBar steamSvrNavBar;
         private Elegant.Ui.ToggleButton daysToDieBtn;
         private Elegant.Ui.ToggleButton CSsourceBtn;
@@ -1766,70 +1772,72 @@ namespace Server_Creation_Tool
         private Elegant.Ui.ToggleButton SvenCoopBtn;
         private Elegant.Ui.ToggleButton arkBtn;
         private Elegant.Ui.ToggleButton CSGOBtn;
-        private Elegant.Ui.ToggleButton CODblackOpsThreeBtn;
+        private Elegant.Ui.ToggleButton CodBo3Btn;
         private Elegant.Ui.ToggleButton l4dBtn;
         private Elegant.Ui.ToggleButton l4d2Btn;
         private Elegant.Ui.ToggleButton hurtWorldBtn;
         private Elegant.Ui.ToggleButton garrysModBtn;
-        private Elegant.Ui.ToggleButton csOnePointsixBtn;
+        private Elegant.Ui.ToggleButton cs16Btn;
         private Elegant.Ui.ToggleButton RustBtn;
         private Elegant.Ui.ToggleButton synergyBtn;
         private Elegant.Ui.Label label1;
-        private Elegant.Ui.Label searchSteamGameLbl;
+        private Elegant.Ui.Label searchGameLbl;
         private Elegant.Ui.TextBox steamGameSrchBox;
         private Elegant.Ui.Separator separator2;
-        private Elegant.Ui.GroupBox srvPanelGrpBox;
-        private Elegant.Ui.GroupBox actionsGrpBox;
-        private System.Windows.Forms.PictureBox gameImgPicBox;
-        private Elegant.Ui.Button openFoldBtn;
-        private Elegant.Ui.Button updtSvrBtn;
-        private Elegant.Ui.GroupBox extraGrpBox;
-        private Elegant.Ui.GroupBox groupBox5;
-        private Elegant.Ui.Button delBtn;
-        private Elegant.Ui.TextBox srvTxtBox;
-        private Elegant.Ui.Label label2;
-        private Elegant.Ui.Button instGuideBtn;
-        private Elegant.Ui.GroupBox groupBox7;
-        private Elegant.Ui.Button reinstBtn;
-        private Elegant.Ui.DropDown dropDown3;
+        private Elegant.Ui.DropDown variousStuffBtn;
         private Elegant.Ui.PopupMenu popupMenu3;
-        private Elegant.Ui.Button button34;
+        private Elegant.Ui.Button portFwRouterBtn;
         private Elegant.Ui.Panel panel1;
-        private Elegant.Ui.Button installSvrBtn;
         private Elegant.Ui.Separator separator3;
         private Elegant.Ui.ToggleButton welcomeBtn;
-        private Elegant.Ui.Label label3;
+        private Elegant.Ui.Label basicInstrLbl;
         private Elegant.Ui.TextBox basicInstrTxtBox;
         private Elegant.Ui.GroupBox groupBox3;
-        private Elegant.Ui.Label label4;
-        private Elegant.Ui.Label label5;
-        private Elegant.Ui.RibbonGroup currentOperRibGrp;
-        private Elegant.Ui.Label currentOperNameLbl;
+        private Elegant.Ui.Label welcomeLbl;
+        private Elegant.Ui.Label welcomeDesclbl;
+        private Elegant.Ui.RibbonGroup currentTaskRibGrp;
+        private Elegant.Ui.Label currentTaskNameLbl;
         private Elegant.Ui.ProgressBar progressBar1;
         private System.Windows.Forms.Timer nonSteamServerTimer;
-        private Elegant.Ui.DropDown editSettingsDropBtn;
         private Elegant.Ui.ContextMenuExtenderProvider contextMenuExtenderProvider1;
-        private Elegant.Ui.PopupMenu popupMenu4;
-        private Elegant.Ui.Button easyStgBtn;
-        private Elegant.Ui.Button button10;
-        private Elegant.Ui.Button button12;
-        private Elegant.Ui.Button button13;
         private Elegant.Ui.RibbonGroup optionsRibbon;
-        private Elegant.Ui.Button check4UpdatesBtn;
-        private Elegant.Ui.DropDown dropDown2;
+        private Elegant.Ui.Button chck4UpdatesBtn;
+        private Elegant.Ui.DropDown styleBtn;
         private Elegant.Ui.PopupMenu popupMenu2;
         private Elegant.Ui.Button button2;
         private Elegant.Ui.Button button11;
-        private Elegant.Ui.Button extraBtn2;
-        private Elegant.Ui.Button extraBtn1;
-        private Elegant.Ui.Button act_Btn1;
         private System.Windows.Forms.ToolTip toolTip1;
-        private Elegant.Ui.Button button14;
-        private Elegant.Ui.Button button8;
+        private Elegant.Ui.Button donateBtn;
         private Elegant.Ui.Button button16;
+        private Elegant.Ui.Button appLogsbtn;
+        private System.Windows.Forms.Timer slowTimer;
+        private Elegant.Ui.ToggleButton unturnedBtn;
+        private Elegant.Ui.ToggleButton atlasBtn;
+        private Elegant.Ui.GroupBox serverPnl;
+        private Elegant.Ui.GroupBox groupBox7;
+        private Elegant.Ui.Label srvSizeLbl;
+        private Elegant.Ui.TextBox srvSizeTxtBox;
+        private Elegant.Ui.GroupBox extraGrpBox;
         private Elegant.Ui.Button extraBtn4;
         private Elegant.Ui.Button extraBtn3;
+        private Elegant.Ui.Button extraBtn2;
+        private Elegant.Ui.Button extraBtn1;
+        private Elegant.Ui.Button instGuideBtn;
+        private Elegant.Ui.GroupBox groupBox5;
+        private Elegant.Ui.Button installSvrBtn;
+        private System.Windows.Forms.PictureBox gameImgPicBox;
+        private Elegant.Ui.GroupBox actionsGrpBox;
+        private Elegant.Ui.Button act_Btn1;
+        private Elegant.Ui.DropDown editSettingsDropBtn;
+        private Elegant.Ui.PopupMenu popupMenu4;
+        private Elegant.Ui.Button reinstBtn;
+        private Elegant.Ui.Button openFoldBtn;
+        private Elegant.Ui.Button updtSvrBtn;
+        private Elegant.Ui.Button delBtn;
+        private Elegant.Ui.Button easyStgBtn;
+        private Elegant.Ui.Button button8;
         private Elegant.Ui.Button button9;
-        private System.Windows.Forms.Timer logTimer;
+        private Elegant.Ui.Button button10;
+        private Elegant.Ui.Button button12;
     }
 }
