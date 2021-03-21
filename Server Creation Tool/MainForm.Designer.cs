@@ -1249,7 +1249,7 @@ namespace Server_Creation_Tool
             this.serverPnl.Controls.Add(this.gameImgPicBox);
             this.serverPnl.Controls.Add(this.actionsGrpBox);
             this.serverPnl.Id = "9c35aab6-3195-4bff-99b9-00c9be860aec";
-            this.serverPnl.Location = new System.Drawing.Point(186, 220);
+            this.serverPnl.Location = new System.Drawing.Point(0, 6);
             this.serverPnl.Name = "serverPnl";
             this.serverPnl.Size = new System.Drawing.Size(360, 257);
             this.serverPnl.TabIndex = 25;
