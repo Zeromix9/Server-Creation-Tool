@@ -7,10 +7,13 @@ Requirements:
 
 To use this tool is pretty easy.
 
-1. Click "Download SteamCMD" (If you haven't)
-2. Locate your SteamCMD (If it isn't located)
-3. Choose your server
-4. Type quit, if the download was successful
+1) Select the game you want and click the "Install Server" button.
+2) If its the first time you're installing a server, select the installation folder, and then wait for it to finish.
+3) Type "quit" in the command line after the installation has finished.(only for steam servers)
+4) Configure the server the way you like by editing the settings files (optional).
+5) Start the server and enjoy!
+
+NOTE: If you need extra help, some servers include a guide in the "Extra" section. You can also go to the "Help-Language" tab for additional help.You can also join our group on steam and ask for help about your issue.
 
 There is no need to write any commands beside the "quit" command.
 
