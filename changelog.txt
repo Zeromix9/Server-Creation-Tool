@@ -1,7 +1,0 @@
-21.3.2021 - Version 3.1 - Completely redesigned UI, SteamCMD is now downloaded automatically,
-Easier server management (Show server size, delete, reinstall, update, edit settings etc)
-Added ATLAS Guides
-Added server search bar
-Added error logging
-Added Unturned Server
-Added a donate button for supporting the tool :3
