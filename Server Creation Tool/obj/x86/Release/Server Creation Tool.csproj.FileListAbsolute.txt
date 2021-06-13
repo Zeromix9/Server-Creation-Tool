@@ -32,3 +32,7 @@ C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\bin\x86\Release
 C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\bin\x86\Release\System.Diagnostics.DiagnosticSource.xml
 C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.Fody.CopyLocal.cache
 C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.CopyComplete
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\bin\x86\Release\System.Buffers.xml
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\bin\x86\Release\System.Memory.xml
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\bin\x86\Release\System.Numerics.Vectors.xml
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\bin\x86\Release\System.Runtime.CompilerServices.Unsafe.xml
