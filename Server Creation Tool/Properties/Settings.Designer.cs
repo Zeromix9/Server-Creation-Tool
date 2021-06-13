@@ -25,7 +25,7 @@ namespace Server_Creation_Tool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("english")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string language {
             get {
                 return ((string)(this["language"]));
@@ -37,49 +37,13 @@ namespace Server_Creation_Tool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("empty")]
-        public string lastSavedSteamCMDAndServerLoc {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastSavedSrvInstDir {
             get {
-                return ((string)(this["lastSavedSteamCMDAndServerLoc"]));
+                return ((string)(this["LastSavedSrvInstDir"]));
             }
             set {
-                this["lastSavedSteamCMDAndServerLoc"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("blue")]
-        public string theme {
-            get {
-                return ((string)(this["theme"]));
-            }
-            set {
-                this["theme"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("steam")]
-        public string lastSavedServerTab {
-            get {
-                return ((string)(this["lastSavedServerTab"]));
-            }
-            set {
-                this["lastSavedServerTab"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int lastSelectedNavBarGame {
-            get {
-                return ((int)(this["lastSelectedNavBarGame"]));
-            }
-            set {
-                this["lastSelectedNavBarGame"] = value;
+                this["LastSavedSrvInstDir"] = value;
             }
         }
     }

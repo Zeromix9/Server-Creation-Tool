@@ -3,12 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server Creation Tool", "Server Creation Tool\Server Creation Tool.csproj", "{85E71E8C-9E94-400F-99D1-C9C33CADE381}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{10744169-EC50-4DD5-AA97-2BDD0CF08F3E}"
-	ProjectSection(SolutionItems) = preProject
-		Server Creation Tool\FodyWeavers.xml = Server Creation Tool\FodyWeavers.xml
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server Creation Tool", "Server Creation Tool\Server Creation Tool.csproj", "{B699DCA7-69B3-4887-A107-D194FE87AC4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,19 +13,19 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{85E71E8C-9E94-400F-99D1-C9C33CADE381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{85E71E8C-9E94-400F-99D1-C9C33CADE381}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{85E71E8C-9E94-400F-99D1-C9C33CADE381}.Debug|x86.ActiveCfg = Debug|x86
-		{85E71E8C-9E94-400F-99D1-C9C33CADE381}.Debug|x86.Build.0 = Debug|x86
-		{85E71E8C-9E94-400F-99D1-C9C33CADE381}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{85E71E8C-9E94-400F-99D1-C9C33CADE381}.Release|Any CPU.Build.0 = Release|Any CPU
-		{85E71E8C-9E94-400F-99D1-C9C33CADE381}.Release|x86.ActiveCfg = Release|x86
-		{85E71E8C-9E94-400F-99D1-C9C33CADE381}.Release|x86.Build.0 = Release|x86
+		{B699DCA7-69B3-4887-A107-D194FE87AC4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B699DCA7-69B3-4887-A107-D194FE87AC4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B699DCA7-69B3-4887-A107-D194FE87AC4D}.Debug|x86.ActiveCfg = Debug|x86
+		{B699DCA7-69B3-4887-A107-D194FE87AC4D}.Debug|x86.Build.0 = Debug|x86
+		{B699DCA7-69B3-4887-A107-D194FE87AC4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B699DCA7-69B3-4887-A107-D194FE87AC4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B699DCA7-69B3-4887-A107-D194FE87AC4D}.Release|x86.ActiveCfg = Release|x86
+		{B699DCA7-69B3-4887-A107-D194FE87AC4D}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {FDBE2DC6-0C0E-4354-934A-D86335ABE893}
+		SolutionGuid = {812A3F67-8C15-4F42-AC0F-78AD69CF79A9}
 	EndGlobalSection
 EndGlobal

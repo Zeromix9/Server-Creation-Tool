@@ -1,145 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
-  <Import Project="..\packages\Costura.Fody.5.0.2\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.5.0.2\build\Costura.Fody.props')" />
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Costura.Fody.5.1.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.5.1.0\build\Costura.Fody.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <ProjectGuid>{85E71E8C-9E94-400F-99D1-C9C33CADE381}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B699DCA7-69B3-4887-A107-D194FE87AC4D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Server_Creation_Tool</RootNamespace>
     <AssemblyName>Server Creation Tool</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>C:\Users\Jason\Desktop\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Background</UpdateMode>
-    <UpdateInterval>1</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>true</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputPath>bin\Debug\</OutputPath>
-    <DebugSymbols>True</DebugSymbols>
-    <DebugType>Full</DebugType>
-    <Optimize>False</Optimize>
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>bin\Release\</OutputPath>
-    <DebugSymbols>False</DebugSymbols>
-    <DebugType>None</DebugType>
-    <Optimize>True</Optimize>
-    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
-    <DefineConstants>TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>0FCF3956ED4B22E9808F9875A4913A3302AA7C90</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>Server Creation Tool_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>false</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <Prefer32Bit>false</Prefer32Bit>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <Optimize>false</Optimize>
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <Prefer32Bit>false</Prefer32Bit>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>Server_Creation_Tool.Program</StartupObject>
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup />
-  <PropertyGroup>
-    <ApplicationIcon>favicon %288%29.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup />
-  <PropertyGroup />
-  <PropertyGroup />
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <DebugType>Full</DebugType>
+    <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>None</DebugType>
+    <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon %288%29.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ByteSize, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ByteSize.2.0.0\lib\net45\ByteSize.dll</HintPath>
     </Reference>
-    <Reference Include="Costura, Version=5.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Costura.Fody.5.0.2\lib\netstandard1.0\Costura.dll</HintPath>
+    <Reference Include="Costura, Version=5.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Costura.Fody.5.1.0\lib\netstandard1.0\Costura.dll</HintPath>
     </Reference>
-    <Reference Include="Elegant.Ui.Common, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3a2b400713aae6e0" />
-    <Reference Include="Elegant.Ui.Common.Theme.Office2007Black, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3a2b400713aae6e0, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x86\Debug\Elegant.Ui.Common.Theme.Office2007Black.dll</HintPath>
-    </Reference>
-    <Reference Include="Elegant.Ui.Common.Theme.Office2007Blue, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3a2b400713aae6e0, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x86\Debug\Elegant.Ui.Common.Theme.Office2007Blue.dll</HintPath>
-    </Reference>
-    <Reference Include="Elegant.Ui.Ribbon, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3a2b400713aae6e0, processorArchitecture=MSIL" />
-    <Reference Include="Elegant.Ui.Ribbon.Theme.Office2007Black, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3a2b400713aae6e0, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x86\Debug\Elegant.Ui.Ribbon.Theme.Office2007Black.dll</HintPath>
-    </Reference>
-    <Reference Include="Elegant.Ui.Ribbon.Theme.Office2007Blue, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3a2b400713aae6e0, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x86\Debug\Elegant.Ui.Ribbon.Theme.Office2007Blue.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Activities" />
     <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
     </Reference>
@@ -147,18 +76,10 @@
     <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
     </Reference>
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Deployment" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
     </Reference>
@@ -175,7 +96,6 @@
     <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net" />
     <Reference Include="System.Net.Http, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.4.3.0\lib\net46\System.Net.Http.dll</HintPath>
     </Reference>
@@ -198,232 +118,284 @@
     <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
     </Reference>
-    <Reference Include="WindowsBase" />
+    <Reference Include="Transitions, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\dot-net-transitions.1.2.1.0\lib\net40-full\Transitions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutFrm.cs">
+    <Compile Include="aboutFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutFrm.Designer.cs">
-      <DependentUpon>AboutFrm.cs</DependentUpon>
+    <Compile Include="aboutFrm.Designer.cs">
+      <DependentUpon>aboutFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ApplicationCommands.cs" />
-    <Compile Include="changeLogFrm.cs">
+    <Compile Include="barScroll.cs" />
+    <Compile Include="changelogFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="changeLogFrm.Designer.cs">
-      <DependentUpon>changeLogFrm.cs</DependentUpon>
+    <Compile Include="changelogFrm.Designer.cs">
+      <DependentUpon>changelogFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="additFileCreateFrm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="customBtn.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="additFileCreateFrm.Designer.cs">
-      <DependentUpon>additFileCreateFrm.cs</DependentUpon>
+    <Compile Include="customBtn.Designer.cs">
+      <DependentUpon>customBtn.cs</DependentUpon>
     </Compile>
-    <Compile Include="addFiles.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="addFiles.Designer.cs">
-      <DependentUpon>addFiles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="myClasses\global_Variables.cs" />
-    <Compile Include="myClasses\lang.cs" />
-    <Compile Include="myClasses\log.cs" />
-    <Compile Include="myClasses\non_steamServerFuncs.cs" />
-    <Compile Include="myClasses\steamServerFuncs.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="myClasses\METHODSclass.cs" />
-    <Compile Include="PleaseWaitFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PleaseWaitFrm.Designer.cs">
-      <DependentUpon>PleaseWaitFrm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="myClasses\global_Variables.cs" />
+    <Compile Include="myClasses\lang.cs" />
+    <Compile Include="myClasses\log.cs" />
+    <Compile Include="myClasses\funcClass.cs" />
+    <Compile Include="myClasses\serverFuncs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+    <Compile Include="customSmoothBtn.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
+    <Compile Include="customSmoothBtn.Designer.cs">
+      <DependentUpon>customSmoothBtn.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="AboutFrm.resx">
-      <DependentUpon>AboutFrm.cs</DependentUpon>
+    <EmbeddedResource Include="aboutFrm.resx">
+      <DependentUpon>aboutFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="changeLogFrm.resx">
-      <DependentUpon>changeLogFrm.cs</DependentUpon>
+    <EmbeddedResource Include="changelogFrm.resx">
+      <DependentUpon>changelogFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="customBtn.resx">
+      <DependentUpon>customBtn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="additFileCreateFrm.resx">
-      <DependentUpon>additFileCreateFrm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="addFiles.resx">
-      <DependentUpon>addFiles.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PleaseWaitFrm.resx">
-      <DependentUpon>PleaseWaitFrm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 und x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 4.5</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="customSmoothBtn.resx">
+      <DependentUpon>customSmoothBtn.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\UnRAR.exe" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\morePressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7cs9Ed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-server-48 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn3Hover1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimizeNormal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimizeDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimizeHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moreHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moreNormal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7cs9Ed_gradient1RESIZED.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7cs9Ed_gradient1RESIZED1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\donate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\donate 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\donateHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\donatePressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\468.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\captcha16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\translate16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\219116.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-great-britain-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-germany-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CHECK BOARD16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\62216.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\translate161.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moreHover180D.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moreNormal180D.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\morePressed180D.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\world-wide-web.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\world-wide-web16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\captcha21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\translate %281%2921.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\captcha211.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\world-wide-web21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\219121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\62221.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CHECK BOARD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CHECK BOARD 21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pencil21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\150216.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon-20 %282%29.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon %288%29.ico" />
-    <Content Include="FodyWeavers.xml" />
-    <None Include="Resources\atlas_logo.png" />
-    <None Include="Resources\unturned.png" />
-    <None Include="Resources\622.png" />
-    <None Include="Resources\donate 31.png" />
-    <None Include="Resources\donate 3.png" />
-    <None Include="Resources\paypal-donate-button-high-quality-png-1_orig 2.png" />
-    <None Include="Resources\paypal-donate-button-high-quality-png-1_orig1.png" />
-    <None Include="Resources\paypal-donate-button-high-quality-png-1_orig.png" />
-    <None Include="Resources\kissclipart-portable-network-graphics-paypal-image-payment-com-00586eb4e0aa97bc.png" />
-    <None Include="Resources\donate 2.png" />
-    <None Include="Resources\paypal-donate-icon-151.jpg" />
-    <None Include="Resources\3-2-paypal-donate-button-png-image1.png" />
-    <None Include="Resources\3-2-paypal-donate-button-png-image.png" />
-    <None Include="Resources\paypal-donate-icon-15.jpg" />
-    <None Include="Resources\l4d2_logo.png" />
     <None Include="Resources\svenCoop_logo.png" />
     <None Include="Resources\rust_logo.png" />
-    <None Include="Resources\kf2.png" />
+    <None Include="Resources\l4d2_logo.png" />
     <None Include="Resources\l4d_logo.png" />
+    <None Include="Resources\kf2.png" />
+    <None Include="Resources\counter-strike-source-png-logo-21.png" />
     <None Include="Resources\hurtworld_logo.png" />
     <None Include="Resources\gmod_logo.png" />
     <None Include="Resources\csgo_logo.png" />
-    <None Include="Resources\csgo_logo.jpg" />
-    <None Include="Resources\counter-strike-source-png-logo-21.png" />
-    <None Include="Resources\d7f0049-a816d6ab-034c-4c2e-8091-82b8486000ea.png" />
-    <None Include="Resources\cs_logo.png" />
-    <None Include="Resources\58b00905829958a978a4a6dc.png" />
+    <None Include="Resources\cs16_logo.png" />
+    <None Include="Resources\welcomePnl.png" />
+    <None Include="Resources\basicInstrBox.png" />
+    <None Include="Resources\welcomePnl2.png" />
+    <None Include="Resources\instBtnAndInfBar2.png" />
+    <None Include="Resources\instBtnAndInfBar.png" />
+    <None Include="Resources\instBtnAndInfBar3.png" />
+    <None Include="Resources\instBtnAndInfBar4.png" />
+    <None Include="Resources\helpInfBar2.png" />
+    <None Include="Resources\extraPnl.png" />
+    <None Include="Resources\srvPanel.png" />
+    <None Include="Resources\mainPanel.png" />
+    <None Include="Resources\extrPnl.png" />
+    <None Include="Resources\actPnl.png" />
+    <None Include="Resources\bo3_logo.png" />
+    <None Include="Resources\SquaregreenArrowRight.png" />
+    <None Include="Resources\x1616.png" />
+    <None Include="Resources\broom.png" />
+    <None Include="Resources\cmd_icon21.png" />
+    <None Include="Resources\stop-button-black-rounded-square19.png" />
+    <None Include="Resources\play_19.png" />
+    <None Include="Resources\play.png" />
+    <None Include="Resources\icons8-installing-updates-24.png" />
+    <None Include="Resources\unturned.png" />
     <None Include="Resources\ark-survival-evolved-logo FULL.png" />
-    <None Include="Resources\ark-survival-evolved-logo1.png" />
-    <None Include="Resources\ark-survival-evolved-logo.png" />
-    <None Include="Resources\1091.png" />
-    <None Include="Resources\1334.png" />
-    <None Include="Resources\icons8-stop-48.png" />
-    <None Include="Resources\icons8-stop-24.png" />
     <None Include="Resources\7DaysToDie-logo.png" />
-    <None Include="Resources\settings %284%291.png" />
-    <None Include="Resources\settings %284%29.png" />
-    <None Include="Resources\settings %282%29.png" />
-    <None Include="Resources\Icon-20 %282%29.png" />
+    <None Include="Resources\1091.png" />
     <None Include="Resources\1645.png" />
-    <None Include="Resources\2233.png" />
-    <None Include="Resources\reinstall.png" />
-    <None Include="Resources\Icon-20.png" />
-    <None Include="Resources\Icon-16.png" />
-    <None Include="Resources\output-onlinepngtools3.png" />
-    <None Include="Resources\output-onlinepngtools2.png" />
-    <None Include="Resources\output-onlinepngtools1.png" />
-    <None Include="Resources\output-onlinepngtools.png" />
-    <None Include="Resources\download.png" />
     <None Include="Resources\1263.png" />
-    <None Include="Resources\468.png" />
-    <None Include="Resources\FolderWithGreenArrow.png" />
-    <None Include="Resources\black theme.png" />
-    <None Include="Resources\blue theme.png" />
-    <None Include="Resources\kisspng-light-orb-photography-png-background-transparent-orb-5ab14504bbd6d8.2548965015215669807694.jpg" />
-    <None Include="Resources\1502.png" />
-    <None Include="Resources\2191.png" />
-    <None Include="Resources\world-wide-web.png" />
-    <None Include="Resources\captcha.png" />
-    <None Include="Resources\CHECK BOARD 48 48.png" />
-    <None Include="Resources\CHECK BOARD.png" />
-    <None Include="Resources\refresh16x16.png" />
-    <None Include="Resources\refresh.png" />
-    <None Include="Resources\folder.png" />
-    <None Include="Resources\folderOpen.png" />
-    <None Include="Resources\2276.png" />
-    <None Include="Resources\2274.png" />
-    <None Include="Resources\pencil.png" />
-    <None Include="Resources\desktopWithcolors1.png" />
-    <None Include="Resources\desktopWithcolors.png" />
-    <None Include="Resources\8408098_ark-survival-evolved-logo-ark-survival-evolved-transparent.png" />
-    <None Include="Resources\202-2022719_my-server-icon-gmod-hd-png-download.png" />
-    <None Include="Resources\d1q5t9p-a8392e7b-fe8d-46df-b5fd-245906290690.jpg" />
-    <None Include="Resources\chat-group.png" />
-    <None Include="Resources\icons8-edit-property-48.png" />
-    <None Include="Resources\translate %281%29.png" />
-    <None Include="Resources\settings.png" />
-    <None Include="Resources\icons8-info-squared-24.png" />
-    <None Include="Resources\icons8-info-squared-48.png" />
-    <None Include="Resources\icons8-puzzled-48.png" />
-    <None Include="Resources\port.png" />
-    <None Include="Resources\translate.png" />
-    <None Include="Resources\icons8-edit-property-24.png" />
-    <None Include="Resources\icons8-conference-foreground-selected-241.png" />
-    <None Include="Resources\icons8-conference-foreground-selected-24.png" />
-    <None Include="Resources\icons8-germany-24.png" />
-    <None Include="Resources\icons8-great-britain-24.png" />
-    <None Include="Resources\icons8-edit-file-24.png" />
-    <None Include="Resources\_previmg.png" />
-    <None Include="Resources\icons8-checkmark-24.png" />
-    <None Include="Resources\icons8-delete-24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Other forms\" />
+    <None Include="Resources\2233.png" />
+    <None Include="Resources\output-onlinepngtools.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Fody.6.3.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.3.0\build\Fody.targets')" />
+  <Import Project="..\packages\Fody.6.4.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.4.0\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Fody.6.3.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.3.0\build\Fody.targets'))" />
-    <Error Condition="!Exists('..\packages\Costura.Fody.5.0.2\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.0.2\build\Costura.Fody.props'))" />
+    <Error Condition="!Exists('..\packages\Fody.6.4.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.4.0\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Costura.Fody.5.1.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.1.0\build\Costura.Fody.props'))" />
   </Target>
 </Project>

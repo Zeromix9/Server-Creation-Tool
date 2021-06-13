@@ -1,50 +1,26 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Server_Creation_Tool
 {
-
-
-    public partial class AboutFrm : Form
+    public partial class aboutFrm : Form
     {
-      //  Form MainForm11 = null;
-        public AboutFrm()
+        public aboutFrm()
         {
             InitializeComponent();
         }
 
-        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void aboutFrm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://steamcommunity.com/id/zeromix");
-        }
-
-        private void LinkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://www.youtube.com/channel/UCA5MGs8_on46jz-e5HZoTPQ");
-        }
-
-        private void AboutFrm_Load(object sender, EventArgs e)
-        {
-
-        }
-        private void AboutFrm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-         //   var mainform = new MainForm();
             e.Cancel = true;
             this.Hide();
-           
-            
-        }
-
-        private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
-
-        private void linkLabel2_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
         }
     }
 }

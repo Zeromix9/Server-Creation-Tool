@@ -10,23 +10,27 @@ using System.Windows.Forms;
 
 namespace Server_Creation_Tool
 {
-    public partial class changeLogFrm : Form
+    public partial class changelogFrm : Form
     {
-
-        public changeLogFrm()
+        public changelogFrm()
         {
             InitializeComponent();
         }
 
-        private void changeLogFrm_FormClosing(object sender, FormClosingEventArgs e)
+        private void changelogFrm_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void changelogFrm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
             this.Hide();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
-
+            e.SuppressKeyPress = true;
         }
     }
 }

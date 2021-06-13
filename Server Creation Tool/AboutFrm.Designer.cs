@@ -1,6 +1,7 @@
-﻿namespace Server_Creation_Tool
+﻿
+namespace Server_Creation_Tool
 {
-    partial class AboutFrm
+    partial class aboutFrm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,57 +29,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutFrm));
-            this.formFrameSkinner = new Elegant.Ui.FormFrameSkinner();
-            this.panel1 = new Elegant.Ui.Panel();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(aboutFrm));
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // formFrameSkinner
-            // 
-            this.formFrameSkinner.AllowGlass = false;
-            this.formFrameSkinner.Form = this;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.linkLabel2);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.linkLabel1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(298, 143);
-            this.panel1.TabIndex = 6;
-            this.panel1.Text = "panel1";
             // 
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.linkLabel2.Location = new System.Drawing.Point(136, 36);
+            this.linkLabel2.Location = new System.Drawing.Point(119, 33);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(133, 20);
-            this.linkLabel2.TabIndex = 8;
+            this.linkLabel2.TabIndex = 12;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "Youtube Channel";
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked_1);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label2.Location = new System.Drawing.Point(27, 82);
+            this.label2.Location = new System.Drawing.Point(10, 82);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(214, 40);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "And with some help by\r\nBasisBit and Cookieoreo18 :)";
+            this.label2.Size = new System.Drawing.Size(211, 40);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "And with some help by\r\nBasisBit and cookieoreo18 :)";
             // 
             // label1
             // 
@@ -86,10 +65,10 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(27, 16);
+            this.label1.Location = new System.Drawing.Point(10, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(242, 20);
-            this.label1.TabIndex = 6;
+            this.label1.TabIndex = 10;
             this.label1.Text = "This Tool was created by Zeromix";
             // 
             // linkLabel1
@@ -97,39 +76,37 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.linkLabel1.Location = new System.Drawing.Point(27, 36);
+            this.linkLabel1.Location = new System.Drawing.Point(10, 33);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(104, 20);
-            this.linkLabel1.TabIndex = 5;
+            this.linkLabel1.TabIndex = 9;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Steam Profile";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_1);
             // 
-            // AboutFrm
+            // aboutFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(298, 143);
-            this.Controls.Add(this.panel1);
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.ClientSize = new System.Drawing.Size(259, 142);
+            this.Controls.Add(this.linkLabel2);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.linkLabel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(304, 172);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(304, 172);
-            this.Name = "AboutFrm";
+            this.Name = "aboutFrm";
             this.Text = "About";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AboutFrm_FormClosing);
-            this.Load += new System.EventHandler(this.AboutFrm_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.aboutFrm_FormClosing);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private Elegant.Ui.FormFrameSkinner formFrameSkinner;
-        private Elegant.Ui.Panel panel1;
+
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;

@@ -3,19 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="language" Type="System.String" Scope="User">
-      <Value Profile="(Default)">english</Value>
+      <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="lastSavedSteamCMDAndServerLoc" Type="System.String" Scope="User">
-      <Value Profile="(Default)">empty</Value>
-    </Setting>
-    <Setting Name="theme" Type="System.String" Scope="User">
-      <Value Profile="(Default)">blue</Value>
-    </Setting>
-    <Setting Name="lastSavedServerTab" Type="System.String" Scope="User">
-      <Value Profile="(Default)">steam</Value>
-    </Setting>
-    <Setting Name="lastSelectedNavBarGame" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="LastSavedSrvInstDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

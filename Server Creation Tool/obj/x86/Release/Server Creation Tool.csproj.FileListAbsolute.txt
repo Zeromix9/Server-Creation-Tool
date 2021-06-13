@@ -1,46 +1,34 @@
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\x86\Release\Server Creation Tool.exe.config
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\x86\Release\Server Creation Tool.exe.manifest
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\x86\Release\Server Creation Tool.application
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\x86\Release\Server Creation Tool.exe
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\x86\Release\Elegant.Ui.Common.xml
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\x86\Release\Elegant.Ui.Ribbon.xml
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.AboutFrm.resources
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.changeLogFrm.resources
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.MainForm.resources
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.myClasses.additFileCreateFrm.resources
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.myClasses.addFiles.resources
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.PleaseWaitFrm.resources
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.Properties.Resources.resources
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.GenerateResource.cache
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.CoreCompileInputs.cache
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.TrustInfo.xml
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.exe.manifest
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.application
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.CopyComplete
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.exe
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csprojAssemblyReference.cache
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\bin\x86\Release\System.Diagnostics.DiagnosticSource.xml
-C:\Users\Stelios L PC\Desktop\Server-Creation-Tool-master\server creation tool\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.Fody.CopyLocal.cache
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csprojAssemblyReference.cache
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.exe
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.AboutFrm.resources
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.changeLogFrm.resources
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.MainForm.resources
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.myClasses.additFileCreateFrm.resources
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.myClasses.addFiles.resources
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.PleaseWaitFrm.resources
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.Properties.Resources.resources
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.GenerateResource.cache
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.CoreCompileInputs.cache
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\bin\x86\Release\Server Creation Tool.exe.config
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\bin\x86\Release\Server Creation Tool.exe.manifest
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\bin\x86\Release\Server Creation Tool.application
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\bin\x86\Release\Server Creation Tool.exe
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\bin\x86\Release\Elegant.Ui.Common.xml
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\bin\x86\Release\Elegant.Ui.Ribbon.xml
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\bin\x86\Release\System.Diagnostics.DiagnosticSource.xml
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.Fody.CopyLocal.cache
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.TrustInfo.xml
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.exe.manifest
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.application
-C:\Users\nosaj\Desktop\Server-Creation-Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.CopyComplete
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\x86\Release\Server Creation Tool.exe.config
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\x86\Release\Server Creation Tool.exe
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\x86\Release\Server Creation Tool.pdb
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csprojAssemblyReference.cache
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.aboutFrm.resources
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.changelogFrm.resources
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.customBtn.resources
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.MainForm.resources
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.Properties.Resources.resources
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.GenerateResource.cache
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.CoreCompileInputs.cache
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.CopyComplete
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.exe
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.pdb
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\x86\Release\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.Fody.CopyLocal.cache
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.customSmoothBtn.resources
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.exe
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.pdb
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.AssemblyReference.cache
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.aboutFrm.resources
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.changelogFrm.resources
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.customBtn.resources
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.MainForm.resources
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.Properties.Resources.resources
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server_Creation_Tool.customSmoothBtn.resources
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.GenerateResource.cache
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.CoreCompileInputs.cache
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\bin\x86\Release\Server Creation Tool.exe.config
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\bin\x86\Release\Server Creation Tool.exe
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\bin\x86\Release\Server Creation Tool.pdb
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\bin\x86\Release\System.Diagnostics.DiagnosticSource.xml
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.Fody.CopyLocal.cache
+C:\Users\nosaj\Desktop\Server Creation Tool\Server Creation Tool\obj\x86\Release\Server Creation Tool.csproj.CopyComplete
