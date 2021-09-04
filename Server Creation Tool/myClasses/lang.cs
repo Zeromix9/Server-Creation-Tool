@@ -7,8 +7,8 @@ namespace Server_Creation_Tool.myClasses
     
         #region MainForm controls
         public static string[] welcomeLb = new string[]
-      {   "Welcome to Server Creation Tool 4.0",
-           "Willkommen beim Server Creation Tool 4.0",};
+      {   "Welcome to Server Creation Tool 4.1",
+           "Willkommen beim Server Creation Tool 4.1",};
         public static string[] welcomeDescLb = new string[]
        {   "This tool allows you to download, install and manage" + System.Environment.NewLine + "      steam and non-steam servers quick and easy.",
            "    Dieses Programm erlaubt es dir Steam Server, sowie andere" + System.Environment.NewLine + "schnell und einfach herunterzuladen, einzurichten und zu starten"};
@@ -98,8 +98,8 @@ namespace Server_Creation_Tool.myClasses
        {   "Search:",
            "Suche:"};
         public static string[] update = new string[]
-       {   "Update",
-           "Update"};
+       {   " Update",
+           " Update"};
         public static string[] repairUpdt = new string[]
        {   "   Repair/Update",
            "     Reparieren/Update"};
@@ -138,7 +138,7 @@ namespace Server_Creation_Tool.myClasses
            "Installiere "};
         public static string[] updating = new string[]
        {   "Updating ",
-           "Update"};
+           "Update "};
         public static string[] downloading = new string[]
       {   "Downloading ",
           "Download läuft: "};
@@ -153,16 +153,19 @@ namespace Server_Creation_Tool.myClasses
            "-Größe-"};
         public static string[] customConfigFile = new string[]
        {   "Custom config file",
-           "Vordefi. Server Konfigurationsdatei"};
+           "Custom config file"};
         public static string[] customBatFile = new string[]
        {   "Custom bat file",
-           "Vorgefertigte Konfigurationsdatei."};
+           "Custom bat file"};
         public static string[] selectedPath = new string[]
        {   "Selected Path",
            "Wähle Verzeichnis"};
         public static string[] error = new string[]
        {   "Error",
            "Fehler"};
+        public static string[] installSrv = new string[]
+       {   "Install Server",
+           "Install Server"};
         public static string[] done = new string[]
        {   "Done!",
            "Fertig!"};
@@ -172,6 +175,21 @@ namespace Server_Creation_Tool.myClasses
         public static string[] configHelp = new string[]
        {   "  Configuration help",
            " Konfigurationshilfe"};
+        public static string[] srvAdvancedManage = new string[]
+       {   "  Advanced Management",
+           " Konfigurationshilfe"};
+        public static string[] addToFav = new string[]
+       {   "Add to favourites",
+           "Zu den Favoriten hinzufügen"};
+        public static string[] showFavList = new string[]
+       {   "Show favourite servers list",
+           "Zeige Server Favoriten"};
+        public static string[] click2Refresh = new string[]
+       {   "Click to refresh",
+           "Klicke zum aktualisieren",};
+        public static string[] checkingInternetConn = new string[]
+       {   "Checking internet connection",
+           "Überprüfe die Internetverbindung",};
 
         #endregion
 
@@ -183,7 +201,7 @@ namespace Server_Creation_Tool.myClasses
        {   "Are you sure that you want to delete this server? Make sure to backup everything you need", "Delete Server",
            "Bist du dir sicher, dass du den Server löschen möchtest? Gehe sicher, dass du die wichtigsten Dateien gespeichert hast.","Lösche Server"};
         public static string[] srvDelSuccess = new string[]
-       {   "The server has been sucessfully deleted", "Delete Server",
+       {   "The server has been successfully deleted", "Delete Server",
            "Der Server wurde erfolgreich gelöscht","Lösche Server"};
         public static string[] srvDelFail = new string[]
        {   "A program is probably using some of the server's files and they couldn't be deleted. The files ahve been corrupted.", "Delete Server",
@@ -194,12 +212,18 @@ namespace Server_Creation_Tool.myClasses
         public static string[] downloadFailed = new string[]
        {   "Download failed. Please check your internet connection!", "Download Server",
            "Download fehlgeschladen. Bitte stelle sicher, dass du mit dem Internet verbunden bist.", "Download Server"};
+        public static string[] noInternetConn = new string[]
+       {   "There is no internet connection!",
+           "Es ist keine Internetverbindung vorhanden",};
         public static string[] downloadFailedHelp = new string[]
        {   "Download failed! You can join our steam Group if you need help", "Error",
            "Download fehlgeschlagen! Du kannst unserer Steam Gruppe beitreten, solltest du Hilfe benötigen","Fehler"};
-        public static string[] updtDone = new string[]
-       {   "Update Completed!", "Server Update",
-           "Update abgeschlossen!","Server Update"};
+        public static string[] RepairUpdtDone = new string[]
+       {   "Repair/Update Completed!", "Server Repair/Update",
+           "Reparatur/Update abgeschlossen","Server Reparatur/Update"};
+        public static string[] installDone = new string[]
+       {   "Installation Completed!",
+           "Installation abgeschlossen",};
         public static string[] instFail = new string[]
        {   "Installation failed! You can retry reinstalling the server.",
            "Installation fehlgeschlagen! Du kannst die Installation erneut versuchen."};
@@ -221,9 +245,12 @@ namespace Server_Creation_Tool.myClasses
         public static string[] fileNotFound = new string[]
        {   "File not found!",
            "Datei nicht gefunden!"};
-        public static string[] foldContainsSrvAlready = new string[]
+        public static string[] foldContainsSrvPossibleDamage = new string[]
        {   "The folder which you selected already contains an installation of the server that you're about to install. Continuing the installation will update the server and might possibly delete any settings and progress. Continue?",
            "Der Ordner, den du ausgewählt hast, enthält bereits eine Server Installation. Das Aktualisieren des Servers könnte eventuelle Einstellungen löschen. Fortfahren?"};
+        public static string[] foldContainsSrv = new string[]
+        {  "This server already exists in the installation folder which you just selected. Do you want to continue and reinstall the server?",
+          "Dieser Server exestiert bereits im Installationsverzeichnis. Möchtest du fortsetzen und den Server reparieren/updaten?"};
         public static string[] toolUpdtAvailb = new string[]
        {  "An new update is available! Do you want to download it?", "Update Available",
           "Ein Update ist verfügbar! Möchtest du es downloaden?", "Update verfügbar"};
@@ -240,8 +267,8 @@ namespace Server_Creation_Tool.myClasses
        {   "Are you sure that you want to create a new configuration file? This file will have some settings preconfigured and explanations on how they work so that you can change your server's settings easily. Continuing will overwrite any existing file.","Create configuration file",
            "Bist du dir sicher, dass du eine neue Konfigurationsdatei erstellen möchtest? Dabei werden einige Optionen bereits festgelegt und erklärt, so das du diese einfach ändern kannst. Fortfahren wird die alte Datei überschreiben.","Erstelle Konfigurationsdatei"};
         public static string[] createBatFile = new string[]
-       {   "Do you want to create a batch file for starting the server? This will allow the server to start immediately with some settings preconfigured (player slots, map etc). It is optional","Create batch file",
-           "Möchtest du eine Batch Datei zum starten des Servers erstellen? Dies erlaubt dir den Server zu starten, und eine Einstellungen zu ändern. (Anzahl der Spieler, Karte etc.) Dies ist optional.", "Erstelle Batch Datei"};
+       {   "Do you want to create a batch file for starting the server? This will allow the server to start immediately with some settings preconfigured (player slots, map etc). It is optional. If it already exists, it will be overwritten","Create batch file",
+           "Möchtest du eine Batch Datei zum starten des Servers erstellen? Dies erlaubt dir den Server zu starten, und eine Einstellungen zu ändern. (Anzahl der Spieler, Karte etc.) Dies ist optional. Wenn diese Datei bereits existiert, wird diese überschrieben.", "Erstelle Batch Datei"};
         public static string[] noUpdtAvail = new string[]
        {   "There are no updates available!","Check for updates",
            "Es sind keine Updates verfügbar!", "Suche nach Updates"};
@@ -277,6 +304,9 @@ namespace Server_Creation_Tool.myClasses
         public static string[] cleaningCache = new string[]
       {   "Cleaning Cache",
           "Leere Cache Cache"};
+        public static string[] generalAreYouSureContinue = new string[]
+      {   "Are you sure that you want to continue?",
+          "Bist du dir sicher, dass du fortfahren möchtest?"};
         public static string[] cacheCleanFail = new string[]
       {   "Not all cache files could be deleted. Make sure they are not being used by another running process.", "Clear cache",
           "Nicht alle Cache Dateien konnten gelöscht werden. Stelle sicher, dass sie nicht von anderen Prozessen verwendet werden.", "Leere Cache"};
@@ -286,6 +316,9 @@ namespace Server_Creation_Tool.myClasses
         public static string[] createBatFileAskToken = new string[]
       {   "Please enter a VALID server token to show" + System.Environment.NewLine + "your server in the server list(Optional)",
           "Bitte geben Sie ein GÜLTIGES Server-Token ein, um Ihren" + System.Environment.NewLine + "Server in der Serverliste anzuzeigen(optional)" };
+        public static string[] installSrvUnderRoot = new string[]
+       {   @"Its best to create an installation folder for your servers directly in the root folder of the selected drive. For example C:\my_Servers or D:\my_Servers ETC. Also make sure all the letters in the path are in ENGLISH","Select server installation folder",
+           "Leere Cache Cache","Wähle Verzeichnis für die Server Installation"};
         #endregion
 
         #region change the location and size of controls

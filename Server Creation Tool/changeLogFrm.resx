@@ -118,7 +118,20 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="textBox1.Text" xml:space="preserve">
-    <value>13.06.2021 - Version 4.0 - Full UI redesign
+    <value>04.09.2021 - Version 4.1 - Updated the root folder names for most servers. For example the "csgo" server folder has been changed to "csgo_ds"( "ds" stands for dedicated server).
+Visit the Server Guides on steam to find out if you need to rename your current folders and get your servers back working.
+Added Craftopia server + Guides
+Added BeamNG.drive server + Guide
+Updated ARK server batch file
+Added favourite servers list
+Added internet availability checking system
+Show a notification when a task has completed (e.g server installation)
+Some code optimization
+Fixed random crash when you select an installed server
+Other bug fixes
+Some small UI changes
+
+13.06.2021 - Version 4.0 - Full UI redesign
 Significant optimization (Increased performance and less system resource usage)
 Minor bug fixes
 Added Discord server button
@@ -182,7 +195,8 @@ Now the tool will automatically locate steamCMD on startup
 
 19.07.2016 - Version 1.1 - Added Garry´s Mod Guides
 
-27.06.2016 - Version 1.0 - Release Changelog</value>
+27.06.2016 - Version 1.0 - Release Changelog
+</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

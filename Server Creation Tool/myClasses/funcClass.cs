@@ -1,13 +1,13 @@
-﻿using ByteSizeLib;
+﻿using Ionic.Zip;
 using Server_Creation_Tool.myClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.IO.Compression;
 using System.Net;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -68,8 +68,9 @@ namespace statServer_Creation_Tool
                 if (System.IO.Directory.Exists(path))
                 {
                     var f = GetFoldInst.GetFolder(path);
-                    var convrt = ByteSize.FromBytes(f.size);
-                    result = convrt.MegaBytes;
+                    //var convrt = ByteSize.FromBytes(f.size);
+                    // convrt.MegaBytes;
+                    result = f.size;
                 }
                 else { result = 0; }
             }
@@ -81,8 +82,10 @@ namespace statServer_Creation_Tool
             try
             { File.WriteAllText(path, content); return true; }
             catch (Exception a)
-            { log.Append(a.ToString()); MessageBox.Show(path);
-                return false; }
+            {
+                log.Append(a.ToString()); MessageBox.Show(path);
+                return false;
+            }
         }
         public bool downloadCompleted = false;
         public async Task downloadnWriteFile(string url, string downloadPath)
@@ -91,7 +94,6 @@ namespace statServer_Creation_Tool
             WebClient client = new WebClient();
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
             client.DownloadFileAsync(new Uri(url), downloadPath);
-
         }
         void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
@@ -139,14 +141,28 @@ namespace statServer_Creation_Tool
             await downloadnWriteFile(gVars.steamCMDUrl, downloadPath + "\\steamcmd.zip");
             while (downloadCompleted == false) await Task.Delay(50);//wait till  the download is complete
             //Extact the zip file
+            if (unzipFileAndDel(downloadPath + "\\steamcmd.zip", downloadPath) == true)
+            { steamCMDDownloadDone = true; }
+            else
+            { steamCMDDownloadDone = false; }
+        }
+        public bool unzipFileAndDel(string ZipPath, string extractPath)
+        {
+            //Extact the zip file
             try
-            { ZipFile.ExtractToDirectory(downloadPath + "\\steamcmd.zip", downloadPath); steamCMDDownloadDone = true; }
+            {
+                using (Ionic.Zip.ZipFile zip1 = Ionic.Zip.ZipFile.Read(ZipPath))
+                {
+                    foreach (ZipEntry e in zip1)
+                    { e.Extract(extractPath, ExtractExistingFileAction.OverwriteSilently); }
+                }
+            }
             catch (Exception a)
-            { log.Append(a.ToString()); return; }
+            { log.Append(a.ToString()); return false; }
             //Delete the zip file
             try
-            { File.Delete(downloadPath + "\\steamcmd.zip"); }
-            catch { }
+            { File.Delete(ZipPath); return true; }
+            catch { return true; }
         }
         public Thread StartThread(Action action)
         {
@@ -175,6 +191,33 @@ namespace statServer_Creation_Tool
             if (gVars.GetType().GetField(varName) != null)
             { return gVars.GetType().GetField(varName).GetValue(gVars) as string[]; }
             return new string[] { };
+        }
+        public void saveFavList(List<string> str)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(ms, str);
+                ms.Position = 0;
+                byte[] buffer = new byte[(int)ms.Length];
+                ms.Read(buffer, 0, buffer.Length);
+                Server_Creation_Tool.Properties.Settings.Default.favServers = Convert.ToBase64String(buffer);
+                Server_Creation_Tool.Properties.Settings.Default.Save();
+            }
+        }
+
+        public List<string> loadFavList()
+        {
+            using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(Server_Creation_Tool.Properties.Settings.Default.favServers)))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                return (List<string>)bf.Deserialize(ms);
+            }
+        }
+        public string getAppData()
+        {
+            string appdt = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            return appdt.Substring(0, appdt.LastIndexOf(@"\"));
         }
     }
 }

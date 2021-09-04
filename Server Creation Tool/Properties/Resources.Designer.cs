@@ -181,6 +181,26 @@ namespace Server_Creation_Tool.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] BeamMP_Server_Settings_Tool {
+            get {
+                object obj = ResourceManager.GetObject("BeamMP_Server_Settings_Tool", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap beamng_logo {
+            get {
+                object obj = ResourceManager.GetObject("beamng_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap bo3_logo {
@@ -273,6 +293,16 @@ namespace Server_Creation_Tool.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap craftopia_logo {
+            get {
+                object obj = ResourceManager.GetObject("craftopia_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cs_logo {
             get {
                 object obj = ResourceManager.GetObject("cs_logo", resourceCulture);
@@ -296,6 +326,16 @@ namespace Server_Creation_Tool.Properties {
         internal static System.Drawing.Bitmap css_logo {
             get {
                 object obj = ResourceManager.GetObject("css_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap customNoInternet {
+            get {
+                object obj = ResourceManager.GetObject("customNoInternet", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -663,9 +703,49 @@ namespace Server_Creation_Tool.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap starChecked {
+            get {
+                object obj = ResourceManager.GetObject("starChecked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap starChecked_16 {
+            get {
+                object obj = ResourceManager.GetObject("starChecked_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap start_img {
             get {
                 object obj = ResourceManager.GetObject("start_img", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap starUnChecked {
+            get {
+                object obj = ResourceManager.GetObject("starUnChecked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap starUnChecked_gray_16 {
+            get {
+                object obj = ResourceManager.GetObject("starUnChecked_gray_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

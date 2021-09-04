@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,8 +24,16 @@ namespace Server_Creation_Tool
         public const int HT_CAPTION = 0x2;
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [System.Runtime.InteropServices.DllImport("User32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr handle);
+        [System.Runtime.InteropServices.DllImport("User32.dll")]
+        private static extern bool ShowWindow(IntPtr handle, int nCmdShow);
+        [System.Runtime.InteropServices.DllImport("User32.dll")]
+        private static extern bool IsIconic(IntPtr handle);
         [System.Runtime.InteropServices.DllImport("user32.dll")]
+
         public static extern bool ReleaseCapture();
+        const int SW_RESTORE = 9;
         //-------
         public MainForm()
         {
@@ -40,6 +49,7 @@ namespace Server_Creation_Tool
         public string srvInstDir;
         private void MainForm_Load(object sender, EventArgs e)
         {
+
             srvInstDir = Properties.Settings.Default.LastSavedSrvInstDir;
             //save buttons from the server selection panel into a list variable so we don't have to loop through the panel each time we want to access the buttons
             saveSrvList();
@@ -57,6 +67,12 @@ namespace Server_Creation_Tool
             logSaver.RunWorkerAsync();
             //List all server buttons alphabetically
             searchGameInSrvList(steamSrvListPnl, " ");
+            try
+            { favSrvs = funcs.loadFavList(); }
+            catch { }
+            funcs.StartThread(() =>
+            { hasInternet(true); });
+            Thread.Sleep(1000);
         }
 
         private void mainFormDrag(object sender, MouseEventArgs e)
@@ -76,10 +92,10 @@ namespace Server_Creation_Tool
 
         private async void closeFormBtn_Click(object sender, EventArgs e)
         {
+            this.Hide();
+            notifyIcon1.Visible = false;
             await allTimers_stop();
-            this.Hide();//PUT THIS ON TOP OF AWAIT  ALLTIMERS
             Application.Exit();
-            MessageBox.Show("rawr");
         }
 
         private void searchSrvTxtBox_Click(object sender, EventArgs e)
@@ -235,6 +251,9 @@ namespace Server_Creation_Tool
             OpenFoldBtn.Text = lg(lang.openFoldB);
             delBtn.Text = lg(lang.deleteB);
             editStgBtn.Text = lg(lang.editStgB);
+            toolTip1.SetToolTip(addSrvFav, lg(lang.addToFav));
+            toolTip1.SetToolTip(showFavSrvsBtn, lg(lang.showFavList));
+            toolTip1.SetToolTip(noInternetBtn, lg(lang.noInternetConn) + lg(lang.click2Refresh));
             //------------
         }
         public string lg(string[] stringArray, int pos = 0)//pos(position in array) only used for arrays with more than 1 word per language, like messageboxes
@@ -278,7 +297,7 @@ namespace Server_Creation_Tool
         public void goToWelcome()
         {
             mainSrvPanel.Visible = false;
-            foreach (Button b in SteamSrvListBtns)
+            foreach (Button b in srvListBtns)
             {
                 if (b.BackColor == serverBtnSelectedColor)
                 { b.BackColor = serverBtnNormalColor; }
@@ -304,6 +323,29 @@ namespace Server_Creation_Tool
             });
             t2.Start();
             Thread.Sleep(400);
+        }
+        private bool hasInternet(bool showErrorMsg = false)
+        {
+            try
+            {
+                Ping myPing = new Ping();
+                String host = "google.com";
+                byte[] buffer = new byte[32];
+                int timeout = 1000;
+                PingOptions pingOptions = new PingOptions();
+                PingReply reply = myPing.Send(host, timeout, buffer, pingOptions);
+                funcs.InvokeIfRequired(noInternetBtn, () =>
+                { noInternetBtn.Visible = false; });
+                // reply.Status == IPStatus.Success;
+                return true;
+            }
+            catch (Exception)
+            {
+                funcs.InvokeIfRequired(noInternetBtn, () =>
+                { noInternetBtn.Visible = true; });
+                if (showErrorMsg) MessageBox.Show(lg(lang.noInternetConn), lg(lang.installSrv), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
         private string srvPath()
         {
@@ -342,7 +384,7 @@ namespace Server_Creation_Tool
                         {
                             enableControls(false, "noSrvDir");
                             setInstBtn("install");
-                            foreach (Button btn in SteamSrvListBtns)
+                            foreach (Button btn in srvListBtns)
                             {
                                 if (btn.Tag.ToString() != "notSrv")
                                 { btn.ForeColor = SystemColors.ControlDark; }
@@ -355,7 +397,7 @@ namespace Server_Creation_Tool
                         return;
                     }
                     //get the tag from all buttons one by one and then check if each server is installed.(the tag contains the server codename)
-                    foreach (Button btn in SteamSrvListBtns)
+                    foreach (Button btn in srvListBtns)
                     {
                         if (btn.Tag.ToString() == "notSrv") continue;
                         if (chckIfSrvInstalled(btn) == true)
@@ -408,9 +450,9 @@ namespace Server_Creation_Tool
         #endregion
 
         #region main functions
-        public List<Button> SteamSrvListBtns = new List<Button>();
-        //List<Button> nonSteamSrvListBtns = new List<Button>();
+        public List<Button> srvListBtns = new List<Button>();
         public string srvType;
+        public string srvDownloadLink;
         public string srvCodename;
         public string srvRootFold;
         public string srvCfgLink;
@@ -428,30 +470,98 @@ namespace Server_Creation_Tool
             //steam server panel
             List<Button> tmp = new List<Button>();
             foreach (Button btn in steamSrvListPnl.Controls) { tmp.Add(btn); }
-            SteamSrvListBtns = tmp.OrderBy(btn => btn.Text).ToList();
-
+            srvListBtns = tmp.OrderBy(btn => btn.Text).ToList();
             //non steam server panel
 
         }
         //server searching method for panel button lists
+        List<string> favSrvs = new List<string>();
+        private void addSrvFav_Click(object sender, EventArgs e)
+        {
+            if (addSrvFav.Tag.ToString() == "unchecked")
+            {
+                addSrvFav.Tag = "checked";
+                addSrvFav.BackgroundImage = Properties.Resources.starChecked;
+                favSrvs.Add(srvCodename);
+                funcs.saveFavList(favSrvs);
+            }
+            else if (addSrvFav.Tag.ToString() == "checked")
+            {
+                addSrvFav.Tag = "unchecked";
+                addSrvFav.BackgroundImage = Properties.Resources.starUnChecked;
+                favSrvs.Remove(srvCodename);
+                funcs.saveFavList(favSrvs);
+            }
+            //refresh list
+            if (showFavSrvsBtn.Tag.ToString() == "checked")
+            {
+                if (favSrvs.Any())
+                {
+                    showFavSrvsBtn.Tag = "unchecked";
+                    showFavSrvsBtn.PerformClick();
+                }
+                else
+                { showFavSrvsBtn.PerformClick(); }
+            }
+        }
+        private void showFavSrvsBtn_Click(object sender, EventArgs e)
+        {
+            List<Button> filteredBtns = new List<Button>();
+            if (showFavSrvsBtn.Tag.ToString() == "unchecked")
+            {
+                foreach (Button btn in srvListBtns)
+                {
+                    foreach (string srvCode in favSrvs)
+                    {
+                        if (btn.Tag.ToString().Trim() == srvCode)
+                        { filteredBtns.Add(btn); }
+                        else { btn.Visible = false; }
+                    }
+                }
+                filterSrvBtns(filteredBtns);
+                showFavSrvsBtn.Tag = "checked";
+                showFavSrvsBtn.BackgroundImage = Properties.Resources.starChecked_16;
+            }
+            else if (showFavSrvsBtn.Tag.ToString() == "checked")
+            {
+                arrangeAllSrvBtns();
+                showFavSrvsBtn.Tag = "unchecked";
+                showFavSrvsBtn.BackgroundImage = Properties.Resources.starUnChecked_gray_16;
+            }
+        }
+        private void arrangeAllSrvBtns()
+        {
+            int btnStartPointY = 0;
+            btnStartPointY = btnStartPointY + 39;
+            foreach (Button btn in srvListBtns)
+            {
+                btn.Visible = true;
+                if (btn.Tag.ToString() == "notSrv") { continue; }
+                btn.Location = new Point(btn.Location.X, btnStartPointY);
+                btnStartPointY = btnStartPointY + btn.Size.Height;
+            }
+        }
+        private void filterSrvBtns(List<Button> filteredBtns)
+        {
+            int btnStartPointY = 0;
+            foreach (Button btn in filteredBtns)
+            {
+                btn.Visible = true;
+                btn.Location = new Point(btn.Location.X, btnStartPointY);
+                btnStartPointY = btnStartPointY + btn.Size.Height;
+            }
+        }
         public void searchGameInSrvList(Panel SvrListPnl, string txtToSearch)
         {
+            if (showFavSrvsBtn.Tag.ToString() == "checked") return;
             SvrListPnl.VerticalScroll.Value = 0;
-            int btnStartPointY = 0;
             List<Button> filteredBtns = new List<Button>();
             if (String.IsNullOrEmpty(txtToSearch.Trim()))
             {
-                btnStartPointY = btnStartPointY + 39;
-                foreach (Button btn in SteamSrvListBtns)
-                {
-                    btn.Visible = true;
-                    if (btn.Tag.ToString() == "notSrv") { continue; }
-                    btn.Location = new Point(btn.Location.X, btnStartPointY);
-                    btnStartPointY = btnStartPointY + btn.Size.Height;
-                }
+                arrangeAllSrvBtns();
                 return;
             }
-            foreach (Button btn in SteamSrvListBtns)
+            foreach (Button btn in srvListBtns)
             {
                 string tag = btn.Tag.ToString();
                 //check if button contains what the user searched for
@@ -462,12 +572,7 @@ namespace Server_Creation_Tool
                 }
                 btn.Visible = false;
             }
-            foreach (Button btn in filteredBtns)
-            {
-                btn.Visible = true;
-                btn.Location = new Point(btn.Location.X, btnStartPointY);
-                btnStartPointY = btnStartPointY + btn.Size.Height;
-            }
+            filterSrvBtns(filteredBtns);
         }
         private void setInstBtn(string state)
         {
@@ -528,13 +633,17 @@ namespace Server_Creation_Tool
         {
             string fileExtension = filePath.Substring(filePath.LastIndexOf(".") + 1);
             Process proc = new Process();
+            string finalFilePath;
+            if (filePath.Substring(0, 1) != @"\")
+            { finalFilePath = filePath; }
+            else { finalFilePath = srvPath() + filePath; }
             if (fileExtension == "exe")
             {
-                proc.StartInfo.FileName = srvPath() + filePath;
+                proc.StartInfo.FileName = finalFilePath;
             }
             else
             {
-                proc.StartInfo.Arguments = srvPath() + filePath;
+                proc.StartInfo.Arguments = finalFilePath;
                 proc.StartInfo.FileName = "notepad.exe";
             }
             try
@@ -553,6 +662,11 @@ namespace Server_Creation_Tool
             }
             if (!funcs.writeTxtFile(srvPath() + startFileLoc[0], funcs.getVarByStr(srvCodename + "StartBatFileCode")))
             { MessageBox.Show(lg(lang.batFail), lg(lang.error), MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            else
+            {
+                if (ask)
+                { MessageBox.Show(lg(lang.done)); }
+            }
         }
         private async void writeCfgFl(int cfgFilePos, bool ask = true)
         {
@@ -585,7 +699,8 @@ namespace Server_Creation_Tool
             folderBrowserDialog1.Description = lg(lang.askSrvInstDirDesc);
             // A new folder button will display in FolderBrowserDialog.
             folderBrowserDialog1.ShowNewFolderButton = true;
-            //Show FolderBrowserDialog
+            //inform user and then show FolderBrowserDialog
+            MessageBox.Show(lg(lang.installSrvUnderRoot), lg(lang.installSrvUnderRoot, 1), MessageBoxButtons.OK, MessageBoxIcon.Information);
             DialogResult dlgResult = folderBrowserDialog1.ShowDialog();
             if (dlgResult == DialogResult.OK)
             {
@@ -609,6 +724,7 @@ namespace Server_Creation_Tool
                 enableControls(true, "srvOperation");
                 showTaskInProg(false);
                 selectedSrvBtn.PerformClick();
+                installSrvBtn.Enabled = true;
             });
         }
 
@@ -616,19 +732,34 @@ namespace Server_Creation_Tool
         {
             funcs.StartThread(() =>
             {
-                var v = ByteSize.FromMegaBytes(funcs.ShowFolderSize(srvPath()));
+                var v = ByteSize.FromBytes(funcs.ShowFolderSize(srvPath()));
                 //we use the server size converted to MB as a reference size
-                string v2 = v.MegaBytes.ToString().Trim();
-                int CommaIndex = v2.IndexOf(",");
-                if (double.Parse(v2) != 0)
+                double unitValue;
+                string unit;
+                if (v.Bytes >= 1024 * 1024 * 1024)
                 {
-                    if (v2.Substring(0, CommaIndex).Length < 4)
-                    { funcs.InvokeIfRequired(srvSizeLbl, () => { srvSizeLbl.Text = v.MegaBytes.ToString().Trim().Substring(0, CommaIndex) + "MB"; }); }
-                    else
-                    { funcs.InvokeIfRequired(srvSizeLbl, () => { srvSizeLbl.Text = v.GigaBytes.ToString().Trim().Substring(0, CommaIndex) + "GB"; }); }
+                    unitValue = System.Convert.ToDouble(v.Bytes) / (1024 * 1024 * 1024);
+                    unit = "GB";
+                }
+                else if (v.Bytes >= 1024 * 1024)
+                {
+                    unitValue = System.Convert.ToDouble(v.Bytes) / (1024 * 1024);
+                    unit = "MB";
+                }
+                else if (v.Bytes >= 1024)
+                {
+                    unitValue = System.Convert.ToDouble(v.Bytes) / 1024;
+                    unit = "KB";
                 }
                 else
-                { funcs.InvokeIfRequired(srvSizeLbl, () => { srvSizeLbl.Text = "   "; }); }
+                {
+                    unitValue = v.Bytes;
+                    unit = "0";
+                }
+                string strUnitValue = unitValue.ToString();
+                string result = string.Format("{0} {1}", strUnitValue.Remove(strUnitValue.IndexOf(',') + 2, strUnitValue.Length - strUnitValue.IndexOf(',') - 2), unit);
+                funcs.InvokeIfRequired(srvSizeLbl, () => { srvSizeLbl.Text = result; });
+
             });
         }
         private bool chckIfSrvInstalled(Button b)
@@ -772,7 +903,7 @@ namespace Server_Creation_Tool
         }
         private void serverBtnClicked(Button btn, string picboxSize, string srvFullName)
         {
-            //read selected server info and set teh variables
+            //read selected server info and set the variables
             selectedSrvBtn = btn;
             installSrvBtn.Enabled = true;
             srvCodename = btn.Tag.ToString();
@@ -800,11 +931,14 @@ namespace Server_Creation_Tool
             {
                 steamCMDCode = funcs.getVarByStr(srvCodename + "InstCode");
                 guideLink = lg(funcs.getArVarByStr(srvCodename + "GuideLink"));
-                customizeBtn(actBtn1, lg(lang.repairUpdt), repairUpdtSteamSrv);
-                actBtn1.Image = Properties.Resources.progressBar;
+                customizeBtn(actBtn1, lg(lang.repairUpdt), repairUpdtSrv);
             }
             else if (srvType == "non_steam")//non steam 
-            { }
+            {
+                srvDownloadLink = funcs.getVarByStr(srvCodename + "DownloadLink");
+                customizeBtn(actBtn1, lg(lang.update), repairUpdtSrv);
+            }
+            actBtn1.Image = Properties.Resources.progressBar;
             welcomeBtn.BackColor = serverBtnNormalColor;
             welcomeBtn.ColorNormal = serverBtnNormalColor;
             mainSrvPanel.Visible = true;
@@ -817,6 +951,18 @@ namespace Server_Creation_Tool
             srvNamePnlLbl.Text = srvFullName;
             instGuideBtn.Text = lg(lang.instGuideB);
             setSrvPicBox(picboxSize);
+            toolTip1.SetToolTip(srvInfBtn, null);
+            //check if it is favourite or not
+            if (favSrvs.Contains(srvCodename))
+            {
+                addSrvFav.BackgroundImage = Properties.Resources.starChecked;
+                addSrvFav.Tag = "checked";
+            }
+            else
+            {
+                addSrvFav.BackgroundImage = Properties.Resources.starUnChecked;
+                addSrvFav.Tag = "unchecked";
+            }
         }
         private void setInstBtnAct(Action instAction = null, Action startAction = null, Action forceStopAction = null)
         {
@@ -885,28 +1031,21 @@ namespace Server_Creation_Tool
         {
             enableControls(false, "srvOperation");
             showTaskInProg(true, false, true);
+            currentTaskLbl.Text = lg(lang.checkingInternetConn);
+            if (!hasInternet(true))
+            {
+                enableControls(true, "srvOperation");
+                installSrvBtn.Enabled = true;
+                showTaskInProg(false);
+                return;
+            }
             this.Enabled = false;
             await allTimers_stop();
             this.Enabled = true;
+            srvSizeLbl.Text = "";
             //check if steamCMD exists
             if (!System.IO.File.Exists(srvInstDir + "\\steamcmd.exe"))
             {
-                if (!System.IO.Directory.Exists(srvInstDir))
-                {
-                    if (!askUserInstallDir())
-                    {
-                        BeginInvoke((MethodInvoker)delegate () { resetAfterSrvOpr(); });
-                        return;
-                    }
-                    //check if steamCMD exists in the new selected directory. If it doesn't proceed with downloading it
-                    if (System.IO.File.Exists(srvInstDir + "\\steamcmd.exe"))
-                    {
-                        //start steamCMD and do whatever you want
-                        currentTaskLbl.Text = taskTitle;
-                        startSteamCMD();
-                        return;
-                    }
-                }
                 currentTaskLbl.Text = lg(lang.downloading) + "SteamCMD";
                 installSrvBtn.Enabled = false;
                 await funcs.downloadSteamCMD(srvInstDir);
@@ -931,31 +1070,72 @@ namespace Server_Creation_Tool
         }
         private void installServer()
         {
-            prepSteamCMDStart(lg(lang.downloading) + srvNamePnlLbl.Text);
-            // steamCMDCode = funcs.getVarByStr("blablabab"); //set custom install code
+            if (!System.IO.Directory.Exists(srvInstDir))
+            {
+                if (!askUserInstallDir())
+                {
+                    BeginInvoke((MethodInvoker)delegate () { resetAfterSrvOpr(); });
+                    return;
+                }
+                else
+                { resetAfterSrvOpr(); }
+            }
+            if (System.IO.Directory.Exists(srvInstDir + @"\" + srvRootFold))
+            {
+                if (MessageBox.Show(lg(lang.foldContainsSrv), lg(lang.install).Trim(), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                { return; }
+            }
+            if (srvType == "steam")
+            {
+                prepSteamCMDStart(lg(lang.downloading) + srvNamePnlLbl.Text);
+            }
+            else if (srvType == "non_steam")
+            {
+                installNON_STEAM_Server(lg(lang.downloading) + srvNamePnlLbl.Text, lg(lang.installDone));
+            }
+        }
+        private async void installNON_STEAM_Server(string taskTitle, string doneMsg)
+        {
+            enableControls(false, "srvOperation");
+            installSrvBtn.Enabled = false;
+            showTaskInProg(true, false, true);
+            currentTaskLbl.Text = lg(lang.checkingInternetConn);
+            if (!hasInternet(true))
+            {
+                enableControls(true, "srvOperation");
+                installSrvBtn.Enabled = true;
+                showTaskInProg(false);
+                return;
+            }
+            this.Enabled = false;
+            await allTimers_stop();
+            this.Enabled = true;
+            srvSizeLbl.Text = "";
+            if (!System.IO.Directory.Exists(srvInstDir + @"\" + srvRootFold))
+            { System.IO.Directory.CreateDirectory(srvInstDir + @"\" + srvRootFold); }
+            currentTaskLbl.Text = taskTitle;
+            await funcs.downloadnWriteFile(srvDownloadLink, srvInstDir + @"\" + srvRootFold + @"\" + Path.GetFileName(new Uri(srvDownloadLink).AbsolutePath));
+            while (funcs.downloadCompleted == false) await Task.Delay(50);
+            if (!funcs.unzipFileAndDel(srvInstDir + @"\" + srvRootFold + @"\" + Path.GetFileName(new Uri(srvDownloadLink).AbsolutePath), srvInstDir + @"\" + srvRootFold))
+            {
+                MessageBox.Show(lg(lang.generalError), lg(lang.generalError, 1), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                showNotif(lg(lang.generalError), srvNamePnlLbl.Text);
+            }
+            else
+            { showNotif(doneMsg, srvNamePnlLbl.Text); }
+            resetAfterSrvOpr();
         }
         private void startSrv()
         {
             Process srv = new Process();
-            srv.StartInfo.WorkingDirectory = srvPath(); ;
-            //always start he server from the first file in the array. If the first file doesn't exist but there is a second file in the array, start it from there. For example you can put a batch file at the begining of the array that the user can create and start the server. If that batch file doesn't exist the server will start normally from the standard executable or batch file
             int startFileLocCount = startFileLoc.Count();
-            if (System.IO.File.Exists(srvPath() + startFileLoc[0]))
-            {
-                if (startFileLoc[0].Contains(".bat"))
-                {
-                    //  srv.StartInfo.Arguments = srvPath() + startFileLoc[0];
-                    srv.StartInfo.FileName = srvPath() + startFileLoc[0];
-                    srv.StartInfo.WorkingDirectory = srvPath();
-                }
-                else
-                { srv.StartInfo.FileName = srvPath() + startFileLoc[0]; }
-            }
-            else if (startFileLocCount != 1)
+            srv.StartInfo.WorkingDirectory = srvPath() + Path.GetDirectoryName(startFileLoc[0]);
+            if (System.IO.File.Exists(srvPath() + startFileLoc[0]))//check if the first file for starting the server exists as a file (not just in the array). The first file is very likely to not exist because many server don't need a batch file to start and creating it is optional.
+            { srv.StartInfo.FileName = srvPath() + startFileLoc[0]; }
+            else if (startFileLocCount != 1)//if the first file doesn't exist and there is a second file in the array, use that. The second file might not exist because of a failed installation. If it doesn't exist, it will throw an exception when starting the server
             { srv.StartInfo.FileName = srvPath() + startFileLoc[1]; }
-            try { srv.Start(); }
+            try { srv.Start(); }//start server
             catch (Exception a) { log.Append(a.ToString()); MessageBox.Show(lg(lang.cantStartSrv), lg(lang.cantStartSrv, 1)); }
-
         }
         private void createBatFileSrvStart(Action customFunc = null)
         {
@@ -974,22 +1154,44 @@ namespace Server_Creation_Tool
             this.Enabled = false;
             await allTimers_stop();
             this.Enabled = true;
+            srvSizeLbl.Text = "";
             currentTaskLbl.Text = lang.deleting[gVars.lgNum] + srvNamePnlLbl.Text;
             funcs.StartThread(() => //do all actions in a thread so it doesn't affect the responsiveness of the UI
             {
                 try
                 {
                     System.IO.Directory.Delete(srvPath(), true);//delete server folder
+                    showNotif(lg(lang.srvDelSuccess), srvNamePnlLbl.Text);
                     MessageBox.Show(lg(lang.srvDelSuccess), lg(lang.srvDelSuccess, 1), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex) { log.Append(ex.ToString()); MessageBox.Show(lg(lang.srvDelFail), lg(lang.srvDelFail, 1), MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                catch (Exception ex) { log.Append(ex.ToString()); MessageBox.Show(lg(lang.srvDelFail), lg(lang.srvDelFail, 1), MessageBoxButtons.OK, MessageBoxIcon.Error); showNotif(lg(lang.srvDelFail), srvNamePnlLbl.Text, ToolTipIcon.Error); }
                 resetAfterSrvOpr(false);
             });
+        }
+        private void showNotif(string text, string gameName, ToolTipIcon icon = ToolTipIcon.Info, int showLength = 7000)
+        {
+            notifyIcon1.BalloonTipIcon = icon;
+            if (gameName == "")
+            { notifyIcon1.BalloonTipTitle = "Server Creation Tool"; }
+            else
+            { notifyIcon1.BalloonTipTitle = gameName; }
+            notifyIcon1.BalloonTipText = text;
+            notifyIcon1.ShowBalloonTip(showLength);
         }
         private void forceStopSteamSrvInst()
         {
             if (MessageBox.Show(lg(lang.forceStopInstSteamMsg), lg(lang.forceStopInstSteamMsg, 1), MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
             { steamCMDProc.Kill(); }
+        }
+        private bool checkIfProcRunning(Process proc)
+        {
+            try
+            {
+                if (proc.HasExited)
+                { return false; }
+                else { return true; }
+            }
+            catch { return false; }
         }
 
         #endregion
@@ -1009,12 +1211,22 @@ namespace Server_Creation_Tool
             setEditSettingBtn();
             funcs.showMenuStripAtBtn(editSettingsMenuStrip, editStgBtn);
         }
-        private void repairUpdtSteamSrv()
+        private void repairUpdtSrv()
         {
             if (MessageBox.Show(lg(lang.repairUpdateSrvMsg), lg(lang.repairUpdt).Trim(), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            { prepSteamCMDStart(lg(lang.repairUpdt).Trim() + " " + srvNamePnlLbl.Text); }
-            //steamCMDCode = "+app blablabla"; //Set custom code
+            {
+                if (srvType == "steam")//steam 
+                {
+                    prepSteamCMDStart(lg(lang.repairUpdt).Trim() + " " + srvNamePnlLbl.Text);
+                    //steamCMDCode = "+app blablabla"; //Set custom code
+                }
+                else if (srvType == "non_steam")//steam 
+                {
+                    installNON_STEAM_Server(lg(lang.updating) + srvNamePnlLbl.Text, lg(lang.RepairUpdtDone));
+                }
+            }
         }
+
         #endregion
 
         private void instGuideBtn_Click(object sender, EventArgs e)
@@ -1031,7 +1243,7 @@ namespace Server_Creation_Tool
             customizeBtn(actBtn1, lg(lang.repairUpdt), new Action(() =>
             {
                 if (MessageBox.Show(lg(lang.days7repairUpdateSrvMsg), lg(lang.repairUpdt).Trim(), MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
-                { repairUpdtSteamSrv(); }
+                { repairUpdtSrv(); }
             }), false);
         }
         private void arkBtn_Click(object sender, EventArgs e)
@@ -1122,7 +1334,46 @@ namespace Server_Creation_Tool
             setInstBtnAct(null, () => createBatFileSrvStart());
             serverBtnClicked(sender as Button, "cube", "Unturned");
             instGuideBtn.Text = lg(lang.configHelp);
+            instGuideBtn.Visible = true;
             guideLink = gVars.unturnedSrvConfigHelpLink[0];
+        }
+        Process advancedManage = new Process();
+        private void beamngBtn_Click(object sender, EventArgs e)
+        {
+            setInstBtnAct();
+            serverBtnClicked(sender as Button, "longRec", "BeamNG.Drive");
+            instGuideBtn.Visible = true;
+            instGuideBtn.Text = lg(lang.configHelp);
+            guideLink = gVars.beamngSrvConfigHelpLink[0];
+            toolTip1.SetToolTip(srvInfBtn, "The BeamMP server is not an official server. It has been created by the community and not the BeamNG.Drive creators.");
+            customizeBtn(extrBtn1, lg(lang.srvAdvancedManage), new Action(() =>
+            {
+                if (checkIfProcRunning(advancedManage))
+                {
+                    IntPtr handle = advancedManage.MainWindowHandle;
+                    if (IsIconic(handle)) { ShowWindow(handle, SW_RESTORE); }
+                    SetForegroundWindow(handle);
+                }
+                else
+                {
+                    if (System.IO.File.Exists(srvInstDir + @"\" + srvRootFold + @"\BeamMP Server Settings Tool.exe"))
+                    {
+                        advancedManage = new Process();
+                        advancedManage.StartInfo.FileName = srvInstDir + @"\" + srvRootFold + @"\BeamMP Server Settings Tool.exe";
+                        advancedManage.StartInfo.WorkingDirectory = srvInstDir + @"\" + srvRootFold;
+                        advancedManage.Start();
+                    }
+                    else
+                    { Process.Start("https://www.mediafire.com/folder/42o3auj9o9lgx/BeamMP+Server+Management+tool"); }
+                }
+            }), false);
+        }
+        private void craftopiaBtn_Click(object sender, EventArgs e)
+        {
+            setInstBtnAct();
+            serverBtnClicked(sender as Button, "rec", "Craftopia");
+            instGuideBtn.Visible = true;
+            setCustomBatFileBtn(extrBtn1, () => writeBatchFl(true));
         }
         #endregion
         private void portForwardBtn_Click(object sender, EventArgs e)
@@ -1171,13 +1422,16 @@ namespace Server_Creation_Tool
 
         private void steamCMDstartBtn_Click(object sender, EventArgs e)
         {
-            //start steamCMD
-            Process p = new Process();
-            p.StartInfo.WorkingDirectory = srvInstDir;
-            p.StartInfo.FileName = srvInstDir + @"\steamcmd.exe";
-            p.Start();
-            //free all resources but keep steamCMD running
-            p.Close();
+            if (System.IO.File.Exists(srvInstDir + @"\steamcmd.exe"))
+            {
+                //start steamCMD
+                Process p = new Process();
+                p.StartInfo.WorkingDirectory = srvInstDir;
+                p.StartInfo.FileName = srvInstDir + @"\steamcmd.exe";
+                p.Start();
+                //free all resources but keep steamCMD running
+                p.Close();
+            }
         }
 
         private void clearCacheBtn_Click(object sender, EventArgs e)
@@ -1208,6 +1462,7 @@ namespace Server_Creation_Tool
                         });
                         MessageBox.Show(lg(lang.cacheCleanFail), lg(lang.cacheCleanFail, 1), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
+
                 });
             }
         }
@@ -1219,7 +1474,7 @@ namespace Server_Creation_Tool
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
+
         }
 
         Process aproc;
@@ -1235,5 +1490,31 @@ namespace Server_Creation_Tool
         {
             aproc.Kill();
         }
+
+        private void noInternetBtn_Click(object sender, EventArgs e)
+        {
+            noInternetBtn.Enabled = false;
+            showTaskInProg(true, false, true);
+            enableControls(false, "srvOperation");
+            currentTaskLbl.Text = lg(lang.checkingInternetConn);
+            installSrvBtn.Enabled = false;
+            funcs.StartThread(() =>
+            {
+                if (hasInternet(true))
+                {
+                    funcs.InvokeIfRequired(noInternetBtn, () =>
+                    { noInternetBtn.Visible = false; });
+                }
+                BeginInvoke((MethodInvoker)delegate ()
+                {
+                    showTaskInProg(false);
+                    enableControls(true, "srvOperation");
+                    installSrvBtn.Enabled = true;
+                    noInternetBtn.Enabled = true;
+                });
+            });
+        }
+
+
     }
 }
