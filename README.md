@@ -21,6 +21,24 @@ There are also guides avalible which will guide you, through the configuration o
 
 You will be also get a notification, if an update is available.
 
+Currently supported:
+7 Days to Die
+ARK: Survival Evolved
+BeamNG Drive
+Call of Duty: Black Ops 3
+Counter-Strike 1.6
+Counter-Strike: Source
+Counter-Strike: Global Offensive
+Craftopia
+Garry´s Mod
+Hurtworld
+Killing Floor 2
+Left 4 Dead
+Left 4 Dead 2
+Rust
+Sven Co-op
+Unturned
+
 https://steamcommunity.com/groups/ServerTool
 
 https://zeromix.itch.io/server-creation-tool
