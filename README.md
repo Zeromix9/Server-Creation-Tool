@@ -9,7 +9,7 @@ To use this tool is pretty easy.
 
 1) Select the game you want and click the "Install Server" button.
 2) If its the first time you're installing a server, select the installation folder, and then wait for it to finish.
-3) Type "quit" in the command line after the installation has finished.(only for steam servers)
+3) Type "quit" in the command line after the installation has finished. - (only for steam servers)
 4) Configure the server the way you like by editing the settings files (optional).
 5) Start the server and enjoy!
 
