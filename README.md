@@ -13,7 +13,9 @@ To use this tool is pretty easy.
 4) Configure the server the way you like by editing the settings files (optional).
 5) Start the server and enjoy!
 
-NOTE: If you need extra help, some servers include a guide in the "Extra" section. You can also go to the "Help-Language" tab for additional help.You can also join our group on steam and ask for help about your issue.
+NOTE: If you need extra help, some servers include a guide in the "Extra" section.
+You can also go to the "Help-Language" tab for additional help.
+You can also join our group on steam and ask for help about your issue.
 
 There is no need to write any commands beside the "quit" command.
 
@@ -39,8 +41,12 @@ Rust,
 Sven Co-op,
 Unturned,
 
+Steam Group:
 https://steamcommunity.com/groups/ServerTool
+Discord Server:
+https://discord.gg/79eKCs5fW8
 
+Itch.io Link:
 https://zeromix.itch.io/server-creation-tool
 
 Roadmap:
