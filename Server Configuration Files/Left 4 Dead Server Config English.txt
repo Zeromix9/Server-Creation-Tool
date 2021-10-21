@@ -1,0 +1,72 @@
+// Located in: \SteamCMD\l4d\left4dead\cfg
+// Server Name
+hostname "Left 4 Dead Server"
+
+// Rcon Cvars
+rcon_password "password" //Sets remote control password
+
+// Server Password
+sv_password "" // Password protects server
+
+// Server Cvars
+mp_disable_autokick 1 //Prevents a userid from being auto-kicked
+sv_allow_color_correction 0 //Allow or disallow clients to use colour correction on this server.
+sv_allow_wait_command 0 //Allow or disallow the wait command on clients connected to this server.
+sv_alltalk 0 //Players can hear all other players, no team restrictions
+sv_alternateticks 0 //If set, server only simulates entities on even numbered ticks.
+sv_cheats 0 //Allow cheats on server
+sv_clearhinthistory 0 //Clear memory of server side hints displayed to the player.
+sv_consistency 1 //Whether the server enforces file consistency for critical files
+sv_contact "************" //Contact email for server sysop
+sv_pausable 0 //Is the server pausable.
+
+// Allow Versus Mode
+director_no_human_zombies 1
+
+sv_steamgroup_exclusive 1 // Setting to 0 will not connect to the Match Making Service
+sv_steamgroup  // Family Steam Group Number
+
+// Lan or internet play, Server region cvars
+sv_lan 0 //Server is a lan server ( no heartbeat, no authentication, no non-class C addresses )
+sv_region 3 // Region Codes: 0 - US East coast, 1 - US West coast, 2 - South America, 3 - Europe, 4 - Asia, 5 - Australia, 6 - Middle East, 7 - Africa, 255 - world
+
+// HTTP Redirect
+sv_downloadurl "[URL]http://yourserver.com[/URL]"
+sv_filetransfercompression 0
+
+// Server Logging
+sv_log_onefile 0 //Log server information to only one file.
+sv_logbans 0 //Log server bans in the server logs.
+sv_logecho 0 //Echo log information to the console.
+sv_logfile 1 //Log server information in the log file.
+sv_logflush 0 //Flush the log file to disk on each write (slow).
+sv_logsdir "logs" //Folder in the game directory where server logs will be stored.
+
+// bandwidth rates/settings
+sv_minrate 0
+sv_maxrate 25000
+sv_minupdaterate 10
+sv_maxupdaterate 33
+sv_mincmdrate 10
+sv_maxcmdrate 33
+sv_client_cmdrate_difference 1
+sv_client_predict 1
+sv_client_interpolate 1
+sv_client_min_interp_ratio -1
+sv_client_max_interp_ratio -1
+
+sv_rcon_banpenalty 60
+sv_rcon_maxfailures 10
+sv_rcon_minfailures 5
+sv_rcon_minfailuretime 45
+
+sv_allow_lobby_connect_only 0
+
+// Voice Comm
+sv_voiceenable "1"
+sv_voicecodec vaudio_speex
+
+// Exec Configs
+exec banned_user.cfg
+mapchangecfgfile server.cfg
+mapcyclefile mapcycle.txt

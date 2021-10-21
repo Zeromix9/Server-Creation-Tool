@@ -1,0 +1,187 @@
+// Einzufügen in: \SteamCMD\css\cstrike\cfg
+//CSS German Config
+
+sv_lan 0                  			// 1=Lanserver 0=Internetserver
+sv_region 3               			// Region Servers. 0=US Ostkueste, 1=US Westkueste, 2= Suedamerika, 3=Europa, 4=Asien, 5=Australien, 6=Mittlerer Osten, 7=Afrika und 255=World
+hostname "CS:S Server"   			// Servername
+sv_password ""            		// Server Password. (""=No password)
+sv_consistency 0	  				// 1=Players with custom skins aren´t allowed to connect
+
+//bot_join_team ct					// Bots treten nur Team CT oder T bei
+//mp_humanteam t					// Spieler können nur CT oder T als Seite wählen.
+
+
+//FastDL ;
+//sv_allowupload "1" //"0" to denied, to upload player custom sprays etc.
+//sv_allowdownload "0" //"0" denied the direct download from the server
+//sv_loadingurl "http://yourdomain.com/" 
+//net_maxfilesize 128
+
+rcon_password "TEST"          // RCON password
+sv_rcon_maxfailures 10    //  
+sv_rcon_minfailures 10    // 
+sv_rcon_minfailuretime 30 // 
+
+mp_buytime 1.5            // Zeit zum einlaufen
+mp_startmoney 800         // Start money
+mp_c4timer 45             // C4 (Bomb) Timer (Min.=10 Max.=90)
+mp_flashlight 1           // Taschenlampe (1=An 0=Aus)
+mp_decals "200"           // 
+
+mp_playerid 0             // Show name, if u aim on them. (0=all 1=Just Teammates 2=None)
+mp_footsteps 1            // Possible to hear Footsteps (1=on 0=off)
+mp_falldamage 1           // 
+mp_hostagepenalty 0       // After how many hostage kills the player get kicked. 0=No kick
+decalfrequency 7         // After how many secounds u can spray again. (20=Default)
+
+mp_timelimit 30           // Maptime - Currently set to 30 minutes.
+mp_winlimit 0             // After X wins the map will change.
+mp_round_restart_delay 3 //
+mp_maxrounds 25            // How many rounds will be played per map.
+mp_roundtime 3.5            // Roundtime Currently: 3:30 min
+mp_freezetime 2           // Freezetime
+mp_autoteambalance 0      // Teambalance
+mp_limitteams 0          // How many players a team can more have then the other.
+
+mp_friendlyfire 0         // Friendlyfire.
+mp_tkpunish 0             // Teamkiller will automatic killed in the next round. (0=off 1=on)
+mp_spawnprotectiontime 5  // In this team, you will be kicked, if u attack a teammate.
+mp_autokick 1             // Kicking AFK player.
+sv_timeout 60             // After how many secounds you will be kicked.
+
+mp_forcecamera 1          // Cam Settings (0=You can watch everyone/ 1=Teamonly - First person / 2=Camera is forced at deathpoint.)
+mp_fadetoblack 0          // If this is set to 1, it became black if u die. (1=an 0=aus)
+mp_allowspectators 1      // Team Spectaor is chooseable. (1=ja 0=nein)
+sv_specaccelerate 5       // It´s fine this way.           
+sv_specspeed 3            // It´s fine this way.
+sv_specnoclip 1           // Spectator can look through Doors etc.
+
+sv_voiceenable 1          // Voicechat. (1=an 0=aus)
+sv_alltalk 0              // 1=Voicechat with both teams. 0=Voicechat Team only.
+// sv_voicequality 5         // Fine
+// sv_voicecodec "voice_speex" // Verfuegbare Codecs fuer das Ingamevoice sind "vaudio_miles" und "voice_speex"
+
+mp_chattime 10            // Chattime, while the game has ended. (1=min 120=max)
+mp_restartgame 0          // Restart in X secounds (The map will be restarted!)
+
+mp_forcerespawn 1 
+mp_teamplay 1 		  // 1=CTvs.T  2=Deathmatch (Free for all.)
+
+
+//--=::[ Physik ]:=-- 
+// !! ACHTUNG !! Zuviel rumexperimentieren mit den untenstehenden Befehlen kann deinen Server leicht zum Absturz bringen.  
+// Just don´t change anything. :)                         
+sv_gravity 800                  // Veraendert die Schwerkraft. (800=Standart)  !! ACHTUNG !! Gib nie sv_gravity 0 ein, da sonst der Server abschmiert.
+phys_pushscale 1                // Veraendert die Staerke aller Physikalischen Aktionen wie das Wegfliegen div. Objekte und Leichen. (1=original)
+phys_timescale 1                // Geschwindigkeit aller Physikalischan Aktionen wie das Wegfliegen div. Objekte und Leichen. (1=original)
+phys_impactforcescale 1         // Einschlagskraft der Projektile.
+
+sv_pushaway_clientside 0        // Spielerseitiges Wegstossen von Objekten. (0=aus 1=nur lokale Spieler 2=alle Spieler)
+sv_pushaway_clientside_size 15  // Minimale Groesse der Objekte die zurueckgestossen werden sollen. (15=orig)
+sv_pushaway_force 30000         // Bestimmt die Staerke, wie fest die Objekte vom Spieler weggestossen werden sollen. (30000=original)
+sv_pushaway_max_force 1000      // Maximale Kraft die von einem Spieler auf Objekte wirkt. (1000=original)
+sv_pushaway_min_player_speed 75 // Minimale Geschwindigkeit die ein Spieler haben muss dass Objekte von ihm weggestossen werden. (Erlaubt das Ducken hinter Objekten.) (75=original)
+
+sv_turbophysics 0 		// Damit koennen Spieler auf Faessern und anderen Physikobjekten stehen. (1=an 0=aus/orig)
+mp_solidplayers 0               // 1=Set player solid in multiplayer mode, no pushback   !! UNGETESTED !!
+
+
+
+//--=::[ Ausfuehren von zusaetzlichen Configs ]:=--
+// exec *.cfg fuehrt Configs aus die sich im Ordner "...\cstrike\cfg\" deines Servers befinden.
+// Nicht vorhandene configs werden einfach nicht ausgefuehrt. Es erscheint dann eine Fehlermeldung in der Serverconsole und das wars dann auch schon.
+// Die Datei autoexec.cfg wir automatisch nach der server.cfg ausgefuehrt.
+
+exec banned_user.cfg
+exec banned_ip.cfg
+exec mani_server.cfg
+
+
+mapchangecfgfile "server.cfg"
+servercfgfile "server.cfg"
+
+
+//--=::[ Bitte folgende Befehle nur aendern falls dein Server laggt und/oder du auch weist was du tust ]::=--
+
+sv_unlag 1                // Fine
+sv_unlag_debug 0 
+sv_unlag_fixstuck 0
+
+sv_maxrate 20000          // Fine
+sv_minrate 2500           // Fine
+sv_maxupdaterate 101      // Fine
+sv_minupdaterate 30       // Fine
+fps_max 600               // Fine
+host_framerate 0
+
+
+
+writeid                   // Banned players will be loggeg in: "banned_user.cfg".
+writeip                   // Banned IPs will be loggeg in: "banned_ip.cfg".
+log on                    // Log. (on=an off=aus)
+sv_aim 0		  // Auto aim. (1=on 0=off)
+sv_cheats 0               // 
+sv_pausable 0             // 
+                           
+sv_accelerate 5          // Player speed  
+sv_airaccelerate 10       // Player speed - Fly
+sv_wateraccelerate 10     // Player speed water
+sv_waterfriction 1         
+sv_friction 4             
+sv_maxspeed 320       	  // Max speed
+sv_stepsize 18            // Step size
+
+
+
+//--=::[ Source TV ]:=--
+
+tv_enable 0               // Source TV. (1=an 0=aus) 
+tv_port 27020             // Port SourceTV
+tv_autorecord 0           // Record everyone?
+tv_debug 0                // SrcTV debug info. 
+tv_delay 10               // SrcTV Livestream Delay
+tv_dispatchmode 1         // ???  Dispatch clients to relay proxies: 0=never, 1=if appropriate, 2=always 
+tv_maxclients 128         // Max Spectator
+tv_maxrate 3500           // Max bandweight
+tv_name "Source TV"       // Name of your SourceTV
+tv_overrideroot 0         // Ueberschreibt die SrcTV master root Adresse. 
+tv_password ""            // SrcTV Password ( "" = Aus) 
+tv_relaypassword ""       // SrcTV relaypassword ( "" = Aus)
+tv_snapshotrate  20    	  // Schreibt alle "xx" Serverticks einen Schritt in die Demo. (Nur waehrend SrcTV Demoaufnahmen.)
+
+//    Und hier noch die rcon Befehle um Source TV zu steuern:
+// tv_record "namederdemo"  =>  nimmt eine SrcTV Demo auf. (Demos werden im Ordner "cstrike" deines Servers gespeichert)
+// tv_stoprecord            =>  Stoppt die aufnahme der SrcTV Demo.  !! ACHTUNG !! Demos werden automatisch bei einem Mapchange gestoppt dann ist dieser Befehl nicht mehr noetig.)
+// tv_stop                  =>  Stopt SrcTV / "Kickt" den SrcTV Clienten vom Server. 
+// TIPP:  Beachte das der SourceTV Client Einen Slot deines Servers belegt, unabhaengig davon was du bei tv_maxclients eingegeben hast.
+// Falls du also einen 16 Slot Server mit SourceTV haben willst, musst du ihn als 17 Slot starten da ein Slot von SourceTV belegt wird.
+
+
+
+//--=::[ BOTS ]::=--
+
+bot_quota 0           	  // How many Bots?
+bot_quota_mode normal  	  // (fill=If a player join the game, the Bot will be kicked. normal=If a player join, the Bot won´t be kicked.) 
+bot_join_after_player 1   // 
+bot_difficulty 2          //  (0=easy 1=normal 2=hard 3=extrem)
+bot_prefix "<Bot>" 	  // "Clantag" - Bot prefix
+bot_defer_to_human 0	  // Bot do things like defuse the bomb etc... (1=Humans has to to that - 0=Bots also defuse the bomb etc.)
+bot_auto_vacate 1	  // Gibt an wieviele Slots die Bots freilassen sollen.
+bot_chatter minimal 	  // (on, off, radio, minimal, normal)
+
+bot_allow_grenades 1      // Allow Bot nates   
+bot_allow_pistols 1 	  // Pistoles
+bot_allow_rifles 1     	  // Rifles.
+bot_allow_rogues 1     	  // Erlaubt den Bots das benutzen von ???     
+bot_allow_shotguns 1   	  // Shotgun.              
+bot_allow_snipers 1    	  // Sniper          
+bot_allow_machine_guns 1  // Maschine Gun
+bot_allow_sub_machine_guns 1 // SMG´s                
+         
+//    Und hier noch die rcon Befehle um die Bots zu steuern:
+// bot_about     	  // Bot Informations
+// bot_add		  // Add a Bot
+// bot_add_t     	  // Add a Bot for T    
+// bot_add_ct   	  // Add a Bot fot CT
+// bot_kill               // Kill Bot X
+// bot_kick               // Kick Bot X

@@ -1,0 +1,36 @@
+// Located in: \.\l4d2\left4dead2\cfg
+//Base
+hostname "TEST"
+sv_search_key "yourkey"
+sv_password "" // Password protects server
+rcon_password "ROOT"
+
+
+
+sv_allow_lobby_connect_only "0"
+hostfile "my_host.txt" //create custom hostfile else the
+//file will be overwritten after every update
+
+mp_disable_autokick "1"
+sv_alltalk "0"
+sv_consistency "1" // 1=Allow custom skins
+//sv_contact "address@email.com"
+sv_voiceenable "1"
+sv_region "255" //sets region to all areas
+
+sv_allow_lobby_connect_only "0"
+
+
+//Logs etc
+sv_log_onefile "0"
+sv_logbans "1"
+sv_lan "0"
+sv_pure "1"
+sv_cheats "0"
+
+//sv_gametypes "coop,versus,survival,scavenge" //sets gametypes
+//sv_unlag "1"
+//sv_maxunlag "5"
+
+sv_steamgroup "000" //this is your group's steam group id. This option works with or without the quotes.
+//sv_steamgroup_exclusive "1" //to make it exclusive and private
