@@ -95,7 +95,8 @@ namespace Server_Creation_Tool
             this.Hide();
             notifyIcon1.Visible = false;
             await allTimers_stop();
-            Application.Exit();
+            //  Application.Exit();
+            Process.GetCurrentProcess().Kill();
         }
 
         private void searchSrvTxtBox_Click(object sender, EventArgs e)
@@ -145,6 +146,7 @@ namespace Server_Creation_Tool
             {
                 quickTimer_Start();
                 slowerTimer_Start();
+                try { selectedSrvBtn.PerformClick(); } catch { }
             }
         }
         aboutFrm frm = new aboutFrm();
@@ -454,6 +456,7 @@ namespace Server_Creation_Tool
         public string srvType;
         public string srvDownloadLink;
         public string srvCodename;
+        public string srvSteamID;
         public string srvRootFold;
         public string srvCfgLink;
         public string[] startFileLoc;
@@ -730,6 +733,7 @@ namespace Server_Creation_Tool
 
         private void showSrvSize()
         {
+            funcs.InvokeIfRequired(srvSizeLbl, () => { srvSizeLbl.Text = lg(lang.calculating); });
             funcs.StartThread(() =>
             {
                 var v = ByteSize.FromBytes(funcs.ShowFolderSize(srvPath()));
@@ -929,7 +933,8 @@ namespace Server_Creation_Tool
             }
             if (srvType == "steam")//steam 
             {
-                steamCMDCode = funcs.getVarByStr(srvCodename + "InstCode");
+                srvSteamID = funcs.getVarByStr(srvCodename + "SteamID");
+                steamCMDCode = " +force_install_dir ./" + srvRootFold + "/ +login anonymous +app_update " + srvSteamID.Trim() + " validate";
                 guideLink = lg(funcs.getArVarByStr(srvCodename + "GuideLink"));
                 customizeBtn(actBtn1, lg(lang.repairUpdt), repairUpdtSrv);
             }
@@ -1087,6 +1092,7 @@ namespace Server_Creation_Tool
             }
             if (srvType == "steam")
             {
+                MessageBox.Show(lg(lang.typeQuitNotify), lg(lang.notice), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 prepSteamCMDStart(lg(lang.downloading) + srvNamePnlLbl.Text);
             }
             else if (srvType == "non_steam")
@@ -1324,8 +1330,8 @@ namespace Server_Creation_Tool
         }
         private void svenBtn_Click(object sender, EventArgs e)
         {
-            setInstBtnAct();
-            serverBtnClicked(sender as Button, "cube", "Rust");
+            setInstBtnAct(null, () => createBatFileSrvStart(() => srvFuncs.createBatFileSven(srvPath() + startFileLoc[0])));
+            serverBtnClicked(sender as Button, "cube", "Sven Coop");
             instGuideBtn.Visible = true;
             setCustomBatFileBtn(extrBtn1, () => srvFuncs.createBatFileSven(srvPath() + startFileLoc[0]));
         }
@@ -1374,6 +1380,13 @@ namespace Server_Creation_Tool
             serverBtnClicked(sender as Button, "rec", "Craftopia");
             instGuideBtn.Visible = true;
             setCustomBatFileBtn(extrBtn1, () => writeBatchFl(true));
+        }
+        private void nmrihBtn_Click(object sender, EventArgs e)
+        {
+            setInstBtnAct(null, () => createBatFileSrvStart());
+            serverBtnClicked(sender as Button, "rec", "No More Room in Hell");
+            instGuideBtn.Visible = true;
+
         }
         #endregion
         private void portForwardBtn_Click(object sender, EventArgs e)
@@ -1514,7 +1527,5 @@ namespace Server_Creation_Tool
                 });
             });
         }
-
-
     }
 }

@@ -7,8 +7,8 @@ namespace Server_Creation_Tool.myClasses
     
         #region MainForm controls
         public static string[] welcomeLb = new string[]
-      {   "Welcome to Server Creation Tool 4.1",
-           "Willkommen beim Server Creation Tool 4.1",};
+      {   "Welcome to Server Creation Tool 4.2",
+           "Willkommen beim Server Creation Tool 4.2",};
         public static string[] welcomeDescLb = new string[]
        {   "This tool allows you to download, install and manage" + System.Environment.NewLine + "      steam and non-steam servers quick and easy.",
            "    Dieses Programm erlaubt es dir Steam Server, sowie andere" + System.Environment.NewLine + "schnell und einfach herunterzuladen, einzurichten und zu starten"};
@@ -51,7 +51,7 @@ namespace Server_Creation_Tool.myClasses
            "   App Logs"};
         public static string[] plannedFeatB = new string[]
        {   "    Planned "+ System.Environment.NewLine +"    Features",
-           "Geplante Features/Funktionen"};
+           "Geplante Features"};
         public static string[] discordSrvB = new string[]
        {   "      Discord "+ System.Environment.NewLine +"      Server",
            "      Discord "+ System.Environment.NewLine +"      Server"};
@@ -204,8 +204,8 @@ namespace Server_Creation_Tool.myClasses
        {   "The server has been successfully deleted", "Delete Server",
            "Der Server wurde erfolgreich gelöscht","Lösche Server"};
         public static string[] srvDelFail = new string[]
-       {   "A program is probably using some of the server's files and they couldn't be deleted. The files ahve been corrupted.", "Delete Server",
-           "Ein Programm greif aktuell auf die Server Dateien zu, daher können diese nicht gelöscht werden. Die Dateien wurden beschädigt.","Lösche Server"};
+       {   "A program is probably using some of the server's files and some of them couldn't be deleted. The files have been corrupted. Try again.", "Delete Server",
+           "Ein Programm greift auf einige der Server Dateien zu, daher konnten nicht alle Dateien gelöscht werden. Die Dateien wurden beschädigt. Versuch es erneut.","Lösche Server"};
         public static string[] forceStopInstSteamMsg = new string[]
        {   "Are you sure that you want to force it to quit? That could result in data corruption.", "Force Stop Installation",
            "Bist du sicher, dass du das abbrechen erzwingen willst? Dies könnte Datenverlust zur Folge haben.","Erzwinge Installations Stop"};
@@ -242,9 +242,15 @@ namespace Server_Creation_Tool.myClasses
         public static string[] srvStartFail = new string[]
        {   "Failed to start the server!",
            "Starten des Servers fehlgeschlagen!"};
+        public static string[] notice = new string[]
+       {   "NOTICE!",
+           "BEACHTE!"};
         public static string[] fileNotFound = new string[]
        {   "File not found!",
            "Datei nicht gefunden!"};
+        public static string[] calculating = new string[]
+       {   "Calculating...",
+           "Berechne..."};
         public static string[] foldContainsSrvPossibleDamage = new string[]
        {   "The folder which you selected already contains an installation of the server that you're about to install. Continuing the installation will update the server and might possibly delete any settings and progress. Continue?",
            "Der Ordner, den du ausgewählt hast, enthält bereits eine Server Installation. Das Aktualisieren des Servers könnte eventuelle Einstellungen löschen. Fortfahren?"};
@@ -296,29 +302,32 @@ namespace Server_Creation_Tool.myClasses
             Environment.NewLine +
             "Dies ist möglich in der verlinken Gruppe"};
         public static string[] cantStartSrv = new string[]
-      {   "There was a problem starting the server!", "Start Server",
+       {   "There was a problem starting the server!", "Start Server",
           "Es gab ein Problem beim starten des Servers!","Server starten"};
         public static string[] cacheCleanSuccess = new string[]
-      {   "Cache was cleaned successfully", "Clear cache",
+       {   "Cache was cleaned successfully", "Clear cache",
           "Cache wurde erfolgreich gelöscht.", "Leere Cache"};
         public static string[] cleaningCache = new string[]
-      {   "Cleaning Cache",
+       {   "Cleaning Cache",
           "Leere Cache Cache"};
         public static string[] generalAreYouSureContinue = new string[]
-      {   "Are you sure that you want to continue?",
+       {   "Are you sure that you want to continue?",
           "Bist du dir sicher, dass du fortfahren möchtest?"};
         public static string[] cacheCleanFail = new string[]
-      {   "Not all cache files could be deleted. Make sure they are not being used by another running process.", "Clear cache",
+       {   "Not all cache files could be deleted. Make sure they are not being used by another running process.", "Clear cache",
           "Nicht alle Cache Dateien konnten gelöscht werden. Stelle sicher, dass sie nicht von anderen Prozessen verwendet werden.", "Leere Cache"};
         public static string[] createBatFileAskInternetOrLan = new string[]
-      {   "Please select whether the server will run via lan or on the internet",
+       {   "Please select whether the server will run via lan or on the internet",
           "Wähle aus, ob der Server im Lan oder im Internet verfügbar sein soll." };
         public static string[] createBatFileAskToken = new string[]
-      {   "Please enter a VALID server token to show" + System.Environment.NewLine + "your server in the server list(Optional)",
+       {   "Please enter a VALID server token to show" + System.Environment.NewLine + "your server in the server list(Optional)",
           "Bitte geben Sie ein GÜLTIGES Server-Token ein, um Ihren" + System.Environment.NewLine + "Server in der Serverliste anzuzeigen(optional)" };
         public static string[] installSrvUnderRoot = new string[]
        {   @"Its best to create an installation folder for your servers directly in the root folder of the selected drive. For example C:\my_Servers or D:\my_Servers ETC. Also make sure all the letters in the path are in ENGLISH","Select server installation folder",
            "Leere Cache Cache","Wähle Verzeichnis für die Server Installation"};
+        public static string[] typeQuitNotify = new string[]
+       {   @"After the installation is done, type ""quit"" in the command line to close it properly",
+          @"Nachdem die Installation abgeschlossen ist, tippe ""quit"" ein, um das Programm zu schließen."};
         #endregion
 
         #region change the location and size of controls

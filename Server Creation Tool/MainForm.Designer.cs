@@ -45,6 +45,7 @@ namespace Server_Creation_Tool
             this.welcomeToToolLbl = new System.Windows.Forms.Label();
             this.welcomeDescLbl = new System.Windows.Forms.Label();
             this.steamSrvListPnl = new System.Windows.Forms.Panel();
+            this.nmrihBtn = new System.Windows.Forms.Button();
             this.craftopiaBtn = new System.Windows.Forms.Button();
             this.beamngBtn = new System.Windows.Forms.Button();
             this.unturnedBtn = new System.Windows.Forms.Button();
@@ -245,9 +246,9 @@ namespace Server_Creation_Tool
             this.formTitleLbl.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.formTitleLbl.Location = new System.Drawing.Point(39, 6);
             this.formTitleLbl.Name = "formTitleLbl";
-            this.formTitleLbl.Size = new System.Drawing.Size(157, 17);
+            this.formTitleLbl.Size = new System.Drawing.Size(159, 17);
             this.formTitleLbl.TabIndex = 6;
-            this.formTitleLbl.Text = "Server Creation Tool v4.1";
+            this.formTitleLbl.Text = "Server Creation Tool v4.2";
             this.formTitleLbl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mainFormDrag);
             // 
             // panel2
@@ -300,9 +301,9 @@ namespace Server_Creation_Tool
             this.welcomeToToolLbl.ForeColor = System.Drawing.Color.LightSeaGreen;
             this.welcomeToToolLbl.Location = new System.Drawing.Point(34, 10);
             this.welcomeToToolLbl.Name = "welcomeToToolLbl";
-            this.welcomeToToolLbl.Size = new System.Drawing.Size(275, 21);
+            this.welcomeToToolLbl.Size = new System.Drawing.Size(278, 21);
             this.welcomeToToolLbl.TabIndex = 0;
-            this.welcomeToToolLbl.Text = "Welcome to Server Creation Tool 3.1";
+            this.welcomeToToolLbl.Text = "Welcome to Server Creation Tool 4.2";
             // 
             // welcomeDescLbl
             // 
@@ -322,6 +323,7 @@ namespace Server_Creation_Tool
             this.steamSrvListPnl.BackColor = System.Drawing.Color.Transparent;
             this.steamSrvListPnl.BackgroundImage = global::Server_Creation_Tool.Properties.Resources.srvPanel;
             this.steamSrvListPnl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.steamSrvListPnl.Controls.Add(this.nmrihBtn);
             this.steamSrvListPnl.Controls.Add(this.craftopiaBtn);
             this.steamSrvListPnl.Controls.Add(this.beamngBtn);
             this.steamSrvListPnl.Controls.Add(this.welcomeBtn);
@@ -344,6 +346,24 @@ namespace Server_Creation_Tool
             this.steamSrvListPnl.Size = new System.Drawing.Size(247, 263);
             this.steamSrvListPnl.TabIndex = 26;
             // 
+            // nmrihBtn
+            // 
+            this.nmrihBtn.BackColor = System.Drawing.Color.Transparent;
+            this.nmrihBtn.FlatAppearance.BorderSize = 0;
+            this.nmrihBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(111)))), ((int)(((byte)(150)))));
+            this.nmrihBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(58)))), ((int)(((byte)(94)))));
+            this.nmrihBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.nmrihBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.nmrihBtn.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.nmrihBtn.Location = new System.Drawing.Point(1, 406);
+            this.nmrihBtn.Name = "nmrihBtn";
+            this.nmrihBtn.Size = new System.Drawing.Size(226, 23);
+            this.nmrihBtn.TabIndex = 19;
+            this.nmrihBtn.Tag = "nmrih";
+            this.nmrihBtn.Text = "No More Room In Hell";
+            this.nmrihBtn.UseVisualStyleBackColor = false;
+            this.nmrihBtn.Click += new System.EventHandler(this.nmrihBtn_Click);
+            // 
             // craftopiaBtn
             // 
             this.craftopiaBtn.BackColor = System.Drawing.Color.Transparent;
@@ -353,7 +373,7 @@ namespace Server_Creation_Tool
             this.craftopiaBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.craftopiaBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.craftopiaBtn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.craftopiaBtn.Location = new System.Drawing.Point(2, 129);
+            this.craftopiaBtn.Location = new System.Drawing.Point(2, 130);
             this.craftopiaBtn.Name = "craftopiaBtn";
             this.craftopiaBtn.Size = new System.Drawing.Size(226, 23);
             this.craftopiaBtn.TabIndex = 18;
@@ -371,7 +391,7 @@ namespace Server_Creation_Tool
             this.beamngBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.beamngBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.beamngBtn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.beamngBtn.Location = new System.Drawing.Point(2, 83);
+            this.beamngBtn.Location = new System.Drawing.Point(2, 84);
             this.beamngBtn.Name = "beamngBtn";
             this.beamngBtn.Size = new System.Drawing.Size(226, 23);
             this.beamngBtn.TabIndex = 17;
@@ -389,7 +409,7 @@ namespace Server_Creation_Tool
             this.unturnedBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.unturnedBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.unturnedBtn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.unturnedBtn.Location = new System.Drawing.Point(1, 382);
+            this.unturnedBtn.Location = new System.Drawing.Point(1, 383);
             this.unturnedBtn.Name = "unturnedBtn";
             this.unturnedBtn.Size = new System.Drawing.Size(226, 23);
             this.unturnedBtn.TabIndex = 16;
@@ -407,7 +427,7 @@ namespace Server_Creation_Tool
             this.svenBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.svenBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.svenBtn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.svenBtn.Location = new System.Drawing.Point(2, 359);
+            this.svenBtn.Location = new System.Drawing.Point(2, 360);
             this.svenBtn.Name = "svenBtn";
             this.svenBtn.Size = new System.Drawing.Size(226, 23);
             this.svenBtn.TabIndex = 15;
@@ -425,7 +445,7 @@ namespace Server_Creation_Tool
             this.l4d2Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.l4d2Btn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.l4d2Btn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.l4d2Btn.Location = new System.Drawing.Point(1, 313);
+            this.l4d2Btn.Location = new System.Drawing.Point(1, 314);
             this.l4d2Btn.Name = "l4d2Btn";
             this.l4d2Btn.Size = new System.Drawing.Size(226, 23);
             this.l4d2Btn.TabIndex = 13;
@@ -443,7 +463,7 @@ namespace Server_Creation_Tool
             this.l4dBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.l4dBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.l4dBtn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.l4dBtn.Location = new System.Drawing.Point(1, 290);
+            this.l4dBtn.Location = new System.Drawing.Point(1, 291);
             this.l4dBtn.Name = "l4dBtn";
             this.l4dBtn.Size = new System.Drawing.Size(226, 23);
             this.l4dBtn.TabIndex = 12;
@@ -461,7 +481,7 @@ namespace Server_Creation_Tool
             this.kf2Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.kf2Btn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.kf2Btn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.kf2Btn.Location = new System.Drawing.Point(1, 267);
+            this.kf2Btn.Location = new System.Drawing.Point(1, 268);
             this.kf2Btn.Name = "kf2Btn";
             this.kf2Btn.Size = new System.Drawing.Size(226, 23);
             this.kf2Btn.TabIndex = 11;
@@ -479,7 +499,7 @@ namespace Server_Creation_Tool
             this.rustBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rustBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.rustBtn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.rustBtn.Location = new System.Drawing.Point(1, 336);
+            this.rustBtn.Location = new System.Drawing.Point(1, 337);
             this.rustBtn.Name = "rustBtn";
             this.rustBtn.Size = new System.Drawing.Size(226, 23);
             this.rustBtn.TabIndex = 14;
@@ -497,7 +517,7 @@ namespace Server_Creation_Tool
             this.gmodBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gmodBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.gmodBtn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.gmodBtn.Location = new System.Drawing.Point(1, 198);
+            this.gmodBtn.Location = new System.Drawing.Point(1, 199);
             this.gmodBtn.Name = "gmodBtn";
             this.gmodBtn.Size = new System.Drawing.Size(226, 23);
             this.gmodBtn.TabIndex = 9;
@@ -515,7 +535,7 @@ namespace Server_Creation_Tool
             this.hurtworldBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.hurtworldBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.hurtworldBtn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.hurtworldBtn.Location = new System.Drawing.Point(1, 244);
+            this.hurtworldBtn.Location = new System.Drawing.Point(1, 245);
             this.hurtworldBtn.Name = "hurtworldBtn";
             this.hurtworldBtn.Size = new System.Drawing.Size(226, 23);
             this.hurtworldBtn.TabIndex = 10;
@@ -533,7 +553,7 @@ namespace Server_Creation_Tool
             this.csgoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.csgoBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.csgoBtn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.csgoBtn.Location = new System.Drawing.Point(1, 175);
+            this.csgoBtn.Location = new System.Drawing.Point(1, 176);
             this.csgoBtn.Name = "csgoBtn";
             this.csgoBtn.Size = new System.Drawing.Size(226, 23);
             this.csgoBtn.TabIndex = 8;
@@ -551,7 +571,7 @@ namespace Server_Creation_Tool
             this.cssBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cssBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.cssBtn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.cssBtn.Location = new System.Drawing.Point(2, 221);
+            this.cssBtn.Location = new System.Drawing.Point(2, 222);
             this.cssBtn.Name = "cssBtn";
             this.cssBtn.Size = new System.Drawing.Size(226, 23);
             this.cssBtn.TabIndex = 7;
@@ -569,7 +589,7 @@ namespace Server_Creation_Tool
             this.cs16Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cs16Btn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.cs16Btn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.cs16Btn.Location = new System.Drawing.Point(2, 152);
+            this.cs16Btn.Location = new System.Drawing.Point(2, 153);
             this.cs16Btn.Name = "cs16Btn";
             this.cs16Btn.Size = new System.Drawing.Size(226, 23);
             this.cs16Btn.TabIndex = 6;
@@ -587,7 +607,7 @@ namespace Server_Creation_Tool
             this.codbo3Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.codbo3Btn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.codbo3Btn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.codbo3Btn.Location = new System.Drawing.Point(2, 106);
+            this.codbo3Btn.Location = new System.Drawing.Point(2, 107);
             this.codbo3Btn.Name = "codbo3Btn";
             this.codbo3Btn.Size = new System.Drawing.Size(226, 23);
             this.codbo3Btn.TabIndex = 5;
@@ -605,7 +625,7 @@ namespace Server_Creation_Tool
             this.arkBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.arkBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.arkBtn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.arkBtn.Location = new System.Drawing.Point(2, 60);
+            this.arkBtn.Location = new System.Drawing.Point(2, 61);
             this.arkBtn.Name = "arkBtn";
             this.arkBtn.Size = new System.Drawing.Size(226, 23);
             this.arkBtn.TabIndex = 3;
@@ -623,7 +643,7 @@ namespace Server_Creation_Tool
             this.days7Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.days7Btn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.days7Btn.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.days7Btn.Location = new System.Drawing.Point(2, 37);
+            this.days7Btn.Location = new System.Drawing.Point(2, 38);
             this.days7Btn.Name = "days7Btn";
             this.days7Btn.Size = new System.Drawing.Size(226, 23);
             this.days7Btn.TabIndex = 2;
@@ -1819,7 +1839,7 @@ namespace Server_Creation_Tool
             this.welcomeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.welcomeBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.welcomeBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.welcomeBtn.Location = new System.Drawing.Point(2, 2);
+            this.welcomeBtn.Location = new System.Drawing.Point(2, 3);
             this.welcomeBtn.Name = "welcomeBtn";
             this.welcomeBtn.Size = new System.Drawing.Size(226, 36);
             this.welcomeBtn.TabIndex = 1;
@@ -2054,6 +2074,7 @@ namespace Server_Creation_Tool
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private customSmoothBtn noInternetBtn;
         private System.Windows.Forms.Button craftopiaBtn;
+        private System.Windows.Forms.Button nmrihBtn;
     }
 }
 

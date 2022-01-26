@@ -352,6 +352,9 @@
   <ItemGroup>
     <Content Include="favicon %288%29.ico" />
     <Content Include="favicon %2888%29.ico" />
+    <None Include="Resources\nmrih3.png" />
+    <None Include="Resources\nmrih2.png" />
+    <None Include="Resources\nmrih1.png" />
     <None Include="Resources\craftopia_logo.png" />
     <None Include="Resources\customNoInternet.png" />
     <None Include="Resources\starUnChecked gray 16.png" />

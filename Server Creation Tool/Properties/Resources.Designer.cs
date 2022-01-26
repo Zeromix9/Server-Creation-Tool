@@ -643,6 +643,16 @@ namespace Server_Creation_Tool.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap nmrih_logo {
+            get {
+                object obj = ResourceManager.GetObject("nmrih_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap output_onlinepngtools {
             get {
                 object obj = ResourceManager.GetObject("output-onlinepngtools", resourceCulture);

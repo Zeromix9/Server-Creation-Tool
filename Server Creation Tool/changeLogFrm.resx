@@ -118,7 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="textBox1.Text" xml:space="preserve">
-    <value>13.06.2021 - Version 4.0 - Full UI redesign
+    <value>26.01.2022 Version 4.2 - No More Room In Hell Server + Guides
+Added No More Room In Hell server and Guides
+Fixed an issue where an installed server would appear as not installed on the main server panel after selecting a server installation directory.
+Fixed an issue where the tool would sometimes stay open in the background after you've closed it.
+Minor bug fixes.
+Minor UI modifications.
+Added a message to inform the user to type "quit" on steamCMD after the installation of a steam server has ended.
+SvenDS can only be started with a batch file(If it doesn't exist it is created automatically with default settings).
+
+04.09.2021 - Version 4.1 - Server Names Update
+Updated the root folder names for most servers. For example the "csgo" server folder has been changed to "csgo_ds"( "ds" stands for dedicated server).
+Visit the Server Guides on steam to find out if you need to rename your current folders and get your servers back working.
+Added Craftopia server + Guides
+Added BeamNG.drive server + Guide
+Updated ARK server batch file
+Added favourite servers list
+Added internet availability checking system
+Show a notification when a task has completed (e.g server installation)
+Some code optimization
+Fixed random crash when you select an installed server
+Other bug fixes
+Some small UI changes
+
+13.06.2021 - Version 4.0 - Full UI redesign
 Significant optimization (Increased performance and less system resource usage)
 Minor bug fixes
 Added Discord server button
