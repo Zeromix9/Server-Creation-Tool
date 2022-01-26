@@ -1,0 +1,27 @@
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\Server Creation Tool.exe.config
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\Server Creation Tool.exe
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\Server Creation Tool.pdb
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\ByteSize.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\Debug\Server_Creation_Tool.Properties.Resources.resources
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\Debug\Server Creation Tool.csproj.GenerateResource.cache
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\Debug\Server Creation Tool.csproj.CoreCompileInputs.cache
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\Debug\Server Creation Tool.csproj.CopyComplete
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\Debug\Server Creation Tool.exe
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\Debug\Server Creation Tool.pdb
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\Elegant.Ui.Common.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\System.Windows.Forms.Ribbon.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\Elegant.Ui.Common.xml
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\da-DK\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\de-DE\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\es-ES\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\fi-FI\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\fr-FR\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\it-IT\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\nb-NO\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\nl-NL\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\pl-PL\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\pt-PT\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\ru-RU\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\sv-SE\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\bin\Debug\uk-UA\Elegant.Ui.Common.resources.dll
+C:\Users\Stelios L PC\Desktop\Server Creation Tool\Server Creation Tool\obj\Debug\Server_Creation_Tool.MainForm.resources
