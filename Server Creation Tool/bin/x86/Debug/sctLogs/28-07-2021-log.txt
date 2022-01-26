@@ -1,3 +1,0 @@
-05:48 μμ>>> System.InvalidOperationException: Δεν είναι δυνατή η εκκίνηση της διεργασίας επειδή δεν έχει δοθεί όνομα αρχείου.
-   σε System.Diagnostics.Process.Start()
-   σε Server_Creation_Tool.MainForm.startSrv() στο C:\Users\Stelios PC\Downloads\Server-Creation-Tool-4.1\Server-Creation-Tool-4.1\Server Creation Tool\MainForm.cs:γραμμή 1119

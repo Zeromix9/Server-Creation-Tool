@@ -1,5 +1,0 @@
-03:40 μμ>>> System.Net.WebException: Δεν ήταν δυνατή η επίλυση του απομακρυσμένου ονόματος: 'pastebin.com'
-   σε System.Net.WebClient.DownloadDataInternal(Uri address, WebRequest& request)
-   σε System.Net.WebClient.DownloadString(Uri address)
-   σε System.Net.WebClient.DownloadString(String address)
-   σε statServer_Creation_Tool.funcClass.check4Updates(String updtCheckURL, Int32 currentVer) στο C:\Users\Stelios PC\Downloads\Server-Creation-Tool-4.0\Server-Creation-Tool-4.0\Server Creation Tool\myClasses\funcClass.cs:γραμμή 39
