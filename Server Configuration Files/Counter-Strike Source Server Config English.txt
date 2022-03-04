@@ -105,7 +105,7 @@ sv_unlag_fixstuck 0
 
 sv_maxrate 20000          // Fine
 sv_minrate 2500           // Fine
-sv_maxupdaterate 101      // Fine
+sv_maxupdaterate 66      // Fine
 sv_minupdaterate 30       // Fine
 fps_max 600               // Fine
 host_framerate 0
