@@ -55,4 +55,4 @@ Roadmap:
 https://trello.com/b/9dsN6TIT
 
 You can also donate, if you want to support us:
-https://www.paypal.com/paypalme/lonewolfco
+https://paypal.me/Zeromix
