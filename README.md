@@ -1,5 +1,5 @@
 # Server Creation Tool
-A Tool to easily create Server via SteamCMD
+A Tool that allows you to easily create game servers.
 
 Requirements:
 - Internet connection
