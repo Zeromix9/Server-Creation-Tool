@@ -56,3 +56,5 @@ https://trello.com/b/9dsN6TIT
 
 You can also donate, if you want to support us:
 https://paypal.me/Zeromix
+
+![εικόνα](https://user-images.githubusercontent.com/55713334/209679233-aac1a304-6e6e-43f4-b22a-73661ae4c309.png)
