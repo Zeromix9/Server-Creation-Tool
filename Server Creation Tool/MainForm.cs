@@ -189,7 +189,7 @@ namespace Server_Creation_Tool
         }
         private void paypalBtn_Click(object sender, EventArgs e)
         {
-            Process.Start("https://www.paypal.com/paypalme/lonewolfco");
+            Process.Start("https://www.paypal.com/paypalme/zeromix");
         }
 
         private void timer1_Tick(object sender, EventArgs e)
