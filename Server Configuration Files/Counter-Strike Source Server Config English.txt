@@ -1,5 +1,6 @@
 //Located in: \SteamCMD\css\cstrike\cfg
 //CSS English Config
+//Advertising: Visit https://steamcommunity.com/groups/ServerTool
 
 sv_lan 0                  			// 1=Lanserver 0=Internetserver
 sv_region 3               			// Region Servers. 0=US East, 1=US West, 2= Suedamerika, 3=Europa, 4=Asien, 5=Australien, 6=Mittlerer Osten, 7=Afrika und 255=World
