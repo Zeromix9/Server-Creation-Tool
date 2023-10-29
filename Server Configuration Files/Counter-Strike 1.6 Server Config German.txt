@@ -26,3 +26,5 @@ sv_cheats 0 //Aktiviere Konsolen Cheats, wie "noclip" oder "god"
 // Zu ladene Konfigurationen
 exec listip.cfg
 exec banned.cfg
+log on
+//Logfile wird gespeichert in: cs_ds/cstrike/logs
