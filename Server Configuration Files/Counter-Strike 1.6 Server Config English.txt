@@ -26,3 +26,5 @@ sv_cheats 0 //Does activate dev console cheats like "noclip" or "god"
 // load ban files
 exec listip.cfg
 exec banned.cfg
+log on
+//Logfiles can be found in: cs_ds/cstrike/logs
