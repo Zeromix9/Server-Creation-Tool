@@ -1,6 +1,8 @@
 # Server Creation Tool
 A Tool that allows you to easily create game servers.
 
+[![Github All Releases](https://img.shields.io/github/downloads/Zeromix9/Server-Creation-Tool/total.svg)]()
+
 Requirements:
 - Internet connection
 - Net Framework 4.6.1
