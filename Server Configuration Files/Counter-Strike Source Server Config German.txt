@@ -1,4 +1,4 @@
-// Einzufügen in: \SteamCMD\css\cstrike\cfg
+// Einzufügen in: \SteamCMD\css_ds\cstrike\cfg
 //CSS German Config
 
 sv_lan 0                  			// 1=Lanserver 0=Internetserver
