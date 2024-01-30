@@ -1,4 +1,4 @@
-// Server.cfg has to be located in: SteamCMD\csgo\csgo\cfg
+// Server.cfg has to be located in: SteamCMD\cs2_ds\csgo\cfg
 // read in any bans. this needs to be done at the start to give the server
 // time to process them before we ask them to be written back out.
 exec banned_user.cfg
