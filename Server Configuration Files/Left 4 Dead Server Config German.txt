@@ -1,4 +1,4 @@
-//Einzufügen in: \SteamCMD\l4d\left4dead\cfg
+//Einzufügen in: \SteamCMD\l4d_ds\left4dead\cfg
 hostname "L4D Test Server"
 // Servernamen festlegen
 
