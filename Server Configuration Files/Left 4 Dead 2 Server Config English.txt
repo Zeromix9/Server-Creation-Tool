@@ -1,4 +1,4 @@
-// Located in: \.\l4d2\left4dead2\cfg
+// Located in: \l4d2_ds\left4dead2\cfg
 //Base
 hostname "TEST"
 sv_search_key "yourkey"
