@@ -1,4 +1,4 @@
-// Einzufügen in: \SteamCMD\gmod-Dedicated\garrysmod\cfg
+// Einzufügen in: \SteamCMD\gmod_ds\garrysmod\cfg
 // Server Name
 hostname "Euer Servername"         // Name eures Servers
  
