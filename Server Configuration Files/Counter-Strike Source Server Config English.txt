@@ -1,4 +1,4 @@
-//Located in: \SteamCMD\css\cstrike\cfg
+//Located in: \SteamCMD\css_ds\cstrike\cfg
 //CSS English Config
 //Advertising: Visit https://steamcommunity.com/groups/ServerTool
 
