@@ -1,4 +1,4 @@
-// Located in: \SteamCMD\l4d\left4dead\cfg
+// Located in: \SteamCMD\l4d_ds\left4dead\cfg
 // Server Name
 hostname "Left 4 Dead Server"
 
