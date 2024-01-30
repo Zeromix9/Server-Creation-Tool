@@ -1,4 +1,4 @@
-// Einzufügen in: \.\l4d2\left4dead2\cfg
+// Einzufügen in: \l4d2_ds\left4dead2\cfg
 hostname "L4D2 TEST Server" // Servernamen festlegen
 
 sv_password "" //Legt das Passwort zum beitreten des Servers fest.
