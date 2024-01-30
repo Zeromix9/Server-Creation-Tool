@@ -1,4 +1,4 @@
-// Located in: \SteamCMD\gmod-Dedicated\garrysmod\cfg
+// Located in: \SteamCMD\gmod_ds\garrysmod\cfg
 // Server Name
 hostname "Your Servername" // Server Name
 
