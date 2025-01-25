@@ -21,9 +21,9 @@ You can also join our group on steam and ask for help about your issue.
 
 There is no need to write any commands beside the "quit" command.
 
-There are also guides avalible which will guide you, through the configuration of your server.
+There are also guides avaliable which will guide you, through the configuration of your server.
 
-You will be notified , if there is an update available.
+You will be notified, if there is an update available.
 
 Currently supported:
 7 Days to Die,
