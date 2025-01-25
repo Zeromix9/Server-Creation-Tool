@@ -25,25 +25,6 @@ There are also guides avaliable which will guide you, through the configuration 
 
 You will be notified, if there is an update available.
 
-Currently supported:
-7 Days to Die,
-ARK: Survival Evolved,
-BeamNG Drive,
-Call of Duty: Black Ops 3,
-Counter-Strike 1.6,
-Counter-Strike: Source,
-Counter-Strike: Global Offensive,
-Craftopia,
-Garry´s Mod,
-Hurtworld,
-Killing Floor 2,
-Left 4 Dead,
-Left 4 Dead 2,
-No More Room In Hell,
-Rust,
-Sven Co-op,
-Unturned,
-
 Steam Group:
 https://steamcommunity.com/groups/ServerTool
 
