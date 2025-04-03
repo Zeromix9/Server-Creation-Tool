@@ -35,7 +35,7 @@ Itch.io Link:
 https://zeromix.itch.io/server-creation-tool
 
 Roadmap:
-https://github.com/users/Zeromix9/projects/3/
+[https://github.com/users/Zeromix9/projects/3/](https://trello.com/b/9dsN6TIT/server-creation-tool)
 
 You can also donate, if you want to support us:
 
