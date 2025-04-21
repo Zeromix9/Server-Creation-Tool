@@ -17,7 +17,6 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Resources;
-using System.Security.Policy;
 using System.Threading;
 using System.Windows.Forms;
 using Transitions;
@@ -1283,7 +1282,7 @@ namespace Server_creation_tool
             {
                 string[] message = new string[2];
                 message[1] = getGeneralLang("info")[0];
-                if ( updateOrInstall == "update")
+                if (updateOrInstall == "update")
                 {
                     message[0] = getGeneralLang("srv_update_repair_failed")[1];
                 }
@@ -1800,8 +1799,8 @@ namespace Server_creation_tool
                 {
                     action2 = () => funcs.StartThread(() =>
                     {
-                        funcs.InvokeIfRequired(installSrvBtn,()=> installSrvBtn.Enabled = false);
-                        
+                        funcs.InvokeIfRequired(installSrvBtn, () => installSrvBtn.Enabled = false);
+
                         taskStarted(getGeneralLang("downloading_cfg_file")[1], true, true);
                         easyDownloadFile(link, getCurrentInstancePath() + getServerDataStr("conf_file_link_path"), true, "all", getGeneralLang("cfg_file_download_failed")[1], getGeneralLang("error")[1], getGeneralLang("done")[1] + "                           ", getControlsLang("create_custom_conf_file")[1]);
                         funcs.InvokeIfRequired(installSrvBtn, () => installSrvBtn.Enabled = true);
@@ -1867,14 +1866,24 @@ namespace Server_creation_tool
                 {
                     cTry(() =>
                     {
-                        funcsClass.DeleteDirectory(serversInstDir + "\\" + SrvInstanceRootFold);
+                        if (getCurrentInstancePath().Contains("_ds"))//if the path for some reason is wrong, do not proceed with deleting as that might delete the whole server library
+                        {
+                            funcsClass.DeleteDirectory(getCurrentInstancePath());
+                            methodInvoke(() => MsgBox.quickMsg(snprintf(getGeneralLang("ask_delete_server")[2], new[] { srvNameANDinstancesDropDownBtn.Text }), getGeneralLang("done")[1], 55));
+                        }
+                        else
+                        {
+                            methodInvoke(() =>
+                            {
+                                MsgBox.Show(getGeneralLang("srv_delete_fail")[1], snprintf(getGeneralLang("ask_delete_server")[2], new[] { srvNameANDinstancesDropDownBtn.Text }), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            });
+                        }
 
                     }, true, getGeneralLang("srv_delete_fail")[1], snprintf(getGeneralLang("ask_delete_server")[2], new[] { srvNameANDinstancesDropDownBtn.Text }), true);
                     taskEnded();
                     enableUI();
                     methodInvoke(() => { installSrvBtn.Enabled = true; });
                     refresh();
-                    methodInvoke(() => MsgBox.quickMsg(snprintf(getGeneralLang("ask_delete_server")[2], new[] { srvNameANDinstancesDropDownBtn.Text }), getGeneralLang("done")[1], 55));
                 });
             }
         }

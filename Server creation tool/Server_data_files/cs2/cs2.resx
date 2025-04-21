@@ -138,8 +138,18 @@
   <data name="guide_link_en" xml:space="preserve">
     <value>https://steamcommunity.com/sharedfiles/filedetails/?id=749588143#1271443</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\Resources\Counter-Strike_2_(Icon).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\Resources\logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_size" xml:space="preserve">
+    <value>90,90</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="logo" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="old_logo" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAABLAAAAFoCAYAAABHdAIqAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAACH
         DwAAjA8AAP1SAACBQAAAfXkAAOmLAAA85QAAGcxzPIV3AAAKOWlDQ1BQaG90b3Nob3AgSUNDIHByb2Zp
@@ -1959,9 +1969,6 @@
         SZIkSZIkSZIkSXK1EEYmSZIkSZIkSZIkSZIkydVCGJkkSZIkSZIkSZIkSZIkVwd3Xvf/AbFUk7ltz8+2
         AAAAAElFTkSuQmCC
 </value>
-  </data>
-  <data name="logo_size" xml:space="preserve">
-    <value>350,100</value>
   </data>
   <data name="root_folder" xml:space="preserve">
     <value>cs2_ds</value>

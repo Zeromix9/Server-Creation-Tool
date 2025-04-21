@@ -33,6 +33,7 @@ namespace Server_creation_tool.reusable_controls.messageBox
             catch { }
             return diagRes;
         }
+    
         public DialogResult Dontshow(ref bool dontshowAgain, string body, string title, MessageBoxButtons buttons = MessageBoxButtons.OK, MessageBoxIcon MessageBoxIcon = MessageBoxIcon.None, Image img = null)
         {
             if (dontshowAgain) return DialogResult.None;

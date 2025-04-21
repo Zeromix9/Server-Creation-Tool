@@ -37,7 +37,6 @@ namespace Server_creation_tool.classes
             }
             catch { }
         }
-
         // this can be used with forms not just buttons                                                                      //if tag is empty it takes transparent as the color
         public void showMenuStripAtBtn(Control menuStrip, Control button, Form parentForm = null, bool showOnSide = false, bool normalColorInTag = true, bool doNotShowBtnPressed = false)//use parentForm only when using a form as a contex menu strip
         {

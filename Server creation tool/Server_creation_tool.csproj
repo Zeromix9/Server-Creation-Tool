@@ -676,7 +676,6 @@
     <None Include="Resources\install_img.png" />
     <None Include="Resources\7cs9Ed_toneddown1.png" />
     <None Include="Resources\startSrvContainer2.png" />
-    <None Include="Resources\logo.png" />
     <None Include="Resources\csgo_logo.png" />
     <None Include="Resources\bo3_logo.png" />
     <None Include="Resources\counter-strike-source-png-logo-21.png" />
@@ -695,6 +694,8 @@
     <None Include="Resources\ark.png" />
     <None Include="Resources\basicInstrBox.png" />
     <None Include="Resources\Palworld-Logo-survival-game-Pokemon-transparent-PNG-image.png" />
+    <None Include="Resources\logo.png" />
+    <None Include="Resources\Counter-Strike_2_%28Icon%29.png" />
     <Content Include="Server_data_files\info.txt" />
     <Content Include="Windows Logo.png" />
     <None Include="Resources\icons8-greece-24.png" />
