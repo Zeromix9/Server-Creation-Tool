@@ -1,0 +1,168 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="datatron" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="datatron">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Value" type="xs:string" minOccurs="0" />
+                <xs:element name="LOC_x0020_offset" type="xs:string" minOccurs="0" />
+                <xs:element name="SIZE_x0020_offset" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <datatron>
+    <Name>AboutBtn</Name>
+    <Value>       Über</Value>
+  </datatron>
+  <datatron>
+    <Name>actPnlLbl</Name>
+    <Value>-Aktionen-</Value>
+  </datatron>
+  <datatron>
+    <Name>appLogsBtn</Name>
+    <Value>     App 
+    Logs</Value>
+  </datatron>
+  <datatron>
+    <Name>basicInstrLbl</Name>
+    <Value>Basis Informationen:</Value>
+  </datatron>
+  <datatron>
+    <Name>basicInstrTextLbl</Name>
+    <Value>1) Wähle das Spiel aus, wovon du einen Server erstellen möchtest und klicke auf "Server installieren"
+2) Wenn du einen Server zum ersten mal installierst, wähle den Ordner aus und warte, bis die Installation fertiggestellt wurde.
+3) Schreibe "quit" in die Konsole, nachdem die Installation beendet wurde. (Nur bei Steam Servern)
+4) Konfiguriere den Server, indem du die Konfigurationsdateien anpasst.(Optional)
+5) Starte den Server, viel Spaß!
+
+HINWEIß: Wenn du weitere Hilfe benötigt, so gehe unter "Extras" in dieser Kategorie findest du entsprechende Server Anleitungen. Desweiteren kannst du unserer Steam Gruppe für weitere Hilfe beitreten.</Value>
+  </datatron>
+  <datatron>
+    <Name>chck4UpdtBtn</Name>
+    <Value>       Überprüfe auf
+   Updates</Value>
+  </datatron>
+  <datatron>
+    <Name>delBtn</Name>
+    <Value>Löschen</Value>
+  </datatron>
+  <datatron>
+    <Name>discordSrvBtn</Name>
+    <Value>      Discord 
+      Server</Value>
+  </datatron>
+  <datatron>
+    <Name>editStgBtn</Name>
+    <Value>     Editiere Einstellungen  ▼</Value>
+  </datatron>
+  <datatron>
+    <Name>extrPnlLbl</Name>
+    <Value>-Extra-</Value>
+  </datatron>
+  <datatron>
+    <Name>faqBtn</Name>
+    <Value> FAQ</Value>
+  </datatron>
+  <datatron>
+    <Name>githubBtn</Name>
+    <Value>    Github</Value>
+  </datatron>
+  <datatron>
+    <Name>howToPortForwardBtn</Name>
+    <Value>       Wie man Ports
+        freigibt</Value>
+  </datatron>
+  <datatron>
+    <Name>instGuideBtn</Name>
+    <Value>  Installations Guide</Value>
+  </datatron>
+  <datatron>
+    <Name>langBtn</Name>
+    <Value>       Sprache</Value>
+  </datatron>
+  <datatron>
+    <Name>lastRanLbl</Name>
+    <Value>-ZULETZT GESTARTET-</Value>
+  </datatron>
+  <datatron>
+    <Name>MORElbl</Name>
+    <Value>MEHR:</Value>
+  </datatron>
+  <datatron>
+    <Name>OpenFoldBtn</Name>
+    <Value>Öffne Ordner</Value>
+  </datatron>
+  <datatron>
+    <Name>plannedFeaturesBtn</Name>
+    <Value>    Geplante
+     Features</Value>
+  </datatron>
+  <datatron>
+    <Name>reloadSrvsBtn</Name>
+    <Value>Serverliste aktualisieren</Value>
+  </datatron>
+  <datatron>
+    <Name>searchSrvLbl</Name>
+    <Value>Suche:</Value>
+  </datatron>
+  <datatron>
+    <Name>selectSrvInstFoldBtn</Name>
+    <Value>  Wähle das 
+    Serververzeichnis aus</Value>
+  </datatron>
+  <datatron>
+    <Name>settingsBtn</Name>
+    <Value>        Einstellungen</Value>
+  </datatron>
+  <datatron>
+    <Name>sizeLbl</Name>
+    <Value>-GRÖßE-</Value>
+  </datatron>
+  <datatron>
+    <Name>steamCMDBtn</Name>
+    <Value>   SteamCMD
+        Optionen    ▼</Value>
+  </datatron>
+  <datatron>
+    <Name>taskLbl</Name>
+    <Value>Task:</Value>
+  </datatron>
+  <datatron>
+    <Name>ToolGrpSiteBtn</Name>
+    <Value>       Tool Gruppen-
+     Website</Value>
+  </datatron>
+  <datatron>
+    <Name>updateBtn</Name>
+    <Value> Update/Reparieren</Value>
+  </datatron>
+  <datatron>
+    <Name>welcomeBtn</Name>
+    <Value>---Willkommen---</Value>
+  </datatron>
+  <datatron>
+    <Name>welcomeDescLbl</Name>
+    <Value>    Dieses Programm erlaubt es dir Steam Server, sowie andere 
+schnell und einfach herunterzuladen, einzurichten und zu starten</Value>
+  </datatron>
+  <datatron>
+    <Name>welcomeToToolLbl</Name>
+    <Value>Willkommen beim Server Creation Tool</Value>
+  </datatron>
+  <datatron>
+    <Name>create_custom_start_bat_file</Name>
+    <Value>Erstelle Benutzerdefinierte Batch Datei</Value>
+  </datatron>
+  <datatron>
+    <Name>create_custom_conf_file</Name>
+    <Value>Erstelle Benutzerdefinierte Konfigurationsdatei</Value>
+  </datatron>
+</NewDataSet>

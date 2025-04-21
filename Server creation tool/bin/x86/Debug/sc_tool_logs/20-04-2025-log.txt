@@ -1,0 +1,39 @@
+08:47 μμ>>> ERROR: Failed to start the Palworld serverSystem.ComponentModel.Win32Exception (0x80004005): Δεν είναι δυνατή η εύρεση του καθορισμένου αρχείου από το σύστημα
+   σε System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   σε System.Diagnostics.Process.Start()
+   σε Server_creation_tool.MainForm.<>c__DisplayClass95_0.<startServer>b__2() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 1117
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550
+08:48 μμ>>> ERROR: Failed to start the Palworld serverSystem.ComponentModel.Win32Exception (0x80004005): Δεν είναι δυνατή η εύρεση του καθορισμένου αρχείου από το σύστημα
+   σε System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   σε System.Diagnostics.Process.Start()
+   σε Server_creation_tool.MainForm.<>c__DisplayClass95_0.<startServer>b__2() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 1117
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550
+08:49 μμ>>> ERROR: Failed to start the Counter-Strike: 1.6 serverSystem.ComponentModel.Win32Exception (0x80004005): Δεν είναι δυνατή η εύρεση του καθορισμένου αρχείου από το σύστημα
+   σε System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   σε System.Diagnostics.Process.Start()
+   σε Server_creation_tool.MainForm.<>c__DisplayClass95_0.<startServer>b__2() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 1117
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550
+08:49 μμ>>> ERROR: Failed to start the Counter-Strike: 1.6 serverSystem.ComponentModel.Win32Exception (0x80004005): Δεν είναι δυνατή η εύρεση του καθορισμένου αρχείου από το σύστημα
+   σε System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   σε System.Diagnostics.Process.Start()
+   σε Server_creation_tool.MainForm.<>c__DisplayClass95_0.<startServer>b__2() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 1117
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550
+08:49 μμ>>> ERROR: Failed to start the Counter-Strike: 1.6 serverSystem.ComponentModel.Win32Exception (0x80004005): Δεν είναι δυνατή η εύρεση του καθορισμένου αρχείου από το σύστημα
+   σε System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   σε System.Diagnostics.Process.Start()
+   σε Server_creation_tool.MainForm.<>c__DisplayClass95_0.<startServer>b__2() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 1117
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550
+08:55 μμ>>> Download action failed: Failed to download the config file
+09:23 μμ>>> Download action failed: Failed to download the config file
+09:45 μμ>>> Download action failed: Failed to download the config file
+09:54 μμ>>> Download action failed: Failed to download the config file
+09:55 μμ>>> Download action failed: Failed to download the config file
+09:55 μμ>>> Download action failed: Failed to download the config file
+09:55 μμ>>> Download action failed: Failed to download the config file
+09:55 μμ>>> Download action failed: Failed to download the config file
+09:56 μμ>>> Download action failed: Failed to download the config file
+09:57 μμ>>> Download action failed: Failed to download the BeamNG.Drive server. Check the log files for more info or join our steam/discord group to ask for help
+09:59 μμ>>> Failed to check for updates!System.Net.WebException: Δεν ήταν δυνατή η επίλυση του απομακρυσμένου ονόματος: 'api.github.com'
+   σε System.Net.HttpWebRequest.GetResponse()
+   σε Server_creation_tool.MainForm.thereIsUpdate() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 803
+09:59 μμ>>> Download action failed: Failed to download the BeamNG.Drive server. Check the log files for more info or join our steam/discord group to ask for help

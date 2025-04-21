@@ -1,0 +1,729 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Server_creation_tool</RootNamespace>
+    <AssemblyName>Server creation tool</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon %2888%29.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <ItemGroup>
+    <Reference Include="Costura, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Costura.Fody.5.7.0\lib\netstandard1.0\Costura.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.ExtendedLinguisticServices, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack.1.1.1\lib\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Sensors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack.1.1.1\lib\Microsoft.WindowsAPICodePack.Sensors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.ShellExtensions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack.1.1.1\lib\Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="SteamCMD.ConPTY, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SteamCMD.ConPTY.1.2.0\lib\netstandard2.0\SteamCMD.ConPTY.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Console, Version=4.0.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Console.4.3.1\lib\net46\System.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.6.0.0\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.7.0.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.7.0.3\lib\netstandard2.0\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.1\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+    </Reference>
+    <Reference Include="Transitions, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\dot-net-transitions.1.2.1.0\lib\net40-full\Transitions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutFrm.designer.cs">
+      <DependentUpon>AboutFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="reusable_controls\messageBox\messageBox.cs" />
+    <Compile Include="reusable_controls\RichLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="reusable_controls\RichLabel.Designer.cs">
+      <DependentUpon>RichLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="classes\ControlTools.cs" />
+    <Compile Include="classes\fileDownloader.cs" />
+    <Compile Include="classes\global_Variables.cs" />
+    <Compile Include="reusable_controls\transparentRichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="reusable_controls\scrollPnl\scroll.cs" />
+    <Compile Include="classes\SmoothBtnMaker.cs" />
+    <Compile Include="FAQFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAQFrm.Designer.cs">
+      <DependentUpon>FAQFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="reusable_controls\baseFormUsrCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="reusable_controls\baseFormUsrCtrl.Designer.cs">
+      <DependentUpon>baseFormUsrCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="classes\funcsClass.cs" />
+    <Compile Include="classes\log.cs" />
+    <Compile Include="reusable_controls\contexMenuStripFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="reusable_controls\contexMenuStripFrm.Designer.cs">
+      <DependentUpon>contexMenuStripFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="reusable_controls\customBtn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="reusable_controls\customBtn.Designer.cs">
+      <DependentUpon>customBtn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="reusable_controls\customSmoothBtn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="reusable_controls\customSmoothBtn.designer.cs">
+      <DependentUpon>customSmoothBtn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="reusable_controls\lineSeparator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="reusable_controls\lineSeparator.Designer.cs">
+      <DependentUpon>lineSeparator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="reusable_controls\messageBox\msgBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="reusable_controls\messageBox\msgBox.Designer.cs">
+      <DependentUpon>msgBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="reusable_controls\scrollPnl\scrollPnl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="reusable_controls\scrollPnl\scrollPnl.designer.cs">
+      <DependentUpon>scrollPnl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Server_data_files\ark\ark_funcs.cs" />
+    <Compile Include="Server_data_files\beamng\beamng_funcs.cs" />
+    <Compile Include="Server_data_files\cs2\cs2_funcs.cs" />
+    <Compile Include="Server_data_files\cs\cs_funcs.cs" />
+    <Compile Include="Server_data_files\palworld\palworld_funcs.cs" />
+    <Compile Include="Server_data_files\sven\sven_funcs.cs" />
+    <Compile Include="Server_data_files\vtest_server\vtest_server_funcs.cs" />
+    <Compile Include="Server_data_files\_srvNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_srvNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="settingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="settingsForm.Designer.cs">
+      <DependentUpon>settingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="startSrvForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="startSrvForm.Designer.cs">
+      <DependentUpon>startSrvForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="steamCMDout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="steamCMDout.Designer.cs">
+      <DependentUpon>steamCMDout.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AboutFrm.resx">
+      <DependentUpon>AboutFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language_files\en\controls.lang" />
+    <EmbeddedResource Include="Language_files\en\general.lang" />
+    <EmbeddedResource Include="Language_files\en\controls.FAQFrm.lang" />
+    <EmbeddedResource Include="Language_files\en\controls.AboutFrm.lang" />
+    <EmbeddedResource Include="Language_files\de\controls.AboutFrm.lang" />
+    <EmbeddedResource Include="Language_files\de\controls.FAQFrm.lang" />
+    <EmbeddedResource Include="Language_files\de\controls.lang" />
+    <EmbeddedResource Include="Language_files\de\controls.settingsForm.lang" />
+    <EmbeddedResource Include="Language_files\de\general.lang" />
+    <EmbeddedResource Include="Language_files\en\general.settingsForm.lang" />
+    <EmbeddedResource Include="Language_files\de\general.settingsForm.lang" />
+    <EmbeddedResource Include="Language_files\en\controls.settingsForm.lang" />
+    <None Include="Resources\Res.en.MsgBox.resx" />
+    <EmbeddedResource Include="reusable_controls\RichLabel.resx">
+      <DependentUpon>RichLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAQFrm.resx">
+      <DependentUpon>FAQFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reusable_controls\baseFormUsrCtrl.resx">
+      <DependentUpon>baseFormUsrCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reusable_controls\contexMenuStripFrm.resx">
+      <DependentUpon>contexMenuStripFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reusable_controls\customBtn.resx">
+      <DependentUpon>customBtn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reusable_controls\customSmoothBtn.resx">
+      <DependentUpon>customSmoothBtn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reusable_controls\lineSeparator.resx">
+      <DependentUpon>lineSeparator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reusable_controls\messageBox\msgBox.resx">
+      <DependentUpon>msgBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reusable_controls\scrollPnl\scrollPnl.resx">
+      <DependentUpon>scrollPnl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Server_data_files\ark\ark.resx" />
+    <EmbeddedResource Include="Server_data_files\craftopia\craftopia.resx" />
+    <EmbeddedResource Include="Server_data_files\cs2\cs2.resx" />
+    <EmbeddedResource Include="Server_data_files\css\css.resx" />
+    <EmbeddedResource Include="Server_data_files\cs\cs.resx" />
+    <EmbeddedResource Include="Server_data_files\days7\days7.resx" />
+    <EmbeddedResource Include="Server_data_files\gmod\gmod.resx" />
+    <EmbeddedResource Include="Server_data_files\hurtworld\hurtworld.resx" />
+    <EmbeddedResource Include="Server_data_files\kf2\kf2.resx" />
+    <EmbeddedResource Include="Server_data_files\l4d2\l4d2.resx" />
+    <EmbeddedResource Include="Server_data_files\l4d\l4d.resx" />
+    <EmbeddedResource Include="Server_data_files\nmrih\nmrih.resx" />
+    <EmbeddedResource Include="Server_data_files\palworld\palworld.resx" />
+    <EmbeddedResource Include="Server_data_files\rust\rust.resx" />
+    <EmbeddedResource Include="Server_data_files\UNUSED\ATLAS\ATLAS.resx" />
+    <EmbeddedResource Include="Server_data_files\vtest_server\vtest_server.resx" />
+    <EmbeddedResource Include="Server_data_files\sven\sven.resx" />
+    <EmbeddedResource Include="Server_data_files\bo3\bo3.resx" />
+    <EmbeddedResource Include="Server_data_files\beamng\beamng.resx" />
+    <EmbeddedResource Include="Server_data_files\unturned\unturned.resx" />
+    <EmbeddedResource Include="Server_data_files\_srvNames.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_srvNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="settingsForm.resx">
+      <DependentUpon>settingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="startSrvForm.resx">
+      <DependentUpon>startSrvForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="steamCMDout.resx">
+      <DependentUpon>steamCMDout.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7cs9Ed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7cs9Ed_gradient1RESIZED.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7cs9Ed_gradient1RESIZED1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\468.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1091.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1263.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1645.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2233.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\62216.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\62221.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\150216.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\219116.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\219121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\actPnl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ark-survival-evolved-logo FULL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\broom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn3Hover1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\captcha16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\captcha21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\captcha211.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\changelog.rtf" />
+    <None Include="Resources\CHECK BOARD 21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CHECK BOARD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CHECK BOARD16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cmd_icon21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\craftopia_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cs16_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customNoInternet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\donate 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\donate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\donateHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\donatePressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\extraPnl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\extrPnl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\helpInfBar2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon-20 %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-germany-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-great-britain-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-installing-updates-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-rotate2-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-server-48 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\instBtnAndInfBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\instBtnAndInfBar2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\instBtnAndInfBar3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\instBtnAndInfBar4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mainPanel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimizeDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimizeHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimizeNormal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moreHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moreHover180D.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moreNormal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moreNormal180D.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\morePressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\morePressed180D.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nmrih1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\output-onlinepngtools.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pencil21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\play_19.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SquaregreenArrowDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SquaregreenArrowRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SquaregreenArrowRightBatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\srvPanel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\starChecked 16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\starChecked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\starUnChecked %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\starUnChecked gray 16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\starUnChecked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\starUnChecked1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop-button-black-rounded-square19.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\translate %281%2921.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\translate16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\translate161.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\welcomePnl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\welcomePnl2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\world-wide-web.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\world-wide-web16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\world-wide-web21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\x1616.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\favicon %2888%29.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CHECK BOARD1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7cs9Ed_gradient1RESIZED1_TOP_PANEL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7cs9Ed_gradient1RESIZED1_TOP_PANEL2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon %2888%29.ico" />
+    <None Include="Resources\cs2_logo.png" />
+    <None Include="Resources\ark_logo.png" />
+    <None Include="Resources\TextFile1.txt" />
+    <None Include="Resources\icons8-puzzled-48.png" />
+    <None Include="Resources\github-logo.png" />
+    <None Include="Resources\refresh16x161.png" />
+    <None Include="Resources\icons8-plus-math-16 %282%29.png" />
+    <None Include="Resources\icons8-dot-24.png" />
+    <None Include="Resources\icons8-installing-updates-241.png" />
+    <None Include="Resources\stop_img.png" />
+    <None Include="Resources\start_img.png" />
+    <None Include="Resources\install_img.png" />
+    <None Include="Resources\7cs9Ed_toneddown1.png" />
+    <None Include="Resources\startSrvContainer2.png" />
+    <None Include="Resources\logo.png" />
+    <None Include="Resources\csgo_logo.png" />
+    <None Include="Resources\bo3_logo.png" />
+    <None Include="Resources\counter-strike-source-png-logo-21.png" />
+    <None Include="Resources\7DaysToDie-logo.png" />
+    <None Include="Resources\gmod_logo.png" />
+    <None Include="Resources\hurtworld_logo.png" />
+    <None Include="Resources\kf2.png" />
+    <None Include="Resources\l4d_logo.png" />
+    <None Include="Resources\l4d2_logo.png" />
+    <None Include="Resources\nmrih.png" />
+    <None Include="Resources\rust_logo.png" />
+    <None Include="Resources\svenCoop_logo.png" />
+    <None Include="Resources\unturned.png" />
+    <None Include="Resources\craftopia_logo2.png" />
+    <None Include="Resources\beamng_logo.png" />
+    <None Include="Resources\ark.png" />
+    <None Include="Resources\basicInstrBox.png" />
+    <None Include="Resources\Palworld-Logo-survival-game-Pokemon-transparent-PNG-image.png" />
+    <Content Include="Server_data_files\info.txt" />
+    <Content Include="Windows Logo.png" />
+    <None Include="Resources\icons8-greece-24.png" />
+    <None Include="Resources\mouseEnterScrollBar.png" />
+    <None Include="Resources\mouseNormalScrollBar.png" />
+    <None Include="Resources\scrollBarTop.png" />
+    <None Include="Resources\scrollBarBottom.png" />
+    <None Include="Resources\scrollBarMid.png" />
+    <None Include="Resources\scrollBarBottomHover.png" />
+    <None Include="Resources\scrollBarBottomNormal.png" />
+    <None Include="Resources\scrollBarMidHover.png" />
+    <None Include="Resources\scrollBarMidNormal.png" />
+    <None Include="Resources\scrollBarTopHover.png" />
+    <None Include="Resources\scrollBarTopNormal.png" />
+    <None Include="Resources\left-arrow.png" />
+    <None Include="Resources\right-arrow.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props'))" />
+    <Error Condition="!Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
+    <Error Condition="!Exists('..\packages\Fody.6.6.4\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.6.4\build\Fody.targets'))" />
+  </Target>
+  <Import Project="..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" />
+  <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Import Project="..\packages\Fody.6.6.4\build\Fody.targets" Condition="Exists('..\packages\Fody.6.6.4\build\Fody.targets')" />
+</Project>

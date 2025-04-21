@@ -1,0 +1,413 @@
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe.config
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.pdb
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\en\Server creation tool.resources.dll
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Buffers.xml
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Memory.xml
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Numerics.Vectors.xml
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Encodings.Web.xml
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Json.xml
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.AssemblyReference.cache
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.SuggestedBindingRedirects.cache
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe.config
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.aboutFrm.resources
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.FAQFrm.resources
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.baseFormUsrCtrl.resources
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.contexMenuStripFrm.resources
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customBtn.resources
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customSmoothBtn.resources
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.lineSeparator.resources
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.MainForm.resources
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.msgBox.resources
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Properties.Resources.resources
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\ScrollAblePanel.ScrollAblePanelControl.resources
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.ark.ark.resources
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files._srvNames.resources
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Language_files.Res.en.resources
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.GenerateResource.cache
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.CoreCompileInputs.cache
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.CopyLocal.cache
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.RuntimeCopyLocal.cache
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\en\Server creation tool.resources.dll
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.CopyComplete
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.pdb
+C:\Users\Stelios L\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.classes.RichLabel.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe.config
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.pdb
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\en\Server creation tool.resources.dll
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Buffers.xml
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Memory.xml
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Numerics.Vectors.xml
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Encodings.Web.xml
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Json.xml
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.AssemblyReference.cache
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.SuggestedBindingRedirects.cache
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe.config
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.aboutFrm.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.classes.RichLabel.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.FAQFrm.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.baseFormUsrCtrl.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.contexMenuStripFrm.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customBtn.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customSmoothBtn.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.lineSeparator.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.MainForm.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.msgBox.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Properties.Resources.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\ScrollAblePanel.ScrollAblePanelControl.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.ark.ark.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files._srvNames.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Language_files.Res.en.resources
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.GenerateResource.cache
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.CoreCompileInputs.cache
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.CopyLocal.cache
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.RuntimeCopyLocal.cache
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\en\Server creation tool.resources.dll
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.CopyComplete
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe
+C:\Users\Stelios PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.pdb
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe.config
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.pdb
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\en\Server creation tool.resources.dll
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Buffers.xml
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Memory.xml
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Numerics.Vectors.xml
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Encodings.Web.xml
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Json.xml
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.AssemblyReference.cache
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.SuggestedBindingRedirects.cache
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe.config
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.aboutFrm.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.classes.RichLabel.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.FAQFrm.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.baseFormUsrCtrl.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.contexMenuStripFrm.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customBtn.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customSmoothBtn.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.lineSeparator.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.MainForm.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.msgBox.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Properties.Resources.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\ScrollAblePanel.ScrollAblePanelControl.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.ark.ark.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files._srvNames.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Language_files.Res.en.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.GenerateResource.cache
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.CoreCompileInputs.cache
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.CopyLocal.cache
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.RuntimeCopyLocal.cache
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\en\Server creation tool.resources.dll
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.CopyComplete
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.pdb
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.steamCMDout.resources
+C:\Users\Stelios L PC\Desktop\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\SteamCMD.ConPTY.xml
+E:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe.config
+E:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe
+E:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.pdb
+E:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+E:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\SteamCMD.ConPTY.xml
+E:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Buffers.xml
+E:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Diagnostics.DiagnosticSource.xml
+E:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Memory.xml
+E:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Numerics.Vectors.xml
+E:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.xml
+E:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Encodings.Web.xml
+E:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Json.xml
+E:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Threading.Tasks.Extensions.xml
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.AssemblyReference.cache
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.SuggestedBindingRedirects.cache
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe.config
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.aboutFrm.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.classes.RichLabel.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.FAQFrm.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.baseFormUsrCtrl.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.contexMenuStripFrm.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customBtn.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customSmoothBtn.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.lineSeparator.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.MainForm.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.msgBox.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Properties.Resources.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\ScrollAblePanel.ScrollAblePanelControl.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.ark.ark.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.bo3.bo3.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files._srvNames.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.settingsForm.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.startSrvForm.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.steamCMDout.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.GenerateResource.cache
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.CoreCompileInputs.cache
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.CopyLocal.cache
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.RuntimeCopyLocal.cache
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_c.5CB184C2.Up2Date
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.pdb
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.cs.cs.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.cs2.cs2.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.css.css.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.craftopia.craftopia.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe.config
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.pdb
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\bin\x86\Debug\en\Server creation tool.resources.dll
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\bin\x86\Debug\SteamCMD.ConPTY.xml
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\bin\x86\Debug\System.Buffers.xml
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\bin\x86\Debug\System.Diagnostics.DiagnosticSource.xml
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\bin\x86\Debug\System.Memory.xml
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\bin\x86\Debug\System.Numerics.Vectors.xml
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.xml
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Encodings.Web.xml
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Json.xml
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\bin\x86\Debug\System.Threading.Tasks.Extensions.xml
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.AssemblyReference.cache
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.SuggestedBindingRedirects.cache
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe.config
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.aboutFrm.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.classes.RichLabel.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.FAQFrm.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.baseFormUsrCtrl.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.contexMenuStripFrm.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customBtn.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customSmoothBtn.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.lineSeparator.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.MainForm.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.msgBox.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Properties.Resources.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\ScrollAblePanel.ScrollAblePanelControl.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.ark.ark.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.craftopia.craftopia.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.cs2.cs2.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.css.css.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.cs.cs.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.days7.days7.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.gmod.gmod.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.hurtworld.hurtworld.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.kf2.kf2.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.l4d2.l4d2.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.l4d.l4d.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.nmrih.nmrih.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.rust.rust.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.UNUSED.ATLAS.ATLAS.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.vtest_server.vtest_server.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.sven.sven.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.bo3.bo3.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.beamng.beamng.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.unturned.unturned.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files._srvNames.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.settingsForm.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.startSrvForm.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.steamCMDout.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Language_files.Res.en.resources
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.GenerateResource.cache
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.CoreCompileInputs.cache
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.CopyLocal.cache
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.RuntimeCopyLocal.cache
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\en\Server creation tool.resources.dll
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server_c.5CB184C2.Up2Date
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe
+H:\stuff\creation tool - Αντιγραφή\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.pdb
+H:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe.config
+H:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe
+H:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.pdb
+H:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+H:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\SteamCMD.ConPTY.xml
+H:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Buffers.xml
+H:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Diagnostics.DiagnosticSource.xml
+H:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Memory.xml
+H:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Numerics.Vectors.xml
+H:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.xml
+H:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Encodings.Web.xml
+H:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Json.xml
+H:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Threading.Tasks.Extensions.xml
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.AssemblyReference.cache
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.SuggestedBindingRedirects.cache
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe.config
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.aboutFrm.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.classes.RichLabel.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.FAQFrm.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.baseFormUsrCtrl.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.contexMenuStripFrm.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customBtn.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customSmoothBtn.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.lineSeparator.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.MainForm.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.msgBox.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Properties.Resources.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\ScrollAblePanel.ScrollAblePanelControl.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.ark.ark.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.craftopia.craftopia.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.cs2.cs2.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.css.css.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.cs.cs.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.days7.days7.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.gmod.gmod.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.hurtworld.hurtworld.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.kf2.kf2.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.l4d2.l4d2.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.l4d.l4d.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.nmrih.nmrih.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.rust.rust.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.UNUSED.ATLAS.ATLAS.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.vtest_server.vtest_server.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.sven.sven.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.bo3.bo3.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.beamng.beamng.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.unturned.unturned.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files._srvNames.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.settingsForm.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.startSrvForm.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.steamCMDout.resources
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.GenerateResource.cache
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.CoreCompileInputs.cache
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.CopyLocal.cache
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.RuntimeCopyLocal.cache
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_c.5CB184C2.Up2Date
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe
+H:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.pdb
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.days7.days7.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.gmod.gmod.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.hurtworld.hurtworld.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.kf2.kf2.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.l4d2.l4d2.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.l4d.l4d.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.nmrih.nmrih.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.rust.rust.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.UNUSED.ATLAS.ATLAS.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.vtest_server.vtest_server.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.sven.sven.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.beamng.beamng.resources
+E:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.unturned.unturned.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe.config
+M:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe
+M:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.pdb
+M:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+M:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\SteamCMD.ConPTY.xml
+M:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Buffers.xml
+M:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Diagnostics.DiagnosticSource.xml
+M:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Memory.xml
+M:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Numerics.Vectors.xml
+M:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.xml
+M:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Encodings.Web.xml
+M:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Json.xml
+M:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Threading.Tasks.Extensions.xml
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.AssemblyReference.cache
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.SuggestedBindingRedirects.cache
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe.config
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.aboutFrm.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.classes.RichLabel.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.FAQFrm.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.baseFormUsrCtrl.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.contexMenuStripFrm.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customBtn.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customSmoothBtn.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.lineSeparator.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.MainForm.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.msgBox.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Properties.Resources.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\ScrollAblePanel.ScrollAblePanelControl.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.ark.ark.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.craftopia.craftopia.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.cs2.cs2.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.css.css.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.cs.cs.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.days7.days7.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.gmod.gmod.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.hurtworld.hurtworld.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.kf2.kf2.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.l4d2.l4d2.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.l4d.l4d.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.nmrih.nmrih.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.rust.rust.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.UNUSED.ATLAS.ATLAS.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.vtest_server.vtest_server.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.sven.sven.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.bo3.bo3.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.beamng.beamng.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.unturned.unturned.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files._srvNames.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.settingsForm.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.startSrvForm.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.steamCMDout.resources
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.GenerateResource.cache
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.CoreCompileInputs.cache
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.CopyLocal.cache
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.RuntimeCopyLocal.cache
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_c.5CB184C2.Up2Date
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe
+M:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.pdb
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.AssemblyReference.cache
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.SuggestedBindingRedirects.cache
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe.config
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.aboutFrm.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.classes.RichLabel.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.FAQFrm.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.baseFormUsrCtrl.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.contexMenuStripFrm.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customBtn.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_Creation_Tool.customSmoothBtn.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.lineSeparator.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.MainForm.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.msgBox.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Properties.Resources.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\ScrollAblePanel.ScrollAblePanelControl.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.ark.ark.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.craftopia.craftopia.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.cs2.cs2.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.css.css.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.cs.cs.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.days7.days7.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.gmod.gmod.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.hurtworld.hurtworld.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.kf2.kf2.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.l4d2.l4d2.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.l4d.l4d.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.nmrih.nmrih.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.rust.rust.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.UNUSED.ATLAS.ATLAS.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.vtest_server.vtest_server.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.sven.sven.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.bo3.bo3.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.beamng.beamng.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.unturned.unturned.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files._srvNames.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.settingsForm.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.startSrvForm.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.steamCMDout.resources
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.GenerateResource.cache
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.CoreCompileInputs.cache
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.exe
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server creation tool.pdb
+F:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe.config
+F:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.exe
+F:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Server creation tool.pdb
+F:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+F:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\SteamCMD.ConPTY.xml
+F:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Buffers.xml
+F:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Diagnostics.DiagnosticSource.xml
+F:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Memory.xml
+F:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Numerics.Vectors.xml
+F:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.xml
+F:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Encodings.Web.xml
+F:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Text.Json.xml
+F:\stuff\creation tool\Server creation tool\Server creation tool\bin\x86\Debug\System.Threading.Tasks.Extensions.xml
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.CopyLocal.cache
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.csproj.Fody.RuntimeCopyLocal.cache
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_c.5CB184C2.Up2Date
+F:\stuff\creation tool\Server creation tool\Server creation tool\obj\x86\Debug\Server_creation_tool.Server_data_files.palworld.palworld.resources

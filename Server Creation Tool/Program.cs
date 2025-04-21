@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Server_Creation_Tool
+namespace Server_creation_tool
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.

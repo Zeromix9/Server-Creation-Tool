@@ -1,0 +1,78 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="datatron" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="datatron">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Value" type="xs:string" minOccurs="0" />
+                <xs:element name="LOC_x0020_offset" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <datatron>
+    <Name>discordSrvLinkLbl</Name>
+    <Value>Discord Server</Value>
+  </datatron>
+  <datatron>
+    <Name>FAQ1BODYLbl</Name>
+    <Value>Bitte stelle sicher, dass du die benötigten Ports alle geöffnet hast.
+Wenn das Problem weiterhin besteht, kontaktiere bitte deinen Internetanbieter.
+Alternativ kannst du hier nach deinem Router suchen:</Value>
+  </datatron>
+  <datatron>
+    <Name>FAQ1Lbl</Name>
+    <Value>Ich sehe meinen Server nicht / Niemand kann sich verbinden</Value>
+  </datatron>
+  <datatron>
+    <Name>FAQ1LinkLbl</Name>
+    <Value>Klicke hier</Value>
+    <LOC_x0020_offset>98,0</LOC_x0020_offset>
+  </datatron>
+  <datatron>
+    <Name>FAQ2BODYLbl</Name>
+    <Value>Ja, du kannst dein Server auch durch ein VPN Netzwerk wie "Hamachi" oder "Radmin VPN" hosten.
+Natürlich können dann nur die Leute innerhalb dieses Netzwerkes sich verbinden.
+Wenn die Freigabe deiner Ports nicht funktioniert, kkontaktiere bitte deinen Internetanbieter.</Value>
+  </datatron>
+  <datatron>
+    <Name>FAQ2Lbl</Name>
+    <Value>Gibt es einen anderen Weg, als die Ports zu öffnen?</Value>
+  </datatron>
+  <datatron>
+    <Name>FAQ3BODYLbl</Name>
+    <Value>Meistens musst du einfach den Download erneut starten, dies sollte das Problem beheben.</Value>
+  </datatron>
+  <datatron>
+    <Name>FAQ3Lbl</Name>
+    <Value>Der SteamCMD Download ist fehlgeschlagen! Was soll ich tun?</Value>
+  </datatron>
+  <datatron>
+    <Name>FAQ4BODYLbl</Name>
+    <Value>Klicke einfach auf den "Update/Reparieren" Button, der Server wird automatisch das
+Update durchführen.</Value>
+  </datatron>
+  <datatron>
+    <Name>FAQ4Lbl</Name>
+    <Value>Wie update ich meinen Server?</Value>
+  </datatron>
+  <datatron>
+    <Name>FORM_TITLE</Name>
+    <Value>FAQ - Häufig gestellte Fragen</Value>
+  </datatron>
+  <datatron>
+    <Name>joinServerGrpLbl</Name>
+    <Value>Soltest du noch weitere Fragen haben, oder Hilfe benötigen, trete unserem Discord bei.</Value>
+  </datatron>
+  <datatron>
+    <Name>steamGrpLinkLbl</Name>
+    <Value>Steam Gruppe</Value>
+  </datatron>
+</NewDataSet>

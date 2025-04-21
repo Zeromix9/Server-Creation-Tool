@@ -1,0 +1,5 @@
+11:03 μμ>>> ERROR: Failed to start the Palworld serverSystem.ComponentModel.Win32Exception (0x80004005): Δεν είναι δυνατή η εύρεση του καθορισμένου αρχείου από το σύστημα
+   σε System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   σε System.Diagnostics.Process.Start()
+   σε Server_creation_tool.MainForm.<>c__DisplayClass95_0.<startServer>b__2() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 1083
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 540

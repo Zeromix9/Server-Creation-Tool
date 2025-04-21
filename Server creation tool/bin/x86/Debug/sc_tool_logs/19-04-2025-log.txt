@@ -1,0 +1,32 @@
+08:08 μμ>>> Download action failed: Failed to download the config file
+09:11 μμ>>> Error in getObjFromDtronRes function: Failed to get resource entry
+09:11 μμ>>> getStrFromDtronRes ERROR. strToSearch = load_default_cfg_msg
+09:12 μμ>>> Error in getObjFromDtronRes function: Failed to get resource entry
+09:12 μμ>>> getStrFromDtronRes ERROR. strToSearch = load_default_cfg_msg
+10:50 μμ>>> ERROR: Failed to start the Palworld serverSystem.ComponentModel.Win32Exception (0x80004005): Δεν είναι δυνατή η εύρεση του καθορισμένου αρχείου από το σύστημα
+   σε System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   σε System.Diagnostics.Process.Start()
+   σε Server_creation_tool.MainForm.<>c__DisplayClass95_0.<startServer>b__2() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 1094
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550
+11:00 μμ>>> ERROR: Failed to start the Counter-Strike: 1.6 serverSystem.NullReferenceException: Δεν έχει οριστεί αναφορά αντικειμένου σε μια παρουσία αντικειμένου.
+   σε Server_creation_tool.MainForm.<>c__DisplayClass95_0.<startServer>b__2() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 1094
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550
+11:00 μμ>>> Error in getObjFromDtronRes function: Failed to get resource entry
+11:00 μμ>>> getStrFromDtronRes ERROR. strToSearch = done
+11:02 μμ>>> ERROR: Failed to start the Palworld serverSystem.NullReferenceException: Δεν έχει οριστεί αναφορά αντικειμένου σε μια παρουσία αντικειμένου.
+   σε Server_creation_tool.MainForm.<>c__DisplayClass95_0.<startServer>b__2() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 1094
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550
+11:02 μμ>>> ERROR: Failed to start the Palworld serverSystem.NullReferenceException: Δεν έχει οριστεί αναφορά αντικειμένου σε μια παρουσία αντικειμένου.
+   σε Server_creation_tool.MainForm.<>c__DisplayClass95_0.<startServer>b__2() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 1094
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550
+11:03 μμ>>> ERROR: Failed to start the Palworld serverSystem.NullReferenceException: Δεν έχει οριστεί αναφορά αντικειμένου σε μια παρουσία αντικειμένου.
+   σε Server_creation_tool.MainForm.<>c__DisplayClass95_0.<startServer>b__2() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 1094
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550
+11:03 μμ>>> ERROR: Failed to start the Counter-Strike: 1.6 serverSystem.NullReferenceException: Δεν έχει οριστεί αναφορά αντικειμένου σε μια παρουσία αντικειμένου.
+   σε Server_creation_tool.MainForm.<>c__DisplayClass95_0.<startServer>b__2() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 1094
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550
+11:04 μμ>>> Error in getObjFromDtronRes function: Failed to get resource entry
+11:04 μμ>>> getStrFromDtronRes ERROR. strToSearch = done
+11:12 μμ>>> ERROR: Failed to start the Palworld serverSystem.NullReferenceException: Δεν έχει οριστεί αναφορά αντικειμένου σε μια παρουσία αντικειμένου.
+   σε Server_creation_tool.MainForm.<>c__DisplayClass95_0.<startServer>b__2() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 1094
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550

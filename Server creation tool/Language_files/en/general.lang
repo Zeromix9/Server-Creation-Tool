@@ -1,0 +1,215 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="datatron" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="datatron">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Message" type="xs:string" minOccurs="0" />
+                <xs:element name="Title" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <datatron>
+    <Name>ask_delete_server</Name>
+    <Message>Are you sure that you want to delete this server?</Message>
+    <Title>Delete [~] server</Title>
+  </datatron>
+  <datatron>
+    <Name>ask_force_stop_install_general</Name>
+    <Message>Are you sure that you want to force stop the installation? Do this only if the installation is frozen and is not responding</Message>
+    <Title>Force stop installation</Title>
+  </datatron>
+  <datatron>
+    <Name>ask_force_stop_install_steam</Name>
+    <Message>Are you sure that you want to force stop the installation? Do this only if the steamCMD window is frozen and you can't close it by typing in ""quit"""</Message>
+    <Title>~[ask_force_stop_install_general][2]</Title>
+  </datatron>
+  <datatron>
+    <Name>cfg_file_download_failed</Name>
+    <Message>Failed to download the config file</Message>
+  </datatron>
+  <datatron>
+    <Name>clear_cache</Name>
+    <Message>Clear Cache</Message>
+  </datatron>
+  <datatron>
+    <Name>create_confg_file_ask</Name>
+    <Message>This config file contains some pre adjusted settings and some helpful information to help you get started. Do you want to continue?</Message>
+  </datatron>
+  <datatron>
+    <Name>create_custom_start_bat_file_msg</Name>
+    <Message>This file can be used to start the server and contains some settings to make setting up your server easier. Do you want to continue?"</Message>
+  </datatron>
+  <datatron>
+    <Name>cTry_generic_msg</Name>
+    <Message>Go to the log file for advanced details of the error. You can join our Discord or steam group to ask for support.</Message>
+  </datatron>
+  <datatron>
+    <Name>deleting</Name>
+    <Message>Deleting</Message>
+  </datatron>
+  <datatron>
+    <Name>done</Name>
+    <Message>Done!</Message>
+  </datatron>
+  <datatron>
+    <Name>downloading_cfg_file</Name>
+    <Message>Downloading config file...</Message>
+  </datatron>
+  <datatron>
+    <Name>downloading_steamcmd</Name>
+    <Message>Downloading SteamCMD...</Message>
+  </datatron>
+  <datatron>
+    <Name>error</Name>
+    <Message>Error</Message>
+  </datatron>
+  <datatron>
+    <Name>error_occured</Name>
+    <Message>An error occured</Message>
+  </datatron>
+  <datatron>
+    <Name>file_not_found</Name>
+    <Message>File not found!</Message>
+  </datatron>
+  <datatron>
+    <Name>force_stop</Name>
+    <Message>FORCE STOP</Message>
+  </datatron>
+  <datatron>
+    <Name>install</Name>
+    <Message>Install</Message>
+  </datatron>
+  <datatron>
+    <Name>installing_srv</Name>
+    <Message>Installing server...</Message>
+  </datatron>
+  <datatron>
+    <Name>lang_error</Name>
+    <Message>Critical error. Language file error. Please contact us on Discord, steam or Github and give us details about the issue. The Server Creation Tool will close now</Message>
+    <Title>Language file error</Title>
+  </datatron>
+  <datatron>
+    <Name>lang_file_loading_problem</Name>
+    <Message>There was a problem when loading the language files</Message>
+    <Title>Failed to load language files</Title>
+  </datatron>
+  <datatron>
+    <Name>languageHasBeenChanged</Name>
+    <Message>The language has been changed. For the changes to take effect, please restart the tool. Do you want to restart the tool now?</Message>
+    <Title>Change language</Title>
+  </datatron>
+  <datatron>
+    <Name>load_default_cfg_msg</Name>
+    <Message>Do you want to load the default config file? This will replace any existing files.</Message>
+    <Title>Load default config file</Title>
+  </datatron>
+  <datatron>
+    <Name>moreBtn</Name>
+    <Message>                   More                ▼</Message>
+  </datatron>
+  <datatron>
+    <Name>new_update_available</Name>
+    <Message>There is a new update available! Would you like to visit our website to download the latest version? You will find the download link at the Releases.</Message>
+    <Title>Check for updates</Title>
+  </datatron>
+  <datatron>
+    <Name>no_fav_servers</Name>
+    <Message>You don't have any favourite servers!</Message>
+    <Title>Notice</Title>
+  </datatron>
+  <datatron>
+    <Name>no_update_available</Name>
+    <Message>No update found!</Message>
+    <Title>~[new_update_available][2]</Title>
+  </datatron>
+  <datatron>
+    <Name>recommend_create_bat_file</Name>
+    <Message>It is recommended that you create a batch file for starting the server as it allows for higher flexibility on how you can setup your server, like custom server name, max player count etc</Message>
+  </datatron>
+  <datatron>
+    <Name>running_task</Name>
+    <Message>Running Task...</Message>
+  </datatron>
+  <datatron>
+    <Name>select_server_dir_note</Name>
+    <Message>NOTE: The directory path should not contain any non-english characters. So to be sure, please select a directory that is at the root of a drive. For example C:/</Message>
+    <Title>Select server library location</Title>
+  </datatron>
+  <datatron>
+    <Name>server_action_failed</Name>
+    <Message>Failed to [~] the server</Message>
+  </datatron>
+  <datatron>
+    <Name>srv_delete_fail</Name>
+    <Message>Failed to delete the server!</Message>
+  </datatron>
+  <datatron>
+    <Name>srv_install_failed</Name>
+    <Message>Failed to install the server. Check the log files for more info or join our steam/discord group to ask for help</Message>
+  </datatron>
+  <datatron>
+    <Name>srv_install_finished</Name>
+    <Message>Server installation finished!</Message>
+  </datatron>
+  <datatron>
+    <Name>srv_start_fail</Name>
+    <Message>Failed to start the [~] server! A possibility is that the executable is missing or is corrupted.</Message>
+    <Title>Failed to start the server</Title>
+  </datatron>
+  <datatron>
+    <Name>srv_update_repair_finished</Name>
+    <Message>Server update/repair finished!</Message>
+  </datatron>
+  <datatron>
+    <Name>srv_updating_repairing</Name>
+    <Message>Updating/Repairing server...</Message>
+  </datatron>
+  <datatron>
+    <Name>start</Name>
+    <Message>Start</Message>
+  </datatron>
+  <datatron>
+    <Name>start_server_from</Name>
+    <Message>Start server from</Message>
+  </datatron>
+  <datatron>
+    <Name>steamcmd_download_failed</Name>
+    <Message>Failed to download the server/SteamCMD! Please check your internet connection</Message>
+    <Title>SteamCMD download Error</Title>
+  </datatron>
+  <datatron>
+    <Name>steamcmd_launch_fail</Name>
+    <Message>Failed to launch SteamCMD</Message>
+  </datatron>
+  <datatron>
+    <Name>steamcmd_zip_extract_failed</Name>
+    <Message>Failed to extract the steamCMD executable! Is the steamCMD executable or zip file being used by another process?</Message>
+    <Title>~[steamcmd_download_failed][2]</Title>
+  </datatron>
+  <datatron>
+    <Name>stop</Name>
+    <Message>Stop</Message>
+  </datatron>
+  <datatron>
+    <Name>you_selected</Name>
+    <Message>You selected</Message>
+    <Title>~[select_server_dir_note][2]</Title>
+  </datatron>
+  <datatron>
+    <Name>srv_update_repair_failed</Name>
+    <Message>Failed to Update/Repair the server</Message>
+  </datatron>
+  <datatron>
+    <Name>info</Name>
+    <Message>Info</Message>
+  </datatron>
+</NewDataSet>

@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Server Creation Tool")]
-[assembly: AssemblyDescription("A simple to for making game servers")]
+[assembly: AssemblyDescription("A simple tool for making game servers")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Lone Wolf- Made by Zeromix with some help by BasisBit and cookieoreo18")]
-[assembly: AssemblyProduct("Server Creation Tool v4.1")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
+[assembly: AssemblyCompany("Lone Wolf- Made by Zeromix and co-developed by cookieoreo18 (And BasisBit in the past)")]
+[assembly: AssemblyProduct("Server creation tool")]
+[assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b699dca7-69b3-4887-a107-d194fe87ac4d")]
+[assembly: Guid("4bdd9847-5ee2-4ae7-b8b4-f08f54b5c216")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.1.0.0")]
-[assembly: AssemblyFileVersion("4.1.0.0")]
+[assembly: AssemblyVersion("5.0")]
+[assembly: AssemblyFileVersion("5.0")]

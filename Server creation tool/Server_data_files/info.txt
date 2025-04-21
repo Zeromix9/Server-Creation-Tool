@@ -1,0 +1,9 @@
+﻿server resource files codes:
+*custom_install_func => Requires these functions in the _funcs.cs file: public void installServer(string updateOrInstall) and public bool stopServerInstall(). The stopServerInstall function does not require to show an error message if something goes wrong. Just return false and log the error
+*start_bat_file_create_custom_func => Requires createBatchFile() function in the _funcs.cs file of the server. start_bat_file_code will be ignored
+*custom_start_func => Requires startServer() function in the _funcs.cs file of the server, or enter your own custom function name in the value. Ignores start_file_location.
+*run_custom_start_func_first => Requires startServer() function in the _funcs.cs. It executes that function first before proceeding with the default start function.
+*start_bat_file_required => Signals that a batch file is required to start the server. Takes value "showCreateBtn" which makes the button visible in the extras panel
+*custom_conf_file_create_func => createConfFile() function required in _funcs.cs
+
+*start_file_path => The location of the start file. If there are more, its start_file_path_1,2,3 etc

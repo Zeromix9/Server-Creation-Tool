@@ -1,0 +1,24 @@
+07:29 μμ>>> ERROR: ERROR READING LANGUAGE FILESSystem.ArgumentException: Αυτές οι στήλες δεν έχουν αυτή τη στιγμή μοναδικές τιμές.
+   σε System.Data.ConstraintCollection.AddUniqueConstraint(UniqueConstraint constraint)
+   σε System.Data.ConstraintCollection.Add(Constraint constraint, Boolean addUniqueWhenAddingForeign)
+   σε System.Data.DataTable.set_PrimaryKey(DataColumn[] value)
+   σε Server_creation_tool.MainForm.<loadLangFiles>b__47_0() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 304
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550
+07:29 μμ>>> ERROR: ERROR READING LANGUAGE FILESSystem.ArgumentException: Αυτές οι στήλες δεν έχουν αυτή τη στιγμή μοναδικές τιμές.
+   σε System.Data.ConstraintCollection.AddUniqueConstraint(UniqueConstraint constraint)
+   σε System.Data.ConstraintCollection.Add(Constraint constraint, Boolean addUniqueWhenAddingForeign)
+   σε System.Data.DataTable.set_PrimaryKey(DataColumn[] value)
+   σε Server_creation_tool.MainForm.<loadLangFiles>b__47_0() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 304
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550
+07:29 μμ>>> ERROR: ERROR READING LANGUAGE FILESSystem.ArgumentException: Αυτές οι στήλες δεν έχουν αυτή τη στιγμή μοναδικές τιμές.
+   σε System.Data.ConstraintCollection.AddUniqueConstraint(UniqueConstraint constraint)
+   σε System.Data.ConstraintCollection.Add(Constraint constraint, Boolean addUniqueWhenAddingForeign)
+   σε System.Data.DataTable.set_PrimaryKey(DataColumn[] value)
+   σε Server_creation_tool.MainForm.<loadLangFiles>b__47_0() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 304
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550
+07:30 μμ>>> ERROR: ERROR READING LANGUAGE FILESSystem.ArgumentException: Αυτές οι στήλες δεν έχουν αυτή τη στιγμή μοναδικές τιμές.
+   σε System.Data.ConstraintCollection.AddUniqueConstraint(UniqueConstraint constraint)
+   σε System.Data.ConstraintCollection.Add(Constraint constraint, Boolean addUniqueWhenAddingForeign)
+   σε System.Data.DataTable.set_PrimaryKey(DataColumn[] value)
+   σε Server_creation_tool.MainForm.<loadLangFiles>b__47_0() στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 304
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο F:\stuff\creation tool\Server creation tool\Server creation tool\MainForm.cs:γραμμή 550

@@ -118,113 +118,152 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="219116" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\219116.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="captcha16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\captcha16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="world-wide-web" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\world-wide-web.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="1091" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1091.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="captcha212" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="captcha21" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\captcha21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bo3_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bo3_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="translate161" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\translate161.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="starUnChecked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\starUnChecked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_dot_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-dot-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="scrollBarMidHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\scrollBarMidHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stop_img" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stop-button-black-rounded-square19.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="l4d2_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\l4d2_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="morePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\morePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-great-britain-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-great-britain-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="1263" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1263.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cs_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cs16_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="l4d_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\l4d_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="extraPnl" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\extraPnl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="150216" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\150216.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="starChecked_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\starChecked 16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\stop_img.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cmd_icon21" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cmd_icon21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="moreHover180D" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\moreHover180D.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="right_arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\right-arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="donatePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\donatePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="customNoInternet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\customNoInternet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="morePressed180D" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\morePressed180D.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="donate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\donate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1645" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1645.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8_rotate2_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-rotate2-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="install_img" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-installing-updates-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="morePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\morePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="srvPanel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\srvPanel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="changelog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\changelog.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;us-ascii</value>
+  </data>
+  <data name="SquaregreenArrowRightBatch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SquaregreenArrowRightBatch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SquaregreenArrowDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SquaregreenArrowDown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="actPnl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\actPnl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="starChecked_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\starChecked 16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="starUnChecked_gray_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\starUnChecked gray 16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="progressBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2233.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="moreHover180D" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\moreHover180D.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="refresh16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\refresh16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_greece_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-greece-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="donatePressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\donatePressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CHECK_BOARD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CHECK BOARD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="scrollBarTopHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\scrollBarTopHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="install_img" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\install_img.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_219121" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\219121.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1645" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1645.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="github-logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\github-logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="srvPanel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\srvPanel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CHECK_BOARD_21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CHECK BOARD 21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="minimizeDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\minimizeDown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ark_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ark-survival-evolved-logo FULL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="extraPnl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\extraPnl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CHECK BOARD" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CHECK BOARD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hurtworld_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hurtworld_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="219121" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\219121.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="output-onlinepngtools" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\output-onlinepngtools.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="unturned_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\unturned.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="basicInstrBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\basicInstrBox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="world-wide-web21" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\world-wide-web21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icon-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="css_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\counter-strike-source-png-logo-21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="donate 3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="donate_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\donate 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gmod_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gmod_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="instBtnAndInfBar4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\instBtnAndInfBar4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_installing_updates_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-installing-updates-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_62221" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\62221.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2233" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2233.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="starUnChecked1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\starUnChecked1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="favicon__88_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\favicon (88).ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="captcha211" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\captcha211.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="scrollBarBottomHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\scrollBarBottomHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="morePressed180D" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\morePressed180D.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_7cs9Ed_gradient1RESIZED1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\7cs9Ed_gradient1RESIZED1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="moreNormal180D" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\moreNormal180D.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -235,35 +274,35 @@
   <data name="donateHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\donateHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="sven_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\svenCoop_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_7cs9Ed_gradient1RESIZED1_TOP_PANEL2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\7cs9Ed_gradient1RESIZED1_TOP_PANEL2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="468" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\468.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-puzzled-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-puzzled-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="actPnl" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\actPnl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="scrollBarTopNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\scrollBarTopNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="62216" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\62216.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="instBtnAndInfBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\instBtnAndInfBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="beamng_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\beamng_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="output_onlinepngtools" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\output-onlinepngtools.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_great_britain_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-great-britain-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="welcomePnl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\welcomePnl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="starChecked" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\starChecked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnPressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="world_wide_web" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\world-wide-web.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="extrPnl" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\extrPnl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="starUnChecked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\starUnChecked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BeamMP_Server_Settings_Tool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BeamMP Server Settings Tool.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="pencil21" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pencil21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -271,14 +310,8 @@
   <data name="SquaregreenArrowRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SquaregreenArrowRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-germany-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-germany-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CHECK BOARD 21" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CHECK BOARD 21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="kf2_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\kf2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_62216" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\62216.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="welcomePnl2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\welcomePnl2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -286,14 +319,23 @@
   <data name="helpInfBar2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\helpInfBar2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="rust_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rust_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="7cs9Ed_toneddown1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\7cs9Ed_toneddown1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="instBtnAndInfBar2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\instBtnAndInfBar2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="scrollBarBottomNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\scrollBarBottomNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="instBtnAndInfBar3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\instBtnAndInfBar3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_7cs9Ed_gradient1RESIZED" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\7cs9Ed_gradient1RESIZED.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="x1616" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\x1616.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="port" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon-20 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="minimizeNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\minimizeNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -301,55 +343,88 @@
   <data name="moreNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\moreNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnnormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btn3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_219116" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\219116.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="gmod_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gmod_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="scrollBarMidNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\scrollBarMidNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="world_wide_web16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\world-wide-web16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn3Hover1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btn3Hover1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="translate__1_21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\translate (1)21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_server_48__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-server-48 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="moreHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\moreHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="refresh16x161" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\refresh16x161.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="minimizeHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\minimizeHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="start_img" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\play_19.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\start_img.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="csgo_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\csgo_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="days7_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\7DaysToDie-logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon-20 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icon-20 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="translate (1)21" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\translate (1)21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-server-48 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-server-48 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btn3Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btn3Hover1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mainPanel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mainPanel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CHECK BOARD16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CHECK BOARD16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="62221" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\62221.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="customNoInternet" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\customNoInternet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="starUnChecked__2_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\starUnChecked (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="craftopia_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\craftopia_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="nmrih_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\nmrih1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_1091" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1091.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_150216" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\150216.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CHECK_BOARD16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CHECK BOARD16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1263" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1263.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="world_wide_web21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\world-wide-web21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_germany_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-germany-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="translate16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\translate16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btn3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mainPanel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mainPanel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="broom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\broom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-plus-math-16 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-plus-math-16 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_7cs9Ed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\7cs9Ed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="instBtnAndInfBar2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\instBtnAndInfBar2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_468" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\468.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="startSrvContainer2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\startSrvContainer2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="basicInstrBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\basicInstrBox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -1,0 +1,215 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="datatron" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="datatron">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Message" type="xs:string" minOccurs="0" />
+                <xs:element name="Title" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <datatron>
+    <Name>ask_delete_server</Name>
+    <Message>Bist du dir sicher, dass du diesen Server löschen möchtest?</Message>
+    <Title>Löschung [~] Server</Title>
+  </datatron>
+  <datatron>
+    <Name>ask_force_stop_install_general</Name>
+    <Message>Bust du sicher, dass du den Stop der Installation erzwingen willst? Tue dies nur, wenn diese eingefroren ist und nicht mehr reagiert.</Message>
+    <Title>Erzwinge Stop der Installation</Title>
+  </datatron>
+  <datatron>
+    <Name>ask_force_stop_install_steam</Name>
+    <Message>Möchtest du wirklich die Installation abbrechen? Tue dies nur, wenn das SteamCMD Fenster sich aufgehangen und es nicht mit "quit" geschlossen werden kann.</Message>
+    <Title>~[ask_force_stop_install_general][2]</Title>
+  </datatron>
+  <datatron>
+    <Name>cfg_file_download_failed</Name>
+    <Message>Download der Konfigurationsdatei fehlgeschlagen</Message>
+  </datatron>
+  <datatron>
+    <Name>clear_cache</Name>
+    <Message>Lösche Cache</Message>
+  </datatron>
+  <datatron>
+    <Name>create_confg_file_ask</Name>
+    <Message>This config file contains some pre adjusted settings and some helpful information to help you get started. Do you want to continue?</Message>
+  </datatron>
+  <datatron>
+    <Name>create_custom_start_bat_file_msg</Name>
+    <Message>Diese Datei startet den Server und enthält manche Einstellungen, die das aufsetzen deines Servers einfacher. Möchtest du fortfahren?</Message>
+  </datatron>
+  <datatron>
+    <Name>cTry_generic_msg</Name>
+    <Message>Öffne die Log Datei für weitere Infos über den Fehler. Du kannst unserem Discord Server für Hilfe beitreten.</Message>
+  </datatron>
+  <datatron>
+    <Name>deleting</Name>
+    <Message>Lösche</Message>
+  </datatron>
+  <datatron>
+    <Name>done</Name>
+    <Message>Done!</Message>
+  </datatron>
+  <datatron>
+    <Name>downloading_cfg_file</Name>
+    <Message>Downloade Config Datei...</Message>
+  </datatron>
+  <datatron>
+    <Name>downloading_steamcmd</Name>
+    <Message>Downloade SteamCMD...</Message>
+  </datatron>
+  <datatron>
+    <Name>error</Name>
+    <Message>Fehler</Message>
+  </datatron>
+  <datatron>
+    <Name>error_occured</Name>
+    <Message>Ein Fehler trat auf</Message>
+  </datatron>
+  <datatron>
+    <Name>file_not_found</Name>
+    <Message>Datei nicht gefunden!</Message>
+  </datatron>
+  <datatron>
+    <Name>force_stop</Name>
+    <Message>Erzwinge Stop</Message>
+  </datatron>
+  <datatron>
+    <Name>install</Name>
+    <Message>Installieren</Message>
+  </datatron>
+  <datatron>
+    <Name>installing_srv</Name>
+    <Message>Installiere Server...</Message>
+  </datatron>
+  <datatron>
+    <Name>lang_error</Name>
+    <Message>Kritischer Fehler: Sprachdatei fehlerhaft. Bitte kontaktiere uns auf Discord, Steam oder Github mit Details zu diesem Fehler, das Tool wird jetzt geschlossen.</Message>
+    <Title>Sprachdateien Fehler</Title>
+  </datatron>
+  <datatron>
+    <Name>lang_file_loading_problem</Name>
+    <Message>Ein Problem trat beim Laden der Sprachdatei auf</Message>
+    <Title>Fehler beim laden der Sprachdatei</Title>
+  </datatron>
+  <datatron>
+    <Name>languageHasBeenChanged</Name>
+    <Message>Die Sprache wurde geändert, bitte das Tool neu starten. Möchtet du das Programm nun neu starten?</Message>
+    <Title>Ändere Sprache</Title>
+  </datatron>
+  <datatron>
+    <Name>load_default_cfg_msg</Name>
+    <Message>Möchtest du die Standard Config laden? Dies wird alle bereits exestierenden Configs ersetzen.</Message>
+    <Title>Lade Standard Config File</Title>
+  </datatron>
+  <datatron>
+    <Name>moreBtn</Name>
+    <Message>                   Mehr                ▼</Message>
+  </datatron>
+  <datatron>
+    <Name>new_update_available</Name>
+    <Message>Es ist eine neue Version verfügbar! Möchtest du die Seite besuchen, um die neue Version herunterzuladen? Der Download kann unter "Releases" gefunden werden.</Message>
+    <Title>Suche nach Updates.</Title>
+  </datatron>
+  <datatron>
+    <Name>no_fav_servers</Name>
+    <Message>Du hast keine favorisierten Server</Message>
+    <Title>Hinweis</Title>
+  </datatron>
+  <datatron>
+    <Name>no_update_available</Name>
+    <Message>Kein Update gefunden!</Message>
+    <Title>~[new_update_available][2]</Title>
+  </datatron>
+  <datatron>
+    <Name>recommend_create_bat_file</Name>
+    <Message>Es wird empfohlen, eine Batch Datei zu erstellen, um den Server zu starten, darüber kannst du den Server namen, Anzahl der Spieler usw. ändern.</Message>
+  </datatron>
+  <datatron>
+    <Name>running_task</Name>
+    <Message>Der Task läuft bereits.</Message>
+  </datatron>
+  <datatron>
+    <Name>select_server_dir_note</Name>
+    <Message>Hinweis: Das Verzeichnis sollte keine nicht englischen Buchstaben verwenden! - Stelle sicher, dass du also zum Beispiel ein Verzeichnis wie C:\ verwendest.</Message>
+    <Title>Select server library location</Title>
+  </datatron>
+  <datatron>
+    <Name>server_action_failed</Name>
+    <Message>Fehler beim [~] des Servers</Message>
+  </datatron>
+  <datatron>
+    <Name>srv_delete_fail</Name>
+    <Message>Failed to delete the server!</Message>
+  </datatron>
+  <datatron>
+    <Name>srv_install_failed</Name>
+    <Message>Download des Servers fehlgeschlagen. Überprüfe die Log Datei für mehr Infos oder tritt unserer Discord/Steam Gruppe für mehr Hilfe bei.</Message>
+  </datatron>
+  <datatron>
+    <Name>srv_install_finished</Name>
+    <Message>Server Installation abgeschlossen!</Message>
+  </datatron>
+  <datatron>
+    <Name>srv_start_fail</Name>
+    <Message>Fehler beim Starten des [~] Server! Möglicherweise fehlen Dateien oder sind fehlerhaft.</Message>
+    <Title>Fehler beim starten des Server</Title>
+  </datatron>
+  <datatron>
+    <Name>srv_update_repair_finished</Name>
+    <Message>Server Update/Reperatur abgeschlossen!</Message>
+  </datatron>
+  <datatron>
+    <Name>srv_updating_repairing</Name>
+    <Message>Update/Repariere Server.</Message>
+  </datatron>
+  <datatron>
+    <Name>start</Name>
+    <Message>Start</Message>
+  </datatron>
+  <datatron>
+    <Name>start_server_from</Name>
+    <Message>Start Server mit</Message>
+  </datatron>
+  <datatron>
+    <Name>steamcmd_download_failed</Name>
+    <Message>Fehler beim Download des Servers/der SteamCMD! Bitte überprüfe deine Internetverbindung!</Message>
+    <Title>SteamCMD Download Fehler</Title>
+  </datatron>
+  <datatron>
+    <Name>steamcmd_launch_fail</Name>
+    <Message>Fehler beim öffnen der SteamCMD</Message>
+  </datatron>
+  <datatron>
+    <Name>steamcmd_zip_extract_failed</Name>
+    <Message>Fehler beim entpacken der SteamCMD! Wird die Datei von einem anderen Prozess verwendet?</Message>
+    <Title>~[steamcmd_download_failed][2]</Title>
+  </datatron>
+  <datatron>
+    <Name>stop</Name>
+    <Message>Stop</Message>
+  </datatron>
+  <datatron>
+    <Name>you_selected</Name>
+    <Message>Du wähltest aus</Message>
+    <Title>~[select_server_dir_note][2]</Title>
+  </datatron>
+  <datatron>
+    <Name>srv_update_repair_failed</Name>
+    <Message>Fehler beim Updaten/Reparieren des Servers</Message>
+  </datatron>
+  <datatron>
+    <Name>info</Name>
+    <Message>Info</Message>
+  </datatron>
+</NewDataSet>

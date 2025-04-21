@@ -1,0 +1,168 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="datatron" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="datatron">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Value" type="xs:string" minOccurs="0" />
+                <xs:element name="LOC_x0020_offset" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <datatron>
+    <Name>AboutBtn</Name>
+    <Value>       About</Value>
+  </datatron>
+  <datatron>
+    <Name>actPnlLbl</Name>
+    <Value>-Actions-</Value>
+  </datatron>
+  <datatron>
+    <Name>appLogsBtn</Name>
+    <Value>     App 
+    Logs</Value>
+  </datatron>
+  <datatron>
+    <Name>basicInstrLbl</Name>
+    <Value>Basic Instructions:</Value>
+  </datatron>
+  <datatron>
+    <Name>basicInstrTextLbl</Name>
+    <Value>1) Select the game you want and click the "Install" button.
+2) If its the first time you're installing a server, select the installation folder, and then wait for the installation to finish.
+3) Type "quit" in the command line after the installation has finished.(only for steam servers)
+4) Configure the server the way you like by editing the settings files (optional).
+5) Start the server and enjoy!
+
+NOTE: If you need extra help, some servers include a guide in the "Extra" section. You can also go to the "Help-Language" tab for additional help.
+You can also join our group on steam and ask for help about your issue.</Value>
+  </datatron>
+  <datatron>
+    <Name>chck4UpdtBtn</Name>
+    <Value>     Check 
+     for updates</Value>
+  </datatron>
+  <datatron>
+    <Name>delBtn</Name>
+    <Value> Delete</Value>
+  </datatron>
+  <datatron>
+    <Name>discordSrvBtn</Name>
+    <Value>      Discord 
+      Server</Value>
+  </datatron>
+  <datatron>
+    <Name>editStgBtn</Name>
+    <Value>              Edit Settings        ▼</Value>
+  </datatron>
+  <datatron>
+    <Name>extrPnlLbl</Name>
+    <Value>-Extra-</Value>
+  </datatron>
+  <datatron>
+    <Name>faqBtn</Name>
+    <Value> FAQ</Value>
+  </datatron>
+  <datatron>
+    <Name>githubBtn</Name>
+    <Value>    Github</Value>
+  </datatron>
+  <datatron>
+    <Name>howToPortForwardBtn</Name>
+    <Value>      How to port 
+      forward</Value>
+  </datatron>
+  <datatron>
+    <Name>instGuideBtn</Name>
+    <Value>  Installation Guide</Value>
+  </datatron>
+  <datatron>
+    <Name>langBtn</Name>
+    <Value>       Language</Value>
+  </datatron>
+  <datatron>
+    <Name>lastRanLbl</Name>
+    <Value>-LAST RAN-</Value>
+  </datatron>
+  <datatron>
+    <Name>MORElbl</Name>
+    <Value>MORE:</Value>
+  </datatron>
+  <datatron>
+    <Name>OpenFoldBtn</Name>
+    <Value> Open Folder</Value>
+  </datatron>
+  <datatron>
+    <Name>plannedFeaturesBtn</Name>
+    <Value>    Planned
+    Features</Value>
+  </datatron>
+  <datatron>
+    <Name>reloadSrvsBtn</Name>
+    <Value>Reload Servers</Value>
+  </datatron>
+  <datatron>
+    <Name>searchSrvLbl</Name>
+    <Value>Search:</Value>
+  </datatron>
+  <datatron>
+    <Name>selectSrvInstFoldBtn</Name>
+    <Value>       Select Server Library
+ Location</Value>
+  </datatron>
+  <datatron>
+    <Name>settingsBtn</Name>
+    <Value>        Settings</Value>
+  </datatron>
+  <datatron>
+    <Name>sizeLbl</Name>
+    <Value>-SIZE-</Value>
+  </datatron>
+  <datatron>
+    <Name>steamCMDBtn</Name>
+    <Value>    SteamCMD
+           options   ▼</Value>
+  </datatron>
+  <datatron>
+    <Name>taskLbl</Name>
+    <Value>Task:</Value>
+  </datatron>
+  <datatron>
+    <Name>ToolGrpSiteBtn</Name>
+    <Value>   Tool 
+      Group-Website</Value>
+  </datatron>
+  <datatron>
+    <Name>updateBtn</Name>
+    <Value> Update/Repair</Value>
+  </datatron>
+  <datatron>
+    <Name>welcomeBtn</Name>
+    <Value>---Welcome---</Value>
+  </datatron>
+  <datatron>
+    <Name>welcomeDescLbl</Name>
+    <Value>This tool allows you to download, install and manage
+      steam and non-steam servers quick and easy.</Value>
+  </datatron>
+  <datatron>
+    <Name>welcomeToToolLbl</Name>
+    <Value>Welcome to Server Creation Tool</Value>
+  </datatron>
+  <datatron>
+    <Name>create_custom_start_bat_file</Name>
+    <Value>Create custom start batch file</Value>
+  </datatron>
+  <datatron>
+    <Name>create_custom_conf_file</Name>
+    <Value>Create custom config file</Value>
+  </datatron>
+</NewDataSet>
