@@ -1,4 +1,0 @@
-﻿[*.cs]
-
-# CS0649: Field 'global_Variables.lgNumQuad' is never assigned to, and will always have its default value 0
-dotnet_diagnostic.CS0649.severity = silent
