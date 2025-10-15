@@ -1,11 +1,4 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
-using Server_creation_tool.classes;
-using Server_creation_tool.reusable_controls.messageBox;
-using Server_Creation_Tool;
-using Server_Creation_Tool.myClasses;
-using SteamCMD.ConPTY;
-using SteamCMD.ConPTY.Interop.Definitions;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -19,6 +12,13 @@ using System.Reflection;
 using System.Resources;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using Server_creation_tool.classes;
+using Server_creation_tool.reusable_controls.messageBox;
+using Server_Creation_Tool;
+using Server_Creation_Tool.myClasses;
+using SteamCMD.ConPTY;
+using SteamCMD.ConPTY.Interop.Definitions;
 using Transitions;
 //using static System.Net.Mime.MediaTypeNames;
 using Image = System.Drawing.Image;
@@ -54,11 +54,12 @@ namespace Server_creation_tool
             InitializeComponent();
         }
 
-        //various info
+        //various vars
         public string server_data_files_path = "Server_creation_tool.Server_data_files";
         public string server_lang_files_path = "Server_creation_tool.Language_files";
         public string toolFolder = System.Windows.Forms.Application.StartupPath;
         public string serversInstDir = Properties.Settings.Default.serversDir;
+        public string lang;
         //string steamCMDPath = Properties.Settings.Default.serversDir + "\\steamcmd.conpty.exe"; 
         public string steamCMDPath = Properties.Settings.Default.serversDir + "\\steamcmd.exe";
         ResourceManager srvNamesResMan = new ResourceManager(typeof(Server_data_files._srvNames));
@@ -77,7 +78,14 @@ namespace Server_creation_tool
             //set properties
             this.Width = 627;
             //language stuff
-            ApplyLang(Properties.Settings.Default.lang);
+            lang = Properties.Settings.Default.lang;
+            ApplyLang(lang);
+
+            //display version on titlebar
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
+            this.Text = this.Text + " " + fvi.FileVersion.ToString();
+            formTitleLbl.Text = this.Text;
 
             if (Properties.Settings.Default.favServers == null) Properties.Settings.Default.favServers = new List<string>();
             //Add the button for each server in the server selection list
@@ -210,7 +218,36 @@ namespace Server_creation_tool
             contexMenuStripFrm contexMenu = new contexMenuStripFrm();
             contexMenu.addBtn(getGeneralLang("start")[1], () =>
             {
-                cTry(() => { Process.Start(steamCMDPath); }, true, getGeneralLang("steamcmd_launch_fail")[1], getGeneralLang("error")[1], true);
+                funcs.StartThread(() =>
+                {
+                    if (!File.Exists(steamCMDPath))
+                    {
+                        DialogResult result = DialogResult.No;
+                        bool done = false;//run messagebox in the UI thread so that everything freezes behind it
+                        methodInvoke(() =>
+                        {
+                            result = MsgBox.Show(getGeneralLang("start_steamcmd_missing")[1], getGeneralLang("start_steamcmd_missing")[2], MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                            done = true;
+                        });
+                        while (!done) { Thread.Sleep(100); }
+                        if (result == DialogResult.Yes)
+                        {
+                            disableUI();
+                            setupSteamCMD();
+                            enableUI(true);
+                            refresh();
+                        }
+                        else return;
+               
+                    }
+
+                    cTry(() =>
+                    {
+                        Process.Start(steamCMDPath);
+                    }, true, getGeneralLang("steamcmd_launch_fail")[1], getGeneralLang("error")[1], true);
+                });
+
+
             }, true, Properties.Resources.SquaregreenArrowRight);
             contexMenu.addBtn(getGeneralLang("clear_cache")[1], () => { funcsClass.DeleteDirectory(serversInstDir + @"\appcache"); MsgBox.quickMsg(getGeneralLang("done")[1], getGeneralLang("done")[1]); }, false, Properties.Resources.x1616);
             funcs.showMenuStripAtBtn(contexMenu, steamCMDBtn, this);
@@ -1058,7 +1095,7 @@ namespace Server_creation_tool
                 taskEnded();
                 setSrvInstBtn("start");
             }
-            taskStarted("Starting " + srvName() + " server");
+            taskStarted(getGeneralLang("starting")[1] + " " + srvName() + " server");
             if (getServerDataStr("start_bat_file_required") != null)
             {
                 if (!File.Exists(getCurrentInstancePath() + getServerDataStr("start_bat_file_path")))//FIX THIS. DO NOT FORGET
@@ -1072,7 +1109,7 @@ namespace Server_creation_tool
             { process = null; runSrvMethod("startServer"); }
             else
             {
-                if (getServerDataStr("run_custom_start_func_first") != null)
+                if (getServerDataStr("run_custom_start_func_first") != null)//set things up before running the server
                 {
                     runSrvMethod("startServer");
                 }
@@ -1127,26 +1164,11 @@ namespace Server_creation_tool
             funcs.StartThread(() =>
             {
                 int i = 0;
-                try
+                while (i < 35)
                 {
-                    if (process == null)
-                    {
-                        while (i < 20)
-                        {
-                            Thread.Sleep(200);
-                            i++;
-                        }
-                    }
-                    else
-                    {
-                        while (!process.HasExited && i < 20)
-                        {
-                            Thread.Sleep(200);
-                            i++;
-                        }
-                    }
+                    Thread.Sleep(200);
+                    i++;
                 }
-                catch { }
                 end();
             });
         }
@@ -1374,6 +1396,7 @@ namespace Server_creation_tool
         }
         private void setSrvInstBtn(string state = "install")
         {
+            //use only english language in this button because some languages use very long sentences and its a pain to resize the button correctly. may bother to fix it in the future
             methodInvoke(() =>
             {
                 installSrvBtn.Enabled = true;
@@ -1715,18 +1738,17 @@ namespace Server_creation_tool
             funcs.RemoveClickEvent(instGuideBtn);
             if (getServerDataStr("guide_link_en") != null)
             {
-                string selectedLanguage = "en";//DO NOT FORGET this is temporary. Will be replaced by the currently selected language variable
-                if (getServerDataStr("guide_link_" + selectedLanguage) == null)
+                if (getServerDataStr("guide_link_" + lang) == null)
                 {
                     instGuideBtn.Click += (_, _2) => Process.Start(getServerDataStr("guide_link_" + "en"));//choose en which is the default lang
                 }
-                else if (getServerDataStr("guide_link_" + selectedLanguage).Trim() == "")
+                else if (getServerDataStr("guide_link_" + lang).Trim() == "")
                 {
                     instGuideBtn.Click += (_, _2) => Process.Start(getServerDataStr("guide_link_" + "en"));//choose en which is the default lang
                 }
                 else
                 {
-                    instGuideBtn.Click += (_, _2) => Process.Start(getServerDataStr("guide_link_" + selectedLanguage));//DO NOT FORGET TO CHANGE WHEN I FINISH LANGUAGE SYSTEM 
+                    instGuideBtn.Click += (_, _2) => Process.Start(getServerDataStr("guide_link_" + lang));
                 }
                 instGuideBtn.Visible = true;
             }
@@ -1972,6 +1994,16 @@ namespace Server_creation_tool
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void scrollPnlSrvList_EditablePanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void instGuideBtn_Click(object sender, EventArgs e)
         {
 
         }

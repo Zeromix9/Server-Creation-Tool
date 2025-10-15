@@ -53,7 +53,6 @@ G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Cr
 G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Debug\System.Text.Json.xml
 G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Debug\System.Threading.Tasks.Extensions.xml
 G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Debug\Server_creation_tool.csproj.AssemblyReference.cache
-G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Debug\Server_creation_tool.csproj.SuggestedBindingRedirects.cache
 G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Debug\Server creation tool.exe.config
 G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Debug\Server_Creation_Tool.aboutFrm.resources
 G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Debug\Server_creation_tool.classes.RichLabel.resources
@@ -95,6 +94,8 @@ G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Cr
 G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Debug\Server_creation_tool.csproj.CoreCompileInputs.cache
 G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Debug\Server_creation_tool.csproj.Fody.CopyLocal.cache
 G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Debug\Server_creation_tool.csproj.Fody.RuntimeCopyLocal.cache
-G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Debug\Server_c.5CB184C2.Up2Date
 G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Debug\Server creation tool.exe
 G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Debug\Server creation tool.pdb
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Debug\Server_creation_tool.Server_data_files.forest.forest.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Debug\Server_creation_tool.csproj.CopyComplete
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Debug\Server_creation_tool.Server_data_files.sotf.sotf.resources

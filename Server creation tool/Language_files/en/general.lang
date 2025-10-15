@@ -212,4 +212,13 @@
     <Name>info</Name>
     <Message>Info</Message>
   </datatron>
+  <datatron>
+    <Name>starting</Name>
+    <Message>Starting</Message>
+  </datatron>
+  <datatron>
+    <Name>start_steamcmd_missing</Name>
+    <Message>Could not start steamCMD because its not installed. Would you like to download and install it automatically?</Message>
+    <Title>Start SteamCMD</Title>
+  </datatron>
 </NewDataSet>

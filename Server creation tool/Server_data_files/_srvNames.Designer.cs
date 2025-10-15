@@ -19,7 +19,7 @@ namespace Server_creation_tool.Server_data_files {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class _srvNames {
@@ -133,6 +133,15 @@ namespace Server_creation_tool.Server_data_files {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Forest.
+        /// </summary>
+        internal static string forest {
+            get {
+                return ResourceManager.GetString("forest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Garry&apos;s Mod.
         /// </summary>
         internal static string gmod {
@@ -201,6 +210,15 @@ namespace Server_creation_tool.Server_data_files {
         internal static string rust {
             get {
                 return ResourceManager.GetString("rust", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sons of The Forest.
+        /// </summary>
+        internal static string sotf {
+            get {
+                return ResourceManager.GetString("sotf", resourceCulture);
             }
         }
         

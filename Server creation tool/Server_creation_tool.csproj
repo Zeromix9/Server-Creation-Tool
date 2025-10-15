@@ -348,6 +348,7 @@
     <EmbeddedResource Include="Server_data_files\css\css.resx" />
     <EmbeddedResource Include="Server_data_files\cs\cs.resx" />
     <EmbeddedResource Include="Server_data_files\days7\days7.resx" />
+    <EmbeddedResource Include="Server_data_files\forest\forest.resx" />
     <EmbeddedResource Include="Server_data_files\gmod\gmod.resx" />
     <EmbeddedResource Include="Server_data_files\hurtworld\hurtworld.resx" />
     <EmbeddedResource Include="Server_data_files\kf2\kf2.resx" />
@@ -356,6 +357,7 @@
     <EmbeddedResource Include="Server_data_files\nmrih\nmrih.resx" />
     <EmbeddedResource Include="Server_data_files\palworld\palworld.resx" />
     <EmbeddedResource Include="Server_data_files\rust\rust.resx" />
+    <EmbeddedResource Include="Server_data_files\sotf\sotf.resx" />
     <EmbeddedResource Include="Server_data_files\UNUSED\ATLAS\ATLAS.resx" />
     <EmbeddedResource Include="Server_data_files\vtest_server\vtest_server.resx" />
     <EmbeddedResource Include="Server_data_files\sven\sven.resx" />
@@ -696,6 +698,8 @@
     <None Include="Resources\Palworld-Logo-survival-game-Pokemon-transparent-PNG-image.png" />
     <None Include="Resources\logo.png" />
     <None Include="Resources\Counter-Strike_2_%28Icon%29.png" />
+    <None Include="Resources\theforest.png" />
+    <None Include="Resources\Sons_of_the_Forest_Logo.png" />
     <Content Include="Server_data_files\info.txt" />
     <Content Include="Windows Logo.png" />
     <None Include="Resources\icons8-greece-24.png" />

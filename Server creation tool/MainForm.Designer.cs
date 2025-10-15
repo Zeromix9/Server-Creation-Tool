@@ -245,9 +245,9 @@
             this.formTitleLbl.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.formTitleLbl.Location = new System.Drawing.Point(39, 6);
             this.formTitleLbl.Name = "formTitleLbl";
-            this.formTitleLbl.Size = new System.Drawing.Size(159, 17);
+            this.formTitleLbl.Size = new System.Drawing.Size(131, 17);
             this.formTitleLbl.TabIndex = 6;
-            this.formTitleLbl.Text = "Server Creation Tool v5.0";
+            this.formTitleLbl.Text = "Server Creation Tool";
             this.formTitleLbl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mainFormDrag);
             // 
             // mainSrvPanel
@@ -646,7 +646,7 @@
             this.selectSrvInstFoldBtn.MaximumSize = new System.Drawing.Size(0, 38);
             this.selectSrvInstFoldBtn.MinimumSize = new System.Drawing.Size(0, 38);
             this.selectSrvInstFoldBtn.Name = "selectSrvInstFoldBtn";
-            this.selectSrvInstFoldBtn.Size = new System.Drawing.Size(0, 38);
+            this.selectSrvInstFoldBtn.Size = new System.Drawing.Size(148, 38);
             this.selectSrvInstFoldBtn.TabIndex = 36;
             this.selectSrvInstFoldBtn.Text = "      Select Server Library    \r\n  Location";
             this.selectSrvInstFoldBtn.Toggled = false;
@@ -681,7 +681,7 @@
             this.settingsBtn.MaximumSize = new System.Drawing.Size(0, 38);
             this.settingsBtn.MinimumSize = new System.Drawing.Size(0, 38);
             this.settingsBtn.Name = "settingsBtn";
-            this.settingsBtn.Size = new System.Drawing.Size(0, 38);
+            this.settingsBtn.Size = new System.Drawing.Size(83, 38);
             this.settingsBtn.TabIndex = 41;
             this.settingsBtn.Text = "        Settings";
             this.settingsBtn.Toggled = false;
@@ -716,7 +716,7 @@
             this.langBtn.MaximumSize = new System.Drawing.Size(0, 38);
             this.langBtn.MinimumSize = new System.Drawing.Size(0, 38);
             this.langBtn.Name = "langBtn";
-            this.langBtn.Size = new System.Drawing.Size(0, 38);
+            this.langBtn.Size = new System.Drawing.Size(89, 38);
             this.langBtn.TabIndex = 38;
             this.langBtn.Text = "       Language";
             this.langBtn.Toggled = false;
@@ -751,7 +751,7 @@
             this.ToolGrpSiteBtn.MaximumSize = new System.Drawing.Size(0, 38);
             this.ToolGrpSiteBtn.MinimumSize = new System.Drawing.Size(0, 38);
             this.ToolGrpSiteBtn.Name = "ToolGrpSiteBtn";
-            this.ToolGrpSiteBtn.Size = new System.Drawing.Size(0, 38);
+            this.ToolGrpSiteBtn.Size = new System.Drawing.Size(114, 38);
             this.ToolGrpSiteBtn.TabIndex = 39;
             this.ToolGrpSiteBtn.Tag = "transparent";
             this.ToolGrpSiteBtn.Text = "   Tool \r\n      Group-Website";
@@ -787,7 +787,7 @@
             this.AboutBtn.MaximumSize = new System.Drawing.Size(0, 38);
             this.AboutBtn.MinimumSize = new System.Drawing.Size(0, 38);
             this.AboutBtn.Name = "AboutBtn";
-            this.AboutBtn.Size = new System.Drawing.Size(0, 38);
+            this.AboutBtn.Size = new System.Drawing.Size(70, 38);
             this.AboutBtn.TabIndex = 40;
             this.AboutBtn.Text = "       About";
             this.AboutBtn.Toggled = false;
@@ -875,6 +875,7 @@
             this.instGuideBtn.TransitionSpeed = 130;
             this.instGuideBtn.UseVisualStyleBackColor = false;
             this.instGuideBtn.Visible = false;
+            this.instGuideBtn.Click += new System.EventHandler(this.instGuideBtn_Click);
             // 
             // addSrvFavBtn
             // 
@@ -1144,6 +1145,7 @@
             this.scrollPnlSrvList.EditablePanel.Padding = new System.Windows.Forms.Padding(3, 3, 0, 0);
             this.scrollPnlSrvList.EditablePanel.Size = new System.Drawing.Size(238, 282);
             this.scrollPnlSrvList.EditablePanel.TabIndex = 2;
+            this.scrollPnlSrvList.EditablePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.scrollPnlSrvList_EditablePanel_Paint);
             this.scrollPnlSrvList.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.scrollPnlSrvList.Location = new System.Drawing.Point(14, 106);
             this.scrollPnlSrvList.Margin = new System.Windows.Forms.Padding(0);

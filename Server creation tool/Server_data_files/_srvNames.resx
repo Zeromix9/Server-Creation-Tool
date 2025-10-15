@@ -119,7 +119,7 @@
   </resheader>
   <data name="ark" xml:space="preserve">
     <value>ARK: Survival Evolved</value>
-    <comment>-The Name (aka codename) must match the name of the folder and the .resx file. Applies to all servers.</comment>
+    <comment>-The Name (aka codename) must match the name of the folder and the .resx file.</comment>
   </data>
   <data name="beamng" xml:space="preserve">
     <value>BeamNG.Drive</value>
@@ -141,6 +141,9 @@
   </data>
   <data name="days7" xml:space="preserve">
     <value>7 days to die</value>
+  </data>
+  <data name="forest" xml:space="preserve">
+    <value>The Forest</value>
   </data>
   <data name="gmod" xml:space="preserve">
     <value>Garry's Mod</value>
@@ -165,6 +168,9 @@
   </data>
   <data name="rust" xml:space="preserve">
     <value>Rust</value>
+  </data>
+  <data name="sotf" xml:space="preserve">
+    <value>Sons of The Forest</value>
   </data>
   <data name="sven" xml:space="preserve">
     <value>Sven Coop</value>

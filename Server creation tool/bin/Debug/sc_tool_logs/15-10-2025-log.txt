@@ -1,0 +1,56 @@
+06:11 μμ>>> ERROR: System.ComponentModel.Win32Exception (0x80004005): The system cannot find the file specified
+   at System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start(String fileName)
+   at Server_creation_tool.MainForm.<steamCMDBtn_Click>b__37_2() in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 224
+   at Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 562
+06:11 μμ>>> ERROR: System.ComponentModel.Win32Exception (0x80004005): The system cannot find the file specified
+   at System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start(String fileName)
+   at Server_creation_tool.MainForm.<steamCMDBtn_Click>b__37_2() in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 225
+   at Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 563
+06:13 μμ>>> ERROR: System.ComponentModel.Win32Exception (0x80004005): The system cannot find the file specified
+   at System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start(String fileName)
+   at Server_creation_tool.MainForm.<steamCMDBtn_Click>b__37_2() in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 226
+   at Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 564
+06:15 μμ>>> ERROR: System.ComponentModel.Win32Exception (0x80004005): The system cannot find the file specified
+   at System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start(String fileName)
+   at Server_creation_tool.MainForm.<steamCMDBtn_Click>b__37_2() in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 226
+   at Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 564
+06:22 μμ>>> ERROR: System.ComponentModel.Win32Exception (0x80004005): The system cannot find the file specified
+   at System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start(String fileName)
+   at Server_creation_tool.MainForm.<steamCMDBtn_Click>b__37_2() in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 234
+   at Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 572
+06:24 μμ>>> ERROR: System.ComponentModel.Win32Exception (0x80004005): The system cannot find the file specified
+   at System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start(String fileName)
+   at Server_creation_tool.MainForm.<steamCMDBtn_Click>b__37_2() in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 232
+   at Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 570
+06:27 μμ>>> ERROR: System.ComponentModel.Win32Exception (0x80004005): The system cannot find the file specified
+   at System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start(String fileName)
+   at Server_creation_tool.MainForm.<steamCMDBtn_Click>b__37_3() in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 233
+   at Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 572
+06:28 μμ>>> ERROR: System.ComponentModel.Win32Exception (0x80004005): The system cannot find the file specified
+   at System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start(String fileName)
+   at Server_creation_tool.MainForm.<steamCMDBtn_Click>b__37_3() in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 233
+   at Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) in G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\MainForm.cs:line 572

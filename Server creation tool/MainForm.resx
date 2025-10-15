@@ -2194,20 +2194,6 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>4, 4</value>
   </metadata>
-  <data name="srvInfBtn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAfFJREFUSEul
-        ljlOw1AURUM6IAjEkKSEUMMWaBLYAmIQtAlsAoFYAJNYBD3DLhg6KuaOBoUKKZzrXIMs+5ugXOlIfvc9
-        v598P/+k8B91Op0B4bB/0awK23AFz/BhdH0JW1B1ee/iphHYh1c4hDpMOK38BDTgCFSzByWn80XhLNzB
-        Afw0DYmaSdBCt1CznS0K1PwRlm31LO5Z8b0ztpIioW3RJ89sjj8E2i59s0HbCeGvwg2ktwtTe37gMCVy
-        mxBrw3ZK5E5g12FXGJoWPazgnpObh3iK5mynRG4K1KtiKzI1iocOg6JmVDgMippjaDmMDM153WHfotci
-        XDiMjCcYd5gp8vfwDi+2gqJGo/sYB0XQvuYeAeTH4BPatoJSL1DPYs8LSNS0hcOg1Ms9i7Hx5xZJ1PS6
-        gCbpwWFk6OBqOAxKzYXDoKhZgnOHkaFT8chhUGouHAZFjV62psPIqIBejklbmSL/5wLky+5VttUVho7c
-        4LcgdwZf5sx2SuROYcfhrzBLoCN3xVZC+Aug3wWxYDsh/HW4hmFbSZGogY7czEXyxD1r8ADTtrJFgRbR
-        kasHNWU7KGq059oWffL85rEo1HbtwhtoIZ0tPwPAteZco6icHugOZG9LnrhJ09WCc9DLqLdT6FpeE5LT
-        0o9o9s+/LYXCN6DId9HfOGGrAAAAAElFTkSuQmCC
-</value>
-  </data>
   <metadata name="notifyIcon1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>101, 4</value>
   </metadata>
@@ -2467,6 +2453,81 @@
         AAD///////8AAP///////wAA////////AAA=
 </value>
   </data>
+  <data name="panel5.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAVQAAACcCAYAAAAgXlPYAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS40Et+mgwAAArpJREFUeF7t2TFq
+        3FAUQFGV2oFLewNZRnZj8CKnSOHVTJE+/9keCIMGrOSW58MB8b7UXr6k7bZefvzcl9flslyX3wAcmkZO
+        K6eZ+1dGP9caPC2/lqMHAXhs2vl0i+mcTMUU4N9NQ/cJ6hxZj24A4PteJ6jzHeBoE4Dvu0xQ/YAC+H/X
+        CerRBgAnCSpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWI
+        CCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFAB
+        IoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFU
+        gIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQE
+        FSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAAR
+        QQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpA
+        RFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIK
+        EBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIig
+        AkQEFSAiqACRCer1fgjAadcJ6uVuCMB5lwnq290QgPPeJqj78v7XEIBzpqH7NmtdPH8Njm4E4LFp5/NH
+        TG9rDeakOq//803VjyqAx6aR08pp5ufJdNu2P8+7YGVFiF2zAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <metadata name="moreInstanceOptionsMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>214, 4</value>
+  </metadata>
+  <data name="settingsBtn.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
+        qAAAAKgBefSzxgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAASRSURBVEhLnZTb
+        U1NXFMZp7eXF/6DOOH1tx+lLO+1DH3wtohRbBNIgFLlaATEGhgqWIlARpIPjBaeFWkRGqDrOtIBcAuYO
+        IYEohqsUW5t7cnJOchJoJFld+7APcquDfjN7MrPPWr+99lrfTszL6tZ05PLNyeXoDcsz+HUiDM0P/2Wb
+        xsIf0M+vpq5ZkN+diTR0TsO7HVPLT9fA4ap5CS6PL1Y3Ghc/PW/k288aAu/TtO2paw5q7s5EASsHrBw2
+        wi+NL0LjWAgajEE4N8pDzUjAVanj99D0F+uPWajbCG9C6Pd6Dr7VslCu4wgQzj+HQ+WwH07rOFe5xvvi
+        m3TPwa618NZHYZCpGEi+Z4fUPgccGXBB3qAbCpVeKNEwcAbBFC4cXqxm2ynq//XbdFRB4NctYchFWNIW
+        cLmagVMIrMBbkUXgJWofyDTMZxSzWVeN8OatqeUUhDtIW8owSYRnKVwE0F+m5/LLdUzdaT3nIWDSnjps
+        U6kG4XjT4yqmNX/QubW7bk9FssWeX8OBpvY5BXgmVn5K40ujYYIA4PXqYf9CvZGHCzjsKmwTudk3Qx7I
+        GXT7aNh63ZyMyEW3/GgKrrZFpmae0JB1qlRzHxN4kxkdZQqJcCGHhqxX++QzuWjFWgO/2vNSrU9BQzbp
+        yvhitAXjySEiPK3fufUBjWa+tmGMg/pRFs7hAeJAcYALNGSd6g3cRwR+HZ12BW0swqW9jigNiYnJn4O3
+        ZX8u7i6aD354/HEQCmZ5ODYVgMMdejg2aIei+y5h2BU6TkJTVoVtmSdwfOXwAw6bwnm09EUhoMIFO0/+
+        taSWLYTCCLeK8KMWP2SZ8LoGrEhrhWKlC2oMfLR6JHAPXZNTO8zXXBwPuUR4J64shZvAIaXHUSrA0Qav
+        yf9eGkI4kMpzH/lBonVD4n0nJKlccHiEgSNjPkg3MiBV/gNntB7BLaTXYlsI/M5MBGfECnDyGL/ssjUI
+        /ESAHbInoTkCz0DQwQE7JGxYyWpykBekGiekNSvgAs5mLfwGPsRifFyr8G4bJHRZ5cIBJxeC8YWPg/aj
+        k35IUjrhEK6vdG6TVO/9TqKy6w6pVvbIrSR40OdtwyBtUUKVzgtn0QDkYX2NQ10Pp9UTYeVh0vMMkw/B
+        Hkgz+EboJ0Epascdsi/BRVpGWhf3sxLiW7SQ3msTB0rgrADvttbR1BWJAxX6PMpA+pjvBP0kKF3n2EP2
+        0wyMAP9C4YC4X3Sw7ycV7G81gKTHCsk9trK9Q/BG3O9P36Fpz4XwgOCWhxxkmVnINLO36SdB6SNMCdnP
+        MDECPKHfDvFtpkux1ww1+9pMVfs7Jgqy8b+Lhm9WjiXwXs4Ex2c/YAVb5ln80WwzW5/5wLsr0+Q7njvh
+        D5P91GHPCrzPHktTt6cKvBpW6CUtykOLFs4GN62cCb8AP9Bri8R22XbT1O0rY9zXQnxOrEjaUTAThKL5
+        EOTjLxn+wQEHgUNct1Wd2Gl5i6ZtXxX4l4vwZqne45do3BHRLWLPEc7GdduG9na6dtKUVxNxQpLG8QnC
+        AxQePtBnkyZ2wg7y4mnYSygm5j+7DmKoaQcU9wAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>4, 4</value>
+  </metadata>
+  <data name="srvInfBtn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAfFJREFUSEul
+        ljlOw1AURUM6IAjEkKSEUMMWaBLYAmIQtAlsAoFYAJNYBD3DLhg6KuaOBoUKKZzrXIMs+5ugXOlIfvc9
+        v598P/+k8B91Op0B4bB/0awK23AFz/BhdH0JW1B1ee/iphHYh1c4hDpMOK38BDTgCFSzByWn80XhLNzB
+        Afw0DYmaSdBCt1CznS0K1PwRlm31LO5Z8b0ztpIioW3RJ89sjj8E2i59s0HbCeGvwg2ktwtTe37gMCVy
+        mxBrw3ZK5E5g12FXGJoWPazgnpObh3iK5mynRG4K1KtiKzI1iocOg6JmVDgMippjaDmMDM153WHfotci
+        XDiMjCcYd5gp8vfwDi+2gqJGo/sYB0XQvuYeAeTH4BPatoJSL1DPYs8LSNS0hcOg1Ms9i7Hx5xZJ1PS6
+        gCbpwWFk6OBqOAxKzYXDoKhZgnOHkaFT8chhUGouHAZFjV62psPIqIBejklbmSL/5wLky+5VttUVho7c
+        4LcgdwZf5sx2SuROYcfhrzBLoCN3xVZC+Aug3wWxYDsh/HW4hmFbSZGogY7czEXyxD1r8ADTtrJFgRbR
+        kasHNWU7KGq059oWffL85rEo1HbtwhtoIZ0tPwPAteZco6icHugOZG9LnrhJ09WCc9DLqLdT6FpeE5LT
+        0o9o9s+/LYXCN6DId9HfOGGrAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="basicInstrTextLbl.Text" xml:space="preserve">
+    <value>1) Select the game you want and click the "Install" button.
+2) If its the first time you're installing a server, select the installation folder, and then wait for the installation to finish.
+3) Type "quit" in the command line after the installation has finished.(only for steam servers)
+4) Configure the server the way you like by editing the settings files (optional).
+5) Start the server and enjoy!
+
+NOTE: If you need extra help, some servers include a guide in the "Extra" section. You can also go to the "Help-Language" tab for additional help.
+You can also join our group on steam and ask for help about your issue.
+</value>
+  </data>
   <data name="discordSrvBtn.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
@@ -2527,64 +2588,6 @@
         Eg5mGg5sZC7YA2niUIjoKrbsdCgCHQ6Dpfs0a/PUWaym1I3E14s0bYRwiNDbOSW50C6g6wztwlAC4j9j
         /DVbGZ+49ZP/4aLxxanzdpO3bGBV6X1sWOoccbjMBifb6D1k9ycY2ACtN+vrGMqakkj+BWcSUagDEMPk
         AAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="panel5.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAVQAAACcCAYAAAAgXlPYAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS40Et+mgwAAArpJREFUeF7t2TFq
-        3FAUQFGV2oFLewNZRnZj8CKnSOHVTJE+/9keCIMGrOSW58MB8b7UXr6k7bZefvzcl9flslyX3wAcmkZO
-        K6eZ+1dGP9caPC2/lqMHAXhs2vl0i+mcTMUU4N9NQ/cJ6hxZj24A4PteJ6jzHeBoE4Dvu0xQ/YAC+H/X
-        CerRBgAnCSpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWI
-        CCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFAB
-        IoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFU
-        gIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQE
-        FSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAAR
-        QQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpA
-        RFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIK
-        EBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIigAkQEFSAiqAARQQWICCpARFABIoIKEBFUgIig
-        AkQEFSAiqACRCer1fgjAadcJ6uVuCMB5lwnq290QgPPeJqj78v7XEIBzpqH7NmtdPH8Njm4E4LFp5/NH
-        TG9rDeakOq//803VjyqAx6aR08pp5ufJdNu2P8+7YGVFiF2zAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="basicInstrTextLbl.Text" xml:space="preserve">
-    <value>1) Select the game you want and click the "Install" button.
-2) If its the first time you're installing a server, select the installation folder, and then wait for the installation to finish.
-3) Type "quit" in the command line after the installation has finished.(only for steam servers)
-4) Configure the server the way you like by editing the settings files (optional).
-5) Start the server and enjoy!
-
-NOTE: If you need extra help, some servers include a guide in the "Extra" section. You can also go to the "Help-Language" tab for additional help.
-You can also join our group on steam and ask for help about your issue.
-</value>
-  </data>
-  <metadata name="moreInstanceOptionsMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>214, 4</value>
-  </metadata>
-  <data name="settingsBtn.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
-        qAAAAKgBefSzxgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAASRSURBVEhLnZTb
-        U1NXFMZp7eXF/6DOOH1tx+lLO+1DH3wtohRbBNIgFLlaATEGhgqWIlARpIPjBaeFWkRGqDrOtIBcAuYO
-        IYEohqsUW5t7cnJOchJoJFld+7APcquDfjN7MrPPWr+99lrfTszL6tZ05PLNyeXoDcsz+HUiDM0P/2Wb
-        xsIf0M+vpq5ZkN+diTR0TsO7HVPLT9fA4ap5CS6PL1Y3Ghc/PW/k288aAu/TtO2paw5q7s5EASsHrBw2
-        wi+NL0LjWAgajEE4N8pDzUjAVanj99D0F+uPWajbCG9C6Pd6Dr7VslCu4wgQzj+HQ+WwH07rOFe5xvvi
-        m3TPwa618NZHYZCpGEi+Z4fUPgccGXBB3qAbCpVeKNEwcAbBFC4cXqxm2ynq//XbdFRB4NctYchFWNIW
-        cLmagVMIrMBbkUXgJWofyDTMZxSzWVeN8OatqeUUhDtIW8owSYRnKVwE0F+m5/LLdUzdaT3nIWDSnjps
-        U6kG4XjT4yqmNX/QubW7bk9FssWeX8OBpvY5BXgmVn5K40ujYYIA4PXqYf9CvZGHCzjsKmwTudk3Qx7I
-        GXT7aNh63ZyMyEW3/GgKrrZFpmae0JB1qlRzHxN4kxkdZQqJcCGHhqxX++QzuWjFWgO/2vNSrU9BQzbp
-        yvhitAXjySEiPK3fufUBjWa+tmGMg/pRFs7hAeJAcYALNGSd6g3cRwR+HZ12BW0swqW9jigNiYnJn4O3
-        ZX8u7i6aD354/HEQCmZ5ODYVgMMdejg2aIei+y5h2BU6TkJTVoVtmSdwfOXwAw6bwnm09EUhoMIFO0/+
-        taSWLYTCCLeK8KMWP2SZ8LoGrEhrhWKlC2oMfLR6JHAPXZNTO8zXXBwPuUR4J64shZvAIaXHUSrA0Qav
-        yf9eGkI4kMpzH/lBonVD4n0nJKlccHiEgSNjPkg3MiBV/gNntB7BLaTXYlsI/M5MBGfECnDyGL/ssjUI
-        /ESAHbInoTkCz0DQwQE7JGxYyWpykBekGiekNSvgAs5mLfwGPsRifFyr8G4bJHRZ5cIBJxeC8YWPg/aj
-        k35IUjrhEK6vdG6TVO/9TqKy6w6pVvbIrSR40OdtwyBtUUKVzgtn0QDkYX2NQ10Pp9UTYeVh0vMMkw/B
-        Hkgz+EboJ0Epascdsi/BRVpGWhf3sxLiW7SQ3msTB0rgrADvttbR1BWJAxX6PMpA+pjvBP0kKF3n2EP2
-        0wyMAP9C4YC4X3Sw7ycV7G81gKTHCsk9trK9Q/BG3O9P36Fpz4XwgOCWhxxkmVnINLO36SdB6SNMCdnP
-        MDECPKHfDvFtpkux1ww1+9pMVfs7Jgqy8b+Lhm9WjiXwXs4Ex2c/YAVb5ln80WwzW5/5wLsr0+Q7njvh
-        D5P91GHPCrzPHktTt6cKvBpW6CUtykOLFs4GN62cCb8AP9Bri8R22XbT1O0rY9zXQnxOrEjaUTAThKL5
-        EOTjLxn+wQEHgUNct1Wd2Gl5i6ZtXxX4l4vwZqne45do3BHRLWLPEc7GdduG9na6dtKUVxNxQpLG8QnC
-        AxQePtBnkyZ2wg7y4mnYSygm5j+7DmKoaQcU9wAAAABJRU5ErkJggg==
 </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

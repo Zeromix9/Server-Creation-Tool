@@ -1,0 +1,60 @@
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Release\Server creation tool.exe.config
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Release\Server creation tool.exe
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Release\Server creation tool.pdb
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Release\Microsoft.Bcl.AsyncInterfaces.xml
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Release\SteamCMD.ConPTY.xml
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Release\System.Buffers.xml
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Release\System.Diagnostics.DiagnosticSource.xml
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Release\System.Memory.xml
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Release\System.Numerics.Vectors.xml
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Release\System.Text.Encodings.Web.xml
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Release\System.Text.Json.xml
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\bin\Release\System.Threading.Tasks.Extensions.xml
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.csproj.AssemblyReference.cache
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server creation tool.exe.config
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_Creation_Tool.aboutFrm.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.classes.RichLabel.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.FAQFrm.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.baseFormUsrCtrl.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.contexMenuStripFrm.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_Creation_Tool.customBtn.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_Creation_Tool.customSmoothBtn.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.lineSeparator.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.MainForm.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.msgBox.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Properties.Resources.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\ScrollAblePanel.ScrollAblePanelControl.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.ark.ark.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.craftopia.craftopia.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.cs2.cs2.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.css.css.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.cs.cs.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.days7.days7.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.forest.forest.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.gmod.gmod.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.hurtworld.hurtworld.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.kf2.kf2.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.l4d2.l4d2.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.l4d.l4d.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.nmrih.nmrih.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.palworld.palworld.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.rust.rust.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.sotf.sotf.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.UNUSED.ATLAS.ATLAS.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.vtest_server.vtest_server.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.sven.sven.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.bo3.bo3.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.beamng.beamng.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.unturned.unturned.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files._srvNames.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.settingsForm.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.startSrvForm.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.steamCMDout.resources
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.csproj.GenerateResource.cache
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.csproj.CoreCompileInputs.cache
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.csproj.Fody.CopyLocal.cache
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.csproj.Fody.RuntimeCopyLocal.cache
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.csproj.CopyComplete
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server creation tool.exe
+G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server creation tool.pdb
