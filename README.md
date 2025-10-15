@@ -1,9 +1,16 @@
-<img width="128" height="128" alt="toolIcon(1)" src="https://github.com/user-attachments/assets/56ff17f7-495c-424c-be12-ca2b56b009d0" />
+<img width="96" height="96" alt="toolIcon(1)" src="https://github.com/user-attachments/assets/56ff17f7-495c-424c-be12-ca2b56b009d0" />
 
 # Server Creation Tool
 A Tool that allows you to easily create game servers.
 
 [![Github All Releases](https://img.shields.io/github/downloads/Zeromix9/Server-Creation-Tool/total.svg)]()
+[![Discord](https://img.shields.io/badge/Discord-Server-5865F2?style=flat&logo=discord&logoColor=white)](https://discord.gg/79eKCs5fW8)
+
+
+[![Download](https://img.shields.io/badge/Download-Latest-brightgreen?style=for-the-badge&logo=github)](https://github.com/Zeromix9/Server-Creation-Tool/releases/latest)
+
+
+
 
 Requirements:
 - Internet connection
