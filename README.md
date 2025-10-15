@@ -1,3 +1,5 @@
+<img width="128" height="128" alt="toolIcon(1)" src="https://github.com/user-attachments/assets/56ff17f7-495c-424c-be12-ca2b56b009d0" />
+
 # Server Creation Tool
 A Tool that allows you to easily create game servers.
 
