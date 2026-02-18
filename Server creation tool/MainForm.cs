@@ -1102,6 +1102,10 @@ namespace Server_creation_tool
                 {
                     createStartBatFile();
                 }
+                else if (File.ReadAllText(getCurrentInstancePath() + getServerDataStr("start_bat_file_path")).Trim() == "" )//
+                {
+                    createStartBatFile();
+                }
             }
 
             Process process = null;
@@ -2004,6 +2008,11 @@ namespace Server_creation_tool
         }
 
         private void instGuideBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

@@ -1,0 +1,3 @@
+04:09 μμ>>> Failed to check for updates!System.Net.WebException: Δεν ήταν δυνατή η επίλυση του απομακρυσμένου ονόματος: 'api.github.com'
+   σε System.Net.HttpWebRequest.GetResponse()
+   σε Server_creation_tool.MainForm.thereIsUpdate() στο C:\Users\SteliosL\Desktop\Server-Creation-Tool-master\Server creation tool\MainForm.cs:γραμμή 843

@@ -127,10 +127,10 @@
     <value>~[conf_file_path_1]</value>
   </data>
   <data name="conf_file_path" xml:space="preserve">
-    <value>\Run.bat </value>
+    <value>\game\bin\win64\Run.bat </value>
   </data>
   <data name="conf_file_path_1" xml:space="preserve">
-    <value>\cs2\cfg\server.cfg</value>
+    <value>\game\csgo\cfg\server.cfg</value>
   </data>
   <data name="guide_link_de" xml:space="preserve">
     <value>https://steamcommunity.com/sharedfiles/filedetails/?id=711630778#1228939</value>
@@ -1976,19 +1976,22 @@
   <data name="server_type" xml:space="preserve">
     <value>steam</value>
   </data>
-  <data name="start_bat_file_create_custom_func" xml:space="preserve">
-    <value />
-  </data>
   <data name="start_bat_file_path" xml:space="preserve">
-    <value>~[start_file_path]</value>
+    <value>~[conf_file_path]</value>
   </data>
   <data name="start_bat_file_required" xml:space="preserve">
     <value>showCreateBtn</value>
   </data>
   <data name="start_file_path" xml:space="preserve">
-    <value>\Run.bat</value>
+    <value>~[conf_file_path]</value>
   </data>
   <data name="steamID" xml:space="preserve">
     <value>730</value>
+  </data>
+  <data name="!start_bat_file_create_custom_func" xml:space="preserve">
+    <value />
+  </data>
+  <data name="start_bat_file_code" xml:space="preserve">
+    <value>start cs2.exe -dedicated -insecure +game_type 2 +game_mode 0 +map de_dust2 +servercfgfile server.cfg</value>
   </data>
 </root>
