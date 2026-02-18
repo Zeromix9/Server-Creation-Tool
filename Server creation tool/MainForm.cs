@@ -71,6 +71,8 @@ namespace Server_creation_tool
         private void Form1_Load(object sender, EventArgs e)
         {
             MsgBox = new messageBox(this);
+
+            System.IO.Directory.CreateDirectory(Properties.Settings.Default.logs_dir);
             aTimer();
             //  if (Debugger.IsAttached)
             //Properties.Settings.Default.Reset();
@@ -307,7 +309,7 @@ namespace Server_creation_tool
 
         private void appLogsBtn_Click(object sender, EventArgs e)
         {
-            Process.Start(toolFolder + "\\" + "sc_tool_logs");
+            Process.Start(toolFolder + "\\" + Properties.Settings.Default.logs_dir);
         }
 
         #endregion
@@ -909,6 +911,8 @@ namespace Server_creation_tool
             // showInstalledSrvs();
         }
 
+
+        //Save log every 4 seconds
         private void aTimer()
         {
             funcs.StartThread(() =>

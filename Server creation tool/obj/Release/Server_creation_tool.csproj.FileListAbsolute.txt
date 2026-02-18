@@ -58,3 +58,64 @@ G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Cr
 G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server_creation_tool.csproj.CopyComplete
 G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server creation tool.exe
 G:\My files\My Projects\Coding\VS Projects\Server-Creation-Tool-master\Server-Creation-Tool-5.0\Server creation tool\Server creation tool\obj\Release\Server creation tool.pdb
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\bin\Release\Server creation tool.exe.config
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\bin\Release\Server creation tool.exe
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\bin\Release\Server creation tool.pdb
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\bin\Release\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\bin\Release\SteamCMD.ConPTY.xml
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\bin\Release\System.Buffers.xml
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\bin\Release\System.Diagnostics.DiagnosticSource.xml
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\bin\Release\System.Memory.xml
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\bin\Release\System.Numerics.Vectors.xml
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\bin\Release\System.Text.Encodings.Web.xml
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\bin\Release\System.Text.Json.xml
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\bin\Release\System.Threading.Tasks.Extensions.xml
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.csproj.AssemblyReference.cache
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.csproj.SuggestedBindingRedirects.cache
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server creation tool.exe.config
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_Creation_Tool.aboutFrm.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.classes.RichLabel.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.FAQFrm.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.baseFormUsrCtrl.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.contexMenuStripFrm.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_Creation_Tool.customBtn.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_Creation_Tool.customSmoothBtn.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.lineSeparator.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.MainForm.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.msgBox.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Properties.Resources.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\ScrollAblePanel.ScrollAblePanelControl.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.ark.ark.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.craftopia.craftopia.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.cs2.cs2.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.css.css.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.cs.cs.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.days7.days7.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.forest.forest.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.gmod.gmod.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.hurtworld.hurtworld.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.kf2.kf2.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.l4d2.l4d2.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.l4d.l4d.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.nmrih.nmrih.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.palworld.palworld.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.rust.rust.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.sotf.sotf.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.UNUSED.ATLAS.ATLAS.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.vtest_server.vtest_server.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.sven.sven.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.bo3.bo3.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.beamng.beamng.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files.unturned.unturned.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.Server_data_files._srvNames.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.settingsForm.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.startSrvForm.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.steamCMDout.resources
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.csproj.GenerateResource.cache
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.csproj.CoreCompileInputs.cache
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.csproj.Fody.CopyLocal.cache
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_creation_tool.csproj.Fody.RuntimeCopyLocal.cache
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server_c.5CB184C2.Up2Date
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server creation tool.exe
+C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\obj\Release\Server creation tool.pdb
