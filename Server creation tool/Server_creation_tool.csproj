@@ -355,7 +355,9 @@
     <EmbeddedResource Include="Server_data_files\l4d2\l4d2.resx" />
     <EmbeddedResource Include="Server_data_files\l4d\l4d.resx" />
     <EmbeddedResource Include="Server_data_files\nmrih\nmrih.resx" />
-    <EmbeddedResource Include="Server_data_files\palworld\palworld.resx" />
+    <EmbeddedResource Include="Server_data_files\palworld\palworld.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Server_data_files\rust\rust.resx" />
     <EmbeddedResource Include="Server_data_files\sotf\sotf.resx" />
     <EmbeddedResource Include="Server_data_files\UNUSED\ATLAS\ATLAS.resx" />

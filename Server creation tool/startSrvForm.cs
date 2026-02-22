@@ -96,5 +96,10 @@ namespace Server_creation_tool
         {
             baseFormUsrCtrl1.Title = this.Text;
         }
+
+        private void dummycustomSmoothBtn1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

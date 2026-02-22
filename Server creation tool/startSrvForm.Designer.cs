@@ -113,6 +113,7 @@
             this.dummycustomSmoothBtn1.TransitionSpeed = 130;
             this.dummycustomSmoothBtn1.UseVisualStyleBackColor = false;
             this.dummycustomSmoothBtn1.Visible = false;
+            this.dummycustomSmoothBtn1.Click += new System.EventHandler(this.dummycustomSmoothBtn1_Click);
             // 
             // scrollPnl
             // 

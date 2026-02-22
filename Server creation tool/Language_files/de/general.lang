@@ -85,6 +85,10 @@
     <Message>Erzwinge Stop</Message>
   </datatron>
   <datatron>
+    <Name>info</Name>
+    <Message>Info</Message>
+  </datatron>
+  <datatron>
     <Name>install</Name>
     <Message>Installieren</Message>
   </datatron>
@@ -127,6 +131,11 @@
     <Title>Hinweis</Title>
   </datatron>
   <datatron>
+    <Name>no_start_files_found</Name>
+    <Message>Keine Start Datei gefunden. Server Dateien könnten beschädigt sein.</Message>
+    <Title>Fehler beim Server Start</Title>
+  </datatron>
+  <datatron>
     <Name>no_update_available</Name>
     <Message>Kein Update gefunden!</Message>
     <Title>~[new_update_available][2]</Title>
@@ -166,6 +175,10 @@
     <Title>Fehler beim starten des Server</Title>
   </datatron>
   <datatron>
+    <Name>srv_update_repair_failed</Name>
+    <Message>Fehler beim Updaten/Reparieren des Servers</Message>
+  </datatron>
+  <datatron>
     <Name>srv_update_repair_finished</Name>
     <Message>Server Update/Reperatur abgeschlossen!</Message>
   </datatron>
@@ -180,6 +193,15 @@
   <datatron>
     <Name>start_server_from</Name>
     <Message>Start Server mit</Message>
+  </datatron>
+  <datatron>
+    <Name>start_steamcmd_missing</Name>
+    <Message>Konnte die SteamCMD nicht starten, da sie nicht installiert ist. Möchtest du diese nun automatisch downloaden und installieren?</Message>
+    <Title>Starte SteamCMD</Title>
+  </datatron>
+  <datatron>
+    <Name>starting</Name>
+    <Message>Startungen</Message>
   </datatron>
   <datatron>
     <Name>steamcmd_download_failed</Name>
@@ -203,22 +225,5 @@
     <Name>you_selected</Name>
     <Message>Du wähltest aus</Message>
     <Title>~[select_server_dir_note][2]</Title>
-  </datatron>
-  <datatron>
-    <Name>srv_update_repair_failed</Name>
-    <Message>Fehler beim Updaten/Reparieren des Servers</Message>
-  </datatron>
-  <datatron>
-    <Name>info</Name>
-    <Message>Info</Message>
-  </datatron>
-  <datatron>
-    <Name>starting</Name>
-    <Message>Startungen</Message>
-  </datatron>
-  <datatron>
-    <Name>start_steamcmd_missing</Name>
-    <Message>Konnte die SteamCMD nicht starten, da sie nicht installiert ist. Möchtest du diese nun automatisch downloaden und installieren?</Message>
-    <Title>Starte SteamCMD</Title>
   </datatron>
 </NewDataSet>

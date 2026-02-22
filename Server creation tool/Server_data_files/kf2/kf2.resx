@@ -8674,7 +8674,7 @@
   <data name="server_type" xml:space="preserve">
     <value>steam</value>
   </data>
-  <data name="start_file_location" xml:space="preserve">
+  <data name="start_file_path" xml:space="preserve">
     <value>\KF2Server.bat</value>
   </data>
   <data name="steamID" xml:space="preserve">

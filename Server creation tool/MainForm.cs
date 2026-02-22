@@ -1,4 +1,11 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using Server_creation_tool.classes;
+using Server_creation_tool.reusable_controls.messageBox;
+using Server_Creation_Tool;
+using Server_Creation_Tool.myClasses;
+using SteamCMD.ConPTY;
+using SteamCMD.ConPTY.Interop.Definitions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -12,13 +19,6 @@ using System.Reflection;
 using System.Resources;
 using System.Threading;
 using System.Windows.Forms;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using Server_creation_tool.classes;
-using Server_creation_tool.reusable_controls.messageBox;
-using Server_Creation_Tool;
-using Server_Creation_Tool.myClasses;
-using SteamCMD.ConPTY;
-using SteamCMD.ConPTY.Interop.Definitions;
 using Transitions;
 //using static System.Net.Mime.MediaTypeNames;
 using Image = System.Drawing.Image;
@@ -240,7 +240,7 @@ namespace Server_creation_tool
                             refresh();
                         }
                         else return;
-               
+
                     }
 
                     cTry(() =>
@@ -1103,15 +1103,14 @@ namespace Server_creation_tool
             if (getServerDataStr("start_bat_file_required") != null)
             {
                 if (!File.Exists(getCurrentInstancePath() + getServerDataStr("start_bat_file_path")))//FIX THIS. DO NOT FORGET
-                {
-                    createStartBatFile();
-                }
-                else if (File.ReadAllText(getCurrentInstancePath() + getServerDataStr("start_bat_file_path")).Trim() == "" )//
-                {
-                    createStartBatFile();
-                }
+                    goto next;
+                else if (File.ReadAllText(getCurrentInstancePath() + getServerDataStr("start_bat_file_path")).Trim() == "")//
+                    goto next;
+
+                createStartBatFile();
             }
 
+        next:
             Process process = null;
             if (getServerDataStr("custom_start_func") != null)
             { process = null; runSrvMethod("startServer"); }
@@ -1155,12 +1154,19 @@ namespace Server_creation_tool
                     process.StartInfo.FileName = startFileLoc;
                     process.StartInfo.WorkingDirectory = new FileInfo(startFileLoc).Directory.FullName;
                 }
-                else
+                else if (filesFound > 1)
                 {
+                    Console.WriteLine(filesFound);
                     //show form with start file options 
                     startFrm.ShowDialog();
-                    if (startFrm.DialogResult == DialogResult.Cancel || startFrm.DialogResult == DialogResult.None) { end(); return; };
+                    if (startFrm.DialogResult == DialogResult.Cancel || startFrm.DialogResult == DialogResult.None) { end(); return; }
+                    ;
                     process = startFrm.returnProc;
+                }
+                else // NO START FILES FOUND
+                {
+                    MsgBox.Show(getGeneralLang("no_start_files_found")[1], getGeneralLang("no_start_files_found")[2], MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
                 //start the server process
                 cTry(() =>

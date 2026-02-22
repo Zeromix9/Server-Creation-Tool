@@ -1,0 +1,15 @@
+10:11 μμ>>> ERROR: Failed to start the Palworld serverSystem.ComponentModel.Win32Exception (0x80004005): Το καθορισμένο εκτελέσιμο αρχείο δεν είναι έγκυρη εφαρμογή για αυτήν την πλατφόρμα λειτουργικού συστήματος.
+   σε System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   σε System.Diagnostics.Process.Start()
+   σε Server_creation_tool.MainForm.<>c__DisplayClass96_0.<startServer>b__2() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1174
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+10:11 μμ>>> ERROR: Failed to start the Palworld serverSystem.ComponentModel.Win32Exception (0x80004005): Το καθορισμένο εκτελέσιμο αρχείο δεν είναι έγκυρη εφαρμογή για αυτήν την πλατφόρμα λειτουργικού συστήματος.
+   σε System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   σε System.Diagnostics.Process.Start()
+   σε Server_creation_tool.MainForm.<>c__DisplayClass96_0.<startServer>b__2() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1174
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+10:12 μμ>>> ERROR: Failed to start the Palworld serverSystem.ComponentModel.Win32Exception (0x80004005): Το καθορισμένο εκτελέσιμο αρχείο δεν είναι έγκυρη εφαρμογή για αυτήν την πλατφόρμα λειτουργικού συστήματος.
+   σε System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   σε System.Diagnostics.Process.Start()
+   σε Server_creation_tool.MainForm.<>c__DisplayClass96_0.<startServer>b__2() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1174
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589

@@ -221,4 +221,9 @@
     <Message>Could not start steamCMD because its not installed. Would you like to download and install it automatically?</Message>
     <Title>Start SteamCMD</Title>
   </datatron>
+  <datatron>
+    <Name>no_start_files_found</Name>
+    <Message>No start files found! Server files could be damanged.</Message>
+    <Title>Start server error</Title>
+  </datatron>
 </NewDataSet>
