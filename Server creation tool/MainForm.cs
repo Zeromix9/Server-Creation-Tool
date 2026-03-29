@@ -199,7 +199,7 @@ namespace Server_creation_tool
 
         private void changelogBtn_Click(object sender, EventArgs e)
         {
-            Process.Start("https://portforward.com/router.htm");
+            Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=2432446663");
         }
 
         FAQFrm faqForm;
