@@ -19,7 +19,7 @@ namespace Server_creation_tool.Server_data_files {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class _srvNames {
@@ -183,6 +183,15 @@ namespace Server_creation_tool.Server_data_files {
         internal static string l4d2 {
             get {
                 return ResourceManager.GetString("l4d2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Necesse.
+        /// </summary>
+        internal static string necesse {
+            get {
+                return ResourceManager.GetString("necesse", resourceCulture);
             }
         }
         

@@ -18,6 +18,7 @@ using System.Net;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Transitions;
 //using static System.Net.Mime.MediaTypeNames;
@@ -1094,11 +1095,19 @@ namespace Server_creation_tool
 
         private void startServer()
         {
-            void end()
+            void end(int delay = 0)
             {
-                taskEnded();
-                setSrvInstBtn("start");
+                funcs.StartThread(() =>
+                {
+                    if (delay != 0)            //wait a bit so that users can't spam the start button
+                    {
+                        Thread.Sleep(delay);
+                    }
+                    taskEnded();
+                    setSrvInstBtn("start");
+                });
             }
+
             taskStarted(getGeneralLang("starting")[1] + " " + srvName() + " server");
             if (getServerDataStr("start_bat_file_required") != null)
             {
@@ -1159,32 +1168,23 @@ namespace Server_creation_tool
                     Console.WriteLine(filesFound);
                     //show form with start file options 
                     startFrm.ShowDialog();
-                    if (startFrm.DialogResult == DialogResult.Cancel || startFrm.DialogResult == DialogResult.None) { end(); return; }
-                    ;
+                    if (startFrm.DialogResult == DialogResult.Cancel || startFrm.DialogResult == DialogResult.None)   { end(); return; }
                     process = startFrm.returnProc;
                 }
                 else // NO START FILES FOUND
                 {
                     MsgBox.Show(getGeneralLang("no_start_files_found")[1], getGeneralLang("no_start_files_found")[2], MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    end();
                     return;
                 }
+
                 //start the server process
                 cTry(() =>
                 {
                     process.Start();
                 }, true, snprintf(getGeneralLang("srv_start_fail")[1], new[] { srvName() }), getGeneralLang("srv_start_fail")[2], true, "Failed to start the " + srvName() + " server");
             }
-            //wait a bit so that users can't spam the start button
-            funcs.StartThread(() =>
-            {
-                int i = 0;
-                while (i < 35)
-                {
-                    Thread.Sleep(200);
-                    i++;
-                }
-                end();
-            });
+            end();
         }
 
         private void createStartBatFile()// DO NOT FORGET. delete?
@@ -1892,36 +1892,54 @@ namespace Server_creation_tool
         {
             Process.Start(serversInstDir + @"\" + SrvInstanceRootFold);
         }
-        private void delBtn_Click_1(object sender, EventArgs e)
+        private async void delBtn_Click_1(object sender, EventArgs e)
         {
-            if (MsgBox.Show(getGeneralLang("ask_delete_server")[1], snprintf(getGeneralLang("ask_delete_server")[2], new[] { srvNameANDinstancesDropDownBtn.Text }), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+            //Confirm with the user first
+            var confirmMsg = snprintf(getGeneralLang("ask_delete_server")[2], new[] { srvNameANDinstancesDropDownBtn.Text });
+            if (MsgBox.Show(getGeneralLang("ask_delete_server")[1], confirmMsg, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) != DialogResult.Yes)
             {
-                taskStarted(getGeneralLang("deleting")[1] + srvName() + "...");
-                disableUI();
-                installSrvBtn.Enabled = false;
-                funcs.StartThread(() =>
-                {
-                    cTry(() =>
-                    {
-                        if (getCurrentInstancePath().Contains("_ds"))//if the path for some reason is wrong, do not proceed with deleting as that might delete the whole server library
-                        {
-                            funcsClass.DeleteDirectory(getCurrentInstancePath());
-                            methodInvoke(() => MsgBox.quickMsg(snprintf(getGeneralLang("ask_delete_server")[2], new[] { srvNameANDinstancesDropDownBtn.Text }), getGeneralLang("done")[1], 55));
-                        }
-                        else
-                        {
-                            methodInvoke(() =>
-                            {
-                                MsgBox.Show(getGeneralLang("srv_delete_fail")[1], snprintf(getGeneralLang("ask_delete_server")[2], new[] { srvNameANDinstancesDropDownBtn.Text }), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            });
-                        }
+                return;
+            }
 
-                    }, true, getGeneralLang("srv_delete_fail")[1], snprintf(getGeneralLang("ask_delete_server")[2], new[] { srvNameANDinstancesDropDownBtn.Text }), true);
-                    taskEnded();
-                    enableUI();
-                    methodInvoke(() => { installSrvBtn.Enabled = true; });
-                    refresh();
-                });
+            //Prepare the UI on the Main Thread
+            taskStarted(getGeneralLang("deleting")[1] + " " + srvName() + "...");
+            disableUI();
+            installSrvBtn.Enabled = false;
+
+            string targetPath = getCurrentInstancePath();
+
+            //Offload the heavy lifting to a background task
+            bool success = false;
+            await Task.Run(() =>
+            {
+                cTry(() =>
+                {
+                    //Safety check for the correct directory string
+                    if (!targetPath.Contains("_ds"))
+                    {
+                        throw new InvalidOperationException("Invalid server path framework. Path safety verification failed.");
+                    }
+
+                    //Delete stuff
+                    if (!funcsClass.DeleteDirectory(targetPath))
+                    {
+                        throw new IOException("The directory or its files could not be deleted entirely.");
+                    }
+
+                    success = true;
+
+                }, true, getGeneralLang("srv_delete_fail")[1], confirmMsg, true);
+            });
+
+            //Back on the Main Thread
+            taskEnded();
+            enableUI();
+            installSrvBtn.Enabled = true;
+            refresh();
+
+            if (success)
+            {
+                MsgBox.quickMsg(confirmMsg, getGeneralLang("done")[1], 55);
             }
         }
         private void updateBtn_Click(object sender, EventArgs e)
@@ -2023,6 +2041,11 @@ namespace Server_creation_tool
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

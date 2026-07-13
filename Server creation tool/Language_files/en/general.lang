@@ -223,7 +223,7 @@
   </datatron>
   <datatron>
     <Name>no_start_files_found</Name>
-    <Message>No start files found! Server files could be damanged.</Message>
+    <Message>Could not find the executable! Server files could be damaged.</Message>
     <Title>Start server error</Title>
   </datatron>
 </NewDataSet>

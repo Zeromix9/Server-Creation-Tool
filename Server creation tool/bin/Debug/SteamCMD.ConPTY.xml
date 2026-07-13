@@ -1,0 +1,390 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SteamCMD.ConPTY</name>
+    </assembly>
+    <members>
+        <member name="T:SteamCMD.ConPTY.InteropException">
+            <summary>
+            Interop Exception
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.InteropException.#ctor">
+            <summary>
+            Interop Exception
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.InteropException.#ctor(System.String)">
+            <summary>
+            Interop Exception
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.InteropException.#ctor(System.String,System.Exception)">
+            <summary>
+            Interop Exception
+            </summary>
+            <param name="message"></param>
+            <param name="innerException"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.InteropException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Interop Exception
+            </summary>
+            <param name="serializationInfo"></param>
+            <param name="streamingContext"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.InteropException.CreateWithInnerHResultException(System.String)">
+            <summary>
+            Create exception with inner HResult exception
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SteamCMD.ConPTY.Interop.Definitions.CtrlEvent">
+            <summary>
+            Ctrl Event
+            </summary>
+        </member>
+        <member name="F:SteamCMD.ConPTY.Interop.Definitions.CtrlEvent.CtrlC">
+            <summary>
+            Ctrl C
+            </summary>
+        </member>
+        <member name="F:SteamCMD.ConPTY.Interop.Definitions.CtrlEvent.CtrlBreak">
+            <summary>
+            Ctrl Break
+            </summary>
+        </member>
+        <member name="F:SteamCMD.ConPTY.Interop.Definitions.CtrlEvent.CtrlClose">
+            <summary>
+            Ctrl Close
+            </summary>
+        </member>
+        <member name="F:SteamCMD.ConPTY.Interop.Definitions.CtrlEvent.CtrlLogOff">
+            <summary>
+            Ctrl LogOff
+            </summary>
+        </member>
+        <member name="F:SteamCMD.ConPTY.Interop.Definitions.CtrlEvent.CtrlShutDown">
+            <summary>
+            Ctrl ShutDown
+            </summary>
+        </member>
+        <member name="T:SteamCMD.ConPTY.Interop.Definitions.ProcessInfo">
+            <summary>
+            Process Information
+            </summary>
+        </member>
+        <member name="F:SteamCMD.ConPTY.Interop.Definitions.ProcessInfo.hProcess">
+            <summary>
+            Process handle
+            </summary>
+        </member>
+        <member name="F:SteamCMD.ConPTY.Interop.Definitions.ProcessInfo.hThread">
+            <summary>
+            Thread handle
+            </summary>
+        </member>
+        <member name="F:SteamCMD.ConPTY.Interop.Definitions.ProcessInfo.dwProcessId">
+            <summary>
+            Process Id
+            </summary>
+        </member>
+        <member name="F:SteamCMD.ConPTY.Interop.Definitions.ProcessInfo.dwThreadId">
+            <summary>
+            Thread Id
+            </summary>
+        </member>
+        <member name="F:SteamCMD.ConPTY.Interop.Definitions.StdHandle.InputHandle">
+            <summary>
+            The standard input device
+            </summary>
+        </member>
+        <member name="F:SteamCMD.ConPTY.Interop.Definitions.StdHandle.OutputHandle">
+            <summary>
+            The standard output device.
+            </summary>
+        </member>
+        <member name="F:SteamCMD.ConPTY.Interop.Definitions.StdHandle.ErrorHandle">
+            <summary>
+            The standard error device.
+            </summary>
+        </member>
+        <member name="T:SteamCMD.ConPTY.Interop.CtrlEventDelegate">
+            <summary>
+            Delegate CtrlEvent
+            </summary>
+            <param name="ctrlEvent"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SteamCMD.ConPTY.NativeConsole">
+            <summary>
+            Native Console
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.NativeConsole.#ctor(System.Boolean)">
+            <summary>
+            Native Console
+            </summary>
+            <param name="hidden"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.NativeConsole.Finalize">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="P:SteamCMD.ConPTY.NativeConsole.Output">
+            <summary>
+            StdOut
+            </summary>
+        </member>
+        <member name="P:SteamCMD.ConPTY.NativeConsole.Error">
+            <summary>
+            StdErr
+            </summary>
+        </member>
+        <member name="P:SteamCMD.ConPTY.NativeConsole.Input">
+            <summary>
+            StdIn
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.NativeConsole.SendCtrlEvent(SteamCMD.ConPTY.Interop.Definitions.CtrlEvent)">
+            <summary>
+            Send CtrlEvent to the console
+            </summary>
+            <param name="ctrlEvent"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.NativeConsole.RegisterOnCloseAction(System.Action)">
+            <summary>
+            Register OnClose Action
+            </summary>
+            <param name="action"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.NativeConsole.RegisterCtrlEventFunction(SteamCMD.ConPTY.Interop.CtrlEventDelegate)">
+            <summary>
+            Register Ctrl Event Function
+            </summary>
+            <param name="function"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.NativeConsole.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:SteamCMD.ConPTY.NativeConsole.Dispose(System.Boolean)">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="T:SteamCMD.ConPTY.SteamCMDConPTY">
+            <summary>
+            SteamCMD ConPTY
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.SteamCMDConPTY.Start(System.Int16,System.Int16)">
+            <summary>
+            Start steamcmd.exe
+            </summary>
+            <param name="width"></param>
+            <param name="height"></param>
+        </member>
+        <member name="T:SteamCMD.ConPTY.Terminal">
+            <summary>
+            Terminal
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.Terminal.#ctor">
+            <summary>
+            Terminal
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.Terminal.Finalize">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="P:SteamCMD.ConPTY.Terminal.Input">
+            <summary>
+            Input Stream
+            </summary>
+        </member>
+        <member name="P:SteamCMD.ConPTY.Terminal.Output">
+            <summary>
+            Output Stream
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.Terminal.Start(System.String,System.Int16,System.Int16)">
+            <summary>
+            Starts the console
+            </summary>
+            <param name="shellCommand"></param>
+            <param name="consoleWidth"></param>
+            <param name="consoleHeight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SteamCMD.ConPTY.Terminal.Kill">
+            <summary>
+            Immediately stops the associated console.
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.Terminal.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:SteamCMD.ConPTY.Terminal.BuildWaitHandler">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SteamCMD.ConPTY.Terminal.WaitForExit">
+            <summary>
+            Instructs the console to wait indefinitely for the associated process to exit.
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.Terminal.TryGetExitCode(System.UInt32@)">
+            <summary>
+            Try get ExitCode
+            </summary>
+            <param name="exitCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SteamCMD.ConPTY.Terminal.Dispose(System.Boolean)">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="T:SteamCMD.ConPTY.WindowsPseudoConsole">
+            <summary>
+            Pseudo Console (ConPTY)
+            </summary>
+        </member>
+        <member name="E:SteamCMD.ConPTY.WindowsPseudoConsole.TitleReceived">
+            <summary>
+            Occurs when console title received
+            </summary>
+        </member>
+        <member name="E:SteamCMD.ConPTY.WindowsPseudoConsole.OutputDataReceived">
+            <summary>
+            Occurs each time console writes a line.
+            </summary>
+        </member>
+        <member name="E:SteamCMD.ConPTY.WindowsPseudoConsole.Exited">
+            <summary>
+            Occurs when the console exits.
+            </summary>
+        </member>
+        <member name="P:SteamCMD.ConPTY.WindowsPseudoConsole.WorkingDirectory">
+            <summary>
+            Working directory. Default: <see cref="M:System.IO.Directory.GetCurrentDirectory"/>
+            </summary>
+        </member>
+        <member name="P:SteamCMD.ConPTY.WindowsPseudoConsole.FileName">
+            <summary>
+            Gets or sets the application or document to start.
+            </summary>
+        </member>
+        <member name="P:SteamCMD.ConPTY.WindowsPseudoConsole.Arguments">
+            <summary>
+            Arguments that pass to the console. Default: <see cref="F:System.String.Empty"/>
+            </summary>
+        </member>
+        <member name="P:SteamCMD.ConPTY.WindowsPseudoConsole.FilterControlSequences">
+            <summary>
+            Filtering out ANSI escape sequences on <see cref="E:SteamCMD.ConPTY.WindowsPseudoConsole.OutputDataReceived"/>. Default: <see langword="false"/>
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.#ctor">
+            <summary>
+            Pseudo Console (ConPTY)
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.#ctor(System.String)">
+            <summary>
+            Pseudo Console (ConPTY)
+            </summary>
+            <param name="workingDirectory">Working directory</param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.#ctor(System.String,System.String)">
+            <summary>
+            Pseudo Console (ConPTY)
+            </summary>
+            <param name="workingDirectory">Working directory</param>
+            <param name="arguments">Arguments that pass to the console</param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.Start(System.Int16,System.Int16)">
+            <summary>
+            Start pseudo console
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.Start(System.String,System.Int16,System.Int16)">
+            <summary>
+            Start pseudo console
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.Write(System.Char)">
+            <summary>
+            Write data to the console.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.Write(System.Char[])">
+            <summary>
+            Write data to the console.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.Write(System.String)">
+            <summary>
+            Write data to the console.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.WriteLine(System.String)">
+            <summary>
+            Write data to the console, followed by a break line character.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.WriteAsync(System.Char)">
+            <summary>
+            Write data to the console.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.WriteAsync(System.Char[])">
+            <summary>
+            Write data to the console.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.WriteAsync(System.String)">
+            <summary>
+            Write data to the console.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.WriteLineAsync(System.String)">
+            <summary>
+            Write data to the console, followed by a break line character.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.Dispose(System.Boolean)">
+            <summary>
+            Release the resources
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.Finalize">
+            <summary>
+            Release the resources
+            </summary>
+        </member>
+        <member name="M:SteamCMD.ConPTY.WindowsPseudoConsole.Dispose">
+            <summary>
+            Release the resources
+            </summary>
+        </member>
+    </members>
+</doc>

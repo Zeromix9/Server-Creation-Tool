@@ -1,0 +1,148 @@
+05:34 μμ>>> ERROR: System.IO.IOException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'G:\creation_tool_servers\necesse_ds\steamapps\downloading'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 134
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1906
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+05:35 μμ>>> ERROR: System.IO.IOException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'G:\creation_tool_servers\necesse_ds\steamapps\downloading'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 134
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1906
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+05:51 μμ>>> ERROR: System.IO.IOException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'G:\creation_tool_servers\necesse_ds\steamapps\downloading'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 134
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1906
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+05:52 μμ>>> ERROR: System.IO.IOException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'G:\creation_tool_servers\necesse_ds\steamapps\downloading'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 134
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1906
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+06:02 μμ>>> ERROR: System.UnauthorizedAccessException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'classes.jsa'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 139
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1906
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+06:38 μμ>>> ERROR: System.UnauthorizedAccessException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'installscript.vdf'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 139
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1905
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+06:40 μμ>>> ERROR: System.UnauthorizedAccessException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'classes.jsa'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 139
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1905
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+06:41 μμ>>> ERROR: System.UnauthorizedAccessException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'classes.jsa'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 139
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1905
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+06:42 μμ>>> ERROR: System.UnauthorizedAccessException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'classes.jsa'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 139
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1905
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+06:42 μμ>>> ERROR: System.ComponentModel.Win32Exception (0x80004005): Η λειτουργία ακυρώθηκε από το χρήστη
+   σε System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   σε System.Diagnostics.Process.Start()
+   σε Server_creation_tool.MainForm.<installSteamServer>b__103_0() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1307
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+06:42 μμ>>> ERROR: System.UnauthorizedAccessException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'classes.jsa'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 139
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1905
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+06:43 μμ>>> ERROR: System.UnauthorizedAccessException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'classes.jsa'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 139
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1905
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+06:44 μμ>>> ERROR: System.UnauthorizedAccessException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'classes.jsa'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 139
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1905
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+06:44 μμ>>> ERROR: System.UnauthorizedAccessException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'classes.jsa'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 139
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1905
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+06:44 μμ>>> ERROR: System.UnauthorizedAccessException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'classes.jsa'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 139
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1905
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+06:45 μμ>>> ERROR: System.UnauthorizedAccessException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'classes.jsa'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 139
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1907
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589
+06:46 μμ>>> ERROR: System.UnauthorizedAccessException: Δεν επιτρέπεται η πρόσβαση στη διαδρομή 'classes.jsa'.
+   σε System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound, WIN32_FIND_DATA& data)
+   σε System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 139
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.classes.funcsClass.DeleteDirectory(String path) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\classes\funcsClass.cs:γραμμή 124
+   σε Server_creation_tool.MainForm.<delBtn_Click_1>b__139_1() στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 1907
+   σε Server_creation_tool.MainForm.cTry(Action action, Boolean showMsg, String errorBody, String errorTitle, Boolean combinedMsg, String logFileErrorDesc) στο C:\Users\SteliosL\Documents\GitHub\Server-Creation-Tool\Server creation tool\MainForm.cs:γραμμή 589

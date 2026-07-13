@@ -119,30 +119,66 @@ namespace Server_creation_tool.classes
 
         public static bool DeleteDirectory(string path)
         {
+            if (!Directory.Exists(path)) return true;
+
             try
             {
-                foreach (string directory in Directory.GetDirectories(path))
+                //Clear Read-Only attributes on all files and subdirectories
+                var directoryInfo = new DirectoryInfo(path);
+
+                foreach (var file in directoryInfo.GetFiles("*", SearchOption.AllDirectories))
                 {
-                    DeleteDirectory(directory);
+                    if (file.IsReadOnly)
+                    {
+                        file.IsReadOnly = false;
+                    }
                 }
-                try
+
+                foreach (var dir in directoryInfo.GetDirectories("*", SearchOption.AllDirectories))
                 {
-                    Directory.Delete(path, true);
+                    //Clear read-only/system attributes on directories if any exist
+                    dir.Attributes = FileAttributes.Normal;
                 }
-                catch (IOException)
+
+                //Reset attributes on the root directory itself
+                directoryInfo.Attributes = FileAttributes.Normal;
+
+                //Attempt deletion with a retry loop to handle temporary file locks
+                const int maxRetries = 5;
+                const int delayMs = 100;
+
+                for (int i = 0; i < maxRetries; i++)
                 {
-                    Directory.Delete(path, true);
-                    Thread.Sleep(10);
+                    try
+                    {
+                        Directory.Delete(path, true);
+                        return true; // Success!
+                    }
+                    catch (IOException) when (i < maxRetries - 1)
+                    {
+                        //File is temporarily locked wait briefly and try again
+                        Thread.Sleep(delayMs);
+                    }
+                    catch (UnauthorizedAccessException) when (i < maxRetries - 1)
+                    {
+                        //sometimes Windows throws this instead of IOException for a locking issue
+                        Thread.Sleep(delayMs);
+                    }
                 }
-                catch (UnauthorizedAccessException)
-                {
-                    Directory.Delete(path, true);
-                }
+
+                //Final attempt that will throw to the outer catch if it still fails
+                Directory.Delete(path, true);
                 return true;
             }
-            catch (DirectoryNotFoundException ex) { log.Append("DIR NOT FOUND: " + ex.ToString()); return false; }
-
+            catch (Exception ex)
+            {
+                // This will print the actual underlying reason (e.g., Access Denied to 'X' file)
+                log.Append($"FAILED TO DELETE DIR {path}. Inner Error: " + ex.Message + " -> " + ex.InnerException?.Message);
+                System.Diagnostics.Debug.WriteLine(ex.ToString()); // Also sends it to your Output Window
+                return false;
+            }
         }
+
         public Color convertToColor(string value)
         {
             string[] splitArray = value.Split(',');

@@ -60,6 +60,9 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Costura, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.5.7.0\lib\netstandard1.0\Costura.dll</HintPath>
@@ -306,6 +309,7 @@
     <EmbeddedResource Include="Language_files\en\general.settingsForm.lang" />
     <EmbeddedResource Include="Language_files\de\general.settingsForm.lang" />
     <EmbeddedResource Include="Language_files\en\controls.settingsForm.lang" />
+    <None Include="app.manifest" />
     <None Include="Resources\Res.en.MsgBox.resx" />
     <EmbeddedResource Include="reusable_controls\RichLabel.resx">
       <DependentUpon>RichLabel.cs</DependentUpon>
@@ -354,6 +358,7 @@
     <EmbeddedResource Include="Server_data_files\kf2\kf2.resx" />
     <EmbeddedResource Include="Server_data_files\l4d2\l4d2.resx" />
     <EmbeddedResource Include="Server_data_files\l4d\l4d.resx" />
+    <EmbeddedResource Include="Server_data_files\necesse\necesse.resx" />
     <EmbeddedResource Include="Server_data_files\nmrih\nmrih.resx" />
     <EmbeddedResource Include="Server_data_files\palworld\palworld.resx">
       <SubType>Designer</SubType>
