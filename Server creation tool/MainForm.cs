@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using MS.WindowsAPICodePack.Internal;
 using Server_creation_tool.classes;
 using Server_creation_tool.reusable_controls.messageBox;
 using Server_Creation_Tool;
@@ -583,7 +584,9 @@ namespace Server_creation_tool
                 }
             }
         }
-        public bool cTry(Action action, bool showMsg = true, string errorBody = "", string errorTitle = "Error", bool combinedMsg = false, string logFileErrorDesc = "")//Leaving errorBody empty shows a generic error message. //DO NOT FORGET TO ADD DESCRIPTIONS
+        public bool cTry(Action action, bool showMsg = true, string errorBody = "", string errorTitle = "Error", bool combinedMsg = false, string logFileErrorDesc = "")//Leaving errorBody empty shows a generic error message. //
+                                                                                                                                                                        //
+                                                                                                                                                                        //FORGET TO ADD DESCRIPTIONS
         {
             try
             {
@@ -1074,17 +1077,17 @@ namespace Server_creation_tool
             funcs.StartThread(() =>
             {
                 disableUI();
-                if (getServerDataStr("custom_install_func") != null || getSrvType() == "non_steam")//a steam server could also have custom install function also. i dunno why but it could if the situation asks for it
+                if (getSrvType() == "steam")
+                {
+                    if (setupSteamCMD()) installSteamServer(updateOrInstall);
+                }
+                else if (getSrvType() == "non_steam")//a steam server could also have custom install function also that runs after the steam install is finished. i dunno why but it could if the situation asks for it
                 {
                     object[] args = new object[1];
                     args[0] = updateOrInstall;
                     //NOTE: since non steam servers do not have a standardized installation process, we write everything manually in the installServer method
                     runSrvMethodArgs("installServer", args); //ref not needed?
                                                              //wait and do UI stuff here or in the runSrvFunc? while ()
-                }
-                else if (getSrvType() == "steam")
-                {
-                    if (setupSteamCMD()) installSteamServer(updateOrInstall);
                 }
                 taskEnded();
                 steamCMDProcClear();
@@ -1115,8 +1118,8 @@ namespace Server_creation_tool
                     goto next;
                 else if (File.ReadAllText(getCurrentInstancePath() + getServerDataStr("start_bat_file_path")).Trim() == "")//
                     goto next;
-
-                createStartBatFile();
+                else
+                    createStartBatFile();
             }
 
         next:
@@ -1168,7 +1171,7 @@ namespace Server_creation_tool
                     Console.WriteLine(filesFound);
                     //show form with start file options 
                     startFrm.ShowDialog();
-                    if (startFrm.DialogResult == DialogResult.Cancel || startFrm.DialogResult == DialogResult.None)   { end(); return; }
+                    if (startFrm.DialogResult == DialogResult.Cancel || startFrm.DialogResult == DialogResult.None) { end(); return; }
                     process = startFrm.returnProc;
                 }
                 else // NO START FILES FOUND
@@ -1315,7 +1318,21 @@ namespace Server_creation_tool
                  }
                  catch { }
              }, false);
-            if (!res)//check if the installation started successfully or not
+            if (res)//check if the steam installation started successfully or not
+            {
+                if (getServerDataStr("custom_install_func") != null)//a steam server could also have custom install function also that runs after the steam install is finished. i dunno why but it could if the situation asks for it
+                {
+                    object[] args = new object[1];
+                    args[0] = updateOrInstall;
+                    var(success, result) = runSrvMethodArgs("installServer", args);
+                    if (success)
+                    {
+                        res = (bool)result;
+                    }
+                    else res = false;
+                }
+            }
+            if (!res)
             {
                 string[] message = new string[2];
                 message[1] = getGeneralLang("info")[0];
@@ -1329,6 +1346,7 @@ namespace Server_creation_tool
                 }
                 MsgBox.Show(message[0], message[1], MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
             taskEnded();
         }
         private void installSteamServer_unused(string updateOrInstall = "install", string extraArgs = "")

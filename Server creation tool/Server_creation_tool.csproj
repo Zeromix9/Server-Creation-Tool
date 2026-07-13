@@ -268,6 +268,7 @@
     <Compile Include="Server_data_files\beamng\beamng_funcs.cs" />
     <Compile Include="Server_data_files\cs2\cs2_funcs.cs" />
     <Compile Include="Server_data_files\cs\cs_funcs.cs" />
+    <Compile Include="Server_data_files\necesse\necesse_funcs.cs" />
     <Compile Include="Server_data_files\palworld\palworld_funcs.cs" />
     <Compile Include="Server_data_files\sven\sven_funcs.cs" />
     <Compile Include="Server_data_files\vtest_server\vtest_server_funcs.cs" />

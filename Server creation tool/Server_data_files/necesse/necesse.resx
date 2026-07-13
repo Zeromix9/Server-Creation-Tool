@@ -134,6 +134,18 @@
     <value>\StartServer-nogui.bat</value>
   </data>
   <data name="steamID" xml:space="preserve">
-    <value>1169040</value>
+    <value>1169370</value>
+  </data>
+  <data name="guide_link_de" xml:space="preserve">
+    <value>https://steamcommunity.com/sharedfiles/filedetails/?id=3764287985</value>
+  </data>
+  <data name="guide_link_en" xml:space="preserve">
+    <value>https://steamcommunity.com/sharedfiles/filedetails/?id=3763985859#9110124</value>
+  </data>
+  <data name="conf_file_path" xml:space="preserve">
+    <value>\cfg\server.cfg</value>
+  </data>
+  <data name="custom_install_func" xml:space="preserve">
+    <value />
   </data>
 </root>

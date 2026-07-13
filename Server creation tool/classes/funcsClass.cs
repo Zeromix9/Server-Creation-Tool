@@ -172,9 +172,7 @@ namespace Server_creation_tool.classes
             }
             catch (Exception ex)
             {
-                // This will print the actual underlying reason (e.g., Access Denied to 'X' file)
                 log.Append($"FAILED TO DELETE DIR {path}. Inner Error: " + ex.Message + " -> " + ex.InnerException?.Message);
-                System.Diagnostics.Debug.WriteLine(ex.ToString()); // Also sends it to your Output Window
                 return false;
             }
         }

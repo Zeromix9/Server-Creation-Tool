@@ -3,11 +3,11 @@ using System.Windows.Forms;
 
 namespace Server_creation_tool.Server_data_files.beamng
 {
-    internal class beamng_funcs
+    internal class necesse_funcs
     {
         funcsClass funcs = new funcsClass();
 
-        public beamng_funcs(MainForm mainForm)
+        public necesse_funcs(MainForm mainForm)
         {
             mainFrm = mainForm;
         }
