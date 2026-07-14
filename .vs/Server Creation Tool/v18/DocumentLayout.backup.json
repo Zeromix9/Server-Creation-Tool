@@ -3,24 +3,23 @@
   "WorkspaceRootPath": "C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|c:\\users\\steliosl\\documents\\github\\server-creation-tool\\server creation tool\\server_data_files\\necesse\\necesse.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}",
-      "RelativeMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|solutionrelative:server creation tool\\server_data_files\\necesse\\necesse.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}"
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|Server_creation_tool||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|c:\\users\\steliosl\\documents\\github\\server-creation-tool\\server creation tool\\server_data_files\\necesse\\necesse_funcs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|solutionrelative:server creation tool\\server_data_files\\necesse\\necesse_funcs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|c:\\users\\steliosl\\documents\\github\\server-creation-tool\\server creation tool\\aboutfrm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|solutionrelative:server creation tool\\aboutfrm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\server creation tool\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|solutionrelative:server creation tool\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\server creation tool\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|solutionrelative:server creation tool\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|c:\\users\\steliosl\\documents\\github\\server-creation-tool\\server creation tool\\server_data_files\\rust\\rust.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}",
-      "RelativeMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|solutionrelative:server creation tool\\server_data_files\\rust\\rust.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\server creation tool\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|solutionrelative:server creation tool\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|c:\\users\\steliosl\\documents\\github\\server-creation-tool\\server creation tool\\properties\\resources.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}",
+      "RelativeMoniker": "D:0:0:{4BDD9847-5EE2-4AE7-B8B4-F08F54B5C216}|Server creation tool\\Server_creation_tool.csproj|solutionrelative:server creation tool\\properties\\resources.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +29,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,57 +37,44 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "necesse.resx",
-              "DocumentMoniker": "C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\Server creation tool\\Server_data_files\\necesse\\necesse.resx",
-              "RelativeDocumentMoniker": "Server creation tool\\Server_data_files\\necesse\\necesse.resx",
-              "ToolTip": "C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\Server creation tool\\Server_data_files\\necesse\\necesse.resx",
-              "RelativeToolTip": "Server creation tool\\Server_data_files\\necesse\\necesse.resx",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2026-07-13T22:12:06.091Z",
-              "EditorCaption": ""
+              "DocumentIndex": 1,
+              "Title": "AboutFrm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\Server creation tool\\AboutFrm.cs",
+              "RelativeDocumentMoniker": "Server creation tool\\AboutFrm.cs",
+              "ToolTip": "C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\Server creation tool\\AboutFrm.cs [Design]",
+              "RelativeToolTip": "Server creation tool\\AboutFrm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-14T10:09:27.43Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "necesse_funcs.cs",
-              "DocumentMoniker": "C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\Server creation tool\\Server_data_files\\necesse\\necesse_funcs.cs",
-              "RelativeDocumentMoniker": "Server creation tool\\Server_data_files\\necesse\\necesse_funcs.cs",
-              "ToolTip": "C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\Server creation tool\\Server_data_files\\necesse\\necesse_funcs.cs",
-              "RelativeToolTip": "Server creation tool\\Server_data_files\\necesse\\necesse_funcs.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAADwvyoAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-13T21:49:56.502Z",
+              "DocumentIndex": 0,
+              "Title": "Server_creation_tool",
+              "DocumentMoniker": "C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\Server creation tool\\Server_creation_tool.csproj",
+              "RelativeDocumentMoniker": "Server creation tool\\Server_creation_tool.csproj",
+              "ToolTip": "C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\Server creation tool\\Server_creation_tool.csproj",
+              "RelativeToolTip": "Server creation tool\\Server_creation_tool.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-14T10:02:03.373Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "rust.resx",
-              "DocumentMoniker": "C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\Server creation tool\\Server_data_files\\rust\\rust.resx",
-              "RelativeDocumentMoniker": "Server creation tool\\Server_data_files\\rust\\rust.resx",
-              "ToolTip": "C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\Server creation tool\\Server_data_files\\rust\\rust.resx",
-              "RelativeToolTip": "Server creation tool\\Server_data_files\\rust\\rust.resx",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2026-07-13T21:32:06.066Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "MainForm.cs",
               "DocumentMoniker": "C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\Server creation tool\\MainForm.cs",
               "RelativeDocumentMoniker": "Server creation tool\\MainForm.cs",
               "ToolTip": "C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\Server creation tool\\MainForm.cs",
               "RelativeToolTip": "Server creation tool\\MainForm.cs",
-              "ViewState": "AgIAABMFAAAAAAAAAAAjwCoFAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAIQDAAAAAAAAAAAkwIQDAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-13T15:02:45.368Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "MainForm.cs [Design]",
               "DocumentMoniker": "C:\\Users\\SteliosL\\Documents\\GitHub\\Server-Creation-Tool\\Server creation tool\\MainForm.cs",
               "RelativeDocumentMoniker": "Server creation tool\\MainForm.cs",

@@ -32,7 +32,7 @@
     <Setting Name="disableUpdateNotif" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="notifDisabledAtVersion" Type="System.Int32" Scope="User">
+    <Setting Name="notifDisabledAtVersion" Type="System.String" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="disableServerInstDirNotif" Type="System.Boolean" Scope="User">

@@ -18,6 +18,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Resources;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -828,14 +829,16 @@ namespace Server_creation_tool
             catch { }
             return false;
         }
-        private int thereIsUpdate()//if there is update, it returns the number, if there is not or it failed to check, it returns 0
+        private string thereIsUpdate()//if there is update, it returns the number, if there is not or it failed to check, it returns 0
         {
             string githubAPIUrl = "https://api.github.com/repos/Zeromix9/Server-Creation-Tool/tags";
             string apiOutput;
-            int currentVersion = getCurrentVer();
+
+            Version currentVersion = new Version(getCurrentVerStr());
+
             try
             {
-                //get latest version from github
+                // Get latest version from github
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(githubAPIUrl);
                 req.AllowAutoRedirect = false;
                 req.AuthenticationLevel = System.Net.Security.AuthenticationLevel.None;
@@ -843,55 +846,115 @@ namespace Server_creation_tool
                 req.UseDefaultCredentials = true;
                 req.MaximumAutomaticRedirections = 5;
                 req.Accept = "application/json";
-                //req.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8";
                 req.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36";
                 req.CookieContainer = new CookieContainer();
-                HttpWebResponse res = (HttpWebResponse)req.GetResponse();
-                Stream dataStream = res.GetResponseStream();
-                StreamReader reader = new StreamReader(dataStream);
-                apiOutput = reader.ReadToEnd();
-                int namePropertyIndx = apiOutput.IndexOf("name");//add 6 to have the index start at the end of the property "name"
-                apiOutput = apiOutput.Substring(namePropertyIndx, apiOutput.IndexOf(",", namePropertyIndx) - namePropertyIndx);
-                apiOutput = apiOutput.Substring(apiOutput.IndexOf(":") + 1);
-                apiOutput = apiOutput.Replace(@"""", "").Replace(".", "").Replace("v", "").Trim();
-                int latestVer = int.Parse(apiOutput);
-                if (latestVer > currentVersion)
-                { return latestVer; }
-                else
-                { return 0; }
+
+                using (HttpWebResponse res = (HttpWebResponse)req.GetResponse())
+                using (Stream dataStream = res.GetResponseStream())
+                using (StreamReader reader = new StreamReader(dataStream))
+                {
+                    apiOutput = reader.ReadToEnd();
+                }
+
+                // Parse the JSON array returned by GitHub API
+                using (JsonDocument doc = JsonDocument.Parse(apiOutput))
+                {
+                    JsonElement root = doc.RootElement;
+
+                    // Check if the array has any tags listed
+                    if (root.ValueKind == JsonValueKind.Array && root.GetArrayLength() > 0)
+                    {
+                        // Grab the first (latest) tag object in the array
+                        JsonElement latestTag = root[0];
+
+                        if (latestTag.TryGetProperty("name", out JsonElement nameElement))
+                        {
+                            string rawTagName = nameElement.GetString();
+
+                            // Clean up the "v" prefix if present (e.g., "v5.1.2" -> "5.1.2")
+                            string cleanVersionStr = rawTagName.Replace("v", "").Trim();
+
+                            if (Version.TryParse(cleanVersionStr, out Version latestVersion))
+                            {
+                                if (latestVersion > currentVersion)
+                                {
+                                    return rawTagName; // Return the new version tag name
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return "0"; // Up to date
             }
             catch (Exception a)
-            { log.Append("Failed to check for updates!" + a.ToString()); return 0; }
+            {
+                log.Append("Failed to check for updates! " + a.ToString());
+                return "0";
+            }
         }
-        public int getCurrentVer()
+        public string getCurrentVerStr()
         {
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
             System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
-            string ver = fvi.FileVersion.Replace(".", "").Trim();
-            return int.Parse(ver);
+
+            // return the raw string (e.g. "5.2" or "5.2.0.0")
+            return fvi.FileVersion?.Trim() ?? "1.0.0";
         }
         private void notify4Updates(bool showNoUpdateFound = false, bool overrideDontShow = false)
         {
             funcs.StartThread(() =>
             {
-                int updateVer = thereIsUpdate();
+                string updateVerStr = thereIsUpdate();
 
-                if (updateVer != 0 && !Properties.Settings.Default.disableUpdateNotif || updateVer != 0 && Properties.Settings.Default.notifDisabledAtVersion < updateVer || updateVer != 0 && overrideDontShow)//in the second part of the OR statement, we check if a new version was released since the last time the user chose to not recieve new update notifications. If there is a newer version, then show the notification anyways
+                if (updateVerStr != "0")
                 {
-                    methodInvoke(() =>
+                    // Parse the discovered version and the last version the user muted
+                    Version latestVer = new Version(updateVerStr.Replace("v", "").Trim());
+
+                    // Handle parsing for the muted version 
+                    Version mutedVer;
+                    if (!Version.TryParse(Properties.Settings.Default.notifDisabledAtVersion, out mutedVer))
                     {
-                        bool dontShow = false;
-                        if (MsgBox.Dontshow(ref dontShow, getGeneralLang("new_update_available")[1], getGeneralLang("new_update_available")[2], MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                        mutedVer = new Version("0.0.0"); // Fallback if settings are empty/malformed
+                    }
+
+                    bool shouldNotify = false;
+
+                    if (overrideDontShow)
+                    {
+                        shouldNotify = true;
+                    }
+                    else if (!Properties.Settings.Default.disableUpdateNotif)
+                    {
+                        shouldNotify = true;
+                    }
+                    // Check if a brand new version was released since they clicked "Don't show again"
+                    else if (latestVer > mutedVer)
+                    {
+                        shouldNotify = true;
+                    }
+
+                    if (shouldNotify)
+                    {
+                        methodInvoke(() =>
                         {
-                            Process.Start("https://github.com/Zeromix9/Server-Creation-Tool");
-                        }
-                        Properties.Settings.Default.disableUpdateNotif = dontShow;
-                        if (dontShow)
-                        { Properties.Settings.Default.notifDisabledAtVersion = updateVer; }
-                        Properties.Settings.Default.Save();
-                    });
+                            bool dontShow = false;
+                            if (MsgBox.Dontshow(ref dontShow, getGeneralLang("new_update_available")[1], getGeneralLang("new_update_available")[2], MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                            {
+                                Process.Start("https://github.com/Zeromix9/Server-Creation-Tool");
+                            }
+
+                            Properties.Settings.Default.disableUpdateNotif = dontShow;
+                            if (dontShow)
+                            {
+                                Properties.Settings.Default.notifDisabledAtVersion = updateVerStr;
+                            }
+                            Properties.Settings.Default.Save();
+                        });
+                    }
                 }
-                else if (updateVer == 0 && showNoUpdateFound)
+                else if (showNoUpdateFound) // updateVerStr is "0" (no updates)
                 {
                     methodInvoke(() =>
                     {
