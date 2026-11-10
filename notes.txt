@@ -1,0 +1,5 @@
+Allow inputs to support tokenized variables like {SERVER_PORT}, {INSTALL_DIR}, {PUBLIC_IP}, or {STEAM_APP_ID} ) so commands, config URLs, or post-install scripts don't need hardcoded paths.
+
+Add fields for SteamBranch (e.g., public, beta, experimental) and optional SteamBranchPassword. 
+
+Pull list of branches/betas and other info using SteamKit2

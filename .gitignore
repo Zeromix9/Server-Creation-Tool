@@ -1,1 +1,6 @@
 /.vs
+bin/
+obj/
+dist/
+src-tauri/target/
+src-tauri/gen/

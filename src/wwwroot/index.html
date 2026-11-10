@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Server Creation Tool 5.2</title>
+    <base href="/" />
+    <link rel="stylesheet" href="css/app.css?v=32" />
+  </head>
+
+  <body style="margin:0;padding:0;background-color:#1b2838;">
+    <div id="app">
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background-color:#1b2838;color:#94a3b8;font-family:'Segoe UI',sans-serif;user-select:none;">
+        <div style="font-size:16px;font-weight:600;margin-bottom:8px;color:#e2e8f0;">Server Creation Tool 5.2</div>
+        <div style="font-size:12px;">Loading application...</div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var isAbout = window.__SCT_WINDOW_LABEL__ === 'about';
+        if (!isAbout && window.__TAURI__ && window.__TAURI__.window && typeof window.__TAURI__.window.getCurrentWindow === 'function') {
+          try {
+            isAbout = window.__TAURI__.window.getCurrentWindow().label === 'about';
+          } catch (e) {}
+        }
+        if (isAbout && !window.location.pathname.endsWith('/about')) {
+          try {
+            window.history.replaceState(null, '', '/about');
+          } catch (e) {}
+        }
+      })();
+    </script>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+      function getTauriCore() {
+        if (window.__TAURI__ && window.__TAURI__.core) {
+          return window.__TAURI__.core;
+        }
+        return null;
+      }
+
+      function getTauriWindow() {
+        if (window.__TAURI__ && window.__TAURI__.window && typeof window.__TAURI__.window.getCurrentWindow === 'function') {
+          return window.__TAURI__.window.getCurrentWindow();
+        }
+        return null;
+      }
+
+      window.sctDragWindow = function () {
+        const core = getTauriCore();
+        if (core) {
+          core.invoke('start_drag').catch(function () {
+            const win = getTauriWindow();
+            if (win) win.startDragging();
+          });
+        } else {
+          const win = getTauriWindow();
+          if (win) win.startDragging();
+        }
+      };
+
+      window.sctCloseWindow = function () {
+        const core = getTauriCore();
+        if (core) {
+          core.invoke('window_close').catch(function () {
+            const win = getTauriWindow();
+            if (win) win.destroy();
+          });
+        } else {
+          const win = getTauriWindow();
+          if (win) {
+            win.destroy();
+          } else {
+            window.close();
+          }
+        }
+      };
+
+      window.sctMinimizeWindow = function () {
+        const core = getTauriCore();
+        if (core) {
+          core.invoke('window_minimize').catch(function () {
+            const win = getTauriWindow();
+            if (win) win.minimize();
+          });
+        } else {
+          const win = getTauriWindow();
+          if (win) win.minimize();
+        }
+      };
+
+      window.sctOpenAboutWindow = function () {
+        const core = getTauriCore();
+        if (core) {
+          return core.invoke('open_about_window');
+        }
+        window.open('/about', 'about', 'width=530,height=504,menubar=no,toolbar=no,location=no,status=no');
+        return Promise.resolve();
+      };
+
+      window.sctGetWindowType = function () {
+        if (window.__SCT_WINDOW_LABEL__ === 'about') return 'about';
+        try {
+          const win = getTauriWindow();
+          if (win && win.label === 'about') return 'about';
+        } catch (e) {}
+        if (window.location.search.includes('page=about') || window.location.hash.includes('about') || window.location.pathname.endsWith('/about')) {
+          return 'about';
+        }
+        return 'main';
+      };
+
+      window.sctGetElementRect = function (selector) {
+        const el = document.querySelector(selector);
+        if (el) {
+          const r = el.getBoundingClientRect();
+          return {
+            top: Math.round(r.top),
+            bottom: Math.round(r.bottom),
+            left: Math.round(r.left),
+            right: Math.round(window.innerWidth - r.right),
+            width: Math.round(r.width),
+            height: Math.round(r.height),
+            windowHeight: Math.round(window.innerHeight),
+            windowWidth: Math.round(window.innerWidth)
+          };
+        }
+        return { top: 0, bottom: 0, left: 0, right: 0, width: 0, height: 0, windowHeight: Math.round(window.innerHeight), windowWidth: Math.round(window.innerWidth) };
+      };
+
+      window.sctStartSteamCmd = function (installDir) {
+        const core = getTauriCore();
+        if (core) {
+          return core.invoke('start_steamcmd', { installDir: installDir || '' });
+        }
+        return Promise.resolve(false);
+      };
+
+      window.sctClearSteamCmdCache = function (installDir) {
+        const core = getTauriCore();
+        if (core) {
+          return core.invoke('clear_steamcmd_cache', { installDir: installDir || '' });
+        }
+        return Promise.resolve(false);
+      };
+
+      let sctWidthAnimId = null;
+      let sctCurrentWindowWidth = 627;
+
+      window.sctAnimateWindowWidth = function (targetWidth, durationMs = 350) {
+        if (sctWidthAnimId) {
+          cancelAnimationFrame(sctWidthAnimId);
+          sctWidthAnimId = null;
+        }
+
+        const startWidth = sctCurrentWindowWidth;
+        const delta = targetWidth - startWidth;
+        if (Math.abs(delta) < 1) {
+          sctCurrentWindowWidth = targetWidth;
+          return Promise.resolve();
+        }
+
+        const startTime = performance.now();
+        const core = getTauriCore();
+
+        function easeInOut(t) {
+          return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        }
+
+        return new Promise((resolve) => {
+          function step(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / durationMs, 1);
+            const eased = easeInOut(progress);
+            const w = Math.round(startWidth + delta * eased);
+            sctCurrentWindowWidth = w;
+
+            if (core) {
+              core.invoke('window_set_width', { width: w }).catch(() => {});
+            }
+
+            if (progress < 1) {
+              sctWidthAnimId = requestAnimationFrame(step);
+            } else {
+              sctCurrentWindowWidth = targetWidth;
+              if (core) {
+                core.invoke('window_set_width', { width: targetWidth }).catch(() => {});
+              }
+              sctWidthAnimId = null;
+              resolve();
+            }
+          }
+          sctWidthAnimId = requestAnimationFrame(step);
+        });
+      };
+
+      window.sctSetWindowWidth = function (width) {
+        sctCurrentWindowWidth = width;
+        const core = getTauriCore();
+        if (core) {
+          return core.invoke('window_set_width', { width: width });
+        }
+        return Promise.resolve();
+      };
+
+      window.sctPickFolder = function () {
+        const core = getTauriCore();
+        if (core) {
+          return core.invoke('pick_folder');
+        }
+        return Promise.resolve(null);
+      };
+
+      window.sctOpenFolder = function (path) {
+        const core = getTauriCore();
+        if (core) {
+          return core.invoke('open_folder', { path: path });
+        }
+        return Promise.resolve();
+      };
+
+      window.sctOpenFile = function (path) {
+        const core = getTauriCore();
+        if (core) {
+          return core.invoke('open_file', { path: path });
+        }
+        return Promise.resolve();
+      };
+
+      window.sctShowContextMenu = async function (x, y, files, libraryPath, serverId) {
+        const core = getTauriCore();
+        if (core) {
+          try {
+            await core.invoke('show_settings_context_menu', {
+              x: x,
+              y: y,
+              files: files || [],
+              libraryPath: libraryPath || '',
+              serverId: serverId || ''
+            });
+            return true;
+          } catch (e) {
+            console.error('Context menu error:', e);
+            return false;
+          }
+        }
+        return false;
+      };
+
+      window.sctOpenUrl = function (url) {
+        const core = getTauriCore();
+        if (core) {
+          return core.invoke('open_url', { url: url });
+        } else {
+          window.open(url, '_blank');
+          return Promise.resolve();
+        }
+      };
+
+      document.addEventListener('mousedown', function (e) {
+        const titlebar = e.target.closest('#sct-titlebar') || e.target.closest('.sct-about-titlebar');
+        if (titlebar) {
+          if (e.target.closest('.sct-titlebar-controls') || e.target.closest('.sct-about-close-btn') || e.target.closest('button')) {
+            return;
+          }
+          if (e.button === 0) {
+            window.sctDragWindow();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

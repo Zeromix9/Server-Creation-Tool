@@ -1,0 +1,1762 @@
+:root {
+    --bg-window: #1b2838;
+    --border-frame: #141d26;
+    --text-primary: #cbd5e1;
+    --text-highlight: #ffffff;
+    --text-secondary: #94a3b8;
+    --text-teal: #00c0c0;
+    --text-green: #00c000;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Tahoma, sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+html, body, #app {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #0b141f;
+    color: var(--text-primary);
+}
+
+/* Outer Window Frame */
+.sct-window-frame {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background-color: #24324c;
+    background-image: url('../img/ui/7cs9Ed_gradient1RESIZED1.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px #09131c, 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+/* WinForms Authentic Titlebar (panel1) */
+.sct-titlebar {
+    height: 28px;
+    background-color: #1b2838;
+    background-image: url('../img/ui/panel1.BackgroundImage.png');
+    background-size: 100% 378px;
+    background-position: top left;
+    background-repeat: no-repeat;
+    border-top: 1px solid #1a5692;
+    border-bottom: 1px solid #070e17;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    flex-shrink: 0;
+    cursor: default;
+}
+
+.sct-titlebar-left {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: default;
+}
+
+.sct-titlebar-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+
+.sct-about-titlebar-icon,
+.sct-about-window .sct-titlebar-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 2px;
+    margin-right: 2px;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+
+.sct-modal-titlebar-icon,
+.sct-modal-window .sct-titlebar-icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 1px;
+    margin-right: 1px;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+
+.sct-titlebar-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #e2e8f0;
+    letter-spacing: 0.2px;
+    font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.sct-titlebar-controls {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-right: 6px;
+    height: 100%;
+}
+
+/* Authentic WinForms Minimize and Close Buttons */
+.sct-win-btn {
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 0;
+    outline: none;
+    transition: filter 0.1s;
+}
+
+.sct-win-btn-min {
+    width: 18px;
+    height: 14px;
+    background-image: url('../img/icons/minimizeNormal.png');
+}
+
+.sct-win-btn-min:hover {
+    background-image: url('../img/icons/minimizeHover.png');
+}
+
+.sct-win-btn-min:active {
+    background-image: url('../img/icons/minimizeDown.png');
+}
+
+.sct-win-btn-close {
+    width: 18px;
+    height: 14px;
+    background-image: url('../img/icons/btn3.png');
+}
+
+.sct-win-btn-close:hover {
+    background-image: url('../img/icons/btn3Hover1.png');
+}
+
+.sct-win-btn-close:active {
+    background-image: url('../img/icons/btn.png');
+}
+
+/* Main Middle Frame with WinForms 10px Docked Gradient Borders */
+.sct-window-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    position: relative;
+    min-height: 0;
+}
+
+/* Left 10px Gradient Border (panel4) */
+.sct-border-left {
+    width: 10px;
+    background-image: url('../img/ui/panel4.BackgroundImage.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+}
+
+/* Right 10px Gradient Border (panel3) */
+.sct-border-right {
+    width: 10px;
+    background-image: url('../img/ui/panel3.BackgroundImage.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+}
+
+/* Bottom 10px Gradient Border (panel2) */
+.sct-border-bottom {
+    height: 10px;
+    background-image: url('../img/ui/panel2.BackgroundImage.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+}
+
+/* Center Client Area */
+.sct-client-area {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    min-width: 0;
+    position: relative;
+}
+
+.sct-main-content-wrapper {
+    width: 607px;
+    min-width: 607px;
+    max-width: 607px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    padding: 2px 4px 4px 4px;
+}
+
+/* Top Ribbon Bar (WinForms helpInfBar2.png) */
+.sct-ribbon-bar {
+    height: 42px;
+    background-image: url('../img/ui/helpInfBar2.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+    flex-shrink: 0;
+    margin-bottom: 4px;
+}
+
+.sct-ribbon-left {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.sct-ribbon-btn {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    height: 38px;
+    padding: 2px 7px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #cbd5e1;
+    font-size: 11px;
+    cursor: pointer;
+    line-height: 1.15;
+    text-align: center;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sct-ribbon-btn:hover {
+    background: #3b5477;
+    color: #ffffff;
+}
+
+.sct-ribbon-btn:active,
+.sct-ribbon-btn.active {
+    background: #586f96;
+    color: #ffffff;
+}
+
+.sct-ribbon-icon {
+    width: 21px;
+    height: 21px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.sct-ribbon-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-right: 6px;
+    background: transparent;
+    border: none;
+}
+
+.sct-more-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #cbd5e1;
+    letter-spacing: 0.2px;
+    user-select: none;
+}
+
+.sct-more-btn {
+    width: 21px;
+    height: 20px;
+    background-color: transparent !important;
+    background-image: url('../img/icons/moreNormal.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    transition: filter 0.15s;
+}
+
+.sct-more-btn:hover {
+    background-color: transparent !important;
+    background-image: url('../img/icons/moreHover.png');
+}
+
+.sct-more-btn:active {
+    background-color: transparent !important;
+    background-image: url('../img/icons/morePressed.png');
+}
+
+.sct-more-btn.open {
+    background-color: transparent !important;
+    background-image: url('../img/icons/moreNormal180D.png');
+}
+
+.sct-more-btn.open:hover {
+    background-color: transparent !important;
+    background-image: url('../img/icons/moreHover180D.png');
+}
+
+.sct-more-btn.open:active {
+    background-color: transparent !important;
+    background-image: url('../img/icons/morePressed180D.png');
+}
+
+/* Workspace Canvas */
+.sct-workspace {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    gap: 8px;
+}
+
+/* Left Column */
+.sct-left-column {
+    width: 249px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 100%;
+}
+
+.sct-search-box-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 26px;
+    padding: 0 2px;
+}
+
+.sct-search-label {
+    font-size: 12px;
+    color: #cbd5e1;
+    font-weight: 600;
+}
+
+.sct-search-textbox {
+    flex: 1;
+    height: 24px;
+    background: #273654;
+    border: 1px solid #5d7ca8;
+    border-radius: 0;
+    color: #f1f5f9;
+    padding: 0 6px;
+    font-size: 13px;
+    font-family: 'Segoe UI', sans-serif;
+    outline: none;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.sct-search-textbox:focus {
+    border-color: #8cb5eb;
+    background: #2d3e62;
+}
+
+.sct-fav-toggle-btn {
+    width: 26px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    transition: background-color 0.15s ease;
+}
+
+.sct-fav-toggle-btn:hover {
+    background-color: #3b5477;
+}
+
+.sct-fav-toggle-btn:active {
+    background-color: #4c6d9b;
+}
+
+.sct-fav-toggle-btn img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+/* Server List Panel (WinForms srvPanel.png) */
+.sct-server-panel-container {
+    flex: 1;
+    background-image: url('../img/ui/srvPanel.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    padding: 3px;
+    overflow: hidden;
+}
+
+.sct-list-item-welcome {
+    width: 100%;
+    height: 36px;
+    background: transparent;
+    border: 1px solid transparent;
+    margin: 0;
+    color: #00c0c0;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    flex-shrink: 0;
+}
+
+.sct-list-item-welcome:hover {
+    background: #364c72;
+    color: #5eead4;
+}
+
+.sct-list-item-welcome.active {
+    background: #364c72;
+    border-color: #7ea8d8;
+    color: #5eead4;
+}
+
+.sct-list-item-reload {
+    width: 100%;
+    height: 22px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: #00c000;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 0 8px;
+    margin: 0;
+    flex-shrink: 0;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sct-list-item-reload:hover {
+    background: #2a3d58;
+}
+
+.sct-list-item-reload:active,
+.sct-list-item-reload.pressed {
+    background-color: #00c000 !important;
+    border-color: #00e000 !important;
+    color: #ffffff !important;
+    transition: background-color 60ms linear, color 60ms linear;
+}
+
+.sct-list-item-reload:active .sct-reload-icon,
+.sct-list-item-reload.pressed .sct-reload-icon {
+    filter: brightness(0) invert(1);
+}
+
+.sct-reload-icon {
+    position: absolute;
+    right: 8px;
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.sct-server-items-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-right: 2px;
+}
+
+.sct-list-item-srv {
+    width: 100%;
+    min-height: 22px;
+    height: 22px;
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 0 8px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 11.5px;
+    color: #cbd5e1;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sct-list-item-srv:hover {
+    background: #3b5477;
+    color: #ffffff;
+}
+
+/* Authentic WinForms Selected Highlight Box */
+.sct-list-item-srv.selected {
+    background: #364c72 !important;
+    border: 1px solid #94b4db !important;
+    color: #ffffff !important;
+}
+
+.sct-srv-name {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sct-star-icon-small {
+    position: absolute;
+    right: 6px;
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+}
+
+/* Right Column (WinForms mainPanel.png) */
+.sct-right-column {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.sct-main-srv-panel {
+    flex: 1;
+    background-image: url('../img/ui/mainPanel.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.sct-srv-header-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.sct-instance-dropdown-btn {
+    height: 22px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0 7px 0 6px;
+    font-size: 11.5px;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #cbd5e1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    outline: none;
+    line-height: 22px;
+    box-sizing: border-box;
+    transition: background-color 130ms linear, color 130ms linear;
+}
+
+.sct-instance-dropdown-btn:hover {
+    background-color: #3b5477;
+    color: #ffffff;
+}
+
+.sct-instance-dropdown-btn:active,
+.sct-instance-dropdown-btn.active {
+    background-color: #4c6d9b;
+    color: #ffffff;
+}
+
+.sct-caret {
+    font-size: 8px;
+    color: #94a3b8;
+    margin-left: 2px;
+}
+
+.sct-instances-popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #363e54;
+    border: 1px solid #232938;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65);
+    z-index: 1200;
+    min-width: 155px;
+    display: flex;
+    flex-direction: column;
+    padding: 3px;
+    box-sizing: border-box;
+    user-select: none;
+    gap: 0;
+}
+
+.sct-instance-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 22px;
+    min-height: 22px;
+    width: 100%;
+    margin: 0;
+    padding: 0 8px 0 5px;
+    box-sizing: border-box;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #afbcc0;
+    text-align: left;
+    transition: background-color 0.1s ease, color 0.1s ease;
+    white-space: nowrap;
+}
+
+.sct-instance-option:hover {
+    background-color: #5a6069;
+    color: #ffffff;
+}
+
+.sct-instance-option:active,
+.sct-instance-option.active {
+    background-color: #4b525f;
+    color: #ffffff;
+}
+
+.sct-popup-divider {
+    height: 1px;
+    min-height: 1px;
+    width: 100%;
+    background-color: #696969;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/* Center Logo Area (Free space, no circular frame) */
+.sct-center-logo-area,
+.sct-center-avatar-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    margin: 2px 0;
+    overflow: hidden;
+}
+
+.sct-logo-img,
+.sct-avatar-img {
+    max-width: 95%;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Control Bar (WinForms instBtnAndInfBar2.png) */
+.sct-control-bar-panel {
+    height: 40px;
+    background-image: url('../img/ui/instBtnAndInfBar2.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 4px 6px;
+    gap: 8px;
+    flex-shrink: 0;
+    margin: 0 4px 4px 4px;
+}
+
+/* WinForms installSrvBtn (customSmoothBtn): 124x30, Segoe UI Semibold 11.25pt (not bold), Icon Left, Text Centered */
+.sct-srv-action-btn,
+.sct-start-srv-btn,
+.sct-install-srv-btn {
+    position: relative;
+    width: 124px;
+    height: 30px;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
+    font-size: 11.25pt;
+    font-weight: normal;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0;
+    user-select: none;
+    box-shadow: none;
+    transition: background-color 0.13s ease;
+}
+
+.sct-srv-btn-icon {
+    position: absolute;
+    left: 5px;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
+    pointer-events: none;
+}
+
+/* Play triangle in Start button is 19x19 (medium size between 15px and 24px, matching start_img native dimensions) */
+.sct-srv-action-btn.state-start .sct-srv-btn-icon,
+.sct-srv-action-btn.state-starting .sct-srv-btn-icon,
+.sct-start-srv-btn .sct-srv-btn-icon {
+    width: 19px;
+    height: 19px;
+    left: 8px;
+}
+
+.sct-srv-action-btn.state-stop .sct-srv-btn-icon {
+    width: 19px;
+    height: 19px;
+    left: 8px;
+}
+
+.sct-srv-btn-text {
+    width: 100%;
+    text-align: center;
+    padding-left: 10px;
+    pointer-events: none;
+}
+
+/* State: Install (Plain DodgerBlue #1e90ff, hover/press #4aa4ff) */
+.sct-srv-action-btn.state-install,
+.sct-install-srv-btn {
+    background-color: #1e90ff;
+}
+
+.sct-srv-action-btn.state-install:hover,
+.sct-srv-action-btn.state-install:active,
+.sct-install-srv-btn:hover,
+.sct-install-srv-btn:active {
+    background-color: #4aa4ff;
+}
+
+/* State: Start (Color.FromArgb(41, 184, 69) #29b845, hover/press Color.FromArgb(89, 204, 42) #59cc2a) */
+.sct-srv-action-btn.state-start,
+.sct-start-srv-btn {
+    background-color: #29b845;
+}
+
+.sct-srv-action-btn.state-start:hover,
+.sct-srv-action-btn.state-start:active,
+.sct-start-srv-btn:hover,
+.sct-start-srv-btn:active {
+    background-color: #59cc2a;
+}
+
+/* State: Starting (Color.FromArgb(42, 199, 73) #2ac749, hover #59cc2a) */
+.sct-srv-action-btn.state-starting {
+    background-color: #2ac749;
+    cursor: not-allowed;
+}
+
+/* State: Stop (Color.FromArgb(222, 45, 35) #de2d23, hover/press Color.FromArgb(247, 50, 40) #f73228) */
+.sct-srv-action-btn.state-stop {
+    background-color: #de2d23;
+}
+
+.sct-srv-action-btn.state-stop:hover,
+.sct-srv-action-btn.state-stop:active {
+    background-color: #f73228;
+}
+
+.sct-size-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: 1.15;
+}
+
+.sct-size-lbl-top {
+    font-size: 10px;
+    font-weight: 700;
+    color: #e0e8f0;
+    text-align: center;
+}
+
+.sct-size-lbl-val {
+    font-size: 11px;
+    font-weight: 600;
+    color: #b0c4de;
+    text-align: center;
+}
+
+.sct-quick-buttons {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sct-quick-icon-btn {
+    width: 28px;
+    height: 27px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background-color 0.1s;
+}
+
+.sct-quick-icon-btn img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.sct-quick-icon-btn:hover {
+    background-color: #3b5477;
+}
+
+.sct-quick-icon-btn:active {
+    background-color: #4c6d9b;
+}
+
+/* Lower Two Panels: -Extra- and -Actions- */
+.sct-lower-panels-row {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    min-height: 0;
+    margin: 0 4px 4px 4px;
+}
+
+.sct-sub-panel {
+    flex: 1;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    padding: 1px 0 0 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sct-extra-panel {
+    background-image: url('../img/ui/extrPnl.png');
+}
+
+.sct-actions-panel {
+    background-image: url('../img/ui/actPnl.png');
+}
+
+.sct-sub-panel-title {
+    font-size: 9pt;
+    font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
+    font-weight: bold;
+    color: #e0e8f0;
+    height: 16px;
+    line-height: 16px;
+    padding: 1px 4px 0 4px;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.sct-sub-panel-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.sct-action-link {
+    position: relative;
+    width: 100%;
+    height: 22px;
+    min-height: 22px;
+    max-height: 22px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    font-size: 8.25pt;
+    font-family: 'Segoe UI', sans-serif;
+    color: #cbd5e1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 22px;
+    user-select: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sct-action-link:hover:not(:disabled) {
+    background-color: #3b5477;
+    color: #ffffff;
+}
+
+.sct-action-link:active:not(:disabled) {
+    background-color: #4c6d9b;
+    color: #ffffff;
+}
+
+.sct-action-link:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+.sct-action-link-icon {
+    position: absolute;
+    left: 4px;
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+    pointer-events: none;
+}
+
+.sct-action-link-text {
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
+    padding: 0 4px;
+}
+
+.sct-action-link-icon + .sct-action-link-text {
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.sct-caret-small {
+    font-size: 8px;
+    position: absolute;
+    right: 6px;
+    color: #cbd5e1;
+    pointer-events: none;
+}
+
+/* Welcome Screen (WinForms welcomePnl2.png) */
+.sct-welcome-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-y: auto;
+}
+
+.sct-welcome-banner {
+    height: 87px;
+    background-image: url('../img/ui/welcomePnl2.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+    flex-shrink: 0;
+}
+
+.sct-welcome-headline {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2dd4bf;
+    margin-bottom: 4px;
+}
+
+.sct-welcome-subtext {
+    font-size: 11.5px;
+    color: #cbd5e1;
+    line-height: 1.4;
+}
+
+.sct-donate-row {
+    display: flex;
+    align-items: center;
+    padding: 2px 4px;
+}
+
+.sct-donate-button {
+    width: 105px;
+    height: 29px;
+    background: url('../img/servers/donate 3.png') no-repeat center;
+    border: none;
+    cursor: pointer;
+    transition: filter 0.15s;
+}
+
+.sct-donate-button:hover {
+    filter: brightness(1.15);
+}
+
+.sct-instructions-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-height: 110px;
+}
+
+.sct-instructions-header {
+    font-size: 11px;
+    font-weight: 700;
+    color: #cbd5e1;
+}
+
+.sct-instructions-text-area {
+    flex: 1;
+    background: #1f2c42;
+    border: 1px solid #16202e;
+    border-radius: 2px;
+    padding: 8px 10px;
+    overflow-y: auto;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #cbd5e1;
+}
+
+/* MORE Sidebar Panel (WinForms extraPnl.png) */
+.sct-more-sidebar-panel {
+    width: 109px;
+    min-width: 109px;
+    max-width: 109px;
+    flex-shrink: 0;
+    background-image: url('../img/ui/extraPnl.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sct-side-btn {
+    position: relative;
+    width: 100%;
+    min-height: 38px;
+    height: 38px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 8.25pt;
+    font-family: 'Segoe UI', sans-serif;
+    color: #cbd5e1;
+    line-height: 1.15;
+    text-align: center;
+    user-select: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sct-side-btn:hover {
+    background-color: #3b5477;
+    color: #ffffff;
+}
+
+.sct-side-btn:active,
+.sct-side-btn.active {
+    background-color: #4c6d9b;
+    color: #ffffff;
+}
+
+.sct-side-btn-icon {
+    position: absolute;
+    left: 6px;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
+    pointer-events: none;
+}
+
+.sct-side-btn-text,
+.sct-side-btn span {
+    width: 100%;
+    text-align: center;
+    padding-left: 24px;
+    padding-right: 4px;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+/* Modals & Dialogs (Main Form Window Frame, Docked 10px Gradient Borders & Titlebar) */
+.sct-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.sct-modal-window {
+    width: 90%;
+    max-width: 440px;
+    height: auto;
+    max-height: 90vh;
+    background-color: #1e2b3e;
+    background-image: none;
+    box-shadow: 0 0 0 1px #09131c, 0 16px 48px rgba(0, 0, 0, 0.85);
+    border: none;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.sct-modal-window.sct-modal-msgbox {
+    width: 440px;
+    max-width: 92vw;
+}
+
+.sct-modal-window.sct-modal-settings {
+    width: 500px;
+    max-width: 92vw;
+}
+
+.sct-modal-window.sct-modal-guide {
+    width: 580px;
+    max-width: 94vw;
+}
+
+.sct-modal-window.sct-modal-editsettings {
+    width: 480px;
+    max-width: 92vw;
+}
+
+.sct-modal-window.sct-modal-steamcmd {
+    width: 440px;
+    max-width: 90vw;
+}
+
+.sct-modal-window.sct-modal-about-fallback {
+    width: 500px;
+    max-width: 92vw;
+}
+
+@keyframes sct-modal-flash-anim {
+    0% {
+        box-shadow: 0 0 0 1px #09131c, 0 16px 48px rgba(0, 0, 0, 0.85);
+    }
+    8%, 28% {
+        box-shadow: 0 0 0 1px #9bd6fc, 0 16px 48px rgba(0, 0, 0, 0.85);
+    }
+    38%, 52% {
+        box-shadow: 0 0 0 1px #09131c, 0 16px 48px rgba(0, 0, 0, 0.85);
+    }
+    62%, 82% {
+        box-shadow: 0 0 0 1px #9bd6fc, 0 16px 48px rgba(0, 0, 0, 0.85);
+    }
+    92%, 100% {
+        box-shadow: 0 0 0 1px #09131c, 0 16px 48px rgba(0, 0, 0, 0.85);
+    }
+}
+
+.sct-modal-flash {
+    animation: sct-modal-flash-anim 0.38s ease-in-out;
+}
+
+.sct-modal-client {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    background-color: transparent;
+    overflow: hidden;
+}
+
+.sct-modal-body {
+    padding: 12px 14px;
+    font-size: 12px;
+    color: #cbd5e1;
+}
+
+.sct-msgbox-body {
+    padding: 16px 18px;
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+}
+
+.sct-msgbox-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.sct-msgbox-icon {
+    font-size: 30px;
+    line-height: 1;
+    flex-shrink: 0;
+    user-select: none;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+.sct-msgbox-text {
+    flex: 1;
+    white-space: pre-wrap;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    word-break: break-word;
+}
+
+.sct-modal-footer {
+    padding: 8px 12px;
+    background-color: #16202e;
+    background-image: none;
+    border-top: 1px solid #121a26;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.sct-modal-footer .sct-btn {
+    min-width: 80px;
+    height: 24px;
+    padding: 0 14px;
+    border-radius: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.sct-field-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+}
+
+.sct-input {
+    background: #141c28;
+    border: 1px solid #2d3f58;
+    border-radius: 0;
+    padding: 4px 6px;
+    color: #f1f5f9;
+    font-size: 12px;
+    outline: none;
+}
+
+.sct-input:focus {
+    border-color: #38bdf8;
+}
+
+/* Authentic WinForms customSmoothBtn Styling & Transitions for Dialogs and Non-Main Forms:
+   Background is rgb(58, 69, 89) (#3a4559).
+   Completely square borders (border-radius: 0).
+   Smoothly transitions background and border on hover/active. */
+.sct-btn {
+    background-color: rgb(58, 69, 89);
+    border: 1px solid #4a5873;
+    border-radius: 0;
+    padding: 4px 12px;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    transition: background-color 130ms linear, border-color 130ms linear, color 130ms linear, transform 60ms ease;
+}
+
+.sct-btn:hover {
+    background-color: #485873;
+    border-color: #5d7398;
+    color: #ffffff;
+    transition: background-color 130ms linear, border-color 130ms linear, color 130ms linear;
+}
+
+.sct-btn:active {
+    background-color: #4c6d9b;
+    border-color: #6389bd;
+    color: #ffffff;
+    transform: translateY(1px);
+    transition: background-color 60ms linear, border-color 60ms linear, color 60ms linear, transform 60ms ease;
+}
+
+.sct-btn-primary {
+    background-color: rgb(58, 69, 89);
+    border: 1px solid #4a5873;
+    border-radius: 0;
+    color: #e2e8f0;
+    box-shadow: none;
+    transition: background-color 130ms linear, border-color 130ms linear, color 130ms linear, transform 60ms ease;
+}
+
+.sct-btn-primary:hover {
+    background-color: #485873;
+    border-color: #5d7398;
+    color: #ffffff;
+    transition: background-color 130ms linear, border-color 130ms linear, color 130ms linear;
+}
+
+.sct-btn-primary:active {
+    background-color: #4c6d9b;
+    border-color: #6389bd;
+    color: #ffffff;
+    transform: translateY(1px);
+    transition: background-color 60ms linear, border-color 60ms linear, color 60ms linear, transform 60ms ease;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a2638;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #324765;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #47648e;
+}
+
+/* ==========================================================================
+   About Window (Main Form Titlebar Style + Main Form Border Look & Modern Theme)
+   ========================================================================== */
+.sct-about-window {
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: #1e2b3e;
+    background-image: none;
+    box-shadow: 0 0 0 1px #09131c, 0 10px 30px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    user-select: none;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border: none;
+    border-radius: 0;
+}
+
+.sct-about-client {
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+    background: radial-gradient(circle at 50% 0%, #1e2a3a 0%, #131922 100%);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 10px 12px 10px 12px;
+    overflow: hidden;
+    gap: 8px;
+}
+
+/* Header section with author info and developers */
+.sct-about-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(22, 32, 46, 0.75);
+    border: 1px solid #24354a;
+    border-radius: 4px;
+    padding: 10px 14px;
+    flex-shrink: 0;
+}
+
+.sct-about-author-block {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.sct-about-creator-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #e2e8f0;
+}
+
+.sct-about-highlight {
+    font-weight: 700;
+    color: #66c0f4;
+}
+
+.sct-about-links-row {
+    display: flex;
+    gap: 8px;
+}
+
+.sct-about-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background-color: rgb(58, 69, 89);
+    border: 1px solid #4a5873;
+    border-radius: 0;
+    padding: 3px 8px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #e2e8f0;
+    cursor: pointer;
+    transition: background-color 130ms linear, border-color 130ms linear, color 130ms linear, transform 60ms ease;
+}
+
+.sct-about-link-btn:hover {
+    background-color: #485873;
+    border-color: #5d7398;
+    color: #ffffff;
+}
+
+.sct-about-link-btn:active {
+    background-color: #4c6d9b;
+    border-color: #6389bd;
+    color: #ffffff;
+    transform: translateY(1px);
+}
+
+.sct-link-icon {
+    font-size: 11px;
+}
+
+.sct-about-divider {
+    width: 1px;
+    height: 38px;
+    background: #2a3c54;
+    margin: 0 12px;
+    flex-shrink: 0;
+}
+
+.sct-about-devs-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.sct-about-section-subtitle {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #8da4be;
+}
+
+.sct-about-devs-row {
+    font-size: 12px;
+    color: #cbd5e1;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3px;
+}
+
+.sct-about-dev-name {
+    color: #e2e8f0;
+}
+
+.sct-about-dev-sep {
+    color: #64748b;
+    margin-right: 2px;
+}
+
+.sct-about-dev-link {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: #66c0f4;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.15s ease;
+}
+
+.sct-about-dev-link:hover {
+    color: #ffffff;
+}
+
+/* Changelog Section */
+.sct-about-changelog-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    gap: 6px;
+}
+
+.sct-about-changelog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2px;
+}
+
+.sct-about-changelog-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #94a3b8;
+}
+
+.sct-about-badge {
+    background: #20354b;
+    border: 1px solid #38597c;
+    border-radius: 10px;
+    padding: 1px 8px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #66c0f4;
+}
+
+.sct-about-changelog-box {
+    flex: 1;
+    background: #111720;
+    border: 1px solid #233448;
+    border-radius: 4px;
+    overflow-y: auto;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sct-about-changelog-box::-webkit-scrollbar {
+    width: 7px;
+}
+
+.sct-about-changelog-box::-webkit-scrollbar-track {
+    background: #0f151d;
+}
+
+.sct-about-changelog-box::-webkit-scrollbar-thumb {
+    background: #273a50;
+    border-radius: 3px;
+}
+
+.sct-about-changelog-box::-webkit-scrollbar-thumb:hover {
+    background: #3a5778;
+}
+
+.sct-changelog-card {
+    background: rgba(26, 38, 54, 0.45);
+    border: 1px solid #1e2c3d;
+    border-radius: 3px;
+    padding: 7px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.sct-changelog-card-header {
+    font-size: 12px;
+    font-weight: 700;
+    color: #66c0f4;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sct-changelog-card-list {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 11.5px;
+    line-height: 1.45;
+    color: #c7d5e0;
+}
+
+.sct-changelog-card-list li {
+    margin-bottom: 2px;
+}
+
+.sct-changelog-card-list li::marker {
+    color: #4b6b94;
+}
+
+/* ==========================================================================
+   Custom WinForms Context Menu Strip (contexMenuStripFrm)
+   ========================================================================== */
+.sct-context-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1100;
+    background: transparent;
+}
+
+.sct-custom-context-menu {
+    position: absolute;
+    background-color: #363e54; /* WinForms Color.FromArgb(54, 62, 84) */
+    border: 1px solid #232938;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65);
+    padding: 3px;
+    z-index: 1200;
+    display: flex;
+    flex-direction: column;
+    min-width: 135px;
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    user-select: none;
+    gap: 0;
+}
+
+.sct-context-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 22px;
+    min-height: 22px;
+    width: 100%;
+    margin: 0;
+    padding: 0 8px 0 5px;
+    box-sizing: border-box;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #afbcc0; /* WinForms Color.FromArgb(175, 188, 192) */
+    text-align: left;
+    transition: background-color 0.1s ease, color 0.1s ease;
+    white-space: nowrap;
+}
+
+.sct-context-menu-item:hover {
+    background-color: #5a6069; /* WinForms Color.FromArgb(90, 96, 105) */
+    color: #ffffff;
+}
+
+.sct-context-menu-item:active,
+.sct-context-menu-item.selected {
+    background-color: #4b525f;
+    color: #ffffff;
+}
+
+.sct-context-menu-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.sct-context-menu-separator {
+    height: 1px;
+    min-height: 1px;
+    width: 100%;
+    background-color: #696969; /* WinForms lineSeparator Color.FromArgb(105, 105, 105) */
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+

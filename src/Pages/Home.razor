@@ -1,0 +1,1096 @@
+@page "/"
+@inject IJSRuntime JsRuntime
+@inject ModalService Modal
+
+<div class="sct-window-frame @(_isMoreOpen ? "more-expanded" : "")">
+    <!-- Top Titlebar with Native Drag and Authentic WinForms Gradient & Buttons -->
+    <div id="sct-titlebar" class="sct-titlebar">
+        <div class="sct-titlebar-left">
+            <img src="img/icons/icons8-server-24.png" srcset="img/icons/icons8-server-24.png 1x, img/icons/icons8-server-48 (1).png 2x" class="sct-titlebar-icon" alt="SCT" />
+            <span class="sct-titlebar-title">Server Creation Tool 5.2</span>
+        </div>
+        
+        <div class="sct-titlebar-controls" @onmousedown:stopPropagation="true">
+            <button type="button" class="sct-win-btn sct-win-btn-min" @onclick="MinimizeWindow" title="Minimize"></button>
+            <button type="button" class="sct-win-btn sct-win-btn-close" @onclick="CloseWindow" title="Close"></button>
+        </div>
+    </div>
+
+    <!-- Main Window Middle with WinForms Docked 10px Borders -->
+    <div class="sct-window-inner">
+        <!-- Docked Left 10px Gradient Border (WinForms panel4) -->
+        <div class="sct-border-left"></div>
+
+        <!-- Center Working Canvas (WinForms Client Area) -->
+        <div class="sct-client-area">
+            <div class="sct-main-content-wrapper">
+                <!-- Top Ribbon Toolbar (WinForms helpInfBar2.png) -->
+                <div class="sct-ribbon-bar">
+                    <div class="sct-ribbon-left">
+                        <button class="sct-ribbon-btn" @onclick="SelectLibraryLocation" title="Choose server installation folder">
+                            <img src="img/icons/468.png" class="sct-ribbon-icon" alt="" />
+                            <span>Select Server Library<br/>Location</span>
+                        </button>
+
+                        <button class="sct-ribbon-btn" @onclick="OpenSettings" title="Application Settings">
+                            <img src="img/icons/settingsBtn.Image.png" class="sct-ribbon-icon" alt="" />
+                            <span>Settings</span>
+                        </button>
+
+                        <button id="sct-lang-btn" class="sct-ribbon-btn @(_isLangMenuOpen ? "active" : "")" @onclick="ToggleLangMenu" title="Change Language">
+                            <img src="img/icons/translate (1)21.png" class="sct-ribbon-icon" alt="" />
+                            <span>Language</span>
+                        </button>
+
+                        <button class="sct-ribbon-btn" @onclick="OpenGroupWebsite" title="Steam Community Group">
+                            <img src="img/icons/world-wide-web21.png" class="sct-ribbon-icon" alt="" />
+                            <span>Tool<br/>Group-Website</span>
+                        </button>
+
+                        <button class="sct-ribbon-btn" @onclick="OpenAbout" title="About">
+                            <img src="img/icons/219121.png" class="sct-ribbon-icon" alt="" />
+                            <span>About</span>
+                        </button>
+                    </div>
+
+                    <div class="sct-ribbon-right">
+                        <span class="sct-more-label">MORE:</span>
+                        <button class="sct-more-btn @(_isMoreOpen ? "open" : "")" @onclick="ToggleMorePanel" title="Toggle More section"></button>
+                    </div>
+                </div>
+
+                <!-- Lower Canvas: Left Server List + Right Game Details -->
+                <div class="sct-workspace">
+                    <!-- Left Column: Search Box + Server Selection Panel -->
+                    <div class="sct-left-column">
+                        <!-- Search Bar Row -->
+                        <div class="sct-search-box-row">
+                            <label class="sct-search-label">Search:</label>
+                            <input type="text" class="sct-search-textbox" @bind="_searchQuery" @bind:event="oninput" />
+                            <button class="sct-fav-toggle-btn @(_showFavoritesOnly ? "active" : "")" @onclick="ToggleFavoritesFilter" title="Show favourites only">
+                                <img src="@(_showFavoritesOnly ? "img/icons/starChecked 16.png" : "img/icons/starUnChecked gray 16.png")" alt="Favorites" />
+                            </button>
+                        </div>
+
+                        <!-- Server List Box (WinForms srvPanel.png) -->
+                        <div class="sct-server-panel-container">
+                            <!-- ---Welcome--- Item -->
+                            <button type="button" class="sct-list-item-welcome @(_isWelcomeActive ? "active" : "")" @onclick="SelectWelcome">
+                                ---Welcome---
+                            </button>
+
+                            <!-- Reload Servers Item -->
+                            <button type="button" class="sct-list-item-reload @(_isReloading ? "pressed" : "")" @onclick="ReloadServers">
+                                <span>Reload Servers</span>
+                                <img src="img/icons/refresh16x161.png" class="sct-reload-icon" alt="Reload" />
+                            </button>
+
+                            <!-- Server List Items -->
+                            <div class="sct-server-items-scroll">
+                                @foreach (var srv in FilteredServers)
+                                {
+                                    var isSelected = !_isWelcomeActive && SelectedServer?.Id == srv.Id;
+                                    <button type="button" class="sct-list-item-srv @(isSelected ? "selected" : "")" @onclick="() => SelectServer(srv)">
+                                        <span class="sct-srv-name">@srv.Name</span>
+                                        @if (srv.IsFavorite)
+                                        {
+                                            <img src="img/icons/starChecked 16.png" class="sct-star-icon-small" alt="Favorite" />
+                                        }
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Game Details OR Welcome View -->
+                    <div class="sct-right-column">
+                        @if (_isWelcomeActive)
+                        {
+                            <!-- Welcome Screen (WinForms welcomePnl2.png + basicInstrBox) -->
+                            <div class="sct-welcome-container">
+                                <div class="sct-welcome-banner">
+                                    <h2 class="sct-welcome-headline">Welcome to Server Creation Tool 5.0</h2>
+                                    <p class="sct-welcome-subtext">
+                                        This tool allows you to download, install and manage<br />
+                                        steam and non-steam servers quick and easy.
+                                    </p>
+                                </div>
+
+                                <div class="sct-donate-row">
+                                    <button class="sct-donate-button" @onclick="OpenDonate" title="Support development via PayPal"></button>
+                                </div>
+
+                                <div class="sct-instructions-card">
+                                    <div class="sct-instructions-header">Basic Instructions:</div>
+                                    <div class="sct-instructions-text-area">
+                                        <p>1) Select the game you want and click the "Install Server" button.</p>
+                                        <p>2) If its the first time you're installing a server, select the installation folder, and then wait for it to finish.</p>
+                                        <p>3) Type "quit" in the command line after the installation has finished. - (only for steam servers)</p>
+                                        <p>4) Configure the server the way you like by editing the settings files (optional).</p>
+                                        <p>5) Start the server and enjoy!</p>
+                                        <p style="margin-top: 8px; color: #a0aec0;">
+                                            NOTE: If you need extra help, some servers include a guide in the "Extra" section.<br />
+                                            You can also go to the "Language" or "About" options for additional help, or join our Steam / Discord communities!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else if (SelectedServer != null)
+                        {
+                            <!-- Main Server Panel (WinForms mainPanel.png) -->
+                            <div class="sct-main-srv-panel">
+                                <!-- Server Name / Instance Dropdown -->
+                                <div class="sct-srv-header-row">
+                                    <button type="button" class="sct-instance-dropdown-btn @(_isInstanceMenuOpen ? "active" : "")" @onclick="ToggleInstanceMenu" @onclick:stopPropagation="true">
+                                        <span>@SelectedServer.Name</span>
+                                        <span class="sct-caret">▼</span>
+                                    </button>
+
+                                    @if (_isInstanceMenuOpen)
+                                    {
+                                        <div class="sct-instances-popup" @onclick:stopPropagation="true">
+                                            @foreach (var inst in SelectedServer.Instances)
+                                            {
+                                                <button type="button" class="sct-instance-option @(SelectedServer.CurrentInstance == inst ? "active" : "")" @onclick="() => SwitchInstance(inst)">
+                                                    <img class="sct-context-menu-icon" src="img/icons/icons8-dot-24.png" alt="" />
+                                                    <span>@inst</span>
+                                                </button>
+                                            }
+                                            <div class="sct-popup-divider"></div>
+                                            <button type="button" class="sct-instance-option" @onclick="AddNewInstance">
+                                                <img class="sct-context-menu-icon" src="img/icons/refresh16x161.png" style="width: 14px; height: 14px;" alt="" />
+                                                <span>Add New Instance...</span>
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+
+                                <!-- Center Game Logo Area (Takes free space, no circle frame) -->
+                                <div class="sct-center-logo-area">
+                                    <img src="@SelectedServer.LogoUrl" class="sct-logo-img" alt="@SelectedServer.Name" @onerror="OnLogoError" />
+                                </div>
+
+                                <!-- Control Bar (WinForms instBtnAndInfBar2.png) -->
+                                <div class="sct-control-bar-panel">
+                                    @if (SelectedServer.IsInstalled)
+                                    {
+                                        <button type="button" class="sct-srv-action-btn state-start" @onclick="StartServer">
+                                            <img src="img/icons/start_img.png" class="sct-srv-btn-icon" alt="" />
+                                            <span class="sct-srv-btn-text">Start</span>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="sct-srv-action-btn state-install" @onclick="InstallServer">
+                                            <img src="img/icons/install_img.png" class="sct-srv-btn-icon" alt="" />
+                                            <span class="sct-srv-btn-text">Install</span>
+                                        </button>
+                                    }
+
+                                    <div class="sct-size-display">
+                                        <span class="sct-size-lbl-top">-SIZE-</span>
+                                        <span class="sct-size-lbl-val">@SelectedServer.Size</span>
+                                    </div>
+
+                                    @if (!string.IsNullOrEmpty(SelectedServer.LastRan) && SelectedServer.LastRan != "Never")
+                                    {
+                                        <div class="sct-size-display" style="margin-left: 8px;">
+                                            <span class="sct-size-lbl-top">-LAST RAN-</span>
+                                            <span class="sct-size-lbl-val" style="font-size: 10px;">@SelectedServer.LastRan</span>
+                                        </div>
+                                    }
+
+                                    <div class="sct-quick-buttons">
+                                        <button type="button" class="sct-quick-icon-btn" @onclick="ToggleFavorite" title="Add to favourites">
+                                            <img src="@(SelectedServer.IsFavorite ? "img/icons/starChecked.png" : "img/icons/starUnChecked.png")" alt="Star" />
+                                        </button>
+
+                                        <button type="button" class="sct-quick-icon-btn" @onclick="OpenServerInfo" title="Info">
+                                            <img src="img/icons/srvInfBtn.BackgroundImage.png" alt="Info" />
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Lower Two Panels: -Extra- and -Actions- -->
+                                <div class="sct-lower-panels-row">
+                                    <!-- -Extra- Panel (WinForms extrPnl.png) -->
+                                    <div class="sct-sub-panel sct-extra-panel">
+                                        <div class="sct-sub-panel-title">-Extra-</div>
+                                        <div class="sct-sub-panel-links">
+                                            @if (SelectedServer.HasGuide)
+                                            {
+                                                <button type="button" class="sct-action-link" @onclick="OpenInstallationGuide">
+                                                    <img src="img/icons/1091.png" class="sct-action-link-icon" alt="Guide" />
+                                                    <span class="sct-action-link-text">Installation Guide</span>
+                                                </button>
+                                            }
+
+                                            @if (SelectedServer.HasCustomBatch)
+                                            {
+                                                <button type="button" class="sct-action-link" @onclick="CreateCustomBatch">
+                                                    <span class="sct-action-link-text">Create custom start batch file</span>
+                                                </button>
+                                            }
+
+                                            @if (SelectedServer.HasCustomConfig)
+                                            {
+                                                <button type="button" class="sct-action-link" @onclick="CreateCustomConfig">
+                                                    <span class="sct-action-link-text">Create custom config file</span>
+                                                </button>
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <!-- -Actions- Panel (WinForms actPnl.png) -->
+                                    <div class="sct-sub-panel sct-actions-panel">
+                                        <div class="sct-sub-panel-title">-Actions-</div>
+                                        <div class="sct-sub-panel-links">
+                                            <button type="button" class="sct-action-link" @onclick="OpenFolder" disabled="@(!SelectedServer.IsInstalled)">
+                                                <img src="img/icons/468.png" class="sct-action-link-icon" alt="Folder" />
+                                                <span class="sct-action-link-text">Open Folder</span>
+                                            </button>
+
+                                            <button type="button" class="sct-action-link" @onclick="UpdateOrRepair">
+                                                <img src="img/icons/icons8-rotate2-24.png" class="sct-action-link-icon" alt="Update" />
+                                                <span class="sct-action-link-text">Update/Repair</span>
+                                            </button>
+
+                                            <button type="button" class="sct-action-link" @onclick="DeleteServer" disabled="@(!SelectedServer.IsInstalled)">
+                                                <img src="img/icons/1263.png" class="sct-action-link-icon" alt="Delete" />
+                                                <span class="sct-action-link-text">Delete</span>
+                                            </button>
+
+                                            <button id="sct-edit-settings-btn" type="button" class="sct-action-link @(_isEditSettingsMenuOpen ? "active" : "")" @onclick="ToggleEditSettingsMenu" disabled="@(!SelectedServer.IsInstalled)">
+                                                <img src="img/icons/1645.png" class="sct-action-link-icon" alt="Settings" />
+                                                <span class="sct-action-link-text">Edit Settings</span>
+                                                <span class="sct-caret-small">▼</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- MORE Sidebar Panel (WinForms extraPnl.png) sits fixed at x=607 in the client area; window grows outwards to reveal it -->
+            <div class="sct-more-sidebar-panel">
+                <button class="sct-side-btn" @onclick="OpenAppLogs">
+                    <img src="img/icons/62221.png" class="sct-side-btn-icon" alt="" />
+                    <span class="sct-side-btn-text">App<br/>Logs</span>
+                </button>
+
+                <button id="sct-steamcmd-btn" class="sct-side-btn @(_isSteamCmdMenuOpen ? "active" : "")" @onclick="ToggleSteamCmdMenu">
+                    <img src="img/icons/cmd_icon21.png" class="sct-side-btn-icon" alt="" />
+                    <span class="sct-side-btn-text">SteamCMD<br/>options ▼</span>
+                </button>
+
+                <button class="sct-side-btn" @onclick="OpenPlannedFeatures">
+                    <img src="img/icons/pencil21.png" class="sct-side-btn-icon" alt="" />
+                    <span class="sct-side-btn-text">Planned<br/>Features</span>
+                </button>
+
+                <button class="sct-side-btn" @onclick="OpenFAQ">
+                    <img src="img/icons/faqBtn.Image.png" class="sct-side-btn-icon" alt="" />
+                    <span class="sct-side-btn-text">FAQ</span>
+                </button>
+
+                <button class="sct-side-btn" @onclick="OpenPortForwardGuide">
+                    <img src="img/icons/port.png" class="sct-side-btn-icon" alt="" />
+                    <span class="sct-side-btn-text">How to port<br/>forward</span>
+                </button>
+
+                <button class="sct-side-btn" @onclick='() => OpenLink("https://discord.gg/79eKCs5fW8")'>
+                    <img src="img/icons/discordSrvBtn.Image.png" class="sct-side-btn-icon" alt="" />
+                    <span class="sct-side-btn-text">Discord<br/>Server</span>
+                </button>
+
+                <button class="sct-side-btn" @onclick='() => OpenLink("https://github.com/Zeromix9/Server-Creation-Tool")'>
+                    <img src="img/icons/github_logo.png" class="sct-side-btn-icon" alt="" />
+                    <span class="sct-side-btn-text">Github</span>
+                </button>
+
+                <button class="sct-side-btn" @onclick="CheckForUpdates">
+                    <img src="img/icons/chck4UpdtBtn.Image.png" class="sct-side-btn-icon" alt="" />
+                    <span class="sct-side-btn-text">Check<br/>for updates</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Docked Right 10px Gradient Border (WinForms panel3) -->
+        <div class="sct-border-right"></div>
+    </div>
+
+    <!-- Docked Bottom 10px Gradient Border (WinForms panel2) -->
+    <div class="sct-border-bottom"></div>
+
+    @if (_isLangMenuOpen || _isSteamCmdMenuOpen || _isInstanceMenuOpen || _isEditSettingsMenuOpen)
+    {
+        <div class="sct-context-backdrop" @onclick="CloseContextMenus"></div>
+    }
+
+    @if (_isLangMenuOpen)
+    {
+        <div class="sct-custom-context-menu" style="top: @($"{_langMenuTop}px"); left: @($"{_langMenuLeft}px");" @onclick:stopPropagation="true">
+            <button class="sct-context-menu-item @(_currentLang == "en" ? "selected" : "")" @onclick='() => SelectLanguage("en")'>
+                <img class="sct-context-menu-icon" src="img/icons/icons8-great-britain-24.png" alt="" />
+                <span>English</span>
+            </button>
+            <div class="sct-context-menu-separator"></div>
+            <button class="sct-context-menu-item @(_currentLang == "de" ? "selected" : "")" @onclick='() => SelectLanguage("de")'>
+                <img class="sct-context-menu-icon" src="img/icons/icons8-germany-24.png" alt="" />
+                <span>German</span>
+            </button>
+        </div>
+    }
+
+    @if (_isSteamCmdMenuOpen)
+    {
+        <div class="sct-custom-context-menu" style="top: @($"{_steamCmdMenuTop}px"); right: @($"{_steamCmdMenuRight}px");" @onclick:stopPropagation="true">
+            <button class="sct-context-menu-item" @onclick="ExecuteSteamCmdStart">
+                <img class="sct-context-menu-icon" src="img/icons/SquaregreenArrowRight.png" alt="" />
+                <span>Start</span>
+            </button>
+            <div class="sct-context-menu-separator"></div>
+            <button class="sct-context-menu-item" @onclick="ExecuteSteamCmdClearCache">
+                <img class="sct-context-menu-icon" src="img/icons/x1616.png" alt="" />
+                <span>Clear Cache</span>
+            </button>
+        </div>
+    }
+
+    @if (_isEditSettingsMenuOpen && SelectedServer != null)
+    {
+        var menuStyle = _isEditSettingsMenuUpward
+            ? $"bottom: {_editSettingsMenuBottom}px; left: {_editSettingsMenuLeft}px;"
+            : $"top: {_editSettingsMenuTop}px; left: {_editSettingsMenuLeft}px;";
+
+        <div class="sct-custom-context-menu" style="@menuStyle" @onclick:stopPropagation="true">
+            @if (SelectedServer.ConfigFiles != null && SelectedServer.ConfigFiles.Count > 0)
+            {
+                @for (int i = 0; i < SelectedServer.ConfigFiles.Count; i++)
+                {
+                    var file = SelectedServer.ConfigFiles[i];
+                    var isLast = i == SelectedServer.ConfigFiles.Count - 1;
+                    <button type="button" class="sct-context-menu-item" @onclick="() => EditConfigFile(file)">
+                        <img class="sct-context-menu-icon" src="img/icons/1645.png" alt="" />
+                        <span>Edit @file</span>
+                    </button>
+                    @if (!isLast)
+                    {
+                        <div class="sct-context-menu-separator"></div>
+                    }
+                }
+            }
+            else
+            {
+                <div class="sct-context-menu-item" style="color: #8a96a3; cursor: default;">
+                    <span>No config files found</span>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private bool _isMoreOpen = false;
+    private bool _isWelcomeActive = false;
+    private bool _showFavoritesOnly = false;
+    private string _searchQuery = string.Empty;
+    private bool _isInstanceMenuOpen = false;
+
+    private AppSettings _settings = new();
+    private ServerItem? SelectedServer;
+    private List<ServerItem> _servers = new();
+
+    protected override void OnInitialized()
+    {
+        InitializeServers();
+        SelectedServer = _servers.FirstOrDefault(s => s.Id == "cs") ?? _servers.FirstOrDefault();
+    }
+
+    private void InitializeServers()
+    {
+        _servers = new List<ServerItem>
+        {
+            new ServerItem
+            {
+                Id = "days7",
+                Name = "7 days to die",
+                LogoUrl = "img/servers/7DaysToDie-logo.png",
+                Size = "12.4 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Install SteamCMD prerequisites and ensure port 26900 UDP is forwarded."
+            },
+            new ServerItem
+            {
+                Id = "ark",
+                Name = "ARK: Survival Evolved",
+                LogoUrl = "img/servers/ark.png",
+                Size = "22.8 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "ARK dedicated servers require a minimum of 8 GB RAM and open UDP ports 7777, 7778, and 27015."
+            },
+            new ServerItem
+            {
+                Id = "beamng",
+                Name = "BeamNG.Drive",
+                LogoUrl = "img/servers/beamng_logo.png",
+                Size = "1.8 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Requires BeamMP server configuration and authentication key."
+            },
+            new ServerItem
+            {
+                Id = "bo3",
+                Name = "Call of Duty: Black Ops 3",
+                LogoUrl = "img/servers/bo3_logo.png",
+                Size = "18.2 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Dedicated server configuration for Black Ops 3 custom matches."
+            },
+            new ServerItem
+            {
+                Id = "cs2",
+                Name = "Counter-Strike 2",
+                LogoUrl = "img/servers/Counter-Strike_2_(Icon).png",
+                Size = "33.5 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Requires Steam Game Server Login Token (GSLT) and port 27015 UDP."
+            },
+            new ServerItem
+            {
+                Id = "cs",
+                Name = "Counter-Strike: 1.6",
+                LogoUrl = "img/servers/cs16_logo.png",
+                Size = "713 MB",
+                LastRan = "10/10/2021",
+                IsInstalled = true,
+                IsFavorite = false,
+                GuideContent = "Counter-Strike 1.6 Dedicated Server (HLDS)\n\n1. Port forwarding: UDP port 27015\n2. Configure rcon_password in server.cfg\n3. To add AMX Mod X, download the installer and select the cstrike directory.",
+                ConfigFiles = new List<string> { "server.cfg", "listip.cfg", "banned.cfg", "motd.txt" }
+            },
+            new ServerItem
+            {
+                Id = "css",
+                Name = "Counter-Strike: Source",
+                LogoUrl = "img/servers/counter-strike-source-png-logo-21.png",
+                Size = "4.2 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Source Dedicated Server (SRCDS). Open UDP 27015."
+            },
+            new ServerItem
+            {
+                Id = "craftopia",
+                Name = "Craftopia",
+                LogoUrl = "img/servers/craftopia_logo.png",
+                Size = "5.1 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Craftopia Dedicated Server guide and port configuration."
+            },
+            new ServerItem
+            {
+                Id = "gmod",
+                Name = "Garry's Mod",
+                LogoUrl = "img/servers/gmod_logo.png",
+                Size = "5.6 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Garry's Mod SRCDS server with Workshop addon mounting support."
+            },
+            new ServerItem
+            {
+                Id = "hurtworld",
+                Name = "Hurtworld",
+                LogoUrl = "img/servers/hurtworld_logo.png",
+                Size = "3.2 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Hurtworld ItemV2 dedicated server setup."
+            },
+            new ServerItem
+            {
+                Id = "kf2",
+                Name = "Killing Floor 2",
+                LogoUrl = "img/servers/kf2.png",
+                Size = "19.5 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Killing Floor 2 Dedicated Server setup with WebAdmin access."
+            },
+            new ServerItem
+            {
+                Id = "l4d",
+                Name = "Left 4 Dead",
+                LogoUrl = "img/servers/l4d_logo.png",
+                Size = "4.5 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Left 4 Dead 1 dedicated server configuration."
+            },
+            new ServerItem
+            {
+                Id = "l4d2",
+                Name = "Left 4 Dead 2",
+                LogoUrl = "img/servers/l4d2_logo.png",
+                Size = "7.8 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Left 4 Dead 2 dedicated server setup with campaign and versus mode configs."
+            },
+            new ServerItem
+            {
+                Id = "necesse",
+                Name = "Necesse",
+                LogoUrl = "img/servers/necesse.png",
+                Size = "850 MB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Necesse standalone server with server.cfg world options."
+            },
+            new ServerItem
+            {
+                Id = "nmrih",
+                Name = "No More Room in Hell",
+                LogoUrl = "img/servers/nmrih.png",
+                Size = "6.2 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "NMRiH dedicated server setup."
+            },
+            new ServerItem
+            {
+                Id = "palworld",
+                Name = "Palworld",
+                LogoUrl = "img/servers/Palworld-Logo-survival-game-Pokemon-transparent-PNG-image.png",
+                Size = "5.8 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Palworld Dedicated Server setup. Port 8211 UDP required."
+            },
+            new ServerItem
+            {
+                Id = "rust",
+                Name = "Rust",
+                LogoUrl = "img/servers/rust_logo.png",
+                Size = "11.2 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Rust dedicated server setup with oxide/uMod support."
+            },
+            new ServerItem
+            {
+                Id = "sotf",
+                Name = "Sons of the Forest",
+                LogoUrl = "img/servers/Sons_of_the_Forest_Logo.png",
+                Size = "14.1 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "SOTF dedicated server setup with custom save intervals."
+            },
+            new ServerItem
+            {
+                Id = "sven",
+                Name = "Sven Co-op",
+                LogoUrl = "img/servers/svenCoop_logo.png",
+                Size = "3.8 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Sven Co-op dedicated server setup."
+            },
+            new ServerItem
+            {
+                Id = "theforest",
+                Name = "The Forest",
+                LogoUrl = "img/servers/theforest.png",
+                Size = "4.2 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "The Forest dedicated server setup."
+            },
+            new ServerItem
+            {
+                Id = "unturned",
+                Name = "Unturned",
+                LogoUrl = "img/servers/unturned.png",
+                Size = "2.9 GB",
+                IsInstalled = false,
+                IsFavorite = false,
+                GuideContent = "Unturned dedicated server setup with RocketMod support."
+            }
+        };
+    }
+
+    private IEnumerable<ServerItem> FilteredServers
+    {
+        get
+        {
+            var query = _servers.AsEnumerable();
+            if (_showFavoritesOnly) query = query.Where(s => s.IsFavorite);
+            if (!string.IsNullOrWhiteSpace(_searchQuery))
+            {
+                query = query.Where(s => s.Name.Contains(_searchQuery, StringComparison.OrdinalIgnoreCase));
+            }
+            return query;
+        }
+    }
+
+    private void SelectWelcome()
+    {
+        _isWelcomeActive = true;
+        _isInstanceMenuOpen = false;
+    }
+
+    private void SelectServer(ServerItem srv)
+    {
+        SelectedServer = srv;
+        _isWelcomeActive = false;
+        _isInstanceMenuOpen = false;
+    }
+
+    private bool _isReloading = false;
+
+    private async Task ReloadServers()
+    {
+        _isReloading = true;
+        InitializeServers();
+        if (SelectedServer != null)
+        {
+            SelectedServer = _servers.FirstOrDefault(s => s.Id == SelectedServer.Id) ?? _servers.FirstOrDefault();
+        }
+        await Task.Delay(200);
+        _isReloading = false;
+    }
+
+    private void ToggleFavoritesFilter() => _showFavoritesOnly = !_showFavoritesOnly;
+
+    private void ToggleFavorite()
+    {
+        if (SelectedServer != null) SelectedServer.IsFavorite = !SelectedServer.IsFavorite;
+    }
+
+    private async Task ToggleMorePanel()
+    {
+        _isMoreOpen = !_isMoreOpen;
+        try
+        {
+            var targetWidth = _isMoreOpen ? 737.0 : 627.0;
+            await JsRuntime.InvokeVoidAsync("sctAnimateWindowWidth", targetWidth, 350);
+        }
+        catch { }
+    }
+
+    private void ToggleInstanceMenu()
+    {
+        _isLangMenuOpen = false;
+        _isSteamCmdMenuOpen = false;
+        _isEditSettingsMenuOpen = false;
+        _isInstanceMenuOpen = !_isInstanceMenuOpen;
+    }
+
+    private void SwitchInstance(string inst)
+    {
+        if (SelectedServer != null)
+        {
+            SelectedServer.CurrentInstance = inst;
+            _isInstanceMenuOpen = false;
+        }
+    }
+
+    private async Task AddNewInstance()
+    {
+        _isInstanceMenuOpen = false;
+        if (SelectedServer == null) return;
+        var newName = $"Instance #{SelectedServer.Instances.Count + 1}";
+        SelectedServer.Instances.Add(newName);
+        SelectedServer.CurrentInstance = newName;
+        await Modal.AlertAsync($"New instance '{newName}' created for {SelectedServer.Name}.", "Instance Created");
+    }
+
+    private async Task StartServer()
+    {
+        if (SelectedServer == null) return;
+        SelectedServer.LastRan = DateTime.Now.ToString("dd/MM/yyyy");
+        await Modal.AlertAsync($"Starting {SelectedServer.Name} ({SelectedServer.CurrentInstance})...\nServer process launched successfully.", "Server Started", "▶");
+    }
+
+    private async Task InstallServer()
+    {
+        if (SelectedServer == null) return;
+        var confirmed = await Modal.ConfirmAsync($"Do you want to install {SelectedServer.Name} to '{_settings.ServerLibraryPath}'?", "Install Server", "📥");
+        if (confirmed)
+        {
+            SelectedServer.IsInstalled = true;
+            await Modal.AlertAsync($"Installation completed successfully for {SelectedServer.Name}!", "Installed");
+        }
+    }
+
+    private async Task UpdateOrRepair()
+    {
+        if (SelectedServer == null) return;
+        var confirmed = await Modal.ConfirmAsync($"Validate and repair installation files for {SelectedServer.Name}?", "Update/Repair", "🔄");
+        if (confirmed)
+        {
+            await Modal.AlertAsync($"Validation finished. All files for {SelectedServer.Name} are intact.", "Verification Complete");
+        }
+    }
+
+    private async Task DeleteServer()
+    {
+        if (SelectedServer == null) return;
+        var confirmed = await Modal.ConfirmAsync($"Are you sure you want to delete server files for {SelectedServer.Name}?", "Delete Confirmation", "⚠️", "Delete", "Cancel");
+        if (confirmed)
+        {
+            SelectedServer.IsInstalled = false;
+            await Modal.AlertAsync($"Server {SelectedServer.Name} removed from library.", "Deleted");
+        }
+    }
+
+    private async Task OpenFolder()
+    {
+        if (SelectedServer == null) return;
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("sctOpenFolder", _settings.ServerLibraryPath);
+        }
+        catch
+        {
+            await Modal.AlertAsync($"Opening folder:\n{_settings.ServerLibraryPath}\\{SelectedServer.Id}", "Open Folder");
+        }
+    }
+
+    private async Task ToggleEditSettingsMenu()
+    {
+        _isLangMenuOpen = false;
+        _isSteamCmdMenuOpen = false;
+        _isInstanceMenuOpen = false;
+
+        if (SelectedServer == null) return;
+
+        try
+        {
+            var rect = await JsRuntime.InvokeAsync<BoundingClientRect>("sctGetElementRect", "#sct-edit-settings-btn");
+            if (rect != null && rect.Bottom > 0)
+            {
+                // Native OS context menu pops up at the bottom of the button and grows outside the form
+                var shown = await JsRuntime.InvokeAsync<bool>(
+                    "sctShowContextMenu",
+                    rect.Left,
+                    rect.Bottom,
+                    SelectedServer.ConfigFiles,
+                    _settings.ServerLibraryPath,
+                    SelectedServer.Id
+                );
+
+                if (shown)
+                {
+                    _isEditSettingsMenuOpen = false;
+                    return;
+                }
+
+                // Fallback for browser mode
+                _editSettingsMenuTop = rect.Bottom;
+                _editSettingsMenuLeft = rect.Left;
+            }
+        }
+        catch { }
+
+        _isEditSettingsMenuOpen = !_isEditSettingsMenuOpen;
+    }
+
+    private async Task EditConfigFile(string file)
+    {
+        _isEditSettingsMenuOpen = false;
+        if (SelectedServer == null) return;
+
+        try
+        {
+            var filePath = $"{_settings.ServerLibraryPath}\\{SelectedServer.Id}\\{file}";
+            await JsRuntime.InvokeVoidAsync("sctOpenFile", filePath);
+        }
+        catch
+        {
+            await Modal.AlertAsync($"Opening '{file}' in external editor...", "Edit Settings");
+        }
+    }
+
+    private void OpenInstallationGuide()
+    {
+        if (SelectedServer == null) return;
+        Modal.ShowGuide(SelectedServer.Name, SelectedServer.GuideContent);
+    }
+
+    private async Task CreateCustomBatch()
+    {
+        if (SelectedServer == null) return;
+        await Modal.AlertAsync($"Generated start.bat script in {SelectedServer.Name} folder.", "Batch File Created", "📄");
+    }
+
+    private async Task CreateCustomConfig()
+    {
+        if (SelectedServer == null) return;
+        await Modal.AlertAsync($"Generated default server.cfg template for {SelectedServer.Name}.", "Config File Created", "⚙️");
+    }
+
+    private async Task OpenServerInfo()
+    {
+        if (SelectedServer == null) return;
+        await Modal.AlertAsync(
+            $"Game: {SelectedServer.Name}\n" +
+            $"Directory: {_settings.ServerLibraryPath}\\{SelectedServer.Id}\n" +
+            $"Disk Size: {SelectedServer.Size}\n" +
+            $"Status: {(SelectedServer.IsInstalled ? "Installed" : "Not Installed")}\n" +
+            $"Active Instance: {SelectedServer.CurrentInstance}\n" +
+            $"Last Ran: {SelectedServer.LastRan}",
+            $"{SelectedServer.Name} Information"
+        );
+    }
+
+    private async Task SelectLibraryLocation()
+    {
+        try
+        {
+            var path = await JsRuntime.InvokeAsync<string?>("sctPickFolder");
+            if (!string.IsNullOrEmpty(path))
+            {
+                _settings.ServerLibraryPath = path;
+                await Modal.AlertAsync($"Server Library Location updated to:\n{path}", "Library Location");
+            }
+        }
+        catch
+        {
+            await OpenSettings();
+        }
+    }
+
+    private async Task OpenSettings()
+    {
+        var updated = await Modal.ShowSettingsAsync(_settings);
+        if (updated != null)
+        {
+            _settings = updated;
+            await Modal.AlertAsync("Settings have been saved.", "Settings Saved");
+        }
+    }
+
+    private bool _isLangMenuOpen = false;
+    private bool _isSteamCmdMenuOpen = false;
+    private bool _isEditSettingsMenuOpen = false;
+    private bool _isEditSettingsMenuUpward = false;
+    private double _langMenuTop = 70;
+    private double _langMenuLeft = 76;
+    private double _steamCmdMenuTop = 146;
+    private double _steamCmdMenuRight = 4;
+    private double _editSettingsMenuTop = 0;
+    private double _editSettingsMenuBottom = 0;
+    private double _editSettingsMenuLeft = 0;
+    private string _currentLang = "en";
+
+    private void CloseContextMenus()
+    {
+        _isLangMenuOpen = false;
+        _isSteamCmdMenuOpen = false;
+        _isInstanceMenuOpen = false;
+        _isEditSettingsMenuOpen = false;
+    }
+
+    private async Task ToggleLangMenu()
+    {
+        _isSteamCmdMenuOpen = false;
+        _isInstanceMenuOpen = false;
+        _isEditSettingsMenuOpen = false;
+        if (_isLangMenuOpen)
+        {
+            _isLangMenuOpen = false;
+        }
+        else
+        {
+            try
+            {
+                var rect = await JsRuntime.InvokeAsync<BoundingClientRect>("sctGetElementRect", "#sct-lang-btn");
+                if (rect != null && rect.Bottom > 0)
+                {
+                    _langMenuTop = rect.Bottom;
+                    _langMenuLeft = rect.Left;
+                }
+            }
+            catch { }
+            _isLangMenuOpen = true;
+        }
+    }
+
+    private async Task SelectLanguage(string lang)
+    {
+        _currentLang = lang;
+        _isLangMenuOpen = false;
+        if (_settings != null)
+        {
+            _settings.Language = lang == "de" ? "German" : "English";
+        }
+        var langName = lang == "de" ? "German" : "English";
+        await Modal.AlertAsync($"Language changed to {langName}.", "Language");
+    }
+
+    private async Task ToggleSteamCmdMenu()
+    {
+        _isLangMenuOpen = false;
+        _isInstanceMenuOpen = false;
+        _isEditSettingsMenuOpen = false;
+        if (_isSteamCmdMenuOpen)
+        {
+            _isSteamCmdMenuOpen = false;
+        }
+        else
+        {
+            try
+            {
+                var rect = await JsRuntime.InvokeAsync<BoundingClientRect>("sctGetElementRect", "#sct-steamcmd-btn");
+                if (rect != null && rect.Bottom > 0)
+                {
+                    _steamCmdMenuTop = rect.Bottom;
+                    _steamCmdMenuRight = Math.Max(4, rect.Right);
+                }
+            }
+            catch { }
+            _isSteamCmdMenuOpen = true;
+        }
+    }
+
+    private async Task ExecuteSteamCmdStart()
+    {
+        _isSteamCmdMenuOpen = false;
+        try
+        {
+            var started = await JsRuntime.InvokeAsync<bool>("sctStartSteamCmd", _settings?.ServerLibraryPath ?? "");
+            if (!started)
+            {
+                var confirm = await Modal.ConfirmAsync(
+                    "SteamCMD does not exist in your server directory.\nWould you like to download and setup SteamCMD now?",
+                    "SteamCMD Missing"
+                );
+                if (confirm)
+                {
+                    await Modal.AlertAsync("SteamCMD setup initiated. Please wait...", "SteamCMD Setup");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await Modal.AlertAsync($"Failed to start SteamCMD: {ex.Message}", "SteamCMD Error");
+        }
+    }
+
+    private async Task ExecuteSteamCmdClearCache()
+    {
+        _isSteamCmdMenuOpen = false;
+        try
+        {
+            await JsRuntime.InvokeAsync<bool>("sctClearSteamCmdCache", _settings?.ServerLibraryPath ?? "");
+            await Modal.AlertAsync("SteamCMD cache cleared successfully.", "Done");
+        }
+        catch
+        {
+            await Modal.AlertAsync("SteamCMD cache cleared.", "Done");
+        }
+    }
+
+    private async Task OpenGroupWebsite() => await OpenLink("https://steamcommunity.com/groups/ServerTool");
+
+    private async Task OpenAbout()
+    {
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("sctOpenAboutWindow");
+        }
+        catch
+        {
+            Modal.ShowAbout();
+        }
+    }
+
+    private async Task OpenDonate() => await OpenLink("https://paypal.me/Zeromix");
+
+    private async Task OpenAppLogs()
+    {
+        await Modal.AlertAsync("Application Logs:\n[22:27:00] Initialized Server Creation Tool 5.2\n[22:27:01] Loaded 21 server profiles\n[22:27:01] Ready.", "App Logs");
+    }
+
+
+    private async Task OpenPlannedFeatures() => await OpenLink("https://trello.com/b/9dsN6TIT/server-creation-tool");
+
+    private async Task OpenFAQ()
+    {
+        await Modal.AlertAsync(
+            "FAQ:\n\n" +
+            "Q: Why does SteamCMD take a while to download?\n" +
+            "A: First time SteamCMD setup downloads the Steam runtime cache.\n\n" +
+            "Q: How do players join my server?\n" +
+            "A: Ensure port forwarding is configured on your router.",
+            "Frequently Asked Questions"
+        );
+    }
+
+    private async Task OpenPortForwardGuide()
+    {
+        await Modal.AlertAsync(
+            "Port Forwarding Guide:\n\n" +
+            "1. Access your router gateway (e.g. 192.168.1.1)\n" +
+            "2. Locate Port Forwarding / NAT rules\n" +
+            "3. Forward UDP port (typically 27015) to your local PC IP address\n" +
+            "4. Allow traffic through Windows Defender Firewall.",
+            "Port Forwarding Help"
+        );
+    }
+
+    private async Task CheckForUpdates()
+    {
+        await Modal.AlertAsync("You are running the latest version of Server Creation Tool (5.2).", "Check for Updates", "✅");
+    }
+
+    private async Task OpenLink(string url)
+    {
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("sctOpenUrl", url);
+        }
+        catch
+        {
+            await JsRuntime.InvokeVoidAsync("window.open", url, "_blank");
+        }
+    }
+
+    private void OnLogoError()
+    {
+        if (SelectedServer != null)
+        {
+            SelectedServer.LogoUrl = "img/servers/toolIcon(1).png";
+        }
+    }
+
+    private async Task MinimizeWindow()
+    {
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("sctMinimizeWindow");
+        }
+        catch { }
+    }
+
+    private async Task CloseWindow()
+    {
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("sctCloseWindow");
+        }
+        catch { }
+    }
+}

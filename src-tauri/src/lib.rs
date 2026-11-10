@@ -1,0 +1,237 @@
+use tauri::Manager;
+use tauri::menu::{ContextMenu, MenuBuilder, MenuItemBuilder};
+
+#[tauri::command]
+fn show_settings_context_menu(
+    window: tauri::WebviewWindow,
+    x: f64,
+    y: f64,
+    files: Vec<String>,
+    library_path: String,
+    server_id: String,
+) -> Result<(), String> {
+    let mut builder = MenuBuilder::new(&window);
+    for file in &files {
+        let label = format!("Edit {}", file);
+        let full_path = std::path::Path::new(&library_path)
+            .join(&server_id)
+            .join(file)
+            .to_string_lossy()
+            .to_string();
+        let item = MenuItemBuilder::with_id(&full_path, &label)
+            .build(&window)
+            .map_err(|e| e.to_string())?;
+        builder = builder.item(&item);
+    }
+    let menu = builder.build().map_err(|e| e.to_string())?;
+    let pos = tauri::Position::Logical(tauri::LogicalPosition::new(x, y));
+    menu.popup_at(window.as_ref().window(), pos).map_err(|e| e.to_string())?;
+    Ok(())
+}
+
+#[tauri::command]
+fn start_drag(window: tauri::WebviewWindow) -> Result<(), String> {
+    window.start_dragging().map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn window_minimize(window: tauri::WebviewWindow) -> Result<(), String> {
+    window.minimize().map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+async fn window_close(window: tauri::WebviewWindow) -> Result<(), String> {
+    if window.label() == "main" {
+        std::process::exit(0);
+    } else {
+        let _ = window.hide();
+    }
+    Ok(())
+}
+
+#[tauri::command]
+async fn open_about_window(app: tauri::AppHandle) -> Result<(), String> {
+    if let Some(window) = app.get_webview_window("about") {
+        let _ = window.unminimize();
+        let _ = window.show();
+        let _ = window.set_focus();
+    } else {
+        tauri::WebviewWindowBuilder::new(&app, "about", tauri::WebviewUrl::default())
+            .title("About")
+            .inner_size(530.0, 504.0)
+            .resizable(false)
+            .maximizable(false)
+            .decorations(false)
+            .center()
+            .initialization_script("window.__SCT_WINDOW_LABEL__ = 'about';")
+            .build()
+            .map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
+
+#[tauri::command]
+fn start_steamcmd(install_dir: String) -> Result<bool, String> {
+    let mut candidates = Vec::new();
+
+    if !install_dir.is_empty() {
+        let base = std::path::PathBuf::from(&install_dir);
+        candidates.push(base.join("steamcmd.exe"));
+        candidates.push(base.join("steamcmd").join("steamcmd.exe"));
+        candidates.push(base.join("steamcmd.sh"));
+        candidates.push(base.join("steamcmd").join("steamcmd.sh"));
+        candidates.push(base.join("steamcmd"));
+    }
+
+    candidates.push(std::path::PathBuf::from("C:\\ServerCreationTool\\steamcmd.exe"));
+    candidates.push(std::path::PathBuf::from("C:\\ServerCreationTool\\steamcmd\\steamcmd.exe"));
+    if let Ok(home) = std::env::var("HOME") {
+        let home_path = std::path::PathBuf::from(home);
+        candidates.push(home_path.join(".local/share/Steam/steamcmd/steamcmd.sh"));
+        candidates.push(home_path.join("steamcmd/steamcmd.sh"));
+        candidates.push(std::path::PathBuf::from("/usr/games/steamcmd"));
+    }
+
+    for path in candidates {
+        if path.exists() {
+            std::process::Command::new(&path)
+                .spawn()
+                .map_err(|e| e.to_string())?;
+            return Ok(true);
+        }
+    }
+    Ok(false)
+}
+
+#[tauri::command]
+fn clear_steamcmd_cache(install_dir: String) -> Result<bool, String> {
+    let mut cleared = false;
+    let mut dirs = Vec::new();
+
+    if !install_dir.is_empty() {
+        dirs.push(std::path::PathBuf::from(&install_dir).join("appcache"));
+        dirs.push(std::path::PathBuf::from(&install_dir).join("steamcmd").join("appcache"));
+    }
+    dirs.push(std::path::PathBuf::from("C:\\ServerCreationTool\\appcache"));
+    dirs.push(std::path::PathBuf::from("C:\\ServerCreationTool\\steamcmd\\appcache"));
+
+    for dir in dirs {
+        if dir.exists() {
+            if std::fs::remove_dir_all(&dir).is_ok() {
+                cleared = true;
+            }
+        }
+    }
+    Ok(cleared)
+}
+
+#[tauri::command]
+fn window_set_width(app: tauri::AppHandle, width: f64) -> Result<(), String> {
+    if let Some(window) = app.get_webview_window("main") {
+        window
+            .set_size(tauri::LogicalSize::new(width, 420.0))
+            .map_err(|e| e.to_string())?;
+    } else if let Some((_, window)) = app.webview_windows().into_iter().next() {
+        window
+            .set_size(tauri::LogicalSize::new(width, 420.0))
+            .map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
+
+#[tauri::command]
+fn pick_folder() -> Result<Option<String>, String> {
+    let folder = rfd::FileDialog::new()
+        .set_title("Select Server Library Location")
+        .pick_folder();
+
+    match folder {
+        Some(dir) => Ok(Some(dir.to_string_lossy().to_string())),
+        None => Ok(None),
+    }
+}
+
+#[tauri::command]
+fn open_folder(path: String) {
+    #[cfg(target_os = "windows")]
+    {
+        let _ = std::process::Command::new("explorer")
+            .arg(&path)
+            .spawn();
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        let _ = tauri_plugin_opener::open_path(&path, None::<&str>);
+    }
+}
+
+#[tauri::command]
+fn open_file(path: String) {
+    #[cfg(target_os = "windows")]
+    {
+        let _ = std::process::Command::new("notepad")
+            .arg(&path)
+            .spawn();
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        let _ = tauri_plugin_opener::open_path(&path, None::<&str>);
+    }
+}
+
+#[tauri::command]
+fn open_url(url: String) {
+    let _ = tauri_plugin_opener::open_url(&url, None::<&str>);
+}
+
+#[tauri::command]
+fn get_app_version() -> String {
+    "5.2.0".to_string()
+}
+
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_opener::init())
+        .on_menu_event(|_app, event| {
+            let path = event.id().as_ref();
+            #[cfg(target_os = "windows")]
+            {
+                let _ = std::process::Command::new("notepad")
+                    .arg(path)
+                    .spawn();
+            }
+            #[cfg(not(target_os = "windows"))]
+            {
+                let _ = tauri_plugin_opener::open_path(path, None::<&str>);
+            }
+        })
+        .on_window_event(|window, event| {
+            if window.label() == "main" {
+                if let tauri::WindowEvent::CloseRequested { .. } | tauri::WindowEvent::Destroyed = event {
+                    std::process::exit(0);
+                }
+            } else if window.label() == "about" {
+                if let tauri::WindowEvent::CloseRequested { api, .. } = event {
+                    api.prevent_close();
+                    let _ = window.hide();
+                }
+            }
+        })
+        .invoke_handler(tauri::generate_handler![
+            start_drag,
+            window_minimize,
+            window_close,
+            open_about_window,
+            window_set_width,
+            start_steamcmd,
+            clear_steamcmd_cache,
+            pick_folder,
+            open_folder,
+            open_file,
+            open_url,
+            get_app_version,
+            show_settings_context_menu
+        ])
+        .run(tauri::generate_context!())
+        .expect("error while running Server Creation Tool");
+}

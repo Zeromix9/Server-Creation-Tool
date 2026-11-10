@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Server Creation Tool",
+  "version": "5.2.0",
+  "identifier": "com.zeromix.servercreationtool",
+  "build": {
+    "beforeDevCommand": "dotnet watch run --project src/ServerCreationTool.UI.csproj",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "dotnet publish -c release src/ServerCreationTool.UI.csproj -o dist",
+    "frontendDist": "../dist/wwwroot"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "Server Creation Tool 5.2",
+        "width": 627,
+        "height": 420,
+        "resizable": false,
+        "maximizable": false,
+        "decorations": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}
