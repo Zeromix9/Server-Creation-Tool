@@ -2013,6 +2013,7 @@ html, body, #app {
     flex-direction: column;
     gap: 6px;
     flex: 1;
+    min-height: 0;
 }
 
 .sct-tab-pane .sct-primary-actions-bar {
@@ -2073,20 +2074,21 @@ html, body, #app {
     background: rgba(30, 42, 60, 0.45);
     border: 1px solid #3c4c64;
     box-shadow: none;
-    padding: 6px 10px;
+    padding: 3px 10px 6px 10px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .sct-card-section-title {
     font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
     font-size: 9.25pt;
     font-weight: bold;
+    line-height: 1.1;
     color: #e0e8f0;
     text-align: center;
     border-bottom: 1px solid #3c4c64;
-    padding-bottom: 3px;
+    padding-bottom: 2px;
     user-select: none;
     margin: 0;
 }
@@ -2134,10 +2136,10 @@ html, body, #app {
     background: rgba(30, 42, 60, 0.45);
     border: 1px solid #3c4c64;
     box-shadow: none;
-    padding: 6px 10px;
+    padding: 3px 10px 6px 10px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .sct-tools-row-3 {
@@ -2150,6 +2152,18 @@ html, body, #app {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 6px;
+}
+
+.sct-tools-section-card .sct-tool-btn {
+    height: 25px;
+    min-height: 25px;
+    padding: 0 8px;
+    font-size: 8.75pt;
+}
+
+.sct-tools-section-card .sct-tool-btn-icon {
+    width: 15px;
+    height: 15px;
 }
 
 .sct-tab-pane .sct-tools-grid {
@@ -2219,10 +2233,10 @@ html, body, #app {
     background: rgba(30, 42, 60, 0.45);
     border: 1px solid #3c4c64;
     box-shadow: none;
-    padding: 6px 10px;
+    padding: 3px 10px 5px 10px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3px;
 }
 
 .sct-auto-card-body {
@@ -2306,58 +2320,76 @@ html, body, #app {
     cursor: not-allowed;
 }
 
-/* Launch Parameters Row */
-.sct-launch-args-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 2px 6px;
-    margin: 0;
-    background: rgba(25, 35, 50, 0.45);
-    border: 1px solid #3c4c64;
-    box-shadow: none;
-    box-sizing: border-box;
-    flex-shrink: 0;
-}
-
-.sct-args-label {
-    font-size: 8.75pt;
-    font-weight: 700;
-    color: #afbcc0;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    white-space: nowrap;
-}
-
-.sct-args-input {
+/* Tab 1: Terminal Output Box */
+.sct-terminal-wrapper {
+    position: relative;
     flex: 1;
-    background: transparent;
-    border: none;
-    font-size: 8.75pt;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    color: #ffffff;
-    outline: none;
-    padding: 1px 4px;
-    border-radius: 0;
+    min-height: 74px;
+    display: flex;
+    box-sizing: border-box;
 }
 
-.sct-args-input::placeholder {
+.sct-terminal-wrapper.expanded {
+    min-height: 0;
+}
+
+.sct-terminal-output {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    background: rgba(13, 19, 28, 0.85);
+    border: 1px solid #3c4c64;
+    border-radius: 0;
+    color: #d1e3f8;
+    font-family: 'Consolas', 'Cascadia Mono', 'Courier New', monospace;
+    font-size: 8.25pt;
+    line-height: 1.35;
+    padding: 6px 32px 6px 8px;
+    resize: none;
+    outline: none;
+    overflow-y: auto;
+    user-select: text;
+    -webkit-user-select: text;
+    box-sizing: border-box;
+}
+
+.sct-terminal-output::placeholder {
     color: #64748b;
 }
 
-.sct-args-reset-btn {
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    color: #afbcc0;
-    font-size: 11px;
-    cursor: pointer;
-    padding: 0 4px;
-    outline: none;
-    transition: color 0.12s;
+.sct-terminal-output:focus {
+    border-color: #5d7398;
 }
 
-.sct-args-reset-btn:hover {
+.sct-terminal-expand-btn {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(43, 61, 90, 0.9);
+    border: 1px solid #4a5873;
+    border-radius: 0;
+    color: #cbd5e1;
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+    transition: background-color 120ms, border-color 120ms, color 120ms;
+    z-index: 2;
+}
+
+.sct-terminal-expand-btn:hover {
+    background: #485873;
+    border-color: #7c97c4;
     color: #ffffff;
+}
+
+.sct-terminal-expand-btn:active {
+    background: #4c6d9b;
+    transform: translateY(1px);
 }
 
 /* Tab: Settings & Configs */
@@ -2365,10 +2397,10 @@ html, body, #app {
     background: rgba(30, 42, 60, 0.45);
     border: 1px solid #3c4c64;
     box-shadow: none;
-    padding: 6px 10px;
+    padding: 3px 10px 6px 10px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .sct-config-files-container {
@@ -2542,97 +2574,6 @@ html, body, #app {
     height: 26px;
     padding: 0 12px;
     justify-content: center;
-}
-
-/* Unified Tools & Actions Panel */
-.sct-tools-grid-panel {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    margin: 2px 4px 4px 4px;
-    background: rgba(22, 32, 46, 0.7);
-    border: 1px solid #24354a;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-
-.sct-tools-header {
-    height: 18px;
-    line-height: 18px;
-    font-size: 9.25pt;
-    font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
-    font-weight: bold;
-    color: #cbd5e1;
-    text-align: center;
-    background: #1b2636;
-    border-bottom: 1px solid #24354a;
-    user-select: none;
-    flex-shrink: 0;
-}
-
-.sct-tools-grid {
-    flex: 1;
-    min-height: 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 1fr;
-    gap: 4px;
-    padding: 5px;
-    box-sizing: border-box;
-    overflow-y: auto;
-}
-
-.sct-tool-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 0 8px;
-    background-color: rgb(58, 69, 89);
-    border: 1px solid #4a5873;
-    border-radius: 0;
-    color: #e2e8f0;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    cursor: pointer;
-    outline: none;
-    user-select: none;
-    transition: background-color 130ms, border-color 130ms, color 130ms, transform 60ms;
-    text-align: left;
-    overflow: hidden;
-    box-sizing: border-box;
-}
-
-.sct-tool-btn:hover:not(:disabled) {
-    background-color: #485873;
-    border-color: #5d7398;
-    color: #ffffff;
-}
-
-.sct-tool-btn:active:not(:disabled) {
-    background-color: #4c6d9b;
-    border-color: #6389bd;
-    color: #ffffff;
-    transform: translateY(1px);
-}
-
-.sct-tool-btn:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-}
-
-.sct-tool-btn-icon {
-    width: 16px;
-    height: 16px;
-    object-fit: contain;
-    flex-shrink: 0;
-}
-
-.sct-tool-btn-text {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .sct-context-backdrop {

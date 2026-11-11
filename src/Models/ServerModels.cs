@@ -21,6 +21,7 @@ public class ServerItem
     public string CurrentInstance { get; set; } = "Default";
     public List<string> ConfigFiles { get; set; } = new() { "server.cfg" };
     public string LaunchArgs { get; set; } = "";
+    public string TerminalOutput { get; set; } = string.Empty;
     public bool IsRunning { get; set; } = false;
 
     // Universal Automation & Watchdog

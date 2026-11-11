@@ -15,67 +15,9 @@
         <div style="font-size:12px;">Loading application...</div>
       </div>
     </div>
-    <script>
-      (function () {
-        var isAbout = window.__SCT_WINDOW_LABEL__ === 'about';
-        if (!isAbout && window.__TAURI__ && window.__TAURI__.window && typeof window.__TAURI__.window.getCurrentWindow === 'function') {
-          try {
-            isAbout = window.__TAURI__.window.getCurrentWindow().label === 'about';
-          } catch (e) {}
-        }
-        if (isAbout && !window.location.pathname.endsWith('/about')) {
-          try {
-            window.history.replaceState(null, '', '/about');
-          } catch (e) {}
-        }
-      })();
-    </script>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script src="js/window-bridge.js"></script>
     <script>
-      function getTauriCore() {
-        if (window.__TAURI__ && window.__TAURI__.core) {
-          return window.__TAURI__.core;
-        }
-        return null;
-      }
-
-      function getTauriWindow() {
-        if (window.__TAURI__ && window.__TAURI__.window && typeof window.__TAURI__.window.getCurrentWindow === 'function') {
-          return window.__TAURI__.window.getCurrentWindow();
-        }
-        return null;
-      }
-
-      window.sctDragWindow = function () {
-        const core = getTauriCore();
-        if (core) {
-          core.invoke('start_drag').catch(function () {
-            const win = getTauriWindow();
-            if (win) win.startDragging();
-          });
-        } else {
-          const win = getTauriWindow();
-          if (win) win.startDragging();
-        }
-      };
-
-      window.sctCloseWindow = function () {
-        const core = getTauriCore();
-        if (core) {
-          core.invoke('window_close').catch(function () {
-            const win = getTauriWindow();
-            if (win) win.destroy();
-          });
-        } else {
-          const win = getTauriWindow();
-          if (win) {
-            win.destroy();
-          } else {
-            window.close();
-          }
-        }
-      };
-
       window.sctMinimizeWindow = function () {
         const core = getTauriCore();
         if (core) {
@@ -94,20 +36,8 @@
         if (core) {
           return core.invoke('open_about_window');
         }
-        window.open('/about', 'about', 'width=530,height=504,menubar=no,toolbar=no,location=no,status=no');
+        window.open('/about.html', 'about', 'width=530,height=504,menubar=no,toolbar=no,location=no,status=no');
         return Promise.resolve();
-      };
-
-      window.sctGetWindowType = function () {
-        if (window.__SCT_WINDOW_LABEL__ === 'about') return 'about';
-        try {
-          const win = getTauriWindow();
-          if (win && win.label === 'about') return 'about';
-        } catch (e) {}
-        if (window.location.search.includes('page=about') || window.location.hash.includes('about') || window.location.pathname.endsWith('/about')) {
-          return 'about';
-        }
-        return 'main';
       };
 
       window.sctGetElementRect = function (selector) {
@@ -268,28 +198,6 @@
         }
         return false;
       };
-
-      window.sctOpenUrl = function (url) {
-        const core = getTauriCore();
-        if (core) {
-          return core.invoke('open_url', { url: url });
-        } else {
-          window.open(url, '_blank');
-          return Promise.resolve();
-        }
-      };
-
-      document.addEventListener('mousedown', function (e) {
-        const titlebar = e.target.closest('#sct-titlebar') || e.target.closest('.sct-about-titlebar');
-        if (titlebar) {
-          if (e.target.closest('.sct-titlebar-controls') || e.target.closest('.sct-about-close-btn') || e.target.closest('button')) {
-            return;
-          }
-          if (e.button === 0) {
-            window.sctDragWindow();
-          }
-        }
-      });
     </script>
   </body>
 </html>

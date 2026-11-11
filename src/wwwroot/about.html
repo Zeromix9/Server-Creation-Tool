@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Server Creation Tool</title>
+    <base href="/" />
+    <link rel="stylesheet" href="css/app.css?v=38" />
+  </head>
+
+  <body style="margin:0;padding:0;background-color:#1e2b3e;">
+    <div class="sct-window-frame sct-about-window">
+      <div id="sct-titlebar" class="sct-titlebar">
+        <div class="sct-titlebar-left">
+          <img class="sct-titlebar-icon sct-about-titlebar-icon" src="img/icons/219116.png" alt="About Icon" />
+          <span class="sct-titlebar-title">About Server Creation Tool</span>
+        </div>
+        <div class="sct-titlebar-controls">
+          <button type="button" id="about-close-btn" class="sct-win-btn sct-win-btn-close" title="Close" aria-label="Close"></button>
+        </div>
+      </div>
+
+      <div class="sct-window-inner">
+        <div class="sct-border-left"></div>
+
+        <div class="sct-about-client">
+          <div class="sct-about-header">
+            <div class="sct-about-author-block">
+              <div class="sct-about-creator-title">
+                This Tool was created by <span class="sct-about-highlight">Zeromix</span>
+              </div>
+              <div class="sct-about-links-row">
+                <button type="button" class="sct-about-link-btn" data-url="https://steamcommunity.com/id/zeromix/">
+                  <span class="sct-link-icon">&#x1F3AE;</span> Steam Profile
+                </button>
+                <button type="button" class="sct-about-link-btn" data-url="https://www.youtube.com/channel/UCA5MGs8_on46jz-e5HZoTPQ">
+                  <span class="sct-link-icon">&#x1F4FA;</span> YouTube Channel
+                </button>
+              </div>
+            </div>
+
+            <div class="sct-about-divider"></div>
+
+            <div class="sct-about-devs-block">
+              <div class="sct-about-section-subtitle">Developers</div>
+              <div class="sct-about-devs-row">
+                <span class="sct-about-dev-name">BasisBit</span>
+                <span class="sct-about-dev-sep">,</span>
+                <button type="button" class="sct-about-dev-link" data-url="https://steamcommunity.com/profiles/76561198351612219">
+                  cookieoreo18
+                </button>
+                <span class="sct-about-dev-sep">,</span>
+                <span class="sct-about-dev-name">Zeromix</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sct-about-changelog-section">
+            <div class="sct-about-changelog-header">
+              <span class="sct-about-changelog-label">ChangeLog</span>
+              <span class="sct-about-badge">Version 5.2</span>
+            </div>
+            <div id="changelog-box" class="sct-about-changelog-box"></div>
+          </div>
+        </div>
+
+        <div class="sct-border-right"></div>
+      </div>
+
+      <div class="sct-border-bottom"></div>
+    </div>
+
+    <script src="js/window-bridge.js"></script>
+    <script>
+      document.getElementById('about-close-btn').addEventListener('click', function () {
+        window.sctCloseWindow();
+      });
+
+      document.querySelectorAll('[data-url]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          window.sctOpenUrl(btn.getAttribute('data-url'));
+        });
+      });
+
+      fetch('changelog.txt')
+        .then(function (res) { return res.text(); })
+        .then(function (text) {
+          const box = document.getElementById('changelog-box');
+          const blocks = text.split(/\r?\n\r?\n/).filter(function (b) { return b.trim().length > 0; });
+          const frag = document.createDocumentFragment();
+          for (const block of blocks) {
+            const lines = block.split(/\r?\n/).map(function (l) { return l.trim(); }).filter(Boolean);
+            if (lines.length === 0) continue;
+
+            const card = document.createElement('div');
+            card.className = 'sct-changelog-card';
+
+            const header = document.createElement('div');
+            header.className = 'sct-changelog-card-header';
+            header.textContent = lines[0];
+            card.appendChild(header);
+
+            if (lines.length > 1) {
+              const ul = document.createElement('ul');
+              ul.className = 'sct-changelog-card-list';
+              for (let i = 1; i < lines.length; i++) {
+                const li = document.createElement('li');
+                li.textContent = lines[i].replace(/^[-\s]+/, '');
+                ul.appendChild(li);
+              }
+              card.appendChild(ul);
+            }
+
+            frag.appendChild(card);
+          }
+          box.appendChild(frag);
+        })
+        .catch(function (err) {
+          console.error('Failed to load changelog:', err);
+        });
+    </script>
+  </body>
+</html>

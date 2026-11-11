@@ -1,50 +1,11 @@
-@inject IJSRuntime JSRuntime
-@inject NavigationManager Nav
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <p role="alert">Sorry, there is nothing at this address.</p>
+    </NotFound>
+</Router>
 
-@if (isAboutWindow)
-{
-    <ServerCreationTool.UI.Pages.About />
-}
-else
-{
-    <Router AppAssembly="@typeof(App).Assembly">
-        <Found Context="routeData">
-            <RouteView RouteData="@routeData" />
-        </Found>
-        <NotFound>
-            <PageTitle>Not found</PageTitle>
-            <p role="alert">Sorry, there is nothing at this address.</p>
-        </NotFound>
-    </Router>
-
-    <ModalHost />
-}
-
-@code {
-    private bool isAboutWindow = false;
-
-    protected override void OnInitialized()
-    {
-        if (Nav.Uri.Contains("about", StringComparison.OrdinalIgnoreCase))
-        {
-            isAboutWindow = true;
-        }
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender && !isAboutWindow)
-        {
-            try
-            {
-                var winType = await JSRuntime.InvokeAsync<string>("sctGetWindowType");
-                if (winType == "about")
-                {
-                    isAboutWindow = true;
-                    StateHasChanged();
-                }
-            }
-            catch { }
-        }
-    }
-}
+<ModalHost />

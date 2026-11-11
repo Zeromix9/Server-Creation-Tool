@@ -44,7 +44,7 @@ async fn window_close(window: tauri::WebviewWindow) -> Result<(), String> {
     if window.label() == "main" {
         std::process::exit(0);
     } else {
-        let _ = window.hide();
+        let _ = window.close();
     }
     Ok(())
 }
@@ -56,14 +56,13 @@ async fn open_about_window(app: tauri::AppHandle) -> Result<(), String> {
         let _ = window.show();
         let _ = window.set_focus();
     } else {
-        tauri::WebviewWindowBuilder::new(&app, "about", tauri::WebviewUrl::default())
+        tauri::WebviewWindowBuilder::new(&app, "about", tauri::WebviewUrl::App("about.html".into()))
             .title("About")
             .inner_size(530.0, 504.0)
             .resizable(false)
             .maximizable(false)
             .decorations(false)
             .center()
-            .initialization_script("window.__SCT_WINDOW_LABEL__ = 'about';")
             .build()
             .map_err(|e| e.to_string())?;
     }
@@ -228,11 +227,6 @@ pub fn run() {
             if window.label() == "main" {
                 if let tauri::WindowEvent::CloseRequested { .. } | tauri::WindowEvent::Destroyed = event {
                     std::process::exit(0);
-                }
-            } else if window.label() == "about" {
-                if let tauri::WindowEvent::CloseRequested { api, .. } = event {
-                    api.prevent_close();
-                    let _ = window.hide();
                 }
             }
         })

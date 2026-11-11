@@ -246,42 +246,63 @@
                                     {
                                         <!-- TAB 1: Overview -->
                                         <div class="sct-tab-pane">
-                                            <!-- Server Overview Card -->
-                                            <div class="sct-general-status-card">
-                                                <div class="sct-card-section-title">-Server Overview-</div>
-                                                <div class="sct-status-meta-grid">
-                                                    <div class="sct-meta-entry">
-                                                        <span class="sct-entry-label">Lifecycle State:</span>
-                                                        <span class="sct-entry-value">@(SelectedServer.IsRunning ? "Active Process (Running)" : SelectedServer.IsInstalled ? "Installed & Ready" : "Uninstalled")</span>
-                                                    </div>
-                                                    <div class="sct-meta-entry">
-                                                        <span class="sct-entry-label">Storage Footprint:</span>
-                                                        <span class="sct-entry-value">@SelectedServer.Size</span>
-                                                    </div>
-                                                    <div class="sct-meta-entry">
-                                                        <span class="sct-entry-label">Last Execution:</span>
-                                                        <span class="sct-entry-value">@SelectedServer.LastRan</span>
-                                                    </div>
-                                                    <div class="sct-meta-entry">
-                                                        <span class="sct-entry-label">Last Updated:</span>
-                                                        <span class="sct-entry-value">@SelectedServer.LastUpdated</span>
-                                                    </div>
-                                                    <div class="sct-meta-entry">
-                                                        <span class="sct-entry-label">Active Instance:</span>
-                                                        <span class="sct-entry-value">@SelectedServer.CurrentInstance</span>
-                                                    </div>
-                                                    <div class="sct-meta-entry full-span">
-                                                        <span class="sct-entry-label">Install Location:</span>
-                                                        <span class="sct-entry-value path" title="@_settings.ServerLibraryPath\@SelectedServer.Id">@_settings.ServerLibraryPath\@SelectedServer.Id</span>
+                                            @if (!_isTerminalExpanded)
+                                            {
+                                                <!-- Server Overview Card -->
+                                                <div class="sct-general-status-card">
+                                                    <div class="sct-card-section-title">-Server Overview-</div>
+                                                    <div class="sct-status-meta-grid">
+                                                        <div class="sct-meta-entry">
+                                                            <span class="sct-entry-label">Lifecycle State:</span>
+                                                            <span class="sct-entry-value">@(SelectedServer.IsRunning ? "Active Process (Running)" : SelectedServer.IsInstalled ? "Installed & Ready" : "Uninstalled")</span>
+                                                        </div>
+                                                        <div class="sct-meta-entry">
+                                                            <span class="sct-entry-label">Storage Footprint:</span>
+                                                            <span class="sct-entry-value">@SelectedServer.Size</span>
+                                                        </div>
+                                                        <div class="sct-meta-entry">
+                                                            <span class="sct-entry-label">Last Execution:</span>
+                                                            <span class="sct-entry-value">@SelectedServer.LastRan</span>
+                                                        </div>
+                                                        <div class="sct-meta-entry">
+                                                            <span class="sct-entry-label">Last Updated:</span>
+                                                            <span class="sct-entry-value">@SelectedServer.LastUpdated</span>
+                                                        </div>
+                                                        <div class="sct-meta-entry">
+                                                            <span class="sct-entry-label">Active Instance:</span>
+                                                            <span class="sct-entry-value">@SelectedServer.CurrentInstance</span>
+                                                        </div>
+                                                        <div class="sct-meta-entry full-span">
+                                                            <span class="sct-entry-label">Install Location:</span>
+                                                            <span class="sct-entry-value path" title="@_settings.ServerLibraryPath\@SelectedServer.Id">@_settings.ServerLibraryPath\@SelectedServer.Id</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            }
 
-                                            <!-- Custom Startup Arguments -->
-                                            <div class="sct-launch-args-row">
-                                                <span class="sct-args-label">Startup Args:</span>
-                                                <input type="text" class="sct-args-input" @bind="SelectedServer.LaunchArgs" placeholder="Optional custom command line flags or parameters..." />
-                                                <button type="button" class="sct-args-reset-btn" @onclick="ResetDefaultArgs" title="Clear startup arguments">✕</button>
+                                            <!-- Terminal Output -->
+                                            <div class="sct-terminal-wrapper @(_isTerminalExpanded ? "expanded" : "")">
+                                                <textarea class="sct-terminal-output"
+                                                          readonly
+                                                          placeholder="Terminal output will appear here...">@SelectedServer.TerminalOutput</textarea>
+                                                <button type="button"
+                                                        class="sct-terminal-expand-btn"
+                                                        @onclick="ToggleTerminalExpand"
+                                                        title="@(_isTerminalExpanded ? "Restore overview layout" : "Expand terminal output")"
+                                                        aria-label="@(_isTerminalExpanded ? "Restore overview layout" : "Expand terminal output")">
+                                                    @if (_isTerminalExpanded)
+                                                    {
+                                                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                                                            <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                                                        </svg>
+                                                    }
+                                                    else
+                                                    {
+                                                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                                                            <path d="M2 6.5L5 3.5L8 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                                                        </svg>
+                                                    }
+                                                </button>
                                             </div>
                                         </div>
                                     }
@@ -313,11 +334,11 @@
                                                 <div class="sct-card-section-title">-Backups-</div>
                                                 <div class="sct-tools-row-2">
                                                     <button type="button" class="sct-tool-btn" @onclick="BackupServer" disabled="@(!SelectedServer?.IsInstalled ?? true)">
-                                                        <span style="font-size: 13px; margin-right: 2px;">💾</span>
+                                                        <span style="font-size: 12px; margin-right: 2px;">💾</span>
                                                         <span class="sct-tool-btn-text">Backup Server</span>
                                                     </button>
                                                     <button type="button" class="sct-tool-btn" @onclick="RestoreBackup" disabled="@(!SelectedServer?.IsInstalled ?? true)">
-                                                        <span style="font-size: 13px; margin-right: 2px;">📦</span>
+                                                        <span style="font-size: 12px; margin-right: 2px;">📦</span>
                                                         <span class="sct-tool-btn-text">Restore Backup</span>
                                                     </button>
                                                 </div>
@@ -425,16 +446,6 @@
                                                             }
                                                         </div>
                                                     }
-                                                    <div class="sct-config-actions-row">
-                                                        <button type="button" class="sct-tool-btn" @onclick="CreateCustomConfig" disabled="@(!SelectedServer?.IsInstalled ?? true)">
-                                                            <img src="img/icons/1645.png" class="sct-tool-btn-icon" alt="" />
-                                                            <span class="sct-tool-btn-text">Add Config File...</span>
-                                                        </button>
-                                                        <button type="button" class="sct-tool-btn" @onclick="OpenFolder" disabled="@(!SelectedServer?.IsInstalled ?? true)">
-                                                            <img src="img/icons/468.png" class="sct-tool-btn-icon" alt="" />
-                                                            <span class="sct-tool-btn-text">Open Folder</span>
-                                                        </button>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -633,8 +644,10 @@
     private string _searchQuery = string.Empty;
     private bool _isInstanceMenuOpen = false;
     private string _activeTab = "general";
+    private bool _isTerminalExpanded = false;
 
     private void SetActiveTab(string tab) => _activeTab = tab;
+    private void ToggleTerminalExpand() => _isTerminalExpanded = !_isTerminalExpanded;
 
     private AppSettings _settings = new();
     private ServerItem? SelectedServer;
@@ -960,10 +973,12 @@
         await Modal.AlertAsync($"New instance '{newName}' created for {SelectedServer.Name}.", "Instance Created");
     }
 
-    private void ResetDefaultArgs()
+    private void AppendTerminalLine(ServerItem server, string message)
     {
-        if (SelectedServer == null) return;
-        SelectedServer.LaunchArgs = string.Empty;
+        var line = $"[{DateTime.Now:HH:mm:ss}] {message}";
+        server.TerminalOutput = string.IsNullOrEmpty(server.TerminalOutput)
+            ? line
+            : $"{server.TerminalOutput}\n{line}";
     }
 
     private async Task BackupServer()
@@ -995,13 +1010,15 @@
         if (SelectedServer.IsRunning)
         {
             SelectedServer.IsRunning = false;
+            AppendTerminalLine(SelectedServer, $"Stopped {SelectedServer.Name} ({SelectedServer.CurrentInstance}).");
             await Modal.AlertAsync($"Server process for {SelectedServer.Name} ({SelectedServer.CurrentInstance}) stopped.", "Server Stopped", "⏹");
             return;
         }
 
         SelectedServer.IsRunning = true;
         SelectedServer.LastRan = DateTime.Now.ToString("dd/MM/yyyy");
-        await Modal.AlertAsync($"Starting {SelectedServer.Name} ({SelectedServer.CurrentInstance})...\nLaunch Parameters: {SelectedServer.LaunchArgs}\n\nServer process launched successfully.", "Server Started", "▶");
+        AppendTerminalLine(SelectedServer, $"Starting {SelectedServer.Name} ({SelectedServer.CurrentInstance})...");
+        await Modal.AlertAsync($"Starting {SelectedServer.Name} ({SelectedServer.CurrentInstance})...\n\nServer process launched successfully.", "Server Started", "▶");
     }
 
     private async Task InstallServer()
@@ -1012,6 +1029,7 @@
         {
             SelectedServer.IsInstalled = true;
             SelectedServer.LastUpdated = DateTime.Now.ToString("dd/MM/yyyy");
+            AppendTerminalLine(SelectedServer, $"Installed {SelectedServer.Name} to {_settings.ServerLibraryPath}\\{SelectedServer.Id}.");
             await Modal.AlertAsync($"Installation completed successfully for {SelectedServer.Name}!", "Installed");
         }
     }
@@ -1023,6 +1041,7 @@
         if (confirmed)
         {
             SelectedServer.LastUpdated = DateTime.Now.ToString("dd/MM/yyyy");
+            AppendTerminalLine(SelectedServer, $"Validated and repaired files for {SelectedServer.Name}.");
             await Modal.AlertAsync($"Validation finished. All files for {SelectedServer.Name} are intact.", "Verification Complete");
         }
     }
@@ -1034,6 +1053,7 @@
         if (confirmed)
         {
             SelectedServer.IsInstalled = false;
+            AppendTerminalLine(SelectedServer, $"Removed {SelectedServer.Name} files from library.");
             await Modal.AlertAsync($"Server {SelectedServer.Name} removed from library.", "Deleted");
         }
     }
