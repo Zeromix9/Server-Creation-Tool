@@ -204,9 +204,9 @@ html, body, #app {
 }
 
 .sct-main-content-wrapper {
-    width: 607px;
-    min-width: 607px;
-    max-width: 607px;
+    width: 800px;
+    min-width: 800px;
+    max-width: 800px;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
@@ -215,18 +215,20 @@ html, body, #app {
     padding: 2px 4px 4px 4px;
 }
 
-/* Top Ribbon Bar (WinForms helpInfBar2.png) */
+/* Top Ribbon Bar (CSS styled) */
 .sct-ribbon-bar {
     height: 42px;
-    background-image: url('../img/ui/helpInfBar2.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    background-color: rgba(35, 51, 76, 0.72);
+    border-radius: 4px;
+    border: none;
+    box-shadow: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 6px;
     flex-shrink: 0;
     margin-bottom: 4px;
+    box-sizing: border-box;
 }
 
 .sct-ribbon-left {
@@ -412,16 +414,18 @@ html, body, #app {
     pointer-events: none;
 }
 
-/* Server List Panel (WinForms srvPanel.png) */
+/* Server List Panel (CSS styled - semi-transparent rounded container matching original) */
 .sct-server-panel-container {
     flex: 1;
-    background-image: url('../img/ui/srvPanel.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    background-color: rgba(38, 54, 81, 0.73);
+    border-radius: 4px;
+    border: none;
+    box-shadow: none;
     display: flex;
     flex-direction: column;
     padding: 3px;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .sct-list-item-welcome {
@@ -553,7 +557,7 @@ html, body, #app {
     object-fit: contain;
 }
 
-/* Right Column (WinForms mainPanel.png) */
+/* Right Column (CSS styled - semi-transparent rounded container matching original) */
 .sct-right-column {
     flex: 1;
     min-width: 0;
@@ -565,15 +569,17 @@ html, body, #app {
 
 .sct-main-srv-panel {
     flex: 1;
-    background-image: url('../img/ui/mainPanel.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    background-color: rgba(38, 54, 81, 0.73);
+    border-radius: 4px;
+    border: none;
+    box-shadow: none;
     display: flex;
     flex-direction: column;
     padding: 0;
     margin: 0;
     overflow: hidden;
     position: relative;
+    box-sizing: border-box;
 }
 
 .sct-srv-header-row {
@@ -621,6 +627,13 @@ html, body, #app {
     font-size: 8px;
     color: #94a3b8;
     margin-left: 2px;
+}
+
+.sct-instance-badge {
+    color: #38bdf8;
+    font-size: 11px;
+    font-weight: 700;
+    margin-left: 4px;
 }
 
 .sct-instances-popup {
@@ -708,18 +721,20 @@ html, body, #app {
     -webkit-user-drag: none;
 }
 
-/* Control Bar (WinForms instBtnAndInfBar2.png) */
+/* Control Bar (CSS styled - matching original instBtnAndInfBar2) */
 .sct-control-bar-panel {
     height: 40px;
-    background-image: url('../img/ui/instBtnAndInfBar2.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    background-color: rgba(46, 66, 96, 0.73);
+    border-radius: 4px;
+    border: none;
+    box-shadow: none;
     display: flex;
     align-items: center;
     padding: 4px 6px;
     gap: 8px;
     flex-shrink: 0;
     margin: 0 4px 4px 4px;
+    box-sizing: border-box;
 }
 
 /* WinForms installSrvBtn (customSmoothBtn): 124x30, Segoe UI Semibold 11.25pt (not bold), Icon Left, Text Centered */
@@ -733,7 +748,7 @@ html, body, #app {
     border-radius: 0;
     outline: none;
     font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
-    font-size: 11.25pt;
+    font-size: 11.5pt;
     font-weight: normal;
     color: #ffffff;
     cursor: pointer;
@@ -892,25 +907,25 @@ html, body, #app {
 
 .sct-sub-panel {
     flex: 1;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    background-color: rgba(46, 66, 96, 0.73);
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
     display: flex;
     flex-direction: column;
     padding: 1px 0 0 0;
     overflow-y: auto;
     overflow-x: hidden;
+    box-sizing: border-box;
 }
 
-.sct-extra-panel {
-    background-image: url('../img/ui/extrPnl.png');
-}
-
+.sct-extra-panel,
 .sct-actions-panel {
-    background-image: url('../img/ui/actPnl.png');
+    background-color: rgba(46, 66, 96, 0.73);
 }
 
 .sct-sub-panel-title {
-    font-size: 9pt;
+    font-size: 9.25pt;
     font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
     font-weight: bold;
     color: #e0e8f0;
@@ -944,7 +959,7 @@ html, body, #app {
     border-radius: 0;
     padding: 0;
     margin: 0;
-    font-size: 8.25pt;
+    font-size: 8.5pt;
     font-family: 'Segoe UI', sans-serif;
     color: #cbd5e1;
     cursor: pointer;
@@ -1019,9 +1034,10 @@ html, body, #app {
 
 .sct-welcome-banner {
     height: 87px;
-    background-image: url('../img/ui/welcomePnl2.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    background-color: rgba(38, 54, 81, 0.73);
+    border-radius: 4px;
+    border: none;
+    box-shadow: none;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1029,6 +1045,7 @@ html, body, #app {
     text-align: center;
     padding: 8px;
     flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 .sct-welcome-headline {
@@ -1095,15 +1112,17 @@ html, body, #app {
     min-width: 109px;
     max-width: 109px;
     flex-shrink: 0;
-    background-image: url('../img/ui/extraPnl.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    background-color: rgba(46, 66, 96, 0.73);
+    border-radius: 4px;
+    border: none;
+    box-shadow: none;
     display: flex;
     flex-direction: column;
     padding: 0;
     gap: 0;
     overflow-y: auto;
     overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .sct-side-btn {
@@ -1120,7 +1139,7 @@ html, body, #app {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 8.25pt;
+    font-size: 8.5pt;
     font-family: 'Segoe UI', sans-serif;
     color: #cbd5e1;
     line-height: 1.15;
@@ -1676,8 +1695,946 @@ html, body, #app {
 }
 
 /* ==========================================================================
-   Custom WinForms Context Menu Strip (contexMenuStripFrm)
+   Option A: Compact Hero Header, Primary Action Bar, Args, & Unified Tools
    ========================================================================== */
+.sct-hero-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    margin: 4px 4px 2px 4px;
+    background: rgba(22, 32, 46, 0.75);
+    border: 1px solid #28374d;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    user-select: none;
+}
+
+.sct-hero-thumb-box {
+    width: 80px;
+    height: 74px;
+    background: #131b26;
+    border: 1px solid #233145;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+.sct-hero-thumb-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.sct-hero-details {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sct-hero-top-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+}
+
+.sct-hero-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #f1f5f9;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sct-hero-inst-pill {
+    background: #1a2738;
+    border: 1px solid #2d425f;
+    border-radius: 0;
+    color: #93c5fd;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    outline: none;
+    transition: all 0.12s;
+    user-select: none;
+}
+
+.sct-hero-inst-pill:hover,
+.sct-hero-inst-pill.active {
+    background: #253750;
+    color: #ffffff;
+    border-color: #38bdf8;
+}
+
+.sct-hero-pills-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    line-height: 1;
+}
+
+.sct-status-pill {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    border-radius: 0;
+}
+
+.sct-status-pill.state-running {
+    background: rgba(34, 197, 94, 0.18);
+    color: #4ade80;
+    border: 1px solid #22c55e;
+}
+
+.sct-status-pill.state-installed {
+    background: rgba(56, 189, 248, 0.16);
+    color: #38bdf8;
+    border: 1px solid #0284c7;
+}
+
+.sct-status-pill.state-uninstalled {
+    background: rgba(148, 163, 184, 0.12);
+    color: #94a3b8;
+    border: 1px solid #475569;
+}
+
+.sct-appid-pill {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 5px;
+    background: rgba(168, 85, 247, 0.15);
+    color: #c084fc;
+    border: 1px solid #9333ea;
+    border-radius: 0;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.sct-address-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    color: #cbd5e1;
+    background: #141c28;
+    border: 1px solid #2d3f58;
+    border-radius: 0;
+    padding: 2px 6px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.12s;
+}
+
+.sct-address-pill:hover {
+    background: #23344d;
+    color: #ffffff;
+    border-color: #38bdf8;
+}
+
+.sct-meta-stat {
+    font-size: 10px;
+    color: #8899aa;
+    white-space: nowrap;
+}
+
+.sct-hero-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+/* Primary Actions Bar */
+.sct-primary-actions-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    margin: 2px 4px;
+    background: rgba(22, 32, 46, 0.7);
+    border: 1px solid #25374e;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.sct-bar-btn {
+    height: 30px;
+    padding: 0 10px;
+    background-color: rgb(58, 69, 89);
+    border: 1px solid #4a5873;
+    border-radius: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #e2e8f0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    outline: none;
+    user-select: none;
+    transition: background-color 130ms, border-color 130ms, color 130ms;
+}
+
+.sct-bar-btn:hover:not(:disabled) {
+    background-color: #485873;
+    border-color: #5d7398;
+    color: #ffffff;
+}
+
+.sct-bar-btn:active:not(:disabled),
+.sct-bar-btn.active {
+    background-color: #4c6d9b;
+    border-color: #6389bd;
+    color: #ffffff;
+}
+
+.sct-bar-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.sct-bar-btn-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+/* Option B: Authentic WinForms Tabbed Workspace (Sharp Rectangular Tab & Content) */
+.sct-tab-strip {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    padding: 0;
+    margin: 2px 4px 0 4px;
+    background: transparent;
+    border-bottom: 1px solid #4a5873;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.sct-tab-btn {
+    height: 24px;
+    background-color: rgba(38, 54, 81, 0.6);
+    border: 1px solid #45556f;
+    border-bottom: none;
+    border-radius: 0; /* Sharp corner rectangle */
+    color: #cbd5e1;
+    font-family: 'Segoe UI Semibold', 'Segoe UI', Tahoma, sans-serif;
+    font-size: 8.75pt;
+    font-weight: 600;
+    padding: 0 7px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    transition: background-color 0.12s, color 0.12s, border-color 0.12s;
+    position: relative;
+}
+
+.sct-tab-btn:hover {
+    background-color: #364c72;
+    border-color: #586c8a;
+    color: #ffffff;
+}
+
+.sct-tab-btn.active {
+    background-color: #2b3d5a;
+    border: 1px solid #4a5873;
+    border-bottom: none;
+    border-radius: 0; /* Sharp corner rectangle */
+    color: #ffffff;
+    font-weight: bold;
+    z-index: 5;
+    height: 25px;
+    margin-bottom: -1px;
+}
+
+.sct-tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #2b3d5a;
+    z-index: 6;
+    pointer-events: none;
+}
+
+.sct-tab-icon {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.sct-tab-content {
+    flex: 1;
+    min-height: 0;
+    background-color: #2b3d5a;
+    border: 1px solid #4a5873;
+    border-top: none;
+    border-radius: 0; /* Sharp corner rectangle */
+    box-shadow: none;
+    margin: 0 4px 4px 4px;
+    padding: 6px 8px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+.sct-tab-pane {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.sct-tab-pane .sct-primary-actions-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.sct-bar-btn {
+    flex: 1;
+    height: 26px;
+    background-color: rgb(58, 69, 89);
+    border: 1px solid #4a5873;
+    border-radius: 0;
+    color: #ffffff;
+    font-family: 'Segoe UI Semibold', 'Segoe UI', Tahoma, sans-serif;
+    font-size: 8.75pt;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 6px;
+    outline: none;
+    user-select: none;
+    transition: background-color 130ms, border-color 130ms;
+}
+
+.sct-bar-btn:hover:not(:disabled) {
+    background-color: #485873;
+    border-color: #5d7398;
+    color: #ffffff;
+}
+
+.sct-bar-btn:active:not(:disabled) {
+    background-color: #4c6d9b;
+    border-color: #6389bd;
+    transform: translateY(1px);
+}
+
+.sct-bar-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.sct-bar-btn-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* Tab 1: General View Elements */
+.sct-general-status-card {
+    background: rgba(30, 42, 60, 0.45);
+    border: 1px solid #3c4c64;
+    box-shadow: none;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sct-card-section-title {
+    font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
+    font-size: 9.25pt;
+    font-weight: bold;
+    color: #e0e8f0;
+    text-align: center;
+    border-bottom: 1px solid #3c4c64;
+    padding-bottom: 3px;
+    user-select: none;
+    margin: 0;
+}
+
+.sct-status-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 12px;
+}
+
+.sct-meta-entry {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 8.75pt;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+.sct-meta-entry.full-span {
+    grid-column: 1 / -1;
+}
+
+.sct-entry-label {
+    color: #afbcc0;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.sct-entry-value {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.sct-entry-value.path {
+    color: #00c0c0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 8.75pt;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Tab 2: Tools & Maintenance */
+.sct-tools-section-card {
+    background: rgba(30, 42, 60, 0.45);
+    border: 1px solid #3c4c64;
+    box-shadow: none;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sct-tools-row-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+.sct-tools-row-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+
+.sct-tab-pane .sct-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 28px;
+    gap: 6px;
+    padding: 2px 0;
+}
+
+.sct-tool-btn {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 8px;
+    background-color: rgb(58, 69, 89);
+    border: 1px solid #4a5873;
+    border-radius: 0;
+    color: #e2e8f0;
+    font-family: 'Segoe UI Semibold', 'Segoe UI', Tahoma, sans-serif;
+    font-size: 8.75pt;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    transition: background-color 130ms, border-color 130ms, color 130ms, transform 60ms;
+    text-align: center;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.sct-tool-btn:hover:not(:disabled) {
+    background-color: #485873;
+    border-color: #5d7398;
+    color: #ffffff;
+}
+
+.sct-tool-btn:active:not(:disabled) {
+    background-color: #4c6d9b;
+    border-color: #6389bd;
+    color: #ffffff;
+    transform: translateY(1px);
+}
+
+.sct-tool-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.sct-tool-btn-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.sct-tool-btn-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Tab 3: Automation & Watchdog Cards */
+.sct-auto-card {
+    background: rgba(30, 42, 60, 0.45);
+    border: 1px solid #3c4c64;
+    box-shadow: none;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sct-auto-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.sct-check-title {
+    font-size: 8.75pt;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.sct-auto-hint {
+    font-size: 8.25pt;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #94a3b8;
+    padding-left: 19px;
+    line-height: 1.25;
+}
+
+.sct-auto-row-split {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.sct-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 8.75pt;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #cbd5e1;
+    cursor: pointer;
+    user-select: none;
+}
+
+.sct-checkbox-label:hover {
+    color: #ffffff;
+}
+
+.sct-win-checkbox {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.sct-auto-field-label {
+    font-size: 8.75pt;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #afbcc0;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.sct-auto-select {
+    height: 22px;
+    background: #273654;
+    border: 1px solid #5d7ca8;
+    border-radius: 0;
+    color: #f1f5f9;
+    padding: 0 4px;
+    font-size: 8.75pt;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    outline: none;
+    cursor: pointer;
+}
+
+.sct-auto-select:focus {
+    border-color: #7da0cf;
+    background: #2c3e60;
+}
+
+.sct-auto-select:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* Launch Parameters Row */
+.sct-launch-args-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 6px;
+    margin: 0;
+    background: rgba(25, 35, 50, 0.45);
+    border: 1px solid #3c4c64;
+    box-shadow: none;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.sct-args-label {
+    font-size: 8.75pt;
+    font-weight: 700;
+    color: #afbcc0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    white-space: nowrap;
+}
+
+.sct-args-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    font-size: 8.75pt;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #ffffff;
+    outline: none;
+    padding: 1px 4px;
+    border-radius: 0;
+}
+
+.sct-args-input::placeholder {
+    color: #64748b;
+}
+
+.sct-args-reset-btn {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    color: #afbcc0;
+    font-size: 11px;
+    cursor: pointer;
+    padding: 0 4px;
+    outline: none;
+    transition: color 0.12s;
+}
+
+.sct-args-reset-btn:hover {
+    color: #ffffff;
+}
+
+/* Tab: Settings & Configs */
+.sct-settings-card {
+    background: rgba(30, 42, 60, 0.45);
+    border: 1px solid #3c4c64;
+    box-shadow: none;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sct-config-files-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sct-config-files-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+
+.sct-config-file-row-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    height: 28px;
+    background-color: rgb(58, 69, 89);
+    border: 1px solid #4a5873;
+    border-radius: 0;
+    color: #ffffff;
+    font-family: 'Segoe UI Semibold', 'Segoe UI', Tahoma, sans-serif;
+    font-size: 8.75pt;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    text-align: left;
+    transition: background-color 130ms, border-color 130ms;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.sct-config-file-row-btn:hover {
+    background-color: #485873;
+    border-color: #5d7398;
+}
+
+.sct-config-file-row-btn:active {
+    background-color: #4c6d9b;
+    border-color: #6389bd;
+    transform: translateY(1px);
+}
+
+.sct-config-file-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.sct-config-file-name {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sct-config-file-action {
+    font-size: 8pt;
+    color: #94a3b8;
+    font-weight: normal;
+    white-space: nowrap;
+}
+
+.sct-config-file-row-btn:hover .sct-config-file-action {
+    color: #38bdf8;
+}
+
+.sct-config-actions-row {
+    display: flex;
+    gap: 6px;
+}
+
+.sct-config-actions-row .sct-tool-btn {
+    flex: 1;
+    height: 26px;
+    justify-content: center;
+}
+
+.sct-settings-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sct-settings-checkboxes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 12px;
+}
+
+.sct-settings-fields-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-top: 1px solid #3c4c64;
+    padding-top: 6px;
+}
+
+.sct-settings-field-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sct-settings-field-row .sct-auto-field-label {
+    width: 120px;
+    flex-shrink: 0;
+}
+
+.sct-settings-input {
+    flex: 1;
+    height: 22px;
+    background: #273654;
+    border: 1px solid #5d7ca8;
+    border-radius: 0;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 8.75pt;
+    padding: 0 6px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.sct-settings-input:focus {
+    border-color: #7da0cf;
+    background: #2c3e60;
+}
+
+.sct-settings-mini-btn {
+    height: 22px;
+    padding: 0 8px;
+    background-color: rgb(58, 69, 89);
+    border: 1px solid #4a5873;
+    border-radius: 0;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 8.5pt;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    white-space: nowrap;
+    transition: background-color 130ms, border-color 130ms;
+}
+
+.sct-settings-mini-btn:hover {
+    background-color: #485873;
+    border-color: #5d7398;
+}
+
+.sct-settings-mini-btn:active {
+    background-color: #4c6d9b;
+    border-color: #6389bd;
+}
+
+.sct-settings-buttons-bar {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 2px;
+    border-top: 1px solid #3c4c64;
+    padding-top: 6px;
+}
+
+.sct-settings-buttons-bar .sct-tool-btn {
+    height: 26px;
+    padding: 0 12px;
+    justify-content: center;
+}
+
+/* Unified Tools & Actions Panel */
+.sct-tools-grid-panel {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    margin: 2px 4px 4px 4px;
+    background: rgba(22, 32, 46, 0.7);
+    border: 1px solid #24354a;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.sct-tools-header {
+    height: 18px;
+    line-height: 18px;
+    font-size: 9.25pt;
+    font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
+    font-weight: bold;
+    color: #cbd5e1;
+    text-align: center;
+    background: #1b2636;
+    border-bottom: 1px solid #24354a;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.sct-tools-grid {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 4px;
+    padding: 5px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.sct-tool-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 8px;
+    background-color: rgb(58, 69, 89);
+    border: 1px solid #4a5873;
+    border-radius: 0;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    transition: background-color 130ms, border-color 130ms, color 130ms, transform 60ms;
+    text-align: left;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.sct-tool-btn:hover:not(:disabled) {
+    background-color: #485873;
+    border-color: #5d7398;
+    color: #ffffff;
+}
+
+.sct-tool-btn:active:not(:disabled) {
+    background-color: #4c6d9b;
+    border-color: #6389bd;
+    color: #ffffff;
+    transform: translateY(1px);
+}
+
+.sct-tool-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.sct-tool-btn-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.sct-tool-btn-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .sct-context-backdrop {
     position: fixed;
     top: 0;

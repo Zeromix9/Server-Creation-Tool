@@ -128,12 +128,16 @@ fn clear_steamcmd_cache(install_dir: String) -> Result<bool, String> {
 #[tauri::command]
 fn window_set_width(app: tauri::AppHandle, width: f64) -> Result<(), String> {
     if let Some(window) = app.get_webview_window("main") {
+        let scale = window.scale_factor().unwrap_or(1.0);
+        let h = window.inner_size().map(|s| (s.height as f64) / scale).unwrap_or(480.0);
         window
-            .set_size(tauri::LogicalSize::new(width, 420.0))
+            .set_size(tauri::LogicalSize::new(width, h))
             .map_err(|e| e.to_string())?;
     } else if let Some((_, window)) = app.webview_windows().into_iter().next() {
+        let scale = window.scale_factor().unwrap_or(1.0);
+        let h = window.inner_size().map(|s| (s.height as f64) / scale).unwrap_or(480.0);
         window
-            .set_size(tauri::LogicalSize::new(width, 420.0))
+            .set_size(tauri::LogicalSize::new(width, h))
             .map_err(|e| e.to_string())?;
     }
     Ok(())
@@ -147,6 +151,19 @@ fn pick_folder() -> Result<Option<String>, String> {
 
     match folder {
         Some(dir) => Ok(Some(dir.to_string_lossy().to_string())),
+        None => Ok(None),
+    }
+}
+
+#[tauri::command]
+fn pick_file() -> Result<Option<String>, String> {
+    let file = rfd::FileDialog::new()
+        .set_title("Select Text Editor Executable")
+        .add_filter("Executable (*.exe)", &["exe"])
+        .pick_file();
+
+    match file {
+        Some(f) => Ok(Some(f.to_string_lossy().to_string())),
         None => Ok(None),
     }
 }
@@ -169,9 +186,11 @@ fn open_folder(path: String) {
 fn open_file(path: String) {
     #[cfg(target_os = "windows")]
     {
-        let _ = std::process::Command::new("notepad")
-            .arg(&path)
-            .spawn();
+        if tauri_plugin_opener::open_path(&path, None::<&str>).is_err() {
+            let _ = std::process::Command::new("notepad")
+                .arg(&path)
+                .spawn();
+        }
     }
     #[cfg(not(target_os = "windows"))]
     {
@@ -226,6 +245,7 @@ pub fn run() {
             start_steamcmd,
             clear_steamcmd_cache,
             pick_folder,
+            pick_file,
             open_folder,
             open_file,
             open_url,

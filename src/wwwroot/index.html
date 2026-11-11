@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Server Creation Tool 5.2</title>
     <base href="/" />
-    <link rel="stylesheet" href="css/app.css?v=32" />
+    <link rel="stylesheet" href="css/app.css?v=38" />
   </head>
 
   <body style="margin:0;padding:0;background-color:#1b2838;">
@@ -145,7 +145,7 @@
       };
 
       let sctWidthAnimId = null;
-      let sctCurrentWindowWidth = 627;
+      let sctCurrentWindowWidth = window.innerWidth || 820;
 
       window.sctAnimateWindowWidth = function (targetWidth, durationMs = 350) {
         if (sctWidthAnimId) {
@@ -211,6 +211,14 @@
         return Promise.resolve(null);
       };
 
+      window.sctPickFile = function () {
+        const core = getTauriCore();
+        if (core) {
+          return core.invoke('pick_file');
+        }
+        return Promise.resolve(null);
+      };
+
       window.sctOpenFolder = function (path) {
         const core = getTauriCore();
         if (core) {
@@ -225,6 +233,20 @@
           return core.invoke('open_file', { path: path });
         }
         return Promise.resolve();
+      };
+
+      window.sctCopyToClipboard = function (text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          return Promise.resolve();
+        }
       };
 
       window.sctShowContextMenu = async function (x, y, files, libraryPath, serverId) {

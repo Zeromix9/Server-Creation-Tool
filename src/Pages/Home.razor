@@ -138,12 +138,13 @@
                         }
                         else if (SelectedServer != null)
                         {
-                            <!-- Main Server Panel (WinForms mainPanel.png) -->
+                            <!-- Main Server Panel (Tabbed with Authentic Centered Logo & Control Bar) -->
                             <div class="sct-main-srv-panel">
                                 <!-- Server Name / Instance Dropdown -->
                                 <div class="sct-srv-header-row">
                                     <button type="button" class="sct-instance-dropdown-btn @(_isInstanceMenuOpen ? "active" : "")" @onclick="ToggleInstanceMenu" @onclick:stopPropagation="true">
                                         <span>@SelectedServer.Name</span>
+                                        <span class="sct-instance-badge">[@SelectedServer.CurrentInstance]</span>
                                         <span class="sct-caret">▼</span>
                                     </button>
 
@@ -175,9 +176,9 @@
                                 <div class="sct-control-bar-panel">
                                     @if (SelectedServer.IsInstalled)
                                     {
-                                        <button type="button" class="sct-srv-action-btn state-start" @onclick="StartServer">
-                                            <img src="img/icons/start_img.png" class="sct-srv-btn-icon" alt="" />
-                                            <span class="sct-srv-btn-text">Start</span>
+                                        <button type="button" class="sct-srv-action-btn @(SelectedServer.IsRunning ? "state-stop" : "state-start")" @onclick="StartServer">
+                                            <img src="@(SelectedServer.IsRunning ? "img/icons/icons8-stop-24.png" : "img/icons/start_img.png")" class="sct-srv-btn-icon" alt="" />
+                                            <span class="sct-srv-btn-text">@(SelectedServer.IsRunning ? "Stop" : "Start")</span>
                                         </button>
                                     }
                                     else
@@ -189,15 +190,22 @@
                                     }
 
                                     <div class="sct-size-display">
+                                        <span class="sct-size-lbl-top">-STATUS-</span>
+                                        <span class="sct-size-lbl-val" style="color: @(SelectedServer.IsRunning ? "#4ade80" : SelectedServer.IsInstalled ? "#38bdf8" : "#94a3b8");">
+                                            @(SelectedServer.IsRunning ? "Running" : SelectedServer.IsInstalled ? "Ready" : "Uninstalled")
+                                        </span>
+                                    </div>
+
+                                    <div class="sct-size-display">
                                         <span class="sct-size-lbl-top">-SIZE-</span>
                                         <span class="sct-size-lbl-val">@SelectedServer.Size</span>
                                     </div>
 
                                     @if (!string.IsNullOrEmpty(SelectedServer.LastRan) && SelectedServer.LastRan != "Never")
                                     {
-                                        <div class="sct-size-display" style="margin-left: 8px;">
+                                        <div class="sct-size-display" style="margin-left: 4px;">
                                             <span class="sct-size-lbl-top">-LAST RAN-</span>
-                                            <span class="sct-size-lbl-val" style="font-size: 10px;">@SelectedServer.LastRan</span>
+                                            <span class="sct-size-lbl-val" style="font-size: 8.75pt;">@SelectedServer.LastRan</span>
                                         </div>
                                     }
 
@@ -212,62 +220,286 @@
                                     </div>
                                 </div>
 
-                                <!-- Lower Two Panels: -Extra- and -Actions- -->
-                                <div class="sct-lower-panels-row">
-                                    <!-- -Extra- Panel (WinForms extrPnl.png) -->
-                                    <div class="sct-sub-panel sct-extra-panel">
-                                        <div class="sct-sub-panel-title">-Extra-</div>
-                                        <div class="sct-sub-panel-links">
-                                            @if (SelectedServer.HasGuide)
-                                            {
-                                                <button type="button" class="sct-action-link" @onclick="OpenInstallationGuide">
-                                                    <img src="img/icons/1091.png" class="sct-action-link-icon" alt="Guide" />
-                                                    <span class="sct-action-link-text">Installation Guide</span>
-                                                </button>
-                                            }
+                                <!-- Retro Property Sheet Tab Strip -->
+                                <div class="sct-tab-strip">
+                                    <button type="button" class="sct-tab-btn @(_activeTab == "general" ? "active" : "")" @onclick='() => SetActiveTab("general")'>
+                                        <img src="img/icons/icons8-server-24.png" class="sct-tab-icon" alt="" />
+                                        <span>Overview</span>
+                                    </button>
+                                    <button type="button" class="sct-tab-btn @(_activeTab == "tools" ? "active" : "")" @onclick='() => SetActiveTab("tools")'>
+                                        <img src="img/icons/1645.png" class="sct-tab-icon" alt="" />
+                                        <span>Tools &amp; Maintenance</span>
+                                    </button>
+                                    <button type="button" class="sct-tab-btn @(_activeTab == "settings" ? "active" : "")" @onclick='() => SetActiveTab("settings")'>
+                                        <img src="img/icons/settingsBtn.Image.png" class="sct-tab-icon" alt="" />
+                                        <span>Settings</span>
+                                    </button>
+                                    <button type="button" class="sct-tab-btn @(_activeTab == "automation" ? "active" : "")" @onclick='() => SetActiveTab("automation")'>
+                                        <img src="img/icons/cmd_icon21.png" class="sct-tab-icon" alt="" />
+                                        <span>Automation &amp; Watchdog</span>
+                                    </button>
+                                </div>
 
-                                            @if (SelectedServer.HasCustomBatch)
-                                            {
-                                                <button type="button" class="sct-action-link" @onclick="CreateCustomBatch">
-                                                    <span class="sct-action-link-text">Create custom start batch file</span>
-                                                </button>
-                                            }
+                                <!-- Tab Content Canvas -->
+                                <div class="sct-tab-content">
+                                    @if (_activeTab == "general")
+                                    {
+                                        <!-- TAB 1: Overview -->
+                                        <div class="sct-tab-pane">
+                                            <!-- Server Overview Card -->
+                                            <div class="sct-general-status-card">
+                                                <div class="sct-card-section-title">-Server Overview-</div>
+                                                <div class="sct-status-meta-grid">
+                                                    <div class="sct-meta-entry">
+                                                        <span class="sct-entry-label">Lifecycle State:</span>
+                                                        <span class="sct-entry-value">@(SelectedServer.IsRunning ? "Active Process (Running)" : SelectedServer.IsInstalled ? "Installed & Ready" : "Uninstalled")</span>
+                                                    </div>
+                                                    <div class="sct-meta-entry">
+                                                        <span class="sct-entry-label">Storage Footprint:</span>
+                                                        <span class="sct-entry-value">@SelectedServer.Size</span>
+                                                    </div>
+                                                    <div class="sct-meta-entry">
+                                                        <span class="sct-entry-label">Last Execution:</span>
+                                                        <span class="sct-entry-value">@SelectedServer.LastRan</span>
+                                                    </div>
+                                                    <div class="sct-meta-entry">
+                                                        <span class="sct-entry-label">Last Updated:</span>
+                                                        <span class="sct-entry-value">@SelectedServer.LastUpdated</span>
+                                                    </div>
+                                                    <div class="sct-meta-entry">
+                                                        <span class="sct-entry-label">Active Instance:</span>
+                                                        <span class="sct-entry-value">@SelectedServer.CurrentInstance</span>
+                                                    </div>
+                                                    <div class="sct-meta-entry full-span">
+                                                        <span class="sct-entry-label">Install Location:</span>
+                                                        <span class="sct-entry-value path" title="@_settings.ServerLibraryPath\@SelectedServer.Id">@_settings.ServerLibraryPath\@SelectedServer.Id</span>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                            @if (SelectedServer.HasCustomConfig)
-                                            {
-                                                <button type="button" class="sct-action-link" @onclick="CreateCustomConfig">
-                                                    <span class="sct-action-link-text">Create custom config file</span>
-                                                </button>
-                                            }
+                                            <!-- Custom Startup Arguments -->
+                                            <div class="sct-launch-args-row">
+                                                <span class="sct-args-label">Startup Args:</span>
+                                                <input type="text" class="sct-args-input" @bind="SelectedServer.LaunchArgs" placeholder="Optional custom command line flags or parameters..." />
+                                                <button type="button" class="sct-args-reset-btn" @onclick="ResetDefaultArgs" title="Clear startup arguments">✕</button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+                                    else if (_activeTab == "tools")
+                                    {
+                                        <!-- TAB 2: Tools & Maintenance -->
+                                        <div class="sct-tab-pane">
+                                            <!-- General Section -->
+                                            <div class="sct-tools-section-card">
+                                                <div class="sct-card-section-title">-General-</div>
+                                                <div class="sct-tools-row-3">
+                                                    <button type="button" class="sct-tool-btn" @onclick="UpdateOrRepair" disabled="@(!SelectedServer?.IsInstalled ?? true)">
+                                                        <img src="img/icons/icons8-rotate2-24.png" class="sct-tool-btn-icon" alt="" />
+                                                        <span class="sct-tool-btn-text">Update</span>
+                                                    </button>
+                                                    <button type="button" class="sct-tool-btn" @onclick="DeleteServer" disabled="@(!SelectedServer?.IsInstalled ?? true)">
+                                                        <img src="img/icons/1263.png" class="sct-tool-btn-icon" alt="" />
+                                                        <span class="sct-tool-btn-text">Delete</span>
+                                                    </button>
+                                                    <button type="button" class="sct-tool-btn" @onclick="OpenFolder" disabled="@(!SelectedServer?.IsInstalled ?? true)">
+                                                        <img src="img/icons/468.png" class="sct-tool-btn-icon" alt="" />
+                                                        <span class="sct-tool-btn-text">Open Folder</span>
+                                                    </button>
+                                                </div>
+                                            </div>
 
-                                    <!-- -Actions- Panel (WinForms actPnl.png) -->
-                                    <div class="sct-sub-panel sct-actions-panel">
-                                        <div class="sct-sub-panel-title">-Actions-</div>
-                                        <div class="sct-sub-panel-links">
-                                            <button type="button" class="sct-action-link" @onclick="OpenFolder" disabled="@(!SelectedServer.IsInstalled)">
-                                                <img src="img/icons/468.png" class="sct-action-link-icon" alt="Folder" />
-                                                <span class="sct-action-link-text">Open Folder</span>
-                                            </button>
+                                            <!-- Backups Section -->
+                                            <div class="sct-tools-section-card">
+                                                <div class="sct-card-section-title">-Backups-</div>
+                                                <div class="sct-tools-row-2">
+                                                    <button type="button" class="sct-tool-btn" @onclick="BackupServer" disabled="@(!SelectedServer?.IsInstalled ?? true)">
+                                                        <span style="font-size: 13px; margin-right: 2px;">💾</span>
+                                                        <span class="sct-tool-btn-text">Backup Server</span>
+                                                    </button>
+                                                    <button type="button" class="sct-tool-btn" @onclick="RestoreBackup" disabled="@(!SelectedServer?.IsInstalled ?? true)">
+                                                        <span style="font-size: 13px; margin-right: 2px;">📦</span>
+                                                        <span class="sct-tool-btn-text">Restore Backup</span>
+                                                    </button>
+                                                </div>
+                                            </div>
 
-                                            <button type="button" class="sct-action-link" @onclick="UpdateOrRepair">
-                                                <img src="img/icons/icons8-rotate2-24.png" class="sct-action-link-icon" alt="Update" />
-                                                <span class="sct-action-link-text">Update/Repair</span>
-                                            </button>
-
-                                            <button type="button" class="sct-action-link" @onclick="DeleteServer" disabled="@(!SelectedServer.IsInstalled)">
-                                                <img src="img/icons/1263.png" class="sct-action-link-icon" alt="Delete" />
-                                                <span class="sct-action-link-text">Delete</span>
-                                            </button>
-
-                                            <button id="sct-edit-settings-btn" type="button" class="sct-action-link @(_isEditSettingsMenuOpen ? "active" : "")" @onclick="ToggleEditSettingsMenu" disabled="@(!SelectedServer.IsInstalled)">
-                                                <img src="img/icons/1645.png" class="sct-action-link-icon" alt="Settings" />
-                                                <span class="sct-action-link-text">Edit Settings</span>
-                                                <span class="sct-caret-small">▼</span>
-                                            </button>
+                                            <!-- Extra Section -->
+                                            <div class="sct-tools-section-card">
+                                                <div class="sct-card-section-title">-Extra-</div>
+                                                <div class="sct-tools-row-2">
+                                                    <button type="button" class="sct-tool-btn" @onclick="CreateCustomBatch" disabled="@(!SelectedServer?.IsInstalled ?? true)">
+                                                        <img src="img/icons/SquaregreenArrowRightBatch.png" class="sct-tool-btn-icon" alt="" />
+                                                        <span class="sct-tool-btn-text">Create Custom Batch File</span>
+                                                    </button>
+                                                    <button type="button" class="sct-tool-btn" @onclick="OpenInstallationGuide" disabled="@(SelectedServer == null)">
+                                                        <img src="img/icons/1091.png" class="sct-tool-btn-icon" alt="" />
+                                                        <span class="sct-tool-btn-text">Manual Installation Guide</span>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+                                    else if (_activeTab == "settings")
+                                    {
+                                        <!-- TAB 3: Settings -->
+                                        <div class="sct-tab-pane">
+                                            <!-- Settings Section -->
+                                            <div class="sct-settings-card">
+                                                <div class="sct-card-section-title">-Settings-</div>
+                                                <div class="sct-settings-body">
+                                                    @if (SelectedServer == null)
+                                                    {
+                                                        <div class="sct-auto-hint" style="padding: 4px 0;">Select a server to view and configure its settings.</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="sct-settings-checkboxes-grid">
+                                                            <label class="sct-checkbox-label" title="Run the server executable with elevated Administrator privileges">
+                                                                <input type="checkbox" class="sct-win-checkbox" @bind="SelectedServer.RunAsAdmin" />
+                                                                <span class="sct-check-title">Run as Administrator</span>
+                                                            </label>
+
+                                                            <label class="sct-checkbox-label" title="Assign High CPU process priority to the dedicated server process">
+                                                                <input type="checkbox" class="sct-win-checkbox" @bind="SelectedServer.HighPriority" />
+                                                                <span class="sct-check-title">High CPU Priority</span>
+                                                            </label>
+
+                                                            <label class="sct-checkbox-label" title="Show interactive command prompt console window for server log and rcon">
+                                                                <input type="checkbox" class="sct-win-checkbox" @bind="SelectedServer.EnableConsoleWindow" />
+                                                                <span class="sct-check-title">Enable Console Window</span>
+                                                            </label>
+
+                                                            <label class="sct-checkbox-label" title="Automatically create a backup of save and world data before launching">
+                                                                <input type="checkbox" class="sct-win-checkbox" @bind="SelectedServer.AutoBackupBeforeLaunch" />
+                                                                <span class="sct-check-title">Backup Saves on Launch</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="sct-settings-fields-grid">
+                                                            <div class="sct-settings-field-row">
+                                                                <span class="sct-auto-field-label">Server Port:</span>
+                                                                <input type="number" class="sct-settings-input" style="max-width: 120px;" @bind="SelectedServer.ServerPort" min="1024" max="65535" />
+                                                                <span class="sct-auto-field-label" style="width: auto; margin-left: 12px;">Max Players:</span>
+                                                                <input type="number" class="sct-settings-input" style="max-width: 80px;" @bind="SelectedServer.MaxPlayers" min="1" max="128" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="sct-settings-buttons-bar">
+                                                            <button type="button" class="sct-tool-btn" @onclick="SaveServerSettings">
+                                                                <span class="sct-tool-btn-text">💾 Save Settings</span>
+                                                            </button>
+                                                            <button type="button" class="sct-tool-btn" @onclick="ResetServerSettings">
+                                                                <span class="sct-tool-btn-text">↺ Reset Server Defaults</span>
+                                                            </button>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+
+                                            <!-- Manually Edit config files: Section -->
+                                            <div class="sct-settings-card">
+                                                <div class="sct-card-section-title">-Manually Edit config files:-</div>
+                                                <div class="sct-config-files-container">
+                                                    @if (SelectedServer == null)
+                                                    {
+                                                        <div class="sct-auto-hint" style="padding: 4px 0;">Please select a server to view its configuration files.</div>
+                                                    }
+                                                    else if (!SelectedServer.IsInstalled)
+                                                    {
+                                                        <div class="sct-auto-hint" style="padding: 4px 0;">Server is not installed. Install it first to edit its configuration files.</div>
+                                                    }
+                                                    else if (SelectedServer.ConfigFiles == null || SelectedServer.ConfigFiles.Count == 0)
+                                                    {
+                                                        <div class="sct-auto-hint" style="padding: 4px 0;">No configuration files configured for @SelectedServer.Name.</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="sct-config-files-grid">
+                                                            @foreach (var file in SelectedServer.ConfigFiles)
+                                                            {
+                                                                <button type="button" class="sct-config-file-row-btn" @onclick="() => EditConfigFile(file)" title="Open @file in default text editor">
+                                                                    <img src="img/icons/1645.png" class="sct-config-file-icon" alt="" />
+                                                                    <span class="sct-config-file-name">@file</span>
+                                                                    <span class="sct-config-file-action">Edit ↗</span>
+                                                                </button>
+                                                            }
+                                                        </div>
+                                                    }
+                                                    <div class="sct-config-actions-row">
+                                                        <button type="button" class="sct-tool-btn" @onclick="CreateCustomConfig" disabled="@(!SelectedServer?.IsInstalled ?? true)">
+                                                            <img src="img/icons/1645.png" class="sct-tool-btn-icon" alt="" />
+                                                            <span class="sct-tool-btn-text">Add Config File...</span>
+                                                        </button>
+                                                        <button type="button" class="sct-tool-btn" @onclick="OpenFolder" disabled="@(!SelectedServer?.IsInstalled ?? true)">
+                                                            <img src="img/icons/468.png" class="sct-tool-btn-icon" alt="" />
+                                                            <span class="sct-tool-btn-text">Open Folder</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (_activeTab == "automation")
+                                    {
+                                        <!-- TAB 3: Automation & Watchdog -->
+                                        <div class="sct-tab-pane">
+                                            <div class="sct-auto-card">
+                                                <div class="sct-card-section-title">-Process &amp; Crash Watchdog-</div>
+                                                <div class="sct-auto-card-body">
+                                                    <label class="sct-checkbox-label" title="Automatically relaunch server if the process terminates or crashes unexpectedly">
+                                                        <input type="checkbox" class="sct-win-checkbox" @bind="SelectedServer.AutoRestartOnCrash" />
+                                                        <span class="sct-check-title">Auto-restart server on crash</span>
+                                                    </label>
+                                                    <div class="sct-auto-hint">Monitors the server process PID and restarts it immediately if an abnormal exit occurs.</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="sct-auto-card">
+                                                <div class="sct-card-section-title">-Config File Watcher-</div>
+                                                <div class="sct-auto-card-body">
+                                                    <div class="sct-auto-row-split">
+                                                        <label class="sct-checkbox-label" title="Restart server when monitored config file is updated">
+                                                            <input type="checkbox" class="sct-win-checkbox" @bind="SelectedServer.AutoRestartOnConfigChange" />
+                                                            <span class="sct-check-title">Restart on config edit:</span>
+                                                        </label>
+                                                        @if (SelectedServer.ConfigFiles.Count > 0)
+                                                        {
+                                                            <select class="sct-auto-select" @bind="SelectedServer.WatchedConfigFile" disabled="@(!SelectedServer.AutoRestartOnConfigChange)" title="Select file to monitor">
+                                                                @foreach (var cfg in SelectedServer.ConfigFiles)
+                                                                {
+                                                                    <option value="@cfg">@cfg</option>
+                                                                }
+                                                            </select>
+                                                        }
+                                                    </div>
+                                                    <div class="sct-auto-hint">Detects disk write events to the selected configuration file and triggers a graceful reboot.</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="sct-auto-card">
+                                                <div class="sct-card-section-title">-Automated Schedules &amp; Updates-</div>
+                                                <div class="sct-auto-card-body">
+                                                    <div class="sct-auto-row-split">
+                                                        <span class="sct-auto-field-label">Scheduled Restart:</span>
+                                                        <select class="sct-auto-select" @bind="SelectedServer.ScheduledRestart" title="Periodic automated restart schedule">
+                                                            <option value="Disabled">Disabled</option>
+                                                            <option value="Every 6 Hours">Every 6 Hours</option>
+                                                            <option value="Every 12 Hours">Every 12 Hours</option>
+                                                            <option value="Daily (04:00 AM)">Daily (04:00 AM)</option>
+                                                            <option value="Every 48 Hours">Every 48 Hours</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div style="margin-top: 6px;">
+                                                        <label class="sct-checkbox-label" title="Check and validate server updates before starting">
+                                                            <input type="checkbox" class="sct-win-checkbox" @bind="SelectedServer.UpdateOnLaunch" />
+                                                            <span class="sct-check-title">Check &amp; update files before launch</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         }
@@ -400,6 +632,9 @@
     private bool _showFavoritesOnly = false;
     private string _searchQuery = string.Empty;
     private bool _isInstanceMenuOpen = false;
+    private string _activeTab = "general";
+
+    private void SetActiveTab(string tab) => _activeTab = tab;
 
     private AppSettings _settings = new();
     private ServerItem? SelectedServer;
@@ -472,6 +707,7 @@
                 LogoUrl = "img/servers/cs16_logo.png",
                 Size = "713 MB",
                 LastRan = "10/10/2021",
+                LastUpdated = "15/04/2023",
                 IsInstalled = true,
                 IsFavorite = false,
                 GuideContent = "Counter-Strike 1.6 Dedicated Server (HLDS)\n\n1. Port forwarding: UDP port 27015\n2. Configure rcon_password in server.cfg\n3. To add AMX Mod X, download the installer and select the cstrike directory.",
@@ -628,6 +864,14 @@
                 GuideContent = "Unturned dedicated server setup with RocketMod support."
             }
         };
+
+        foreach (var s in _servers)
+        {
+            if (string.IsNullOrEmpty(s.WatchedConfigFile) && s.ConfigFiles.Count > 0)
+            {
+                s.WatchedConfigFile = s.ConfigFiles[0];
+            }
+        }
     }
 
     private IEnumerable<ServerItem> FilteredServers
@@ -683,7 +927,7 @@
         _isMoreOpen = !_isMoreOpen;
         try
         {
-            var targetWidth = _isMoreOpen ? 737.0 : 627.0;
+            var targetWidth = _isMoreOpen ? 930.0 : 820.0;
             await JsRuntime.InvokeVoidAsync("sctAnimateWindowWidth", targetWidth, 350);
         }
         catch { }
@@ -716,11 +960,48 @@
         await Modal.AlertAsync($"New instance '{newName}' created for {SelectedServer.Name}.", "Instance Created");
     }
 
+    private void ResetDefaultArgs()
+    {
+        if (SelectedServer == null) return;
+        SelectedServer.LaunchArgs = string.Empty;
+    }
+
+    private async Task BackupServer()
+    {
+        if (SelectedServer == null) return;
+        if (!SelectedServer.IsInstalled)
+        {
+            await Modal.AlertAsync("Cannot backup a server that is not installed.", "Backup Server", "⚠️");
+            return;
+        }
+        var backupName = $"{SelectedServer.Id}_{SelectedServer.CurrentInstance.Replace(" ", "_")}_{DateTime.Now:yyyyMMdd_HHmm}.zip";
+        await Modal.AlertAsync($"Backup archive created successfully:\n{_settings.ServerLibraryPath}\\backups\\{backupName}", "Server Backup", "💾");
+    }
+
+    private async Task RestoreBackup()
+    {
+        if (SelectedServer == null) return;
+        if (!SelectedServer.IsInstalled)
+        {
+            await Modal.AlertAsync("Cannot restore a backup to a server that is not installed.", "Restore Backup", "⚠️");
+            return;
+        }
+        await Modal.AlertAsync($"Looking for backup archives in:\n{_settings.ServerLibraryPath}\\backups\n\nSelect an archive to restore.", "Restore Backup", "📦");
+    }
+
     private async Task StartServer()
     {
         if (SelectedServer == null) return;
+        if (SelectedServer.IsRunning)
+        {
+            SelectedServer.IsRunning = false;
+            await Modal.AlertAsync($"Server process for {SelectedServer.Name} ({SelectedServer.CurrentInstance}) stopped.", "Server Stopped", "⏹");
+            return;
+        }
+
+        SelectedServer.IsRunning = true;
         SelectedServer.LastRan = DateTime.Now.ToString("dd/MM/yyyy");
-        await Modal.AlertAsync($"Starting {SelectedServer.Name} ({SelectedServer.CurrentInstance})...\nServer process launched successfully.", "Server Started", "▶");
+        await Modal.AlertAsync($"Starting {SelectedServer.Name} ({SelectedServer.CurrentInstance})...\nLaunch Parameters: {SelectedServer.LaunchArgs}\n\nServer process launched successfully.", "Server Started", "▶");
     }
 
     private async Task InstallServer()
@@ -730,6 +1011,7 @@
         if (confirmed)
         {
             SelectedServer.IsInstalled = true;
+            SelectedServer.LastUpdated = DateTime.Now.ToString("dd/MM/yyyy");
             await Modal.AlertAsync($"Installation completed successfully for {SelectedServer.Name}!", "Installed");
         }
     }
@@ -740,6 +1022,7 @@
         var confirmed = await Modal.ConfirmAsync($"Validate and repair installation files for {SelectedServer.Name}?", "Update/Repair", "🔄");
         if (confirmed)
         {
+            SelectedServer.LastUpdated = DateTime.Now.ToString("dd/MM/yyyy");
             await Modal.AlertAsync($"Validation finished. All files for {SelectedServer.Name} are intact.", "Verification Complete");
         }
     }
@@ -821,6 +1104,24 @@
         {
             await Modal.AlertAsync($"Opening '{file}' in external editor...", "Edit Settings");
         }
+    }
+
+    private async Task SaveServerSettings()
+    {
+        if (SelectedServer == null) return;
+        await Modal.AlertAsync($"Settings for {SelectedServer.Name} have been saved successfully.", "Settings Saved", "💾");
+    }
+
+    private void ResetServerSettings()
+    {
+        if (SelectedServer == null) return;
+        SelectedServer.ServerPort = 27015;
+        SelectedServer.MaxPlayers = 16;
+        SelectedServer.RunAsAdmin = false;
+        SelectedServer.HighPriority = true;
+        SelectedServer.EnableConsoleWindow = true;
+        SelectedServer.AutoBackupBeforeLaunch = false;
+        StateHasChanged();
     }
 
     private void OpenInstallationGuide()
