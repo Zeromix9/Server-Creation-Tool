@@ -31,6 +31,9 @@ public class ModalService
     // About Modal
     internal bool AboutVisible { get; private set; }
 
+    // FAQ Modal
+    internal bool FaqVisible { get; private set; }
+
     // Guide Modal
     internal bool GuideVisible { get; private set; }
     internal string GuideTitle { get; private set; } = string.Empty;
@@ -46,7 +49,7 @@ public class ModalService
 
     public event Action? OnChange;
 
-    public bool IsOpen => AlertVisible || ConfirmVisible || SettingsVisible || AboutVisible || GuideVisible || SteamCmdOptionsVisible || EditSettingsVisible;
+    public bool IsOpen => AlertVisible || ConfirmVisible || SettingsVisible || AboutVisible || FaqVisible || GuideVisible || SteamCmdOptionsVisible || EditSettingsVisible;
 
     public Task AlertAsync(string message, string title = "Information", string icon = "ℹ️")
     {
@@ -163,6 +166,18 @@ public class ModalService
     public void CloseEditSettings()
     {
         EditSettingsVisible = false;
+        NotifyChange();
+    }
+
+    public void ShowFaq()
+    {
+        FaqVisible = true;
+        NotifyChange();
+    }
+
+    public void CloseFaq()
+    {
+        FaqVisible = false;
         NotifyChange();
     }
 

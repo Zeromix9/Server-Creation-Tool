@@ -111,6 +111,37 @@
                             <button type="button" class="sct-btn" @onclick="() => Modal.CloseGuide()">Done</button>
                         </div>
                     }
+                    else if (Modal.FaqVisible)
+                    {
+                        <div class="sct-modal-body sct-faq-body">
+                            @foreach (var item in _faqEntries)
+                            {
+                                <div class="sct-faq-item">
+                                    <div class="sct-faq-question">
+                                        <span class="sct-faq-arrow">&#10148;</span>
+                                        <span class="sct-faq-q-text">@item.Question</span>
+                                    </div>
+                                    <div class="sct-faq-answer">
+                                        <span>@item.Answer</span>@if (!string.IsNullOrEmpty(item.LinkLabel) && !string.IsNullOrEmpty(item.LinkUrl))
+                                        {
+                                            <text> </text><a href="#" class="sct-link" @onclick='() => OpenLink(item.LinkUrl)' @onclick:preventDefault>@item.LinkLabel</a>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="sct-faq-help">
+                                <div>If you have any more questions or need any help, join our discord server or steam group.</div>
+                                <div class="sct-faq-links">
+                                    <a href="#" class="sct-link" @onclick='() => OpenLink("https://discord.gg/79eKCs5fW8")' @onclick:preventDefault>Discord Server</a>
+                                    <a href="#" class="sct-link" @onclick='() => OpenLink("https://steamcommunity.com/groups/ServerTool")' @onclick:preventDefault>Steam Group</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sct-modal-footer">
+                            <button type="button" class="sct-btn" @onclick="() => Modal.CloseFaq()">OK</button>
+                        </div>
+                    }
                     else if (Modal.SteamCmdOptionsVisible)
                     {
                         <div class="sct-modal-body" style="display: flex; flex-direction: column; gap: 10px;">
@@ -176,6 +207,7 @@
         if (Modal.ConfirmVisible) return string.IsNullOrWhiteSpace(Modal.ConfirmTitle) ? "Confirm" : Modal.ConfirmTitle;
         if (Modal.SettingsVisible) return "Settings";
         if (Modal.AboutVisible) return "About Server Creation Tool";
+        if (Modal.FaqVisible) return "FAQ - Frequently Asked Questions";
         if (Modal.GuideVisible) return $"Installation Guide: {Modal.GuideTitle}";
         if (Modal.SteamCmdOptionsVisible) return "SteamCMD Options";
         if (Modal.EditSettingsVisible) return $"Edit Settings: {Modal.EditSettingsGame}";
@@ -186,6 +218,7 @@
     {
         if (Modal.SettingsVisible || Modal.EditSettingsVisible) return "img/icons/settingsBtn.Image.png";
         if (Modal.AboutVisible) return "img/icons/219116.png";
+        if (Modal.FaqVisible) return "img/icons/faqBtn.Image.png";
         if (Modal.GuideVisible) return "img/icons/1091.png";
         if (Modal.SteamCmdOptionsVisible) return "img/icons/SquaregreenArrowRight.png";
         return "img/icons/icons8-server-24.png";
@@ -195,6 +228,7 @@
     {
         if (Modal.AlertVisible || Modal.ConfirmVisible) return "sct-modal-msgbox";
         if (Modal.SettingsVisible) return "sct-modal-settings";
+        if (Modal.FaqVisible) return "sct-modal-faq";
         if (Modal.GuideVisible) return "sct-modal-guide";
         if (Modal.EditSettingsVisible) return "sct-modal-editsettings";
         if (Modal.SteamCmdOptionsVisible) return "sct-modal-steamcmd";
@@ -208,6 +242,7 @@
         else if (Modal.ConfirmVisible) Modal.CloseConfirm(false);
         else if (Modal.SettingsVisible) Modal.CloseSettings(false);
         else if (Modal.AboutVisible) Modal.CloseAbout();
+        else if (Modal.FaqVisible) Modal.CloseFaq();
         else if (Modal.GuideVisible) Modal.CloseGuide();
         else if (Modal.SteamCmdOptionsVisible) Modal.CloseSteamCmdOptions();
         else if (Modal.EditSettingsVisible) Modal.CloseEditSettings();
@@ -258,4 +293,32 @@
     {
         await Modal.AlertAsync($"Opening '{file}' in external editor...", "Config File");
     }
+
+    private sealed record FaqEntry(string Question, string Answer, string? LinkLabel = null, string? LinkUrl = null);
+
+    private static readonly FaqEntry[] _faqEntries =
+    [
+        new(
+            "I can not see my server / No one can connect to my server",
+            "Please make sure, that you have opened all the required ports in your router.\n" +
+            "If everything is set correctly, but the problem still occurs, please contact your internet provider.\n" +
+            "Or look for your router model here:",
+            "Click here",
+            "https://portforward.com/router.htm"
+        ),
+        new(
+            "Is there another way instead of opening the ports?",
+            "Yes, you can also host your server through a VPN network like \"Hamachi\".\n" +
+            "Of course only the people in the VPN network will be able to join the server then.\n" +
+            "If forwarding your ports doesn´t work, please contact your ISP, i won´t be able to help you."
+        ),
+        new(
+            "The SteamCMD download failed! What should I do now?",
+            "Mostly you just need to retry the download, then the problem should be fixed."
+        ),
+        new(
+            "How do I update my server?",
+            "Just click on the \"Update\\Repair\" button, the server will automatically update."
+        )
+    ];
 }

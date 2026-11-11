@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAQ - Frequently Asked Questions</title>
+    <base href="/" />
+    <link rel="stylesheet" href="css/app.css?v=41" />
+  </head>
+
+  <body style="margin:0;padding:0;background-color:#1e2b3e;">
+    <div class="sct-window-frame sct-about-window">
+      <div id="sct-titlebar" class="sct-titlebar">
+        <div class="sct-titlebar-left">
+          <img class="sct-titlebar-icon sct-modal-titlebar-icon" src="img/icons/faqBtn.Image.png" alt="FAQ Icon" />
+          <span class="sct-titlebar-title">FAQ - Frequently Asked Questions</span>
+        </div>
+        <div class="sct-titlebar-controls">
+          <button type="button" id="faq-close-btn" class="sct-win-btn sct-win-btn-close" title="Close" aria-label="Close"></button>
+        </div>
+      </div>
+
+      <div class="sct-window-inner">
+        <div class="sct-border-left"></div>
+
+        <div class="sct-modal-client">
+          <div class="sct-modal-body sct-faq-body">
+            <div id="faq-content" class="sct-faq-list"></div>
+
+            <div class="sct-faq-help">
+              <div>If you have any more questions or need any help, join our discord server or steam group.</div>
+              <div class="sct-faq-links">
+                <a href="#" class="sct-link" data-url="https://discord.gg/79eKCs5fW8">Discord Server</a>
+                <a href="#" class="sct-link" data-url="https://steamcommunity.com/groups/ServerTool">Steam Group</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="sct-modal-footer">
+            <button type="button" id="faq-ok-btn" class="sct-btn">OK</button>
+          </div>
+        </div>
+
+        <div class="sct-border-right"></div>
+      </div>
+
+      <div class="sct-border-bottom"></div>
+    </div>
+
+    <script src="js/window-bridge.js"></script>
+    <script>
+      const faqEntries = [
+        {
+          question: 'I can not see my server / No one can connect to my server',
+          answer:
+            'Please make sure, that you have opened all the required ports in your router.\n' +
+            'If everything is set correctly, but the problem still occurs, please contact your internet provider.\n' +
+            'Or look for your router model here:',
+          linkLabel: 'Click here',
+          linkUrl: 'https://portforward.com/router.htm'
+        },
+        {
+          question: 'Is there another way instead of opening the ports?',
+          answer:
+            'Yes, you can also host your server through a VPN network like "Hamachi".\n' +
+            'Of course only the people in the VPN network will be able to join the server then.\n' +
+            'If forwarding your ports doesn´t work, please contact your ISP, i won´t be able to help you.'
+        },
+        {
+          question: 'The SteamCMD download failed! What should I do now?',
+          answer: 'Mostly you just need to retry the download, then the problem should be fixed.'
+        },
+        {
+          question: 'How do I update my server?',
+          answer: 'Just click on the "Update\\Repair" button, the server will automatically update.'
+        }
+      ];
+
+      const container = document.getElementById('faq-content');
+      const frag = document.createDocumentFragment();
+      for (const entry of faqEntries) {
+        const item = document.createElement('div');
+        item.className = 'sct-faq-item';
+
+        const qRow = document.createElement('div');
+        qRow.className = 'sct-faq-question';
+
+        const arrow = document.createElement('span');
+        arrow.className = 'sct-faq-arrow';
+        arrow.textContent = '\u27A4';
+
+        const qText = document.createElement('span');
+        qText.className = 'sct-faq-q-text';
+        qText.textContent = entry.question;
+
+        qRow.appendChild(arrow);
+        qRow.appendChild(qText);
+        item.appendChild(qRow);
+
+        const ans = document.createElement('div');
+        ans.className = 'sct-faq-answer';
+        ans.appendChild(document.createTextNode(entry.answer));
+
+        if (entry.linkLabel && entry.linkUrl) {
+          ans.appendChild(document.createTextNode(' '));
+          const link = document.createElement('a');
+          link.href = '#';
+          link.className = 'sct-link';
+          link.setAttribute('data-url', entry.linkUrl);
+          link.textContent = entry.linkLabel;
+          ans.appendChild(link);
+        }
+
+        item.appendChild(ans);
+        frag.appendChild(item);
+      }
+      container.appendChild(frag);
+
+      document.getElementById('faq-close-btn').addEventListener('click', window.sctCloseWindow);
+      document.getElementById('faq-ok-btn').addEventListener('click', window.sctCloseWindow);
+
+      document.querySelectorAll('[data-url]').forEach(function (el) {
+        el.addEventListener('click', function (e) {
+          e.preventDefault();
+          window.sctOpenUrl(el.getAttribute('data-url'));
+        });
+      });
+    </script>
+  </body>
+</html>

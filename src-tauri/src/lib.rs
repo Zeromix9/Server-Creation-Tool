@@ -49,16 +49,22 @@ async fn window_close(window: tauri::WebviewWindow) -> Result<(), String> {
     Ok(())
 }
 
-#[tauri::command]
-async fn open_about_window(app: tauri::AppHandle) -> Result<(), String> {
-    if let Some(window) = app.get_webview_window("about") {
+fn open_subwindow(
+    app: &tauri::AppHandle,
+    label: &str,
+    url: &str,
+    title: &str,
+    width: f64,
+    height: f64,
+) -> Result<(), String> {
+    if let Some(window) = app.get_webview_window(label) {
         let _ = window.unminimize();
         let _ = window.show();
         let _ = window.set_focus();
     } else {
-        tauri::WebviewWindowBuilder::new(&app, "about", tauri::WebviewUrl::App("about.html".into()))
-            .title("About")
-            .inner_size(530.0, 504.0)
+        tauri::WebviewWindowBuilder::new(app, label, tauri::WebviewUrl::App(url.into()))
+            .title(title)
+            .inner_size(width, height)
             .resizable(false)
             .maximizable(false)
             .decorations(false)
@@ -67,6 +73,23 @@ async fn open_about_window(app: tauri::AppHandle) -> Result<(), String> {
             .map_err(|e| e.to_string())?;
     }
     Ok(())
+}
+
+#[tauri::command]
+async fn open_about_window(app: tauri::AppHandle) -> Result<(), String> {
+    open_subwindow(&app, "about", "about.html", "About", 530.0, 504.0)
+}
+
+#[tauri::command]
+async fn open_faq_window(app: tauri::AppHandle) -> Result<(), String> {
+    open_subwindow(
+        &app,
+        "faq",
+        "faq.html",
+        "FAQ - Frequently Asked Questions",
+        632.0,
+        430.0,
+    )
 }
 
 #[tauri::command]
@@ -181,6 +204,24 @@ fn open_folder(path: String) {
     }
 }
 
+fn get_logs_dir() -> Result<std::path::PathBuf, String> {
+    let exe_path = std::env::current_exe()
+        .map_err(|e| format!("Failed to locate executable: {}", e))?;
+    let exe_dir = exe_path
+        .parent()
+        .ok_or_else(|| "Failed to locate executable directory".to_string())?;
+    Ok(exe_dir.join("sct_tool_logs"))
+}
+
+#[tauri::command]
+fn open_app_logs() -> Result<(), String> {
+    let logs_dir = get_logs_dir()?;
+    std::fs::create_dir_all(&logs_dir)
+        .map_err(|e| format!("Failed to create logs folder: {}", e))?;
+    open_folder(logs_dir.to_string_lossy().into_owned());
+    Ok(())
+}
+
 #[tauri::command]
 fn open_file(path: String) {
     #[cfg(target_os = "windows")]
@@ -210,6 +251,12 @@ fn get_app_version() -> String {
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
+        .setup(|_app| {
+            if let Ok(logs_dir) = get_logs_dir() {
+                let _ = std::fs::create_dir_all(logs_dir);
+            }
+            Ok(())
+        })
         .on_menu_event(|_app, event| {
             let path = event.id().as_ref();
             #[cfg(target_os = "windows")]
@@ -235,12 +282,14 @@ pub fn run() {
             window_minimize,
             window_close,
             open_about_window,
+            open_faq_window,
             window_set_width,
             start_steamcmd,
             clear_steamcmd_cache,
             pick_folder,
             pick_file,
             open_folder,
+            open_app_logs,
             open_file,
             open_url,
             get_app_version,

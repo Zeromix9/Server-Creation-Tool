@@ -1342,35 +1342,31 @@
 
     private async Task OpenAppLogs()
     {
-        await Modal.AlertAsync("Application Logs:\n[22:27:00] Initialized Server Creation Tool 5.2\n[22:27:01] Loaded 21 server profiles\n[22:27:01] Ready.", "App Logs");
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("sctOpenAppLogs");
+        }
+        catch (Exception ex)
+        {
+            await Modal.AlertAsync($"Failed to open logs folder: {ex.Message}", "Error");
+        }
     }
-
 
     private async Task OpenPlannedFeatures() => await OpenLink("https://trello.com/b/9dsN6TIT/server-creation-tool");
 
     private async Task OpenFAQ()
     {
-        await Modal.AlertAsync(
-            "FAQ:\n\n" +
-            "Q: Why does SteamCMD take a while to download?\n" +
-            "A: First time SteamCMD setup downloads the Steam runtime cache.\n\n" +
-            "Q: How do players join my server?\n" +
-            "A: Ensure port forwarding is configured on your router.",
-            "Frequently Asked Questions"
-        );
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("sctOpenFaqWindow");
+        }
+        catch
+        {
+            Modal.ShowFaq();
+        }
     }
 
-    private async Task OpenPortForwardGuide()
-    {
-        await Modal.AlertAsync(
-            "Port Forwarding Guide:\n\n" +
-            "1. Access your router gateway (e.g. 192.168.1.1)\n" +
-            "2. Locate Port Forwarding / NAT rules\n" +
-            "3. Forward UDP port (typically 27015) to your local PC IP address\n" +
-            "4. Allow traffic through Windows Defender Firewall.",
-            "Port Forwarding Help"
-        );
-    }
+    private async Task OpenPortForwardGuide() => await OpenLink("https://steamcommunity.com/sharedfiles/filedetails/?id=2432446663");
 
     private async Task CheckForUpdates()
     {

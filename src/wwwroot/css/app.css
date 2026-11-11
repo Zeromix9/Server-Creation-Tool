@@ -70,9 +70,7 @@ html, body, #app {
     height: 24px;
     object-fit: contain;
     flex-shrink: 0;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    image-rendering: pixelated;
+    image-rendering: auto;
 }
 
 .sct-about-titlebar-icon,
@@ -81,9 +79,8 @@ html, body, #app {
     height: 16px;
     margin-left: 2px;
     margin-right: 2px;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    image-rendering: pixelated;
+    object-fit: contain;
+    image-rendering: auto;
 }
 
 .sct-modal-titlebar-icon,
@@ -92,9 +89,8 @@ html, body, #app {
     height: 18px;
     margin-left: 1px;
     margin-right: 1px;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    image-rendering: pixelated;
+    object-fit: contain;
+    image-rendering: auto;
 }
 
 .sct-titlebar-title {
@@ -1238,6 +1234,91 @@ html, body, #app {
 .sct-modal-window.sct-modal-about-fallback {
     width: 500px;
     max-width: 92vw;
+}
+
+.sct-modal-window.sct-modal-faq {
+    width: 560px;
+    max-width: 94vw;
+}
+
+.sct-faq-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sct-modal-faq .sct-faq-body {
+    max-height: 430px;
+}
+
+.sct-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sct-faq-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sct-faq-question {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #e6eef7;
+}
+
+.sct-faq-arrow {
+    color: #9bd6fc;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.sct-faq-q-text {
+    text-decoration: underline;
+}
+
+.sct-faq-answer {
+    white-space: pre-wrap;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #cbd5e1;
+    padding-left: 18px;
+}
+
+.sct-faq-help {
+    margin-top: 4px;
+    padding-top: 10px;
+    border-top: 1px solid #2d3f58;
+    font-size: 12px;
+    color: #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sct-faq-links {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    font-size: 14px;
+}
+
+.sct-link {
+    color: #5bc0ff;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.sct-link:hover {
+    color: #9bd6fc;
 }
 
 @keyframes sct-modal-flash-anim {

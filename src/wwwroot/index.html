@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Server Creation Tool 5.2</title>
     <base href="/" />
-    <link rel="stylesheet" href="css/app.css?v=38" />
+    <link rel="stylesheet" href="css/app.css?v=41" />
   </head>
 
   <body style="margin:0;padding:0;background-color:#1b2838;">
@@ -37,6 +37,15 @@
           return core.invoke('open_about_window');
         }
         window.open('/about.html', 'about', 'width=530,height=504,menubar=no,toolbar=no,location=no,status=no');
+        return Promise.resolve();
+      };
+
+      window.sctOpenFaqWindow = function () {
+        const core = getTauriCore();
+        if (core) {
+          return core.invoke('open_faq_window');
+        }
+        window.open('/faq.html', 'faq', 'width=632,height=430,menubar=no,toolbar=no,location=no,status=no');
         return Promise.resolve();
       };
 
@@ -153,6 +162,14 @@
         const core = getTauriCore();
         if (core) {
           return core.invoke('open_folder', { path: path });
+        }
+        return Promise.resolve();
+      };
+
+      window.sctOpenAppLogs = function () {
+        const core = getTauriCore();
+        if (core) {
+          return core.invoke('open_app_logs');
         }
         return Promise.resolve();
       };
