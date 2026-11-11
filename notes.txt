@@ -3,3 +3,5 @@ Allow inputs to support tokenized variables like {SERVER_PORT}, {INSTALL_DIR}, {
 Add fields for SteamBranch (e.g., public, beta, experimental) and optional SteamBranchPassword. 
 
 Pull list of branches/betas and other info using SteamKit2
+
+add list in setings of servers which are set to run on startup
