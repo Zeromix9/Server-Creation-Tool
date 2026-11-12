@@ -5,216 +5,224 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Server Creation Tool 5.2</title>
     <base href="/" />
-    <link rel="stylesheet" href="css/app.css?v=41" />
+    <link rel="stylesheet" href="css/app.css?v=42" />
   </head>
 
   <body style="margin:0;padding:0;background-color:#1b2838;">
-    <div id="app">
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background-color:#1b2838;color:#94a3b8;font-family:'Segoe UI',sans-serif;user-select:none;">
-        <div style="font-size:16px;font-weight:600;margin-bottom:8px;color:#e2e8f0;">Server Creation Tool 5.2</div>
-        <div style="font-size:12px;">Loading application...</div>
+    <div id="sct-window-frame" class="sct-window-frame">
+      <!-- Top Titlebar -->
+      <div id="sct-titlebar" class="sct-titlebar">
+        <div class="sct-titlebar-left">
+          <img
+            src="img/icons/icons8-server-24.png"
+            srcset="img/icons/icons8-server-24.png 1x, img/icons/icons8-server-48.png 2x"
+            class="sct-titlebar-icon"
+            alt="SCT"
+          />
+          <span class="sct-titlebar-title">Server Creation Tool 5.2</span>
+        </div>
+
+        <div class="sct-titlebar-controls">
+          <button
+            type="button"
+            class="sct-win-btn sct-win-btn-min"
+            data-action="minimize-window"
+            title="Minimize"
+          ></button>
+          <button
+            type="button"
+            class="sct-win-btn sct-win-btn-close"
+            data-action="close-window"
+            title="Close"
+          ></button>
+        </div>
       </div>
+
+      <!-- Main Window Inner -->
+      <div class="sct-window-inner">
+        <div class="sct-border-left"></div>
+
+        <div class="sct-client-area">
+          <div class="sct-main-content-wrapper">
+            <!-- Top Ribbon Toolbar -->
+            <div class="sct-ribbon-bar">
+              <div class="sct-ribbon-left">
+                <button
+                  type="button"
+                  class="sct-ribbon-btn"
+                  data-action="select-library-location"
+                  title="Choose server installation folder"
+                >
+                  <img src="img/icons/468.png" class="sct-ribbon-icon" alt="" />
+                  <span>Select Server Library<br />Location</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="sct-ribbon-btn"
+                  data-action="open-settings"
+                  title="Application Settings"
+                >
+                  <img src="img/icons/settingsBtn.Image.png" class="sct-ribbon-icon" alt="" />
+                  <span>Settings</span>
+                </button>
+
+                <button
+                  type="button"
+                  id="sct-lang-btn"
+                  class="sct-ribbon-btn"
+                  data-action="toggle-lang-menu"
+                  title="Change Language"
+                >
+                  <img src="img/icons/translate21.png" class="sct-ribbon-icon" alt="" />
+                  <span>Language</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="sct-ribbon-btn"
+                  data-action="open-group-website"
+                  title="Steam Community Group"
+                >
+                  <img src="img/icons/world-wide-web21.png" class="sct-ribbon-icon" alt="" />
+                  <span>Tool<br />Group-Website</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="sct-ribbon-btn"
+                  data-action="open-about"
+                  title="About"
+                >
+                  <img src="img/icons/219121.png" class="sct-ribbon-icon" alt="" />
+                  <span>About</span>
+                </button>
+              </div>
+
+              <div class="sct-ribbon-right">
+                <span class="sct-more-label">MORE:</span>
+                <button
+                  type="button"
+                  id="sct-more-btn"
+                  class="sct-more-btn"
+                  data-action="toggle-more-panel"
+                  title="Toggle More section"
+                ></button>
+              </div>
+            </div>
+
+            <!-- Lower Canvas -->
+            <div class="sct-workspace">
+              <!-- Left Column -->
+              <div class="sct-left-column">
+                <div class="sct-search-box-row">
+                  <label class="sct-search-label" for="sct-search-input">Search:</label>
+                  <input type="text" id="sct-search-input" class="sct-search-textbox" />
+                  <button
+                    type="button"
+                    id="sct-fav-toggle-btn"
+                    class="sct-fav-toggle-btn"
+                    data-action="toggle-favorites-filter"
+                    title="Show favourites only"
+                  >
+                    <img
+                      id="sct-fav-toggle-img"
+                      src="img/icons/starUnChecked_gray_16.png"
+                      alt="Favorites"
+                    />
+                  </button>
+                </div>
+
+                <div class="sct-server-panel-container">
+                  <button
+                    type="button"
+                    id="sct-welcome-btn"
+                    class="sct-list-item-welcome"
+                    data-action="select-welcome"
+                  >
+                    ---Welcome---
+                  </button>
+
+                  <button
+                    type="button"
+                    id="sct-reload-btn"
+                    class="sct-list-item-reload"
+                    data-action="reload-servers"
+                  >
+                    <span>Reload Servers</span>
+                    <img src="img/icons/refresh16x161.png" class="sct-reload-icon" alt="Reload" />
+                  </button>
+
+                  <div id="sct-server-items-scroll" class="sct-server-items-scroll"></div>
+                </div>
+              </div>
+
+              <!-- Right Column -->
+              <div id="sct-right-column" class="sct-right-column"></div>
+            </div>
+          </div>
+
+          <!-- MORE Sidebar Panel -->
+          <div class="sct-more-sidebar-panel">
+            <button type="button" class="sct-side-btn" data-action="open-app-logs">
+              <img src="img/icons/62221.png" class="sct-side-btn-icon" alt="" />
+              <span class="sct-side-btn-text">App<br />Logs</span>
+            </button>
+
+            <button
+              type="button"
+              id="sct-steamcmd-btn"
+              class="sct-side-btn"
+              data-action="toggle-steamcmd-menu"
+            >
+              <img src="img/icons/cmd_icon21.png" class="sct-side-btn-icon" alt="" />
+              <span class="sct-side-btn-text">SteamCMD<br />options ▼</span>
+            </button>
+
+            <button type="button" class="sct-side-btn" data-action="open-planned-features">
+              <img src="img/icons/pencil21.png" class="sct-side-btn-icon" alt="" />
+              <span class="sct-side-btn-text">Planned<br />Features</span>
+            </button>
+
+            <button type="button" class="sct-side-btn" data-action="open-faq">
+              <img src="img/icons/faqBtn.Image.png" class="sct-side-btn-icon" alt="" />
+              <span class="sct-side-btn-text">FAQ</span>
+            </button>
+
+            <button type="button" class="sct-side-btn" data-action="open-port-forward-guide">
+              <img src="img/icons/port.png" class="sct-side-btn-icon" alt="" />
+              <span class="sct-side-btn-text">How to port<br />forward</span>
+            </button>
+
+            <button type="button" class="sct-side-btn" data-action="open-discord">
+              <img src="img/icons/discordSrvBtn.Image.png" class="sct-side-btn-icon" alt="" />
+              <span class="sct-side-btn-text">Discord<br />Server</span>
+            </button>
+
+            <button type="button" class="sct-side-btn" data-action="open-github">
+              <img src="img/icons/github_logo.png" class="sct-side-btn-icon" alt="" />
+              <span class="sct-side-btn-text">Github</span>
+            </button>
+
+            <button type="button" class="sct-side-btn" data-action="check-for-updates">
+              <img src="img/icons/chck4UpdtBtn.Image.png" class="sct-side-btn-icon" alt="" />
+              <span class="sct-side-btn-text">Check<br />for updates</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sct-border-right"></div>
+      </div>
+
+      <div class="sct-border-bottom"></div>
+
+      <div id="sct-context-menus-root"></div>
     </div>
-    <script src="_framework/blazor.webassembly.js"></script>
+
+    <div id="sct-modal-root"></div>
+
     <script src="js/window-bridge.js"></script>
-    <script>
-      window.sctMinimizeWindow = function () {
-        const core = getTauriCore();
-        if (core) {
-          core.invoke('window_minimize').catch(function () {
-            const win = getTauriWindow();
-            if (win) win.minimize();
-          });
-        } else {
-          const win = getTauriWindow();
-          if (win) win.minimize();
-        }
-      };
-
-      window.sctOpenAboutWindow = function () {
-        const core = getTauriCore();
-        if (core) {
-          return core.invoke('open_about_window');
-        }
-        window.open('/about.html', 'about', 'width=530,height=504,menubar=no,toolbar=no,location=no,status=no');
-        return Promise.resolve();
-      };
-
-      window.sctOpenFaqWindow = function () {
-        const core = getTauriCore();
-        if (core) {
-          return core.invoke('open_faq_window');
-        }
-        window.open('/faq.html', 'faq', 'width=632,height=430,menubar=no,toolbar=no,location=no,status=no');
-        return Promise.resolve();
-      };
-
-      window.sctGetElementRect = function (selector) {
-        const el = document.querySelector(selector);
-        if (el) {
-          const r = el.getBoundingClientRect();
-          return {
-            top: Math.round(r.top),
-            bottom: Math.round(r.bottom),
-            left: Math.round(r.left),
-            right: Math.round(window.innerWidth - r.right),
-            width: Math.round(r.width),
-            height: Math.round(r.height),
-            windowHeight: Math.round(window.innerHeight),
-            windowWidth: Math.round(window.innerWidth)
-          };
-        }
-        return { top: 0, bottom: 0, left: 0, right: 0, width: 0, height: 0, windowHeight: Math.round(window.innerHeight), windowWidth: Math.round(window.innerWidth) };
-      };
-
-      window.sctStartSteamCmd = function (installDir) {
-        const core = getTauriCore();
-        if (core) {
-          return core.invoke('start_steamcmd', { installDir: installDir || '' });
-        }
-        return Promise.resolve(false);
-      };
-
-      window.sctClearSteamCmdCache = function (installDir) {
-        const core = getTauriCore();
-        if (core) {
-          return core.invoke('clear_steamcmd_cache', { installDir: installDir || '' });
-        }
-        return Promise.resolve(false);
-      };
-
-      let sctWidthAnimId = null;
-      let sctCurrentWindowWidth = window.innerWidth || 820;
-
-      window.sctAnimateWindowWidth = function (targetWidth, durationMs = 350) {
-        if (sctWidthAnimId) {
-          cancelAnimationFrame(sctWidthAnimId);
-          sctWidthAnimId = null;
-        }
-
-        const startWidth = sctCurrentWindowWidth;
-        const delta = targetWidth - startWidth;
-        if (Math.abs(delta) < 1) {
-          sctCurrentWindowWidth = targetWidth;
-          return Promise.resolve();
-        }
-
-        const startTime = performance.now();
-        const core = getTauriCore();
-
-        function easeInOut(t) {
-          return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-        }
-
-        return new Promise((resolve) => {
-          function step(now) {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / durationMs, 1);
-            const eased = easeInOut(progress);
-            const w = Math.round(startWidth + delta * eased);
-            sctCurrentWindowWidth = w;
-
-            if (core) {
-              core.invoke('window_set_width', { width: w }).catch(() => {});
-            }
-
-            if (progress < 1) {
-              sctWidthAnimId = requestAnimationFrame(step);
-            } else {
-              sctCurrentWindowWidth = targetWidth;
-              if (core) {
-                core.invoke('window_set_width', { width: targetWidth }).catch(() => {});
-              }
-              sctWidthAnimId = null;
-              resolve();
-            }
-          }
-          sctWidthAnimId = requestAnimationFrame(step);
-        });
-      };
-
-      window.sctSetWindowWidth = function (width) {
-        sctCurrentWindowWidth = width;
-        const core = getTauriCore();
-        if (core) {
-          return core.invoke('window_set_width', { width: width });
-        }
-        return Promise.resolve();
-      };
-
-      window.sctPickFolder = function () {
-        const core = getTauriCore();
-        if (core) {
-          return core.invoke('pick_folder');
-        }
-        return Promise.resolve(null);
-      };
-
-      window.sctPickFile = function () {
-        const core = getTauriCore();
-        if (core) {
-          return core.invoke('pick_file');
-        }
-        return Promise.resolve(null);
-      };
-
-      window.sctOpenFolder = function (path) {
-        const core = getTauriCore();
-        if (core) {
-          return core.invoke('open_folder', { path: path });
-        }
-        return Promise.resolve();
-      };
-
-      window.sctOpenAppLogs = function () {
-        const core = getTauriCore();
-        if (core) {
-          return core.invoke('open_app_logs');
-        }
-        return Promise.resolve();
-      };
-
-      window.sctOpenFile = function (path) {
-        const core = getTauriCore();
-        if (core) {
-          return core.invoke('open_file', { path: path });
-        }
-        return Promise.resolve();
-      };
-
-      window.sctCopyToClipboard = function (text) {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          return navigator.clipboard.writeText(text);
-        } else {
-          const ta = document.createElement('textarea');
-          ta.value = text;
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand('copy');
-          document.body.removeChild(ta);
-          return Promise.resolve();
-        }
-      };
-
-      window.sctShowContextMenu = async function (x, y, files, libraryPath, serverId) {
-        const core = getTauriCore();
-        if (core) {
-          try {
-            await core.invoke('show_settings_context_menu', {
-              x: x,
-              y: y,
-              files: files || [],
-              libraryPath: libraryPath || '',
-              serverId: serverId || ''
-            });
-            return true;
-          } catch (e) {
-            console.error('Context menu error:', e);
-            return false;
-          }
-        }
-        return false;
-      };
-    </script>
+    <script src="js/modal.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>

@@ -4,10 +4,7 @@
   "version": "5.2.0",
   "identifier": "com.zeromix.servercreationtool",
   "build": {
-    "beforeDevCommand": "dotnet watch run --project src/ServerCreationTool.UI.csproj",
-    "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "dotnet publish -c release src/ServerCreationTool.UI.csproj -o dist",
-    "frontendDist": "../dist/wwwroot"
+    "frontendDist": "../src/wwwroot"
   },
   "app": {
     "withGlobalTauri": true,

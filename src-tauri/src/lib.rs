@@ -1,6 +1,8 @@
 use tauri::Manager;
 use tauri::menu::{ContextMenu, MenuBuilder, MenuItemBuilder};
 
+mod servers;
+
 #[tauri::command]
 fn show_settings_context_menu(
     window: tauri::WebviewWindow,
@@ -191,17 +193,31 @@ fn pick_file() -> Result<Option<String>, String> {
 }
 
 #[tauri::command]
-fn open_folder(path: String) {
+fn open_folder(path: String) -> Result<(), String> {
+    let trimmed = path.trim();
+    if trimmed.is_empty() {
+        return Err("Folder path is empty.".to_string());
+    }
+    let target = std::path::PathBuf::from(trimmed);
+    if !target.is_dir() {
+        return Err(format!("Folder does not exist: {}", target.display()));
+    }
+
     #[cfg(target_os = "windows")]
     {
-        let _ = std::process::Command::new("explorer")
-            .arg(&path)
-            .spawn();
+        let normalized = target.to_string_lossy().replace('/', "\\");
+        std::process::Command::new("explorer")
+            .arg(&normalized)
+            .spawn()
+            .map_err(|e| format!("Failed to open folder '{}': {}", normalized, e))?;
     }
     #[cfg(not(target_os = "windows"))]
     {
-        let _ = tauri_plugin_opener::open_path(&path, None::<&str>);
+        tauri_plugin_opener::open_path(&target, None::<&str>)
+            .map_err(|e| format!("Failed to open folder '{}': {}", target.display(), e))?;
     }
+
+    Ok(())
 }
 
 fn get_logs_dir() -> Result<std::path::PathBuf, String> {
@@ -218,8 +234,7 @@ fn open_app_logs() -> Result<(), String> {
     let logs_dir = get_logs_dir()?;
     std::fs::create_dir_all(&logs_dir)
         .map_err(|e| format!("Failed to create logs folder: {}", e))?;
-    open_folder(logs_dir.to_string_lossy().into_owned());
-    Ok(())
+    open_folder(logs_dir.to_string_lossy().into_owned())
 }
 
 #[tauri::command]
@@ -244,8 +259,141 @@ fn open_url(url: String) {
 }
 
 #[tauri::command]
+async fn load_servers(library_path: String) -> Result<servers::LibraryScanResult, String> {
+    tauri::async_runtime::spawn_blocking(move || servers::load_servers_with_library(&library_path))
+        .await
+        .map_err(|e| format!("Failed to scan library: {}", e))
+}
+
+#[tauri::command]
+fn ensure_library_location(library_path: String) -> Result<String, String> {
+    servers::ensure_library_directories(&library_path)
+}
+
+#[tauri::command]
+async fn mock_install_server(
+    library_path: String,
+    codename: String,
+    instance_name: String,
+) -> Result<String, String> {
+    tauri::async_runtime::spawn_blocking(move || {
+        servers::mock_install_instance(&library_path, &codename, &instance_name)
+    })
+    .await
+    .map_err(|e| format!("Failed to run mock install: {}", e))?
+}
+
+#[tauri::command]
+async fn delete_server(
+    library_path: String,
+    codename: String,
+    instance_name: String,
+) -> Result<bool, String> {
+    tauri::async_runtime::spawn_blocking(move || {
+        servers::delete_server_instance(&library_path, &codename, &instance_name)
+    })
+    .await
+    .map_err(|e| format!("Failed to delete server: {}", e))?
+}
+
+#[tauri::command]
 fn get_app_version() -> String {
-    "5.2.0".to_string()
+    env!("CARGO_PKG_VERSION").to_string()
+}
+
+#[derive(serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+struct UpdateCheckResult {
+    update_available: bool,
+    current_version: String,
+    latest_version: String,
+    release_url: String,
+}
+
+fn parse_version_tuple(raw: &str) -> Option<(u64, u64, u64, u64)> {
+    let trimmed = raw.trim().trim_start_matches(['v', 'V']);
+    let core = trimmed.split(['-', '+']).next().unwrap_or("");
+    if core.is_empty() {
+        return None;
+    }
+
+    let mut parts = [0u64; 4];
+    let mut count = 0usize;
+    for segment in core.split('.') {
+        if count >= 4 {
+            break;
+        }
+        parts[count] = segment.parse::<u64>().ok()?;
+        count += 1;
+    }
+
+    if count == 0 {
+        None
+    } else {
+        Some((parts[0], parts[1], parts[2], parts[3]))
+    }
+}
+
+#[tauri::command]
+async fn check_for_updates() -> Result<UpdateCheckResult, String> {
+    const LATEST_RELEASE_URL: &str =
+        "https://github.com/Zeromix9/Server-Creation-Tool/releases/latest";
+    const RELEASES_PAGE_URL: &str =
+        "https://github.com/Zeromix9/Server-Creation-Tool/releases";
+
+    let current_version = env!("CARGO_PKG_VERSION").to_string();
+
+    let client = reqwest::Client::builder()
+        .redirect(reqwest::redirect::Policy::none())
+        .timeout(std::time::Duration::from_secs(8))
+        .user_agent(concat!("Server-Creation-Tool/", env!("CARGO_PKG_VERSION")))
+        .build()
+        .map_err(|e| format!("Failed to initialize HTTP client: {}", e))?;
+
+    let response = client
+        .head(LATEST_RELEASE_URL)
+        .send()
+        .await
+        .map_err(|e| format!("Failed to reach GitHub: {}", e))?;
+
+    let location = response
+        .headers()
+        .get(reqwest::header::LOCATION)
+        .and_then(|v| v.to_str().ok());
+
+    let Some(loc) = location else {
+        return Err(format!("Unexpected GitHub response status: {}", response.status()));
+    };
+
+    let Some((_, tag)) = loc.split_once("/releases/tag/") else {
+        return Ok(UpdateCheckResult {
+            update_available: false,
+            current_version: current_version.clone(),
+            latest_version: current_version,
+            release_url: RELEASES_PAGE_URL.to_string(),
+        });
+    };
+
+    let latest_version = tag.trim().trim_end_matches('/').to_string();
+    let release_url = format!(
+        "https://github.com/Zeromix9/Server-Creation-Tool/releases/tag/{}",
+        latest_version
+    );
+
+    let update_available = match (
+        parse_version_tuple(&latest_version),
+        parse_version_tuple(&current_version),
+    ) {
+        (Some(latest), Some(current)) => latest > current,
+        _ => false,
+    };
+
+    Ok(UpdateCheckResult {
+        update_available,
+        current_version,
+        latest_version,
+        release_url,
+    })
 }
 
 pub fn run() {
@@ -292,9 +440,27 @@ pub fn run() {
             open_app_logs,
             open_file,
             open_url,
+            load_servers,
+            ensure_library_location,
+            mock_install_server,
+            delete_server,
             get_app_version,
+            check_for_updates,
             show_settings_context_menu
         ])
         .run(tauri::generate_context!())
         .expect("error while running Server Creation Tool");
+}
+
+#[cfg(test)]
+mod tests {
+    use super::parse_version_tuple;
+
+    #[test]
+    fn normalizes_short_and_prefixed_versions() {
+        assert_eq!(parse_version_tuple("v5.2"), parse_version_tuple("5.2.0"));
+        assert!(parse_version_tuple("v5.3") > parse_version_tuple("5.2.0"));
+        assert!(parse_version_tuple("v5.10.0") > parse_version_tuple("v5.2"));
+        assert_eq!(parse_version_tuple("bad"), None);
+    }
 }
