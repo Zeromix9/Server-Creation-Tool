@@ -1,10 +1,148 @@
 use base64::Engine;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::Read;
 use std::path::{Path, PathBuf};
+use std::process::Command;
+
+pub const INCOMPLETE_INSTALL_MARKER: &str = ".sct_incomplete";
+
+/// Optional hook attached to a start option ("Run action first" in MakeServer).
+/// Points at a SimpleAction or a _funcs.cs function. It is not a start option itself.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct PreLaunchHookDto {
+    /// "Action" or "Function"
+    pub kind: String,
+    #[serde(default)]
+    pub simple_action_id: String,
+    #[serde(default)]
+    pub function_name: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct StartOptionDto {
+    pub id: String,
+    pub label: String,
+    pub text: HashMap<String, String>,
+    /// "Basic" (executable), "Script", "Function" or "Action"
+    pub option_type: String,
+    /// Executable/script path, or function name when option_type is "Function". Empty for "Action".
+    pub file_path: String,
+    pub args: String,
+    pub is_default: bool,
+    #[serde(default)]
+    pub is_platform_specific: bool,
+    #[serde(default)]
+    pub target_platform: String,
+    /// Set when RunActionFirst is enabled, or always for "Action" options.
+    #[serde(default)]
+    pub pre_launch: Option<PreLaunchHookDto>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SimpleActionDto {
+    pub id: String,
+    pub label: String,
+    pub title: HashMap<String, String>,
+    /// e.g. "file_drop", "run_program"
+    pub action_type: String,
+    pub when: String,
+    pub target_language: String,
+    pub source_file_name: String,
+    pub download_from_link: bool,
+    pub target_dir: String,
+    pub overwrite: bool,
+    pub extract_archive: bool,
+    pub delete_path: String,
+    pub copy_source: String,
+    pub copy_dest: String,
+    pub run_exec: String,
+    pub run_args: String,
+    pub enable_chaining: bool,
+    pub chained_action_ids: Vec<String>,
+    pub is_platform_specific: bool,
+    pub target_platform: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CustomContainerDto {
+    pub id: String,
+    /// "tools_maintenance", "settings" or "automation_watchdog"
+    pub target_tab: String,
+    pub name: String,
+    pub names: HashMap<String, String>,
+    pub columns: u32,
+    pub is_locked: bool,
+    pub is_config_files_container: bool,
+    pub is_visible: bool,
+    pub config_file_paths: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SubMenuButtonDto {
+    pub text: String,
+    pub texts: HashMap<String, String>,
+    pub fore_color: String,
+    pub back_color: String,
+    /// "function" or "simple_action"
+    pub action_type: String,
+    pub button_func_name: String,
+    pub simple_action_id: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CustomControlDto {
+    pub text: String,
+    pub texts: HashMap<String, String>,
+    pub control_type: String,
+    pub container_id: String,
+    pub row: u32,
+    pub column: u32,
+    pub fore_color: String,
+    pub back_color: String,
+    /// "function" or "simple_action"
+    pub action_type: String,
+    pub button_func_name: String,
+    pub simple_action_id: String,
+    pub is_system_guide_btn: bool,
+    pub use_system_default_text: bool,
+    pub submenu_buttons: Vec<SubMenuButtonDto>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CustomFieldDto {
+    pub name: String,
+    pub value: String,
+    pub values: HashMap<String, String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ServerLanguageDto {
+    pub code: String,
+    pub name: String,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct AvailableStartOption {
+    pub id: String,
+    pub label: String,
+    pub option_type: String,
+    pub file_path: String,
+    pub resolved_path: String,
+    pub args: String,
+    pub is_default: bool,
+}
 
 #[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -13,6 +151,7 @@ pub struct ServerInstanceInfo {
     pub folder_name: String,
     pub full_path: String,
     pub is_installed: bool,
+    pub has_incomplete_install: bool,
     pub size_bytes: u64,
     pub size: String,
 }
@@ -20,6 +159,7 @@ pub struct ServerInstanceInfo {
 #[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ServerMetadataDto {
+    pub schema_version: u32,
     pub id: String,
     pub codename: String,
     pub folder_name: String,
@@ -30,15 +170,31 @@ pub struct ServerMetadataDto {
     pub is_steam_server: bool,
     pub supports_windows: bool,
     pub supports_linux: bool,
+    pub supports_stdout_redirect: bool,
     pub base_platform: String,
+    pub files_download_link: String,
+    pub files_download_links: HashMap<String, String>,
+    pub are_files_local: bool,
+    pub auto_extract_files: bool,
+    pub run_custom_install_func: bool,
+    pub simple_actions_enabled: bool,
     pub logo_url: String,
     pub logo_width: u32,
     pub logo_height: u32,
     pub is_installed: bool,
+    pub has_incomplete_install: bool,
     pub size_bytes: u64,
     pub size: String,
     pub current_instance: String,
     pub instances: Vec<ServerInstanceInfo>,
+    pub start_options: Vec<StartOptionDto>,
+    pub simple_actions: Vec<SimpleActionDto>,
+    pub custom_containers: Vec<CustomContainerDto>,
+    pub custom_controls: Vec<CustomControlDto>,
+    pub guide_doc_link: String,
+    pub guide_doc_links: HashMap<String, String>,
+    pub custom_fields: Vec<CustomFieldDto>,
+    pub languages: Vec<ServerLanguageDto>,
     pub source_file: String,
 }
 
@@ -108,6 +264,25 @@ pub fn ensure_library_directories(library_path: &str) -> Result<String, String> 
     Ok(lib_dir.to_string_lossy().into_owned())
 }
 
+pub fn is_instance_incomplete(path: &Path) -> bool {
+    path.join(INCOMPLETE_INSTALL_MARKER).is_file()
+}
+
+pub fn mark_instance_incomplete(path: &Path) -> Result<(), String> {
+    fs::create_dir_all(path)
+        .map_err(|e| format!("Failed to create server folder '{}': {}", path.display(), e))?;
+    let marker = path.join(INCOMPLETE_INSTALL_MARKER);
+    fs::write(&marker, b"incomplete\n")
+        .map_err(|e| format!("Failed to write incomplete marker '{}': {}", marker.display(), e))
+}
+
+pub fn clear_instance_incomplete(path: &Path) {
+    let marker = path.join(INCOMPLETE_INSTALL_MARKER);
+    if marker.exists() {
+        let _ = fs::remove_file(marker);
+    }
+}
+
 fn dir_has_any_entry(path: &Path) -> bool {
     match fs::read_dir(path) {
         Ok(mut entries) => entries.next().is_some(),
@@ -123,6 +298,13 @@ fn calculate_dir_size(path: &Path) -> u64 {
 
     for entry in entries.flatten() {
         let entry_path = entry.path();
+        if entry
+            .file_name()
+            .to_string_lossy()
+            .eq_ignore_ascii_case(INCOMPLETE_INSTALL_MARKER)
+        {
+            continue;
+        }
         if let Ok(meta) = fs::symlink_metadata(&entry_path) {
             if meta.is_file() {
                 total = total.saturating_add(meta.len());
@@ -156,44 +338,405 @@ fn format_bytes(bytes: u64) -> String {
     }
 }
 
-fn extract_string_map(val: Option<&Value>) -> HashMap<String, String> {
-    let mut map = HashMap::new();
-    let Some(v) = val else {
-        return map;
-    };
+#[cfg(target_os = "windows")]
+const CURRENT_OS: &str = "windows";
+#[cfg(not(target_os = "windows"))]
+const CURRENT_OS: &str = "linux";
 
-    if let Some(obj) = v.as_object() {
-        for (k, item) in obj {
-            if let Some(s) = item.as_str() {
-                map.insert(k.clone(), s.to_string());
-            } else if let Some(n) = item.as_i64() {
-                map.insert(k.clone(), n.to_string());
-            } else if let Some(n) = item.as_u64() {
-                map.insert(k.clone(), n.to_string());
+fn value_to_string(v: &Value) -> Option<String> {
+    if let Some(s) = v.as_str() {
+        Some(s.to_string())
+    } else if let Some(n) = v.as_u64() {
+        Some(n.to_string())
+    } else if let Some(n) = v.as_i64() {
+        Some(n.to_string())
+    } else {
+        None
+    }
+}
+
+fn get_str(item: &Value, key: &str, default: &str) -> String {
+    item.get(key)
+        .and_then(|v| v.as_str())
+        .unwrap_or(default)
+        .trim()
+        .to_string()
+}
+
+fn get_bool(item: &Value, key: &str, default: bool) -> bool {
+    item.get(key).and_then(|v| v.as_bool()).unwrap_or(default)
+}
+
+fn get_u32(item: &Value, key: &str, default: u32) -> u32 {
+    item.get(key)
+        .and_then(|v| v.as_u64())
+        .map(|n| n as u32)
+        .unwrap_or(default)
+}
+
+fn normalize_lang(lang: &str) -> String {
+    let l = lang.trim().to_lowercase();
+    match l.as_str() {
+        "" | "english" => "en".to_string(),
+        "german" => "de".to_string(),
+        _ => l,
+    }
+}
+
+fn normalize_platform(p: &str) -> String {
+    let clean = p.trim().to_lowercase();
+    if clean.starts_with("win") {
+        "windows".to_string()
+    } else if clean.starts_with("lin") {
+        "linux".to_string()
+    } else {
+        clean
+    }
+}
+
+/// Mirrors MakeServer LocalizedField: a plain string means "en", an object maps lang codes to text.
+fn parse_localized(val: Option<&Value>) -> HashMap<String, String> {
+    let mut map = HashMap::new();
+    match val {
+        Some(Value::String(s)) if !s.trim().is_empty() => {
+            map.insert("en".to_string(), s.trim().to_string());
+        }
+        Some(Value::Object(obj)) => {
+            for (k, v) in obj {
+                if let Some(s) = v.as_str() {
+                    if !s.trim().is_empty() {
+                        map.insert(normalize_lang(k), s.trim().to_string());
+                    }
+                }
             }
         }
-    } else if let Some(s) = v.as_str() {
-        if !s.trim().is_empty() {
-            map.insert("default".to_string(), s.to_string());
-        }
-    } else if let Some(n) = v.as_u64() {
-        map.insert("default".to_string(), n.to_string());
+        _ => {}
     }
-
     map
 }
 
-fn pick_preferred_map_value(map: &HashMap<String, String>, preferred_keys: &[&str]) -> Option<String> {
-    for key in preferred_keys {
-        if let Some(val) = map.get(*key) {
-            if !val.trim().is_empty() {
-                return Some(val.clone());
+/// Returns the text for "en" (LocalizedField.ToString fallback in MakeServer).
+fn resolve_localized(map: &HashMap<String, String>) -> String {
+    map.get("en").cloned().unwrap_or_default()
+}
+
+/// Mirrors MakeServer PlatformField: a plain string means "windows", an object maps platforms to values.
+fn parse_platform_field(val: Option<&Value>) -> HashMap<String, String> {
+    let mut map = HashMap::new();
+    match val {
+        Some(Value::Object(obj)) => {
+            for (k, v) in obj {
+                let Some(s) = value_to_string(v) else {
+                    continue;
+                };
+                let p = normalize_platform(k);
+                if p == "windows" || p == "linux" {
+                    map.insert(p, s);
+                } else if k.eq_ignore_ascii_case("en") || k.eq_ignore_ascii_case("english") {
+                    map.insert("windows".to_string(), s);
+                }
             }
         }
+        Some(v) => {
+            if let Some(s) = value_to_string(v) {
+                if !s.is_empty() {
+                    map.insert("windows".to_string(), s);
+                }
+            }
+        }
+        None => {}
     }
-    map.values()
-        .find(|v| !v.trim().is_empty())
-        .cloned()
+    map
+}
+
+/// PlatformField.Get: current OS value, then BasePlatform value, else empty.
+fn resolve_platform_field(map: &HashMap<String, String>, base_platform: &str) -> String {
+    if let Some(v) = map.get(CURRENT_OS) {
+        if !v.trim().is_empty() {
+            return v.trim().to_string();
+        }
+    }
+    let base = normalize_platform(base_platform);
+    map.get(&base)
+        .map(|v| v.trim().to_string())
+        .unwrap_or_default()
+}
+
+fn platform_value(item: &Value, key: &str, base_platform: &str) -> String {
+    resolve_platform_field(&parse_platform_field(item.get(key)), base_platform)
+}
+
+fn extract_string_array(val: Option<&Value>) -> Vec<String> {
+    val.and_then(|v| v.as_array())
+        .map(|arr| {
+            arr.iter()
+                .filter_map(|item| item.as_str().map(|s| s.trim().to_string()))
+                .filter(|s| !s.is_empty())
+                .collect()
+        })
+        .unwrap_or_default()
+}
+
+/// Same rule as MakeServer VisibleStartOptions / VisibleSimpleActions.
+fn is_platform_allowed(item: &Value) -> bool {
+    if !get_bool(item, "IsPlatformSpecific", false) {
+        return true;
+    }
+    let target = get_str(item, "TargetPlatform", "all");
+    target.is_empty()
+        || target.eq_ignore_ascii_case("all")
+        || normalize_platform(&target) == CURRENT_OS
+}
+
+fn extract_start_options(val: Option<&Value>, base_platform: &str) -> Vec<StartOptionDto> {
+    let Some(arr) = val.and_then(|v| v.as_array()) else {
+        return Vec::new();
+    };
+
+    let mut out = Vec::new();
+    for (idx, item) in arr.iter().enumerate() {
+        if !is_platform_allowed(item) {
+            continue;
+        }
+
+        // Id is a 64-bit tick count, keep it as a string so JS does not lose precision.
+        let id = item
+            .get("Id")
+            .and_then(value_to_string)
+            .map(|s| s.trim().to_string())
+            .filter(|s| !s.is_empty())
+            .unwrap_or_else(|| format!("opt_{}", idx));
+
+        let option_type = get_str(item, "Type", "Basic");
+        let file_path = if option_type.eq_ignore_ascii_case("Action") {
+            String::new()
+        } else {
+            platform_value(item, "File", base_platform)
+        };
+        let args = platform_value(item, "Args", base_platform);
+
+        let text = parse_localized(item.get("Text"));
+        let label = Some(resolve_localized(&text))
+            .filter(|s| !s.is_empty())
+            .or_else(|| Some(file_path.clone()).filter(|s| !s.is_empty()))
+            .unwrap_or_else(|| "Unnamed Option".to_string());
+
+        // "Action" options always run their hook; other types only when RunActionFirst is set.
+        let has_hook = option_type.eq_ignore_ascii_case("Action") || get_bool(item, "RunActionFirst", false);
+        let pre_launch = if has_hook {
+            let kind = if get_str(item, "PreLaunchType", "Action").eq_ignore_ascii_case("Function") {
+                "Function"
+            } else {
+                "Action"
+            };
+            Some(PreLaunchHookDto {
+                kind: kind.to_string(),
+                simple_action_id: if kind == "Action" {
+                    get_str(item, "PreLaunchSimpleActionId", "")
+                } else {
+                    String::new()
+                },
+                function_name: if kind == "Function" {
+                    get_str(item, "PreLaunchFunction", "")
+                } else {
+                    String::new()
+                },
+            })
+        } else {
+            None
+        };
+
+        out.push(StartOptionDto {
+            id,
+            label,
+            text,
+            option_type,
+            file_path,
+            args,
+            is_default: get_bool(item, "IsDefault", false),
+            is_platform_specific: get_bool(item, "IsPlatformSpecific", false),
+            target_platform: get_str(item, "TargetPlatform", "all"),
+            pre_launch,
+        });
+    }
+
+    out
+}
+
+fn extract_simple_actions(val: Option<&Value>, base_platform: &str) -> Vec<SimpleActionDto> {
+    let Some(arr) = val.and_then(|v| v.as_array()) else {
+        return Vec::new();
+    };
+
+    let mut out = Vec::new();
+    for (idx, item) in arr.iter().enumerate() {
+        if !is_platform_allowed(item) {
+            continue;
+        }
+
+        let id = Some(get_str(item, "Id", ""))
+            .filter(|s| !s.is_empty())
+            .unwrap_or_else(|| format!("sa_{}", idx));
+        let title = parse_localized(item.get("Title"));
+        let label = Some(resolve_localized(&title))
+            .filter(|s| !s.is_empty())
+            .unwrap_or_else(|| id.clone());
+
+        out.push(SimpleActionDto {
+            id,
+            label,
+            title,
+            action_type: get_str(item, "Type", "file_drop"),
+            when: get_str(item, "When", "manual_trigger"),
+            target_language: get_str(item, "TargetLanguage", "all"),
+            source_file_name: platform_value(item, "SourceFileName", base_platform),
+            download_from_link: get_bool(item, "DownloadFromLink", false),
+            target_dir: platform_value(item, "TargetDir", base_platform),
+            overwrite: get_bool(item, "Overwrite", true),
+            extract_archive: get_bool(item, "ExtractArchive", false),
+            delete_path: platform_value(item, "DeletePath", base_platform),
+            copy_source: platform_value(item, "CopySource", base_platform),
+            copy_dest: platform_value(item, "CopyDest", base_platform),
+            run_exec: platform_value(item, "RunExec", base_platform),
+            run_args: platform_value(item, "RunArgs", base_platform),
+            enable_chaining: get_bool(item, "EnableChaining", false),
+            chained_action_ids: extract_string_array(item.get("ChainedActionIds")),
+            is_platform_specific: get_bool(item, "IsPlatformSpecific", false),
+            target_platform: get_str(item, "TargetPlatform", "all"),
+        });
+    }
+
+    out
+}
+
+fn extract_custom_containers(val: Option<&Value>) -> Vec<CustomContainerDto> {
+    let Some(arr) = val.and_then(|v| v.as_array()) else {
+        return Vec::new();
+    };
+
+    arr.iter()
+        .enumerate()
+        .map(|(idx, item)| {
+            let id = Some(get_str(item, "Id", ""))
+                .filter(|s| !s.is_empty())
+                .unwrap_or_else(|| format!("cnt_{}", idx));
+            let names = parse_localized(item.get("Name"));
+            let name = Some(resolve_localized(&names))
+                .filter(|s| !s.is_empty())
+                .unwrap_or_else(|| id.clone());
+            CustomContainerDto {
+                id,
+                target_tab: get_str(item, "TargetTab", "tools_maintenance"),
+                name,
+                names,
+                columns: get_u32(item, "Columns", 1).clamp(1, 3),
+                is_locked: get_bool(item, "IsLocked", false),
+                is_config_files_container: get_bool(item, "IsConfigFilesContainer", false),
+                is_visible: get_bool(item, "IsVisible", true),
+                config_file_paths: get_str(item, "ConfigFilePaths", ""),
+            }
+        })
+        .collect()
+}
+
+fn extract_submenu_buttons(val: Option<&Value>) -> Vec<SubMenuButtonDto> {
+    let Some(arr) = val.and_then(|v| v.as_array()) else {
+        return Vec::new();
+    };
+
+    arr.iter()
+        .map(|item| {
+            let texts = parse_localized(item.get("Text"));
+            SubMenuButtonDto {
+                text: resolve_localized(&texts),
+                texts,
+                fore_color: get_str(item, "ForeColor", "#ffffff"),
+                back_color: get_str(item, "BackColor", "#1f2937"),
+                action_type: get_str(item, "ActionType", "function"),
+                button_func_name: get_str(item, "ButtonFuncName", ""),
+                simple_action_id: get_str(item, "SimpleActionId", ""),
+            }
+        })
+        .collect()
+}
+
+fn extract_custom_controls(val: Option<&Value>) -> Vec<CustomControlDto> {
+    let Some(arr) = val.and_then(|v| v.as_array()) else {
+        return Vec::new();
+    };
+
+    arr.iter()
+        .map(|item| {
+            let texts = parse_localized(item.get("Text"));
+            CustomControlDto {
+                text: resolve_localized(&texts),
+                texts,
+                control_type: get_str(item, "Type", "Button"),
+                container_id: get_str(item, "ContainerId", "locked_extra"),
+                row: get_u32(item, "Row", 0),
+                column: get_u32(item, "Column", 0),
+                fore_color: get_str(item, "ForeColor", "#ffffff"),
+                back_color: get_str(item, "BackColor", "#1f2937"),
+                action_type: get_str(item, "ActionType", "function"),
+                button_func_name: get_str(item, "ButtonFuncName", ""),
+                simple_action_id: get_str(item, "SimpleActionId", ""),
+                is_system_guide_btn: get_bool(item, "IsSystemGuideBtn", false),
+                use_system_default_text: get_bool(item, "UseSystemDefaultText", true),
+                submenu_buttons: extract_submenu_buttons(item.get("SubmenuButtons")),
+            }
+        })
+        .collect()
+}
+
+fn extract_custom_fields(val: Option<&Value>) -> Vec<CustomFieldDto> {
+    let Some(arr) = val.and_then(|v| v.as_array()) else {
+        return Vec::new();
+    };
+
+    arr.iter()
+        .filter_map(|item| {
+            let name = get_str(item, "Name", "");
+            if name.is_empty() {
+                return None;
+            }
+            let values = parse_localized(item.get("Value"));
+            Some(CustomFieldDto {
+                name,
+                value: resolve_localized(&values),
+                values,
+            })
+        })
+        .collect()
+}
+
+fn default_lang_name(code: &str) -> String {
+    match code {
+        "en" => "English".to_string(),
+        "de" => "German".to_string(),
+        other => other.to_string(),
+    }
+}
+
+/// Mirrors MakeServer LanguageItemJsonConverter: accepts "en" strings or { Code, Name } objects.
+fn extract_languages(val: Option<&Value>) -> Vec<ServerLanguageDto> {
+    let Some(arr) = val.and_then(|v| v.as_array()) else {
+        return Vec::new();
+    };
+
+    arr.iter()
+        .filter_map(|item| {
+            let (code, name) = match item {
+                Value::String(s) => (normalize_lang(s), String::new()),
+                Value::Object(_) => (get_str(item, "Code", ""), get_str(item, "Name", "")),
+                _ => return None,
+            };
+            if code.is_empty() {
+                return None;
+            }
+            let name = if name.is_empty() { default_lang_name(&code) } else { name };
+            Some(ServerLanguageDto { code, name })
+        })
+        .collect()
 }
 
 fn logo_mime_from_name(name_lower: &str) -> Option<&'static str> {
@@ -286,58 +829,31 @@ fn parse_server_archive(archive_path: &Path) -> Result<ServerMetadataDto, String
         .unwrap_or(&codename)
         .to_string();
 
-    let names = extract_string_map(meta.get("Name"));
-    let display_name = if !names.is_empty() {
-        pick_preferred_map_value(&names, &["en", "default"]).unwrap_or_else(|| codename.clone())
-    } else if let Some(raw_name) = meta.get("Name").and_then(|v| v.as_str()) {
-        if raw_name.trim().is_empty() {
-            codename.clone()
-        } else {
-            raw_name.trim().to_string()
-        }
-    } else {
-        codename.clone()
-    };
+    let names = parse_localized(meta.get("Name"));
+    let display_name = Some(resolve_localized(&names))
+        .filter(|s| !s.is_empty())
+        .unwrap_or_else(|| codename.clone());
 
-    let steam_app_ids = extract_string_map(meta.get("SteamAppId"));
-    #[cfg(target_os = "windows")]
-    let platform_keys = ["windows", "default", "linux"];
-    #[cfg(not(target_os = "windows"))]
-    let platform_keys = ["linux", "default", "windows"];
+    // Defaults below follow MakeServer EngineData defaults.
+    let schema_version = get_u32(&meta, "SchemaVersion", 1);
+    let supports_windows = get_bool(&meta, "SupportsWindows", true);
+    let supports_linux = get_bool(&meta, "SupportsLinux", true);
+    let supports_stdout_redirect = get_bool(&meta, "SupportsStdoutRedirect", false);
+    let base_platform = normalize_platform(&get_str(&meta, "BasePlatform", "windows"));
 
-    let steam_app_id =
-        pick_preferred_map_value(&steam_app_ids, &platform_keys).unwrap_or_default();
+    let steam_app_ids = parse_platform_field(meta.get("SteamAppId"));
+    let steam_app_id = resolve_platform_field(&steam_app_ids, &base_platform);
+    let is_steam_server = get_bool(&meta, "IsSteamServer", true);
 
-    let is_steam_server = meta
-        .get("IsSteamServer")
-        .and_then(|v| v.as_bool())
-        .unwrap_or(!steam_app_id.is_empty());
+    let files_download_links = parse_platform_field(meta.get("FilesDownloadLink"));
+    let files_download_link = resolve_platform_field(&files_download_links, &base_platform);
+    let are_files_local = get_bool(&meta, "AreFilesLocal", false);
+    let auto_extract_files = get_bool(&meta, "AutoExtractFiles", true);
+    let run_custom_install_func = get_bool(&meta, "RunCustomInstallFunc", false);
+    let simple_actions_enabled = get_bool(&meta, "SimpleActionsEnabled", true);
 
-    let supports_windows = meta
-        .get("SupportsWindows")
-        .and_then(|v| v.as_bool())
-        .unwrap_or(true);
-
-    let supports_linux = meta
-        .get("SupportsLinux")
-        .and_then(|v| v.as_bool())
-        .unwrap_or(false);
-
-    let base_platform = meta
-        .get("BasePlatform")
-        .and_then(|v| v.as_str())
-        .unwrap_or("windows")
-        .to_string();
-
-    let logo_width = meta
-        .get("LogoResolutionX")
-        .and_then(|v| v.as_u64())
-        .unwrap_or(100) as u32;
-
-    let logo_height = meta
-        .get("LogoResolutionY")
-        .and_then(|v| v.as_u64())
-        .unwrap_or(100) as u32;
+    let logo_width = get_u32(&meta, "LogoResolutionX", 100);
+    let logo_height = get_u32(&meta, "LogoResolutionY", 100);
 
     let logo_url = if let Some((idx, mime)) = logo_index {
         let mut entry = archive.by_index(idx).map_err(|e| e.to_string())?;
@@ -349,9 +865,19 @@ fn parse_server_archive(archive_path: &Path) -> Result<ServerMetadataDto, String
         "img/servers/toolIcon(1).png".to_string()
     };
 
+    let start_options = extract_start_options(meta.get("StartOptionsList"), &base_platform);
+    let simple_actions = extract_simple_actions(meta.get("SimpleActionsList"), &base_platform);
+    let custom_containers = extract_custom_containers(meta.get("CustomContainers"));
+    let custom_controls = extract_custom_controls(meta.get("CustomControls"));
+    let guide_doc_links = parse_localized(meta.get("GuideDocLink"));
+    let guide_doc_link = resolve_localized(&guide_doc_links);
+    let custom_fields = extract_custom_fields(meta.get("CustomFields"));
+    let languages = extract_languages(meta.get("Languages"));
+
     let default_folder = format!("{}_ds", codename);
 
     Ok(ServerMetadataDto {
+        schema_version,
         id: codename.to_lowercase(),
         codename,
         folder_name,
@@ -362,11 +888,19 @@ fn parse_server_archive(archive_path: &Path) -> Result<ServerMetadataDto, String
         is_steam_server,
         supports_windows,
         supports_linux,
+        supports_stdout_redirect,
         base_platform,
+        files_download_link,
+        files_download_links,
+        are_files_local,
+        auto_extract_files,
+        run_custom_install_func,
+        simple_actions_enabled,
         logo_url,
         logo_width,
         logo_height,
         is_installed: false,
+        has_incomplete_install: false,
         size_bytes: 0,
         size: "-".to_string(),
         current_instance: "Default".to_string(),
@@ -375,9 +909,18 @@ fn parse_server_archive(archive_path: &Path) -> Result<ServerMetadataDto, String
             folder_name: default_folder,
             full_path: String::new(),
             is_installed: false,
+            has_incomplete_install: false,
             size_bytes: 0,
             size: "-".to_string(),
         }],
+        start_options,
+        simple_actions,
+        custom_containers,
+        custom_controls,
+        guide_doc_link,
+        guide_doc_links,
+        custom_fields,
+        languages,
         source_file: archive_path
             .file_name()
             .and_then(|s| s.to_str())
@@ -451,6 +994,7 @@ fn scan_library_folders(library_dir: &Path, servers: &mut [ServerMetadataDto]) {
                 has_default_folder = true;
             }
 
+            let has_incomplete_install = is_instance_incomplete(dir_path);
             let installed = dir_has_any_entry(dir_path);
             let size_bytes = if installed {
                 calculate_dir_size(dir_path)
@@ -463,6 +1007,7 @@ fn scan_library_folders(library_dir: &Path, servers: &mut [ServerMetadataDto]) {
                 folder_name: dir_name.clone(),
                 full_path: dir_path.to_string_lossy().into_owned(),
                 is_installed: installed,
+                has_incomplete_install,
                 size_bytes,
                 size: if installed {
                     format_bytes(size_bytes)
@@ -500,6 +1045,7 @@ fn scan_library_folders(library_dir: &Path, servers: &mut [ServerMetadataDto]) {
                     folder_name: default_folder_expected.clone(),
                     full_path: default_path.to_string_lossy().into_owned(),
                     is_installed: false,
+                    has_incomplete_install: false,
                     size_bytes: 0,
                     size: "-".to_string(),
                 },
@@ -511,6 +1057,7 @@ fn scan_library_folders(library_dir: &Path, servers: &mut [ServerMetadataDto]) {
                 folder_name: default_folder_expected.clone(),
                 full_path: default_path.to_string_lossy().into_owned(),
                 is_installed: false,
+                has_incomplete_install: false,
                 size_bytes: 0,
                 size: "-".to_string(),
             });
@@ -525,6 +1072,7 @@ fn scan_library_folders(library_dir: &Path, servers: &mut [ServerMetadataDto]) {
             .unwrap();
 
         srv.is_installed = any_installed;
+        srv.has_incomplete_install = active_inst.has_incomplete_install;
         srv.current_instance = active_inst.name;
         srv.size_bytes = active_inst.size_bytes;
         srv.size = active_inst.size;
@@ -598,7 +1146,7 @@ fn sanitize_single_segment(raw: &str, label: &str) -> Result<String, String> {
     Ok(trimmed.to_string())
 }
 
-fn resolve_instance_dir(
+pub fn resolve_instance_dir(
     library_path: &str,
     codename: &str,
     instance_name: &str,
@@ -646,6 +1194,8 @@ pub fn mock_install_instance(
 
     fs::write(&marker_path, content)
         .map_err(|e| format!("Failed to write marker file '{}': {}", marker_path.display(), e))?;
+
+    clear_instance_incomplete(&server_dir);
 
     Ok(server_dir.to_string_lossy().into_owned())
 }
@@ -712,11 +1262,127 @@ pub fn delete_server_instance(
     Ok(true)
 }
 
+fn resolve_relative_start_file(server_dir: &Path, rel_raw: &str) -> Option<PathBuf> {
+    let trimmed = rel_raw.trim().trim_start_matches(['/', '\\']);
+    if trimmed.is_empty() {
+        return None;
+    }
+
+    let mut path = server_dir.to_path_buf();
+    for part in trimmed.split(['/', '\\']) {
+        let seg = part.trim();
+        if seg.is_empty() || seg == "." {
+            continue;
+        }
+        if seg == ".." {
+            return None;
+        }
+        path.push(seg);
+    }
+
+    Some(path)
+}
+
+pub fn get_available_start_options(
+    library_path: &str,
+    codename: &str,
+    instance_name: &str,
+    options: &[StartOptionDto],
+) -> Result<Vec<AvailableStartOption>, String> {
+    let (server_dir, _) = resolve_instance_dir(library_path, codename, instance_name)?;
+    if !server_dir.is_dir() {
+        return Ok(Vec::new());
+    }
+
+    let mut available = Vec::new();
+    for opt in options {
+        // Only Executable ("Basic") and Script options point at a file on disk.
+        // Function and Action options need the funcs/actions runtime, which is not implemented yet.
+        let is_file_based = opt.option_type.eq_ignore_ascii_case("Basic")
+            || opt.option_type.eq_ignore_ascii_case("Script");
+        if !is_file_based || opt.file_path.trim().is_empty() {
+            continue;
+        }
+        let Some(full_path) = resolve_relative_start_file(&server_dir, &opt.file_path) else {
+            continue;
+        };
+        if full_path.is_file() {
+            available.push(AvailableStartOption {
+                id: opt.id.clone(),
+                label: opt.label.clone(),
+                option_type: opt.option_type.clone(),
+                file_path: opt.file_path.clone(),
+                resolved_path: full_path.to_string_lossy().into_owned(),
+                args: opt.args.clone(),
+                is_default: opt.is_default,
+            });
+        }
+    }
+
+    Ok(available)
+}
+
+pub fn launch_server_option(file_path: &str, args: &str) -> Result<(), String> {
+    let target = PathBuf::from(file_path.trim());
+    if !target.is_file() {
+        return Err(format!("Start file not found: '{}'", target.display()));
+    }
+
+    let working_dir = target
+        .parent()
+        .map(|p| p.to_path_buf())
+        .ok_or_else(|| "Failed to resolve start file directory.".to_string())?;
+
+    let extra_args: Vec<String> = args
+        .split_whitespace()
+        .filter(|s| !s.is_empty())
+        .map(|s| s.to_string())
+        .collect();
+
+    #[cfg(target_os = "windows")]
+    {
+        let ext = target
+            .extension()
+            .and_then(|e| e.to_str())
+            .unwrap_or("")
+            .to_lowercase();
+
+        if ext == "bat" || ext == "cmd" {
+            let mut cmd = Command::new("cmd");
+            cmd.arg("/C")
+                .arg("start")
+                .arg("")
+                .arg("/D")
+                .arg(&working_dir)
+                .arg(&target);
+            for arg in &extra_args {
+                cmd.arg(arg);
+            }
+            cmd.spawn()
+                .map_err(|e| format!("Failed to start '{}': {}", target.display(), e))?;
+            return Ok(());
+        }
+    }
+
+    let mut cmd = Command::new(&target);
+    cmd.current_dir(&working_dir);
+    for arg in &extra_args {
+        cmd.arg(arg);
+    }
+    cmd.spawn()
+        .map_err(|e| format!("Failed to start '{}': {}", target.display(), e))?;
+
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::{
-        delete_server_instance, load_servers_with_library, mock_install_instance,
-        scan_library_folders, ServerInstanceInfo, ServerMetadataDto,
+        clear_instance_incomplete, delete_server_instance, extract_start_options,
+        get_available_start_options,
+        load_servers_with_library, mark_instance_incomplete, mock_install_instance,
+        scan_library_folders, PreLaunchHookDto, ServerInstanceInfo, ServerMetadataDto,
+        StartOptionDto,
     };
     use std::collections::HashMap;
     use std::fs;
@@ -734,6 +1400,7 @@ mod tests {
 
     fn dummy_meta(codename: &str) -> ServerMetadataDto {
         ServerMetadataDto {
+            schema_version: 2,
             id: codename.to_lowercase(),
             codename: codename.to_string(),
             folder_name: codename.to_string(),
@@ -744,11 +1411,19 @@ mod tests {
             is_steam_server: true,
             supports_windows: true,
             supports_linux: false,
+            supports_stdout_redirect: false,
             base_platform: "windows".to_string(),
+            files_download_link: String::new(),
+            files_download_links: HashMap::new(),
+            are_files_local: false,
+            auto_extract_files: true,
+            run_custom_install_func: false,
+            simple_actions_enabled: false,
             logo_url: String::new(),
             logo_width: 100,
             logo_height: 100,
             is_installed: false,
+            has_incomplete_install: false,
             size_bytes: 0,
             size: "-".to_string(),
             current_instance: "Default".to_string(),
@@ -757,11 +1432,108 @@ mod tests {
                 folder_name: format!("{}_ds", codename),
                 full_path: String::new(),
                 is_installed: false,
+                has_incomplete_install: false,
                 size_bytes: 0,
                 size: "-".to_string(),
             }],
+            start_options: Vec::new(),
+            simple_actions: Vec::new(),
+            custom_containers: Vec::new(),
+            custom_controls: Vec::new(),
+            guide_doc_link: String::new(),
+            guide_doc_links: HashMap::new(),
+            custom_fields: Vec::new(),
+            languages: Vec::new(),
             source_file: String::new(),
         }
+    }
+
+    #[test]
+    fn filters_available_start_options_on_disk() {
+        let lib = make_temp_dir("start_opts");
+        let cs_dir = lib.join("cs_ds");
+        fs::create_dir_all(cs_dir.join("bin")).unwrap();
+        fs::write(cs_dir.join("Run.bat"), b"@echo off").unwrap();
+
+        let opts = vec![
+            StartOptionDto {
+                id: "1".to_string(),
+                label: "Run.bat".to_string(),
+                text: HashMap::new(),
+                option_type: "Script".to_string(),
+                file_path: "Run.bat".to_string(),
+                args: String::new(),
+                is_default: true,
+                is_platform_specific: false,
+                target_platform: "all".to_string(),
+                pre_launch: None,
+            },
+            StartOptionDto {
+                id: "2".to_string(),
+                label: "srcds.exe (GUI)".to_string(),
+                text: HashMap::new(),
+                option_type: "Basic".to_string(),
+                file_path: "/bin/srcds.exe".to_string(),
+                args: String::new(),
+                is_default: false,
+                is_platform_specific: false,
+                target_platform: "all".to_string(),
+                pre_launch: None,
+            },
+            StartOptionDto {
+                id: "3".to_string(),
+                label: "Action only".to_string(),
+                text: HashMap::new(),
+                option_type: "Action".to_string(),
+                file_path: String::new(),
+                args: String::new(),
+                is_default: false,
+                is_platform_specific: false,
+                target_platform: "all".to_string(),
+                pre_launch: Some(PreLaunchHookDto {
+                    kind: "Action".to_string(),
+                    simple_action_id: "sa_1".to_string(),
+                    function_name: String::new(),
+                }),
+            },
+        ];
+
+        let lib_str = lib.to_string_lossy().into_owned();
+        let avail1 = get_available_start_options(&lib_str, "cs", "Default", &opts).unwrap();
+        assert_eq!(avail1.len(), 1);
+        assert_eq!(avail1[0].label, "Run.bat");
+
+        fs::write(cs_dir.join("bin").join("srcds.exe"), b"exe").unwrap();
+        let avail2 = get_available_start_options(&lib_str, "cs", "Default", &opts).unwrap();
+        assert_eq!(avail2.len(), 2);
+        assert_eq!(avail2[1].label, "srcds.exe (GUI)");
+
+        let _ = fs::remove_dir_all(&lib);
+    }
+
+    #[test]
+    fn detects_incomplete_install_marker() {
+        let lib = make_temp_dir("incomplete_marker");
+        let cs_dir = lib.join("cs_ds");
+        mark_instance_incomplete(&cs_dir).unwrap();
+
+        let mut servers = vec![dummy_meta("cs")];
+        scan_library_folders(&lib, &mut servers);
+
+        assert!(servers[0].is_installed);
+        assert!(servers[0].has_incomplete_install);
+        assert_eq!(servers[0].size_bytes, 0);
+
+        clear_instance_incomplete(&cs_dir);
+        fs::write(cs_dir.join("hlds.exe"), b"123456").unwrap();
+
+        let mut servers_after = vec![dummy_meta("cs")];
+        scan_library_folders(&lib, &mut servers_after);
+        assert!(servers_after[0].is_installed);
+        assert!(!servers_after[0].has_incomplete_install);
+        assert_eq!(servers_after[0].size_bytes, 6);
+
+        let _ = fs::remove_dir_all(&lib);
     }
 
     #[test]
@@ -801,10 +1573,96 @@ mod tests {
         let cs = res.servers.iter().find(|s| s.codename == "cs");
         assert!(cs.is_some(), "Expected cs.server to be loaded from sct_data");
         let cs = cs.unwrap();
+        assert_eq!(cs.schema_version, 2);
         assert_eq!(cs.name, "Counter Strike 1.6");
         assert_eq!(cs.steam_app_id, "90");
         assert_eq!(cs.folder_name, "cs");
-        assert!(cs.logo_url.starts_with("data:image/png;base64,"));
+        assert!(cs.is_steam_server);
+        assert_eq!(cs.start_options.len(), 2);
+        assert_eq!(cs.custom_containers.len(), 3);
+        assert_eq!(cs.custom_controls.len(), 1);
+        assert_eq!(cs.languages.len(), 2);
+        assert_eq!(cs.logo_url, "img/servers/toolIcon(1).png");
+    }
+
+    #[test]
+    fn loads_real_beamng_server_from_repo_sct_data() {
+        let res = load_servers_with_library("");
+        let beamng = res.servers.iter().find(|s| s.codename == "beamng");
+        assert!(beamng.is_some(), "Expected beamng.server to be loaded from sct_data");
+        let beamng = beamng.unwrap();
+        assert_eq!(beamng.schema_version, 2);
+        assert_eq!(beamng.name, "BeamNG.Drive");
+        assert!(!beamng.is_steam_server);
+        assert!(beamng.supports_windows);
+        assert!(beamng.supports_linux);
+        assert_eq!(
+            beamng.files_download_link,
+            "https://github.com/BeamMP/BeamMP-Server/releases/latest/download/BeamMP-Server.exe"
+        );
+        assert!(beamng.logo_url.starts_with("data:image/png;base64,"));
+        assert_eq!(beamng.start_options.len(), 1);
+        assert_eq!(beamng.start_options[0].file_path, "\\BeamMP-Server.exe");
+        assert!(beamng.start_options[0].pre_launch.is_none());
+        assert_eq!(beamng.simple_actions.len(), 1);
+        assert_eq!(beamng.simple_actions[0].action_type, "run_program");
+        assert_eq!(beamng.simple_actions[0].run_exec, "Dummy-action");
+        assert_eq!(beamng.custom_containers.len(), 5);
+        assert_eq!(beamng.custom_controls.len(), 8);
+        assert_eq!(beamng.languages.len(), 2);
+    }
+
+    #[test]
+    fn parses_start_option_types_and_pre_launch_hooks() {
+        let other_os = if cfg!(target_os = "windows") { "linux" } else { "windows" };
+        let json = serde_json::json!([
+            {
+                "Id": 639301181206990000u64, "Text": "Plain string title", "Type": "Basic",
+                "File": "srv.exe", "Args": { "windows": "-win", "linux": "-lin" },
+                "RunActionFirst": false, "PreLaunchType": "Action",
+                "PreLaunchSimpleActionId": "sa_ignored", "IsPlatformSpecific": false,
+                "TargetPlatform": "all", "IsDefault": true
+            },
+            {
+                "Id": 2, "Text": { "en": "With hook" }, "Type": "Script",
+                "File": { "windows": "run.bat" }, "Args": "",
+                "RunActionFirst": true, "PreLaunchType": "Function",
+                "PreLaunchFunction": "PreLaunch", "PreLaunchSimpleActionId": "sa_x",
+                "IsPlatformSpecific": false, "TargetPlatform": "all", "IsDefault": false
+            },
+            {
+                "Id": 3, "Text": { "en": "Action entry" }, "Type": "Action",
+                "File": "should_be_ignored.exe", "RunActionFirst": false,
+                "PreLaunchType": "Action", "PreLaunchSimpleActionId": "sa_1",
+                "IsPlatformSpecific": false, "TargetPlatform": "all", "IsDefault": false
+            },
+            {
+                "Id": 4, "Text": { "en": "Other OS only" }, "Type": "Basic",
+                "File": { "windows": "a.exe", "linux": "a.sh" },
+                "IsPlatformSpecific": true,
+                "TargetPlatform": other_os
+            }
+        ]);
+
+        let opts = extract_start_options(Some(&json), "windows");
+        assert_eq!(opts.len(), 3);
+
+        assert_eq!(opts[0].id, "639301181206990000");
+        assert_eq!(opts[0].label, "Plain string title");
+        assert!(opts[0].pre_launch.is_none());
+        #[cfg(target_os = "windows")]
+        assert_eq!(opts[0].args, "-win");
+
+        let hook = opts[1].pre_launch.as_ref().expect("RunActionFirst should create a hook");
+        assert_eq!(hook.kind, "Function");
+        assert_eq!(hook.function_name, "PreLaunch");
+        assert!(hook.simple_action_id.is_empty());
+
+        assert_eq!(opts[2].option_type, "Action");
+        assert!(opts[2].file_path.is_empty());
+        let hook = opts[2].pre_launch.as_ref().expect("Action options always have a hook");
+        assert_eq!(hook.kind, "Action");
+        assert_eq!(hook.simple_action_id, "sa_1");
     }
 
     #[test]

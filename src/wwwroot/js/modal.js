@@ -125,6 +125,10 @@
         '<input type="checkbox" id="sct-modal-steamcmd-min" ' + (s.runSteamCmdMinimized ? 'checked' : '') + ' />' +
         'Run SteamCMD in background / minimized' +
         '</label>' +
+        '<label style="display: flex; align-items: center; gap: 8px; font-size: 12px; cursor: pointer;">' +
+        '<input type="checkbox" id="sct-modal-run-startup" ' + (s.runOnStartup ? 'checked' : '') + ' />' +
+        'Run on startup' +
+        '</label>' +
         '</div>' +
         '</div>';
       footerHtml =
@@ -142,6 +146,52 @@
       footerHtml =
         '<div class="sct-modal-footer">' +
         '<button type="button" class="sct-btn" data-modal-action="close">Done</button>' +
+        '</div>';
+    } else if (m.type === 'launch') {
+      const optionsHtml = m.options
+        .map(function (opt) {
+          const isSelected = opt.id === m.selectedId;
+          const isDefault = opt.id === m.defaultId;
+          return (
+            '<div class="sct-launch-option-row ' +
+            (isSelected ? 'selected' : '') +
+            '" data-launch-opt-id="' +
+            escapeHtml(opt.id) +
+            '">' +
+            '<div class="sct-launch-option-info">' +
+            '<div class="sct-launch-option-title">' +
+            escapeHtml(opt.label) +
+            '</div>' +
+            '<div class="sct-launch-option-sub">' +
+            escapeHtml(opt.filePath) +
+            '</div>' +
+            '</div>' +
+            '<label class="sct-launch-default-radio" title="Set as default launch option" data-launch-radio-wrap="true">' +
+            '<input type="radio" name="sct-launch-default" data-launch-default-id="' +
+            escapeHtml(opt.id) +
+            '" ' +
+            (isDefault ? 'checked' : '') +
+            ' />' +
+            '<span>Default</span>' +
+            '</label>' +
+            '</div>'
+          );
+        })
+        .join('');
+
+      bodyHtml =
+        '<div class="sct-modal-body sct-launch-body">' +
+        '<div class="sct-launch-subtitle">Choose how to launch ' +
+        escapeHtml(m.serverName) +
+        ':</div>' +
+        '<div class="sct-launch-options-list">' +
+        optionsHtml +
+        '</div>' +
+        '</div>';
+      footerHtml =
+        '<div class="sct-modal-footer">' +
+        '<button type="button" class="sct-btn sct-btn-play" data-modal-action="launch-play">▶ Play</button>' +
+        '<button type="button" class="sct-btn" data-modal-action="launch-cancel">Cancel</button>' +
         '</div>';
     }
 
@@ -178,11 +228,13 @@
     const autoUpdates = document.getElementById('sct-modal-auto-updates');
     const closeTray = document.getElementById('sct-modal-close-tray');
     const steamCmdMin = document.getElementById('sct-modal-steamcmd-min');
+    const runStartup = document.getElementById('sct-modal-run-startup');
 
     if (libInput) activeModal.tempSettings.serverLibraryPath = libInput.value;
     if (autoUpdates) activeModal.tempSettings.autoCheckUpdates = autoUpdates.checked;
     if (closeTray) activeModal.tempSettings.closeToTray = closeTray.checked;
     if (steamCmdMin) activeModal.tempSettings.runSteamCmdMinimized = steamCmdMin.checked;
+    if (runStartup) activeModal.tempSettings.runOnStartup = runStartup.checked;
   }
 
   function bindEvents(root) {
@@ -227,12 +279,18 @@
         } else if (action === 'settings-save') {
           syncSettingsFromDom();
           closeModal(Object.assign({}, activeModal.tempSettings));
-        } else if (action === 'settings-cancel') {
+        } else if (action === 'settings-cancel' || action === 'launch-cancel') {
           closeModal(null);
+        } else if (action === 'launch-play') {
+          const chosen =
+            activeModal.options.find(function (opt) {
+              return opt.id === activeModal.selectedId;
+            }) || activeModal.options[0] || null;
+          closeModal(chosen);
         } else if (action === 'titlebar-close') {
           if (activeModal.type === 'confirm') {
             closeModal(false);
-          } else if (activeModal.type === 'settings') {
+          } else if (activeModal.type === 'settings' || activeModal.type === 'launch') {
             closeModal(null);
           } else if (activeModal.type === 'update') {
             const cb = document.getElementById('sct-modal-update-disable');
@@ -244,6 +302,45 @@
             closeModal(true);
           }
         }
+      });
+    });
+
+    root.querySelectorAll('[data-launch-opt-id]').forEach(function (row) {
+      row.addEventListener('click', function (e) {
+        if (!activeModal || activeModal.type !== 'launch') return;
+        if (e.target.closest('[data-launch-radio-wrap]')) return;
+        const optId = row.getAttribute('data-launch-opt-id');
+        activeModal.selectedId = optId;
+        root.querySelectorAll('[data-launch-opt-id]').forEach(function (el) {
+          el.classList.toggle('selected', el.getAttribute('data-launch-opt-id') === optId);
+        });
+      });
+
+      row.addEventListener('dblclick', function (e) {
+        if (!activeModal || activeModal.type !== 'launch') return;
+        if (e.target.closest('[data-launch-radio-wrap]')) return;
+        const optId = row.getAttribute('data-launch-opt-id');
+        const chosen = activeModal.options.find(function (opt) {
+          return opt.id === optId;
+        });
+        if (chosen) {
+          closeModal(chosen);
+        }
+      });
+    });
+
+    root.querySelectorAll('[data-launch-default-id]').forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        if (!activeModal || activeModal.type !== 'launch' || !radio.checked) return;
+        const optId = radio.getAttribute('data-launch-default-id');
+        activeModal.defaultId = optId;
+        activeModal.selectedId = optId;
+        if (typeof activeModal.onSetDefault === 'function') {
+          activeModal.onSetDefault(optId);
+        }
+        root.querySelectorAll('[data-launch-opt-id]').forEach(function (el) {
+          el.classList.toggle('selected', el.getAttribute('data-launch-opt-id') === optId);
+        });
       });
     });
   }
@@ -308,6 +405,7 @@
             autoCheckUpdates: Boolean(currentSettings.autoCheckUpdates),
             closeToTray: Boolean(currentSettings.closeToTray),
             runSteamCmdMinimized: Boolean(currentSettings.runSteamCmdMinimized),
+            runOnStartup: Boolean(currentSettings.runOnStartup),
             defaultTextEditor: currentSettings.defaultTextEditor || 'notepad.exe'
           },
           iconUrl: 'img/icons/settingsBtn.Image.png',
@@ -326,6 +424,39 @@
           guideText: guideContent || '',
           iconUrl: 'img/icons/1091.png',
           modalClass: 'sct-modal-guide',
+          resolve: resolve
+        };
+        render();
+      });
+    },
+
+    showStartOptions: function (serverName, options, defaultOptionId, onSetDefault) {
+      return new Promise(function (resolve) {
+        const list = Array.isArray(options) ? options : [];
+        const matchedSaved =
+          defaultOptionId &&
+          list.find(function (opt) {
+            return opt.id === defaultOptionId;
+          });
+        const matchedMeta = list.find(function (opt) {
+          return Boolean(opt.isDefault);
+        });
+        const initialId =
+          (matchedSaved && matchedSaved.id) ||
+          (matchedMeta && matchedMeta.id) ||
+          (list[0] && list[0].id) ||
+          '';
+
+        activeModal = {
+          type: 'launch',
+          title: 'Select launch option',
+          serverName: serverName || 'Server',
+          options: list,
+          selectedId: initialId,
+          defaultId: initialId,
+          onSetDefault: onSetDefault,
+          iconUrl: 'img/icons/start_img.png',
+          modalClass: 'sct-modal-launch',
           resolve: resolve
         };
         render();

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Server Creation Tool 5.2</title>
     <base href="/" />
-    <link rel="stylesheet" href="css/app.css?v=42" />
+    <link rel="stylesheet" href="css/app.css?v=43" />
   </head>
 
   <body style="margin:0;padding:0;background-color:#1b2838;">
@@ -20,6 +20,19 @@
             alt="SCT"
           />
           <span class="sct-titlebar-title">Server Creation Tool 5.2</span>
+        </div>
+
+        <div id="sct-titlebar-task" class="sct-titlebar-task" style="display: none;">
+          <div class="sct-titlebar-task-top">
+            <span class="sct-titlebar-task-lbl">Task:</span>
+            <span id="sct-titlebar-task-msg" class="sct-titlebar-task-msg">Running Task...</span>
+          </div>
+          <div class="sct-titlebar-task-bottom">
+            <div id="sct-titlebar-task-prog" class="sct-titlebar-task-prog marquee">
+              <div id="sct-titlebar-task-prog-fill" class="sct-titlebar-task-prog-fill"></div>
+            </div>
+            <span id="sct-titlebar-task-extra" class="sct-titlebar-task-extra"></span>
+          </div>
         </div>
 
         <div class="sct-titlebar-controls">

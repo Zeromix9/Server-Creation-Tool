@@ -310,6 +310,129 @@ window.sctDeleteServer = function (libraryPath, codename, instanceName) {
   return Promise.reject(new Error('Delete requires the desktop app.'));
 };
 
+window.sctGetAvailableStartOptions = function (libraryPath, codename, instanceName, options) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('get_available_start_options', {
+      libraryPath: libraryPath || '',
+      codename: codename || '',
+      instanceName: instanceName || 'Default',
+      options: options || []
+    });
+  }
+  return Promise.resolve([]);
+};
+
+window.sctLaunchServerOption = function (filePath, args) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('launch_server_option', {
+      filePath: filePath || '',
+      args: args || ''
+    });
+  }
+  return Promise.reject(new Error('Launching a server requires the desktop app.'));
+};
+
+window.sctLoadDefaultStartOption = function (serverKey) {
+  try {
+    const raw = window.localStorage ? window.localStorage.getItem('sct_default_start_options') : null;
+    if (!raw) return null;
+    const map = JSON.parse(raw);
+    return map && typeof map === 'object' ? map[serverKey] || null : null;
+  } catch {
+    return null;
+  }
+};
+
+window.sctSaveDefaultStartOption = function (serverKey, optionId) {
+  try {
+    if (!window.localStorage) return;
+    const raw = window.localStorage.getItem('sct_default_start_options');
+    const map = raw ? JSON.parse(raw) : {};
+    if (map && typeof map === 'object') {
+      map[serverKey] = optionId;
+      window.localStorage.setItem('sct_default_start_options', JSON.stringify(map));
+    }
+  } catch {}
+};
+
+window.sctDownloadSteamCmd = function (libraryPath) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('download_steamcmd', {
+      libraryPath: libraryPath || ''
+    });
+  }
+  return Promise.reject(new Error('SteamCMD setup requires the desktop app.'));
+};
+
+window.sctInstallOrUpdateSteamServer = function (params) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('install_or_update_steam_server', {
+      libraryPath: params.libraryPath || '',
+      codename: params.codename || '',
+      instanceName: params.instanceName || 'Default',
+      steamAppId: params.steamAppId || '',
+      serverId: params.serverId || '',
+      minimized: Boolean(params.minimized),
+      validate: Boolean(params.validate)
+    });
+  }
+  return Promise.reject(new Error('SteamCMD install requires the desktop app.'));
+};
+
+window.sctCancelSteamCmd = function (force) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('cancel_steamcmd', { force: Boolean(force) });
+  }
+  return Promise.resolve(false);
+};
+
+window.sctMarkServerIncomplete = function (libraryPath, codename, instanceName) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('mark_server_incomplete', {
+      libraryPath: libraryPath || '',
+      codename: codename || '',
+      instanceName: instanceName || 'Default'
+    });
+  }
+  return Promise.resolve();
+};
+
+window.sctListenServerLogs = function (handler) {
+  if (
+    window.__TAURI__ &&
+    window.__TAURI__.event &&
+    typeof window.__TAURI__.event.listen === 'function'
+  ) {
+    return window.__TAURI__.event.listen('sct-server-log', function (event) {
+      if (event && event.payload) {
+        handler(event.payload);
+      }
+    });
+  }
+  return Promise.resolve(function () {});
+};
+
+window.sctListenTaskState = function (handler) {
+  if (
+    window.__TAURI__ &&
+    window.__TAURI__.event &&
+    typeof window.__TAURI__.event.listen === 'function'
+  ) {
+    return window.__TAURI__.event.listen('sct-task-state', function (event) {
+      if (event && event.payload) {
+        handler(event.payload);
+      }
+    });
+  }
+  return Promise.resolve(function () {});
+};
+
 window.sctOpenFile = function (path) {
   const core = getTauriCore();
   if (core) {

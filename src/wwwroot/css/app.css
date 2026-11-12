@@ -57,6 +57,7 @@ html, body, #app {
     padding: 0 8px;
     flex-shrink: 0;
     cursor: default;
+    position: relative;
 }
 
 .sct-titlebar-left {
@@ -101,6 +102,99 @@ html, body, #app {
     letter-spacing: 0.2px;
     font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Legacy WinForms Titlebar Task Indicator & Progress Bar */
+.sct-titlebar-task {
+    position: absolute;
+    left: 254px;
+    top: 1px;
+    height: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1px;
+    pointer-events: none;
+    user-select: none;
+}
+
+.sct-titlebar-task-top {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    line-height: 12px;
+}
+
+.sct-titlebar-task-lbl {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 8.25pt;
+    font-weight: 700;
+    color: #80ff80;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
+}
+
+.sct-titlebar-task-msg {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 8.25pt;
+    font-weight: 400;
+    color: #e3e3e3;
+    white-space: nowrap;
+    max-width: 460px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
+}
+
+.sct-titlebar-task-bottom {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-left: 5px;
+    line-height: 10px;
+}
+
+.sct-titlebar-task-prog {
+    width: 91px;
+    height: 10px;
+    background-color: #e6e6e6;
+    border: 1px solid #bcbcbc;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.sct-titlebar-task-prog-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(180deg, #37d959 0%, #06b025 55%, #059b20 100%);
+    transition: width 0.12s linear;
+}
+
+.sct-titlebar-task-prog.marquee .sct-titlebar-task-prog-fill {
+    width: 34% !important;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    transition: none;
+    animation: sct-task-marquee 1.15s infinite linear;
+}
+
+@keyframes sct-task-marquee {
+    0% {
+        left: -35%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.sct-titlebar-task-extra {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 8.25pt;
+    font-weight: 400;
+    color: #e3e3e3;
+    white-space: nowrap;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
 }
 
 .sct-titlebar-controls {
@@ -546,6 +640,12 @@ html, body, #app {
     color: #ffffff;
 }
 
+.sct-list-item-srv.running,
+.sct-list-item-srv.running:hover,
+.sct-list-item-srv.running.selected {
+    color: #4ade80;
+}
+
 .sct-srv-name {
     text-align: center;
     overflow: hidden;
@@ -839,6 +939,17 @@ html, body, #app {
 .sct-srv-action-btn.state-stop:hover,
 .sct-srv-action-btn.state-stop:active {
     background-color: #f73228;
+}
+
+.sct-srv-action-btn:disabled,
+.sct-instance-dropdown-btn:disabled,
+.sct-quick-icon-btn:disabled,
+.sct-tab-btn:disabled,
+.sct-side-btn:disabled,
+.sct-list-item-reload:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 .sct-size-display {
@@ -1238,6 +1349,118 @@ html, body, #app {
 .sct-modal-window.sct-modal-steamcmd {
     width: 440px;
     max-width: 90vw;
+}
+
+.sct-modal-window.sct-modal-launch {
+    width: 410px;
+    max-width: 92vw;
+}
+
+.sct-launch-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 14px;
+}
+
+.sct-launch-subtitle {
+    font-size: 12px;
+    color: #cbd5e1;
+    font-weight: 600;
+}
+
+.sct-launch-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 220px;
+    overflow-y: auto;
+    background-color: #1a2639;
+    border: 1px solid #2d3f58;
+    padding: 8px;
+}
+
+.sct-launch-option-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 10px;
+    background-color: #273752;
+    border: 1px solid #3c5175;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.sct-launch-option-row:hover {
+    background-color: #314669;
+    border-color: #536e9c;
+}
+
+.sct-launch-option-row.selected {
+    background-color: #2f4d78;
+    border-color: #38bdf8;
+    box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.35);
+}
+
+.sct-launch-option-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
+}
+
+.sct-launch-option-title {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #f1f5f9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sct-launch-option-sub {
+    font-size: 10.5px;
+    color: #94a3b8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sct-launch-default-radio {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 7px;
+    background-color: rgba(15, 23, 42, 0.45);
+    border: 1px solid #3b4f6e;
+    color: #cbd5e1;
+    font-size: 11px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.sct-launch-default-radio:hover {
+    border-color: #60a5fa;
+    color: #ffffff;
+}
+
+.sct-launch-default-radio input[type='radio'] {
+    margin: 0;
+    accent-color: #38bdf8;
+    cursor: pointer;
+}
+
+.sct-modal-footer .sct-btn-play {
+    background-color: #29b845;
+    border-color: #35d154;
+    color: #ffffff;
+}
+
+.sct-modal-footer .sct-btn-play:hover {
+    background-color: #59cc2a;
 }
 
 .sct-modal-window.sct-modal-about-fallback {
@@ -2746,5 +2969,94 @@ html, body, #app {
     padding: 0;
     border: none;
 }
+
+.sct-tools-section-card,
+.sct-settings-card,
+.sct-auto-card {
+    flex-shrink: 0;
+}
+
+/* CustomContainers & CustomControls grid (SchemaVersion 2) */
+.sct-custom-grid {
+    display: grid;
+    gap: 6px;
+    align-items: stretch;
+}
+
+.sct-custom-ctrl-btn {
+    width: 100%;
+    height: 25px;
+    min-height: 25px;
+    padding: 0 8px;
+    font-size: 8.75pt;
+}
+
+.sct-custom-ctrl-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 25px;
+    min-height: 25px;
+    padding: 0 4px;
+    color: #cbd5e1;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 8.75pt;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.sct-custom-ctrl-checkbox:hover {
+    color: #ffffff;
+}
+
+.sct-custom-dropdown-wrap {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.sct-custom-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    right: 0;
+    background-color: #273654;
+    border: 1px solid #5d7ca8;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+    gap: 2px;
+}
+
+.sct-custom-dropdown-item {
+    height: 25px;
+    padding: 0 8px;
+    background-color: rgb(58, 69, 89);
+    border: 1px solid #4a5873;
+    color: #e2e8f0;
+    font-family: 'Segoe UI Semibold', 'Segoe UI', Tahoma, sans-serif;
+    font-size: 8.75pt;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: background-color 130ms, border-color 130ms, color 130ms;
+}
+
+.sct-custom-dropdown-item:hover:not(:disabled) {
+    background-color: #485873;
+    border-color: #5d7398;
+    color: #ffffff;
+}
+
 
 

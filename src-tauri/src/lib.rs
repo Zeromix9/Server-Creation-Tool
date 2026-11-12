@@ -2,6 +2,7 @@ use tauri::Manager;
 use tauri::menu::{ContextMenu, MenuBuilder, MenuItemBuilder};
 
 mod servers;
+mod steamcmd;
 
 #[tauri::command]
 fn show_settings_context_menu(
@@ -297,6 +298,66 @@ async fn delete_server(
 }
 
 #[tauri::command]
+fn get_available_start_options(
+    library_path: String,
+    codename: String,
+    instance_name: String,
+    options: Vec<servers::StartOptionDto>,
+) -> Result<Vec<servers::AvailableStartOption>, String> {
+    servers::get_available_start_options(&library_path, &codename, &instance_name, &options)
+}
+
+#[tauri::command]
+fn launch_server_option(file_path: String, args: String) -> Result<(), String> {
+    servers::launch_server_option(&file_path, &args)
+}
+
+#[tauri::command]
+async fn download_steamcmd(app: tauri::AppHandle, library_path: String) -> Result<String, String> {
+    let exe_path = steamcmd::ensure_steamcmd_windows(&app, &library_path, "").await?;
+    Ok(exe_path.to_string_lossy().into_owned())
+}
+
+#[tauri::command]
+async fn install_or_update_steam_server(
+    app: tauri::AppHandle,
+    library_path: String,
+    codename: String,
+    instance_name: String,
+    steam_app_id: String,
+    server_id: String,
+    minimized: bool,
+    validate: bool,
+) -> Result<steamcmd::SteamCmdRunResult, String> {
+    steamcmd::run_steamcmd_app_update(
+        app,
+        library_path,
+        codename,
+        instance_name,
+        steam_app_id,
+        server_id,
+        minimized,
+        validate,
+    )
+    .await
+}
+
+#[tauri::command]
+fn cancel_steamcmd(app: tauri::AppHandle, force: bool) -> Result<bool, String> {
+    steamcmd::cancel_steamcmd_task(&app, force)
+}
+
+#[tauri::command]
+fn mark_server_incomplete(
+    library_path: String,
+    codename: String,
+    instance_name: String,
+) -> Result<(), String> {
+    let (server_dir, _) = servers::resolve_instance_dir(&library_path, &codename, &instance_name)?;
+    servers::mark_instance_incomplete(&server_dir)
+}
+
+#[tauri::command]
 fn get_app_version() -> String {
     env!("CARGO_PKG_VERSION").to_string()
 }
@@ -444,6 +505,12 @@ pub fn run() {
             ensure_library_location,
             mock_install_server,
             delete_server,
+            get_available_start_options,
+            launch_server_option,
+            download_steamcmd,
+            install_or_update_steam_server,
+            cancel_steamcmd,
+            mark_server_incomplete,
             get_app_version,
             check_for_updates,
             show_settings_context_menu
