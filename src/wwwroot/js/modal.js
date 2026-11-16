@@ -193,6 +193,102 @@
         '<button type="button" class="sct-btn sct-btn-play" data-modal-action="launch-play">▶ Play</button>' +
         '<button type="button" class="sct-btn" data-modal-action="launch-cancel">Cancel</button>' +
         '</div>';
+    } else if (m.type === 'backup-dest') {
+      const msg =
+        'Where would you like to save the backup for ' +
+        m.serverName +
+        ' (' +
+        m.instanceName +
+        ')?\n\n' +
+        'Default folder:\n' +
+        m.defaultFolderHint;
+      bodyHtml =
+        '<div class="sct-modal-body sct-msgbox-body">' +
+        '<div class="sct-msgbox-row">' +
+        '<span class="sct-msgbox-icon">💾</span>' +
+        '<div class="sct-msgbox-text">' + escapeHtml(msg) + '</div>' +
+        '</div>' +
+        '</div>';
+      footerHtml =
+        '<div class="sct-modal-footer">' +
+        '<button type="button" class="sct-btn" data-modal-action="backup-dest-default">Default</button>' +
+        '<button type="button" class="sct-btn" data-modal-action="backup-dest-custom">Choose location</button>' +
+        '<button type="button" class="sct-btn" data-modal-action="backup-dest-cancel">Cancel</button>' +
+        '</div>';
+    } else if (m.type === 'restore-light') {
+      const formatDate = function (ms) {
+        if (!ms) return '';
+        const d = new Date(ms);
+        if (Number.isNaN(d.getTime())) return '';
+        const pad = function (n) {
+          return String(n).padStart(2, '0');
+        };
+        return (
+          d.getFullYear() +
+          '-' +
+          pad(d.getMonth() + 1) +
+          '-' +
+          pad(d.getDate()) +
+          ' ' +
+          pad(d.getHours()) +
+          ':' +
+          pad(d.getMinutes())
+        );
+      };
+
+      const listHtml =
+        m.backups.length === 0
+          ? '<div class="sct-restore-empty">' +
+            'No backups found for <strong>' +
+            escapeHtml(m.serverName) +
+            ' (' +
+            escapeHtml(m.instanceName) +
+            ')</strong>.<br />Click <strong>Browse Elsewhere...</strong> below to select a backup archive from your PC.' +
+            '</div>'
+          : m.backups
+              .map(function (b) {
+                const isSelected = b.fullPath === m.selectedPath;
+                const dateText = formatDate(b.modifiedMs);
+                return (
+                  '<div class="sct-restore-item ' +
+                  (isSelected ? 'selected' : '') +
+                  '" data-restore-path="' +
+                  escapeHtml(b.fullPath) +
+                  '">' +
+                  '<div class="sct-restore-item-main">' +
+                  '<div class="sct-restore-item-name">' +
+                  escapeHtml(b.fileName) +
+                  '</div>' +
+                  '<div class="sct-restore-item-meta">' +
+                  escapeHtml(dateText ? dateText + '  •  ' + b.size : b.size) +
+                  '</div>' +
+                  '</div>' +
+                  '</div>'
+                );
+              })
+              .join('');
+
+      bodyHtml =
+        '<div class="sct-modal-body sct-restore-body">' +
+        '<div class="sct-restore-subtitle">Select a backup for ' +
+        escapeHtml(m.serverName) +
+        ' (' +
+        escapeHtml(m.instanceName) +
+        '):</div>' +
+        '<div class="sct-restore-list">' +
+        listHtml +
+        '</div>' +
+        '</div>';
+      footerHtml =
+        '<div class="sct-modal-footer sct-restore-footer">' +
+        '<button type="button" class="sct-btn" data-modal-action="restore-browse">Browse Elsewhere...</button>' +
+        '<div class="sct-restore-footer-right">' +
+        '<button type="button" class="sct-btn" id="sct-restore-confirm-btn" data-modal-action="restore-confirm" ' +
+        (m.selectedPath ? '' : 'disabled') +
+        '>Restore</button>' +
+        '<button type="button" class="sct-btn" data-modal-action="restore-cancel">Cancel</button>' +
+        '</div>' +
+        '</div>';
     }
 
     root.innerHTML =
@@ -279,8 +375,30 @@
         } else if (action === 'settings-save') {
           syncSettingsFromDom();
           closeModal(Object.assign({}, activeModal.tempSettings));
-        } else if (action === 'settings-cancel' || action === 'launch-cancel') {
+        } else if (action === 'settings-cancel' || action === 'launch-cancel' || action === 'backup-dest-cancel' || action === 'restore-cancel') {
           closeModal(null);
+        } else if (action === 'backup-dest-default') {
+          closeModal('default');
+        } else if (action === 'backup-dest-custom') {
+          closeModal('custom');
+        } else if (action === 'restore-confirm') {
+          const chosen =
+            activeModal.backups.find(function (b) {
+              return b.fullPath === activeModal.selectedPath;
+            }) || null;
+          if (chosen) {
+            closeModal(chosen);
+          }
+        } else if (action === 'restore-browse') {
+          if (typeof activeModal.onBrowseElsewhere === 'function') {
+            try {
+              const picked = await activeModal.onBrowseElsewhere();
+              if (picked && activeModal && activeModal.type === 'restore-light') {
+                const name = picked.split(/[\\/]/).pop() || picked;
+                closeModal({ fullPath: picked, fileName: name });
+              }
+            } catch {}
+          }
         } else if (action === 'launch-play') {
           const chosen =
             activeModal.options.find(function (opt) {
@@ -290,7 +408,12 @@
         } else if (action === 'titlebar-close') {
           if (activeModal.type === 'confirm') {
             closeModal(false);
-          } else if (activeModal.type === 'settings' || activeModal.type === 'launch') {
+          } else if (
+            activeModal.type === 'settings' ||
+            activeModal.type === 'launch' ||
+            activeModal.type === 'backup-dest' ||
+            activeModal.type === 'restore-light'
+          ) {
             closeModal(null);
           } else if (activeModal.type === 'update') {
             const cb = document.getElementById('sct-modal-update-disable');
@@ -341,6 +464,32 @@
         root.querySelectorAll('[data-launch-opt-id]').forEach(function (el) {
           el.classList.toggle('selected', el.getAttribute('data-launch-opt-id') === optId);
         });
+      });
+    });
+
+    root.querySelectorAll('[data-restore-path]').forEach(function (row) {
+      row.addEventListener('click', function () {
+        if (!activeModal || activeModal.type !== 'restore-light') return;
+        const path = row.getAttribute('data-restore-path');
+        activeModal.selectedPath = path;
+        root.querySelectorAll('[data-restore-path]').forEach(function (el) {
+          el.classList.toggle('selected', el.getAttribute('data-restore-path') === path);
+        });
+        const confirmBtn = document.getElementById('sct-restore-confirm-btn');
+        if (confirmBtn) {
+          confirmBtn.disabled = !path;
+        }
+      });
+
+      row.addEventListener('dblclick', function () {
+        if (!activeModal || activeModal.type !== 'restore-light') return;
+        const path = row.getAttribute('data-restore-path');
+        const chosen = activeModal.backups.find(function (b) {
+          return b.fullPath === path;
+        });
+        if (chosen) {
+          closeModal(chosen);
+        }
       });
     });
   }
@@ -457,6 +606,41 @@
           onSetDefault: onSetDefault,
           iconUrl: 'img/icons/start_img.png',
           modalClass: 'sct-modal-launch',
+          resolve: resolve
+        };
+        render();
+      });
+    },
+
+    showBackupDestination: function (serverName, instanceName, defaultFolderHint) {
+      return new Promise(function (resolve) {
+        activeModal = {
+          type: 'backup-dest',
+          title: 'Backup Server',
+          serverName: serverName || 'Server',
+          instanceName: instanceName || 'Default',
+          defaultFolderHint: defaultFolderHint || '',
+          iconUrl: 'img/icons/icons8-server-24.png',
+          modalClass: 'sct-modal-msgbox',
+          resolve: resolve
+        };
+        render();
+      });
+    },
+
+    showRestoreBackup: function (serverName, instanceName, backups, onBrowseElsewhere) {
+      return new Promise(function (resolve) {
+        const list = Array.isArray(backups) ? backups : [];
+        activeModal = {
+          type: 'restore-light',
+          title: 'Restore Backup',
+          serverName: serverName || 'Server',
+          instanceName: instanceName || 'Default',
+          backups: list,
+          selectedPath: list[0] ? list[0].fullPath : '',
+          onBrowseElsewhere: onBrowseElsewhere,
+          iconUrl: 'img/icons/icons8-rotate2-24.png',
+          modalClass: 'sct-modal-restore-light',
           resolve: resolve
         };
         render();

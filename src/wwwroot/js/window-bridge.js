@@ -220,6 +220,14 @@ window.sctOpenAppLogs = function () {
   return Promise.resolve();
 };
 
+window.sctAppendLog = function (message) {
+  const core = getTauriCore();
+  if (core && message) {
+    return core.invoke('append_app_log', { message: String(message) });
+  }
+  return Promise.resolve();
+};
+
 window.sctCheckForUpdates = function () {
   const core = getTauriCore();
   if (core) {
@@ -308,6 +316,47 @@ window.sctDeleteServer = function (libraryPath, codename, instanceName) {
     });
   }
   return Promise.reject(new Error('Delete requires the desktop app.'));
+};
+
+window.sctRenameServerInstance = function (libraryPath, codename, oldInstanceName, newInstanceName) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('rename_server_instance', {
+      libraryPath: libraryPath || '',
+      codename: codename || '',
+      oldInstanceName: oldInstanceName || 'Default',
+      newInstanceName: newInstanceName || ''
+    });
+  }
+  return Promise.reject(new Error('Rename requires the desktop app.'));
+};
+
+window.sctLoadGameServerControls = function (serverKey) {
+  try {
+    const raw = window.localStorage ? window.localStorage.getItem('sct_game_server_controls_v1') : null;
+    if (!raw) return {};
+    const map = JSON.parse(raw);
+    return map && typeof map === 'object' && map[serverKey] && typeof map[serverKey] === 'object'
+      ? map[serverKey]
+      : {};
+  } catch {
+    return {};
+  }
+};
+
+window.sctSaveGameServerControls = function (serverKey, stateObj, oldServerKey) {
+  try {
+    if (!window.localStorage) return;
+    const raw = window.localStorage.getItem('sct_game_server_controls_v1');
+    const map = raw ? JSON.parse(raw) : {};
+    if (map && typeof map === 'object') {
+      if (oldServerKey && oldServerKey !== serverKey) {
+        delete map[oldServerKey];
+      }
+      map[serverKey] = stateObj || {};
+      window.localStorage.setItem('sct_game_server_controls_v1', JSON.stringify(map));
+    }
+  } catch {}
 };
 
 window.sctGetAvailableStartOptions = function (libraryPath, codename, instanceName, options) {
@@ -452,6 +501,66 @@ window.sctCopyToClipboard = function (text) {
   document.execCommand('copy');
   document.body.removeChild(ta);
   return Promise.resolve();
+};
+
+window.sctPickBackupSavePath = function (defaultFileName) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('pick_backup_save_path', {
+      defaultFileName: defaultFileName || 'server_backup.zip'
+    });
+  }
+  return Promise.resolve(null);
+};
+
+window.sctPickBackupOpenPath = function () {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('pick_backup_open_path');
+  }
+  return Promise.resolve(null);
+};
+
+window.sctBackupServer = function (params) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('backup_server', {
+      libraryPath: params.libraryPath || '',
+      codename: params.codename || '',
+      instanceName: params.instanceName || 'Default',
+      serverId: params.serverId || '',
+      serverName: params.serverName || '',
+      destinationPath: params.destinationPath || null
+    });
+  }
+  return Promise.reject(new Error('Backup requires the desktop app.'));
+};
+
+window.sctListServerBackups = function (libraryPath, codename, instanceName) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('list_server_backups', {
+      libraryPath: libraryPath || '',
+      codename: codename || '',
+      instanceName: instanceName || 'Default'
+    });
+  }
+  return Promise.resolve([]);
+};
+
+window.sctRestoreServerBackup = function (params) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('restore_server_backup', {
+      libraryPath: params.libraryPath || '',
+      codename: params.codename || '',
+      instanceName: params.instanceName || 'Default',
+      serverId: params.serverId || '',
+      serverName: params.serverName || '',
+      backupPath: params.backupPath || ''
+    });
+  }
+  return Promise.reject(new Error('Restore requires the desktop app.'));
 };
 
 window.sctShowContextMenu = async function (x, y, files, libraryPath, serverId) {

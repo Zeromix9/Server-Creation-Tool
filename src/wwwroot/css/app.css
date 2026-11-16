@@ -3058,5 +3058,148 @@ html, body, #app {
     color: #ffffff;
 }
 
+/* Restore Backup Window (matches dark modal theme) */
+.sct-modal-window.sct-modal-restore-light {
+    width: 480px;
+    max-width: 92vw;
+}
+
+.sct-restore-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 14px 10px 14px;
+}
+
+.sct-restore-subtitle {
+    font-size: 12px;
+    font-weight: 600;
+    color: #cbd5e1;
+}
+
+.sct-restore-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 240px;
+    max-height: 310px;
+    overflow-y: auto;
+    background-color: #1a2639;
+    border: 1px solid #2d3f58;
+    padding: 6px;
+}
+
+.sct-restore-empty {
+    padding: 28px 16px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #94a3b8;
+}
+
+.sct-restore-item {
+    display: flex;
+    align-items: center;
+    padding: 5px 8px;
+    background-color: #273752;
+    border: 1px solid #3c5175;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.sct-restore-item:hover {
+    background-color: #314669;
+    border-color: #536e9c;
+}
+
+.sct-restore-item.selected {
+    background-color: #2f4d78;
+    border-color: #38bdf8;
+    box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.35);
+}
+
+.sct-restore-item-main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+}
+
+.sct-restore-item-name {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.sct-restore-item-meta {
+    font-size: 10.5px;
+    color: #94a3b8;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.sct-restore-footer {
+    justify-content: space-between;
+}
+
+.sct-restore-footer-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sct-restore-footer .sct-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* Instance Settings subcontainer inside -Game Server- */
+.sct-subcontainer-card {
+    background: rgba(15, 23, 36, 0.45);
+    border: 1px solid #3c4c64;
+    padding: 4px 8px 7px 8px;
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.sct-subcontainer-title {
+    font-family: 'Segoe UI Semibold', 'Segoe UI', sans-serif;
+    font-size: 8.75pt;
+    font-weight: bold;
+    color: #cbd5e1;
+    border-bottom: 1px solid #3c4c64;
+    padding-bottom: 2px;
+    user-select: none;
+}
+
+.sct-instance-settings-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sct-instance-settings-row .sct-settings-input {
+    min-width: 0;
+    flex: 1;
+}
+
+.sct-instance-delete-btn {
+    height: 24px;
+    min-height: 24px;
+    padding: 0 10px;
+    flex-shrink: 0;
+}
+
+
 
 

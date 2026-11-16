@@ -339,7 +339,11 @@
       highPriority: prev ? prev.highPriority : true,
       enableConsoleWindow: prev ? prev.enableConsoleWindow : true,
       autoBackupBeforeLaunch: prev ? prev.autoBackupBeforeLaunch : false,
-      customCheckStates: prev && prev.customCheckStates ? prev.customCheckStates : {},
+      pendingInstanceName: prev ? prev.pendingInstanceName : undefined,
+      customCheckStates:
+        prev && prev.customCheckStates
+          ? prev.customCheckStates
+          : window.sctLoadGameServerControls(dto.id + ':' + activeInstName),
       startOptions: Array.isArray(dto.startOptions)
         ? dto.startOptions.map(function (opt) {
             return {
@@ -481,6 +485,12 @@
       if (q && !s.name.toLowerCase().includes(q)) return false;
       return true;
     });
+  }
+
+  function logUserAction(message) {
+    if (window.sctAppendLog && message) {
+      window.sctAppendLog(message);
+    }
   }
 
   function appendTerminalLine(server, message) {
@@ -799,7 +809,8 @@
       }
     });
 
-    if (matched.length === 0) {
+    const isGameServerContainer = cont.id === 'locked_game_server';
+    if (matched.length === 0 && !isGameServerContainer) {
       return (
         '<div class="' +
         cardClass +
@@ -826,6 +837,60 @@
       })
       .join('');
 
+    const gridSectionHtml =
+      matched.length > 0
+        ? '<div class="sct-custom-grid" style="grid-template-columns: repeat(' +
+          cols +
+          ', minmax(0, 1fr));">' +
+          controlsHtml +
+          '</div>'
+        : '';
+
+    let gameServerFooterHtml = '';
+    if (isGameServerContainer) {
+      const taskBusy = isSteamTaskBusy();
+      const instValue =
+        srv.pendingInstanceName !== undefined
+          ? srv.pendingInstanceName
+          : srv.currentInstance;
+      const instLockAttr =
+        isDeleting || taskBusy || srv.isRunning || srv.isInstalling
+          ? 'disabled'
+          : '';
+      const canDeleteInstance =
+        (srv.isInstalled || srv.currentInstance !== 'Default') &&
+        !isDeleting &&
+        !taskBusy &&
+        !srv.isRunning &&
+        !srv.isInstalling;
+
+      gameServerFooterHtml =
+        '<div class="sct-subcontainer-card">' +
+        '<div class="sct-subcontainer-title">-Instance Settings-</div>' +
+        '<div class="sct-instance-settings-row">' +
+        '<span class="sct-auto-field-label">Instance name:</span>' +
+        '<input type="text" id="sct-instance-name-input" class="sct-settings-input" value="' +
+        escapeHtml(instValue) +
+        '" ' +
+        instLockAttr +
+        ' />' +
+        '<button type="button" class="sct-tool-btn sct-instance-delete-btn" data-action="delete-instance" ' +
+        (canDeleteInstance ? '' : 'disabled') +
+        '>' +
+        '<img src="img/icons/1263.png" class="sct-tool-btn-icon" alt="" />' +
+        '<span class="sct-tool-btn-text">Delete</span>' +
+        '</button>' +
+        '</div>' +
+        '</div>' +
+        '<div class="sct-settings-buttons-bar">' +
+        '<button type="button" class="sct-tool-btn" data-action="save-game-server" ' +
+        instLockAttr +
+        '>' +
+        '<span class="sct-tool-btn-text">💾 Save</span>' +
+        '</button>' +
+        '</div>';
+    }
+
     return (
       '<div class="' +
       cardClass +
@@ -835,11 +900,8 @@
       '<div class="sct-card-section-title">-' +
       escapeHtml(title) +
       '-</div>' +
-      '<div class="sct-custom-grid" style="grid-template-columns: repeat(' +
-      cols +
-      ', minmax(0, 1fr));">' +
-      controlsHtml +
-      '</div>' +
+      gridSectionHtml +
+      gameServerFooterHtml +
       '</div>'
     );
   }
@@ -1014,13 +1076,17 @@
         '<div class="sct-card-section-title">-Backups-</div>' +
         '<div class="sct-tools-row-2">' +
         '<button type="button" class="sct-tool-btn" data-action="backup-server" ' +
-        disabledAttr +
+        (srv.isInstalled && !srv.isInstalling && !srv.isRunning && !isDeleting && !taskBusy
+          ? ''
+          : 'disabled') +
         '>' +
         '<span style="font-size: 12px; margin-right: 2px;">💾</span>' +
-        '<span class="sct-tool-btn-text">Backup Server</span>' +
+        '<span class="sct-tool-btn-text">Backup Server Instance</span>' +
         '</button>' +
         '<button type="button" class="sct-tool-btn" data-action="restore-backup" ' +
-        disabledAttr +
+        (!srv.isInstalling && !srv.isRunning && !isDeleting && !taskBusy
+          ? ''
+          : 'disabled') +
         '>' +
         '<span style="font-size: 12px; margin-right: 2px;">📦</span>' +
         '<span class="sct-tool-btn-text">Restore Backup</span>' +
@@ -1545,6 +1611,7 @@
         } catch {}
       }
       saveSettings();
+      logUserAction('Saved application settings');
       await refreshServers({ preserveSelection: true });
       renderAll();
       await window.SctModal.alert('Settings have been saved.', 'Settings Saved');
@@ -1791,6 +1858,15 @@
         srv.hasIncompleteInstall = false;
         srv.size = '-';
         srv.sizeBytes = 0;
+        logUserAction(
+          'Created instance ' +
+            newName +
+            ' for ' +
+            srv.name +
+            ' (' +
+            getServerFolderName(srv, newName) +
+            ')'
+        );
         renderAll();
         await window.SctModal.alert(
           "New instance '" + newName + "' selected (" + getServerFolderName(srv, newName) + ').',
@@ -1803,6 +1879,7 @@
         if (!srv || isServerBusy(srv)) break;
         if (srv.isRunning) {
           srv.isRunning = false;
+          logUserAction('Stopped ' + srv.name + ' (' + srv.currentInstance + ')');
           appendTerminalLine(
             srv,
             'Stopped ' + srv.name + ' (' + srv.currentInstance + ').'
@@ -1860,6 +1937,14 @@
 
             await window.sctLaunchServerOption(chosen.resolvedPath, chosen.args || '');
             srv.lastRan = formatDateDmy(new Date());
+            logUserAction(
+              'Started ' +
+                srv.name +
+                ' (' +
+                srv.currentInstance +
+                ') using ' +
+                chosen.label
+            );
             appendTerminalLine(
               srv,
               'Launched ' +
@@ -1886,6 +1971,13 @@
       case 'install-server': {
         if (!srv || isSteamTaskBusy()) break;
         const isResumeUpdate = Boolean(srv.isInstalled && srv.hasIncompleteInstall);
+        logUserAction(
+          (isResumeUpdate ? 'Resumed update for ' : 'Started install for ') +
+            srv.name +
+            ' (' +
+            srv.currentInstance +
+            ')'
+        );
         await executeSteamInstallOrUpdate(srv, {
           isUpdate: isResumeUpdate,
           validate: true,
@@ -1911,6 +2003,7 @@
 
         if (!activeSrv.isCancelling) {
           activeSrv.isCancelling = true;
+          logUserAction('Requested cancel for ' + activeSrv.name + ' SteamCMD task');
           state.task.cancelling = true;
           state.task.message = 'Cancelling SteamCMD...';
           state.task.knownProgress = false;
@@ -2017,6 +2110,7 @@
         );
         if (!confirmed) break;
 
+        logUserAction('Started update/repair for ' + srv.name + ' (' + srv.currentInstance + ')');
         await executeSteamInstallOrUpdate(srv, {
           isUpdate: true,
           validate: true,
@@ -2043,6 +2137,7 @@
         );
         if (!confirmed) break;
 
+        logUserAction('Deleting server instance ' + srv.name + ' (' + srv.currentInstance + ')');
         closeContextMenus();
         state.deletingServerId = srv.id;
         srv.isDeleting = true;
@@ -2110,51 +2205,231 @@
         break;
 
       case 'backup-server': {
-        if (!srv) break;
+        if (!srv || isSteamTaskBusy() || isServerBusy(srv)) break;
         if (!srv.isInstalled) {
           await window.SctModal.alert(
-            'Cannot backup a server that is not installed.',
+            'Cannot back up a server that is not installed.',
             'Backup Server',
             '⚠️'
           );
           break;
         }
-        const backupName =
-          srv.id +
-          '_' +
-          srv.currentInstance.replace(/\s+/g, '_') +
-          '_' +
-          formatBackupTimestamp(new Date()) +
-          '.zip';
-        await window.SctModal.alert(
-          'Backup archive created successfully:\n' +
-            state.settings.serverLibraryPath +
-            '\\backups\\' +
-            backupName,
-          'Server Backup',
-          '💾'
+        if (srv.hasIncompleteInstall) {
+          await window.SctModal.alert(
+            'Cannot back up an incomplete installation. Finish updating the server first.',
+            'Backup Server',
+            '⚠️'
+          );
+          break;
+        }
+        if (srv.isRunning) {
+          await window.SctModal.alert(
+            'Stop ' + srv.name + ' before creating a backup.',
+            'Server Running',
+            '⚠️'
+          );
+          break;
+        }
+
+        const libPath = (state.settings.serverLibraryPath || '').trim();
+        if (!libPath) {
+          await window.SctModal.alert(
+            'No Server Library location is configured.',
+            'Backup Server',
+            '⚠️'
+          );
+          break;
+        }
+
+        const instSlug = (srv.currentInstance || 'Default').replace(/[^a-zA-Z0-9_-]/g, '_');
+        const defaultFolderHint =
+          libPath + '\\backups\\' + srv.codename + '_' + instSlug;
+        const destChoice = await window.SctModal.showBackupDestination(
+          srv.name,
+          srv.currentInstance,
+          defaultFolderHint
         );
+        if (!destChoice) break;
+
+        let destinationPath = null;
+        if (destChoice === 'custom') {
+          const suggestedName =
+            srv.codename +
+            '_' +
+            instSlug +
+            '_' +
+            formatBackupTimestamp(new Date()) +
+            '.zip';
+          const pickedPath = await window.sctPickBackupSavePath(suggestedName);
+          if (!pickedPath) break;
+          destinationPath = pickedPath;
+        }
+
+        logUserAction(
+          'Creating backup for ' +
+            srv.name +
+            ' (' +
+            srv.currentInstance +
+            ') [' +
+            (destinationPath || 'Default location') +
+            ']'
+        );
+        closeContextMenus();
+        state.task = {
+          active: true,
+          serverId: srv.id,
+          message: 'Backing up ' + srv.name + '...',
+          knownProgress: false,
+          progress: 0,
+          extraInfo: '',
+          cancelling: false
+        };
+        renderAll();
+
+        try {
+          const created = await window.sctBackupServer({
+            libraryPath: libPath,
+            codename: srv.codename,
+            instanceName: srv.currentInstance,
+            serverId: srv.id,
+            serverName: srv.name,
+            destinationPath: destinationPath
+          });
+          state.task.active = false;
+          renderAll();
+          await window.SctModal.alert(
+            'Backup created successfully:\n' +
+              created.fullPath +
+              '\n\nSize: ' +
+              created.size +
+              ' (' +
+              created.fileCount +
+              ' files)',
+            'Server Backup',
+            '💾'
+          );
+        } catch (err) {
+          state.task.active = false;
+          renderAll();
+          const msg = err && err.message ? err.message : String(err);
+          await window.SctModal.alert(
+            'Failed to create backup:\n' + msg,
+            'Backup Error',
+            '⚠️'
+          );
+        }
         break;
       }
 
-      case 'restore-backup':
-        if (!srv) break;
-        if (!srv.isInstalled) {
+      case 'restore-backup': {
+        if (!srv || isSteamTaskBusy() || isServerBusy(srv)) break;
+        if (srv.isRunning) {
           await window.SctModal.alert(
-            'Cannot restore a backup to a server that is not installed.',
+            'Stop ' + srv.name + ' before restoring a backup.',
+            'Server Running',
+            '⚠️'
+          );
+          break;
+        }
+
+        const libPath = (state.settings.serverLibraryPath || '').trim();
+        if (!libPath) {
+          await window.SctModal.alert(
+            'No Server Library location is configured.',
             'Restore Backup',
             '⚠️'
           );
           break;
         }
-        await window.SctModal.alert(
-          'Looking for backup archives in:\n' +
-            state.settings.serverLibraryPath +
-            '\\backups\n\nSelect an archive to restore.',
-          'Restore Backup',
-          '📦'
+
+        let backups = [];
+        try {
+          backups = await window.sctListServerBackups(
+            libPath,
+            srv.codename,
+            srv.currentInstance
+          );
+        } catch {
+          backups = [];
+        }
+
+        const chosen = await window.SctModal.showRestoreBackup(
+          srv.name,
+          srv.currentInstance,
+          backups,
+          function () {
+            return window.sctPickBackupOpenPath();
+          }
         );
+        if (!chosen || !chosen.fullPath) break;
+
+        const confirmed = await window.SctModal.confirm(
+          "Restore '" +
+            (chosen.fileName || chosen.fullPath) +
+            "' into " +
+            srv.name +
+            ' (' +
+            srv.currentInstance +
+            ')?\n\nExisting files in the server folder will be replaced.',
+          'Confirm Restore',
+          '⚠️',
+          'Restore',
+          'Cancel'
+        );
+        if (!confirmed) break;
+
+        logUserAction(
+          'Restoring backup ' +
+            (chosen.fileName || chosen.fullPath) +
+            ' into ' +
+            srv.name +
+            ' (' +
+            srv.currentInstance +
+            ')'
+        );
+        closeContextMenus();
+        state.task = {
+          active: true,
+          serverId: srv.id,
+          message: 'Restoring ' + srv.name + '...',
+          knownProgress: false,
+          progress: 0,
+          extraInfo: '',
+          cancelling: false
+        };
+        renderAll();
+
+        try {
+          const restored = await window.sctRestoreServerBackup({
+            libraryPath: libPath,
+            codename: srv.codename,
+            instanceName: srv.currentInstance,
+            serverId: srv.id,
+            serverName: srv.name,
+            backupPath: chosen.fullPath
+          });
+          state.task.active = false;
+          await refreshServerLikeClicked(srv.id);
+          await window.SctModal.alert(
+            'Backup restored successfully (' +
+              restored.fileCount +
+              ' files) to:\n' +
+              restored.directory,
+            'Restore Complete',
+            '📦'
+          );
+        } catch (err) {
+          state.task.active = false;
+          await refreshServerLikeClicked(srv.id);
+          const msg = err && err.message ? err.message : String(err);
+          await window.SctModal.alert(
+            'Failed to restore backup:\n' + msg,
+            'Restore Error',
+            '⚠️'
+          );
+        }
         break;
+      }
 
       case 'create-custom-batch':
         if (!srv) break;
@@ -2187,12 +2462,160 @@
 
       case 'save-server-settings':
         if (!srv) break;
-        await window.SctModal.alert(
-          'Settings for ' + srv.name + ' have been saved successfully.',
-          'Settings Saved',
-          '💾'
-        );
         break;
+
+      case 'save-game-server': {
+        if (!srv || isSteamTaskBusy() || isServerBusy(srv)) break;
+        const nameInput = document.getElementById('sct-instance-name-input');
+        const oldInstance = srv.currentInstance || 'Default';
+        const rawNewName = nameInput
+          ? nameInput.value.trim()
+          : (srv.pendingInstanceName !== undefined
+              ? srv.pendingInstanceName
+              : oldInstance
+            ).trim();
+
+        if (!rawNewName) {
+          await window.SctModal.alert(
+            'Instance name cannot be empty.',
+            'Invalid Instance Name',
+            '⚠️'
+          );
+          break;
+        }
+
+        // Collect all control states and values inside the -Game Server- container.
+        const savedControls = Object.assign({}, srv.customCheckStates || {});
+        const gameServerEl = document.querySelector(
+          '[data-container-id="locked_game_server"]'
+        );
+        if (gameServerEl) {
+          gameServerEl
+            .querySelectorAll('[data-custom-ctrl-check]')
+            .forEach(function (cb) {
+              const idx = cb.getAttribute('data-custom-ctrl-check');
+              if (idx !== null) {
+                savedControls[idx] = Boolean(cb.checked);
+              }
+            });
+          gameServerEl
+            .querySelectorAll(
+              'input[data-custom-ctrl-value], select[data-custom-ctrl-value]'
+            )
+            .forEach(function (el) {
+              const key = el.getAttribute('data-custom-ctrl-value');
+              if (key !== null) {
+                savedControls[key] = el.value;
+              }
+            });
+        }
+
+        const oldKey = srv.id + ':' + oldInstance;
+        const newKey = srv.id + ':' + rawNewName;
+
+        let renamedOnDisk = false;
+        if (rawNewName !== oldInstance) {
+          const duplicate = (srv.instances || []).some(function (inst) {
+            return (
+              inst.toLowerCase() === rawNewName.toLowerCase() &&
+              inst.toLowerCase() !== oldInstance.toLowerCase()
+            );
+          });
+          if (duplicate) {
+            await window.SctModal.alert(
+              "An instance named '" + rawNewName + "' already exists.",
+              'Duplicate Instance Name',
+              '⚠️'
+            );
+            break;
+          }
+
+          const libPath = (state.settings.serverLibraryPath || '').trim();
+          if (libPath && srv.isInstalled) {
+            try {
+              await window.sctRenameServerInstance(
+                libPath,
+                srv.codename,
+                oldInstance,
+                rawNewName
+              );
+              renamedOnDisk = true;
+            } catch (err) {
+              const msg = err && err.message ? err.message : String(err);
+              await window.SctModal.alert(
+                'Failed to rename instance:\n' + msg,
+                'Rename Error',
+                '⚠️'
+              );
+              break;
+            }
+          }
+
+          srv.currentInstance = rawNewName;
+          srv.instances = (srv.instances || []).map(function (inst) {
+            return inst === oldInstance ? rawNewName : inst;
+          });
+          if (Array.isArray(srv.instanceInfos)) {
+            srv.instanceInfos.forEach(function (info) {
+              if (info.name === oldInstance) {
+                info.name = rawNewName;
+              }
+            });
+          }
+        }
+
+        srv.pendingInstanceName = undefined;
+        srv.customCheckStates = savedControls;
+        window.sctSaveGameServerControls(newKey, savedControls, oldKey);
+        logUserAction(
+          rawNewName !== oldInstance
+            ? 'Renamed instance ' +
+                srv.name +
+                ': ' +
+                oldInstance +
+                ' -> ' +
+                rawNewName +
+                ' and saved Game Server settings'
+            : 'Saved Game Server settings for ' + srv.name + ' (' + rawNewName + ')'
+        );
+
+        if (renamedOnDisk) {
+          await refreshServerLikeClicked(srv.id);
+        } else {
+          renderAll();
+        }
+        break;
+      }
+
+      case 'delete-instance': {
+        if (!srv || isSteamTaskBusy() || isServerBusy(srv)) break;
+        if (srv.isInstalled) {
+          await handleAction('delete-server');
+        } else if (srv.currentInstance !== 'Default') {
+          const instToRemove = srv.currentInstance;
+          const confirmed = await window.SctModal.confirm(
+            "Remove uninstalled instance '" + instToRemove + "'?",
+            'Delete Instance',
+            '⚠️',
+            'Delete',
+            'Cancel'
+          );
+          if (!confirmed) break;
+          srv.instances = (srv.instances || []).filter(function (i) {
+            return i !== instToRemove;
+          });
+          srv.instanceInfos = (srv.instanceInfos || []).filter(function (info) {
+            return info.name !== instToRemove;
+          });
+          srv.currentInstance = srv.instances[0] || 'Default';
+          srv.pendingInstanceName = undefined;
+          srv.customCheckStates = window.sctLoadGameServerControls(
+            srv.id + ':' + srv.currentInstance
+          );
+          renderAll();
+        }
+        break;
+      }
 
       case 'reset-server-settings':
         if (!srv) break;
@@ -2276,6 +2699,7 @@
 
       case 'steamcmd-clear-cache':
         state.isSteamCmdMenuOpen = false;
+        logUserAction('Cleared SteamCMD cache');
         renderAll();
         try {
           await window.sctClearSteamCmdCache(state.settings.serverLibraryPath || '');
@@ -2392,6 +2816,12 @@
       });
     }
 
+    document.addEventListener('input', function (e) {
+      if (e.target && e.target.id === 'sct-instance-name-input' && state.selectedServer) {
+        state.selectedServer.pendingInstanceName = e.target.value;
+      }
+    });
+
     document.addEventListener('click', async function (e) {
       if (
         state.openCustomDropdownIdx !== undefined &&
@@ -2431,6 +2861,11 @@
       if (instBtn && state.selectedServer) {
         const nextInst = instBtn.getAttribute('data-switch-instance');
         state.selectedServer.currentInstance = nextInst;
+        state.selectedServer.pendingInstanceName = undefined;
+        state.selectedServer.customCheckStates =
+          window.sctLoadGameServerControls(
+            state.selectedServer.id + ':' + nextInst
+          );
         const instInfo = getActiveInstanceInfo(state.selectedServer);
         if (instInfo) {
           state.selectedServer.isInstalled = Boolean(instInfo.isInstalled);

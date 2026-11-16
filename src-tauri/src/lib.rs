@@ -1,6 +1,8 @@
 use tauri::Manager;
 use tauri::menu::{ContextMenu, MenuBuilder, MenuItemBuilder};
 
+mod backups;
+mod logger;
 mod servers;
 mod steamcmd;
 
@@ -221,21 +223,17 @@ fn open_folder(path: String) -> Result<(), String> {
     Ok(())
 }
 
-fn get_logs_dir() -> Result<std::path::PathBuf, String> {
-    let exe_path = std::env::current_exe()
-        .map_err(|e| format!("Failed to locate executable: {}", e))?;
-    let exe_dir = exe_path
-        .parent()
-        .ok_or_else(|| "Failed to locate executable directory".to_string())?;
-    Ok(exe_dir.join("sct_tool_logs"))
-}
-
 #[tauri::command]
 fn open_app_logs() -> Result<(), String> {
-    let logs_dir = get_logs_dir()?;
+    let logs_dir = logger::get_logs_dir()?;
     std::fs::create_dir_all(&logs_dir)
         .map_err(|e| format!("Failed to create logs folder: {}", e))?;
     open_folder(logs_dir.to_string_lossy().into_owned())
+}
+
+#[tauri::command]
+fn append_app_log(message: String) {
+    logger::append(message);
 }
 
 #[tauri::command]
@@ -266,9 +264,19 @@ async fn load_servers(library_path: String) -> Result<servers::LibraryScanResult
         .map_err(|e| format!("Failed to scan library: {}", e))
 }
 
+fn log_err<T>(context: &str, res: Result<T, String>) -> Result<T, String> {
+    if let Err(ref err) = res {
+        logger::append(format!("ERROR [{}]: {}", context, err));
+    }
+    res
+}
+
 #[tauri::command]
 fn ensure_library_location(library_path: String) -> Result<String, String> {
-    servers::ensure_library_directories(&library_path)
+    log_err(
+        "ensure_library_location",
+        servers::ensure_library_directories(&library_path),
+    )
 }
 
 #[tauri::command]
@@ -277,11 +285,12 @@ async fn mock_install_server(
     codename: String,
     instance_name: String,
 ) -> Result<String, String> {
-    tauri::async_runtime::spawn_blocking(move || {
+    let res = tauri::async_runtime::spawn_blocking(move || {
         servers::mock_install_instance(&library_path, &codename, &instance_name)
     })
     .await
-    .map_err(|e| format!("Failed to run mock install: {}", e))?
+    .map_err(|e| format!("Failed to run mock install: {}", e))?;
+    log_err("mock_install_server", res)
 }
 
 #[tauri::command]
@@ -290,11 +299,12 @@ async fn delete_server(
     codename: String,
     instance_name: String,
 ) -> Result<bool, String> {
-    tauri::async_runtime::spawn_blocking(move || {
+    let res = tauri::async_runtime::spawn_blocking(move || {
         servers::delete_server_instance(&library_path, &codename, &instance_name)
     })
     .await
-    .map_err(|e| format!("Failed to delete server: {}", e))?
+    .map_err(|e| format!("Failed to delete server: {}", e))?;
+    log_err("delete_server", res)
 }
 
 #[tauri::command]
@@ -304,18 +314,26 @@ fn get_available_start_options(
     instance_name: String,
     options: Vec<servers::StartOptionDto>,
 ) -> Result<Vec<servers::AvailableStartOption>, String> {
-    servers::get_available_start_options(&library_path, &codename, &instance_name, &options)
+    log_err(
+        "get_available_start_options",
+        servers::get_available_start_options(&library_path, &codename, &instance_name, &options),
+    )
 }
 
 #[tauri::command]
 fn launch_server_option(file_path: String, args: String) -> Result<(), String> {
-    servers::launch_server_option(&file_path, &args)
+    log_err(
+        "launch_server_option",
+        servers::launch_server_option(&file_path, &args),
+    )
 }
 
 #[tauri::command]
 async fn download_steamcmd(app: tauri::AppHandle, library_path: String) -> Result<String, String> {
-    let exe_path = steamcmd::ensure_steamcmd_windows(&app, &library_path, "").await?;
-    Ok(exe_path.to_string_lossy().into_owned())
+    let res = steamcmd::ensure_steamcmd_windows(&app, &library_path, "")
+        .await
+        .map(|exe_path| exe_path.to_string_lossy().into_owned());
+    log_err("download_steamcmd", res)
 }
 
 #[tauri::command]
@@ -329,7 +347,7 @@ async fn install_or_update_steam_server(
     minimized: bool,
     validate: bool,
 ) -> Result<steamcmd::SteamCmdRunResult, String> {
-    steamcmd::run_steamcmd_app_update(
+    let res = steamcmd::run_steamcmd_app_update(
         app,
         library_path,
         codename,
@@ -339,12 +357,13 @@ async fn install_or_update_steam_server(
         minimized,
         validate,
     )
-    .await
+    .await;
+    log_err("install_or_update_steam_server", res)
 }
 
 #[tauri::command]
 fn cancel_steamcmd(app: tauri::AppHandle, force: bool) -> Result<bool, String> {
-    steamcmd::cancel_steamcmd_task(&app, force)
+    log_err("cancel_steamcmd", steamcmd::cancel_steamcmd_task(&app, force))
 }
 
 #[tauri::command]
@@ -353,8 +372,12 @@ fn mark_server_incomplete(
     codename: String,
     instance_name: String,
 ) -> Result<(), String> {
-    let (server_dir, _) = servers::resolve_instance_dir(&library_path, &codename, &instance_name)?;
-    servers::mark_instance_incomplete(&server_dir)
+    let res = (|| {
+        let (server_dir, _) =
+            servers::resolve_instance_dir(&library_path, &codename, &instance_name)?;
+        servers::mark_instance_incomplete(&server_dir)
+    })();
+    log_err("mark_server_incomplete", res)
 }
 
 #[tauri::command]
@@ -457,13 +480,124 @@ async fn check_for_updates() -> Result<UpdateCheckResult, String> {
     })
 }
 
+#[tauri::command]
+fn pick_backup_save_path(default_file_name: String) -> Result<Option<String>, String> {
+    let file_name = if default_file_name.trim().is_empty() {
+        "server_backup.zip".to_string()
+    } else {
+        default_file_name.trim().to_string()
+    };
+    let file = rfd::FileDialog::new()
+        .set_title("Save Server Backup")
+        .set_file_name(&file_name)
+        .add_filter("ZIP Archive (*.zip)", &["zip"])
+        .save_file();
+
+    Ok(file.map(|f| f.to_string_lossy().to_string()))
+}
+
+#[tauri::command]
+fn pick_backup_open_path() -> Result<Option<String>, String> {
+    let file = rfd::FileDialog::new()
+        .set_title("Select Backup Archive")
+        .add_filter("ZIP Archive (*.zip)", &["zip"])
+        .pick_file();
+
+    Ok(file.map(|f| f.to_string_lossy().to_string()))
+}
+
+#[tauri::command]
+async fn backup_server(
+    app: tauri::AppHandle,
+    library_path: String,
+    codename: String,
+    instance_name: String,
+    server_id: String,
+    server_name: String,
+    destination_path: Option<String>,
+) -> Result<backups::BackupCreatedDto, String> {
+    let res = backups::run_backup_task(
+        &app,
+        library_path,
+        codename,
+        instance_name,
+        server_id,
+        server_name,
+        destination_path,
+    )
+    .await;
+    log_err("backup_server", res)
+}
+
+#[tauri::command]
+fn list_server_backups(
+    library_path: String,
+    codename: String,
+    instance_name: String,
+) -> Result<Vec<backups::BackupEntryDto>, String> {
+    log_err(
+        "list_server_backups",
+        backups::list_server_backups(&library_path, &codename, &instance_name),
+    )
+}
+
+#[tauri::command]
+async fn restore_server_backup(
+    app: tauri::AppHandle,
+    library_path: String,
+    codename: String,
+    instance_name: String,
+    server_id: String,
+    server_name: String,
+    backup_path: String,
+) -> Result<backups::RestoreResultDto, String> {
+    let res = backups::run_restore_task(
+        &app,
+        library_path,
+        codename,
+        instance_name,
+        server_id,
+        server_name,
+        backup_path,
+    )
+    .await;
+    log_err("restore_server_backup", res)
+}
+
+#[tauri::command]
+fn rename_server_instance(
+    library_path: String,
+    codename: String,
+    old_instance_name: String,
+    new_instance_name: String,
+) -> Result<String, String> {
+    log_err(
+        "rename_server_instance",
+        servers::rename_server_instance(
+            &library_path,
+            &codename,
+            &old_instance_name,
+            &new_instance_name,
+        ),
+    )
+}
+
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .setup(|_app| {
-            if let Ok(logs_dir) = get_logs_dir() {
+            let prev_hook = std::panic::take_hook();
+            std::panic::set_hook(Box::new(move |info| {
+                logger::append(format!("PANIC: {}", info));
+                prev_hook(info);
+            }));
+            if let Ok(logs_dir) = logger::get_logs_dir() {
                 let _ = std::fs::create_dir_all(logs_dir);
             }
+            logger::append(format!(
+                "Application started (v{})",
+                env!("CARGO_PKG_VERSION")
+            ));
             Ok(())
         })
         .on_menu_event(|_app, event| {
@@ -497,14 +631,21 @@ pub fn run() {
             clear_steamcmd_cache,
             pick_folder,
             pick_file,
+            pick_backup_save_path,
+            pick_backup_open_path,
+            backup_server,
+            list_server_backups,
+            restore_server_backup,
             open_folder,
             open_app_logs,
+            append_app_log,
             open_file,
             open_url,
             load_servers,
             ensure_library_location,
             mock_install_server,
             delete_server,
+            rename_server_instance,
             get_available_start_options,
             launch_server_option,
             download_steamcmd,

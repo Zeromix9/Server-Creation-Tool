@@ -317,7 +317,7 @@ fn calculate_dir_size(path: &Path) -> u64 {
     total
 }
 
-fn format_bytes(bytes: u64) -> String {
+pub(crate) fn format_bytes(bytes: u64) -> String {
     const KB: f64 = 1024.0;
     const MB: f64 = KB * 1024.0;
     const GB: f64 = MB * 1024.0;
@@ -1111,7 +1111,10 @@ pub fn load_servers_with_library(library_path: &str) -> LibraryScanResult {
                     if is_server_file {
                         match parse_server_archive(&path) {
                             Ok(srv) => servers.push(srv),
-                            Err(err) => eprintln!("SCT server parse error: {}", err),
+                            Err(err) => {
+                                eprintln!("SCT server parse error: {}", err);
+                                crate::logger::append(format!("ERROR parsing .server file: {}", err));
+                            }
                         }
                     }
                 }
@@ -1200,7 +1203,7 @@ pub fn mock_install_instance(
     Ok(server_dir.to_string_lossy().into_owned())
 }
 
-fn clear_readonly_recursive(path: &Path) {
+pub(crate) fn clear_readonly_recursive(path: &Path) {
     if let Ok(meta) = fs::symlink_metadata(path) {
         let mut perms = meta.permissions();
         if perms.readonly() {
@@ -1260,6 +1263,50 @@ pub fn delete_server_instance(
     }
 
     Ok(true)
+}
+
+pub fn rename_server_instance(
+    library_path: &str,
+    codename: &str,
+    old_instance_name: &str,
+    new_instance_name: &str,
+) -> Result<String, String> {
+    let trimmed_new = new_instance_name.trim();
+    if trimmed_new.is_empty() {
+        return Err("Instance name cannot be empty.".to_string());
+    }
+    if trimmed_new
+        .chars()
+        .any(|c| matches!(c, '<' | '>' | ':' | '"' | '/' | '\\' | '|' | '?' | '*'))
+    {
+        return Err(format!("Instance name '{}' contains invalid characters.", trimmed_new));
+    }
+
+    let (old_dir, _) = resolve_instance_dir(library_path, codename, old_instance_name)?;
+    let (new_dir, new_folder_name) = resolve_instance_dir(library_path, codename, trimmed_new)?;
+
+    if old_dir == new_dir {
+        return Ok(new_folder_name);
+    }
+
+    if old_dir.is_dir() {
+        if new_dir.exists() {
+            return Err(format!(
+                "Target instance folder '{}' already exists.",
+                new_folder_name
+            ));
+        }
+        fs::rename(&old_dir, &new_dir).map_err(|e| {
+            format!(
+                "Failed to rename '{}' to '{}': {}",
+                old_dir.display(),
+                new_dir.display(),
+                e
+            )
+        })?;
+    }
+
+    Ok(new_folder_name)
 }
 
 fn resolve_relative_start_file(server_dir: &Path, rel_raw: &str) -> Option<PathBuf> {
@@ -1688,6 +1735,22 @@ mod tests {
         let deleted = delete_server_instance(&lib_str, "cs", "Default").unwrap();
         assert!(deleted);
         assert!(!created_path.exists());
+
+        let _ = fs::remove_dir_all(&lib);
+    }
+
+    #[test]
+    fn renames_instance_folder_on_disk() {
+        let lib = make_temp_dir("rename_inst");
+        let lib_str = lib.to_string_lossy().into_owned();
+
+        let created = mock_install_instance(&lib_str, "cs", "Default").unwrap();
+        assert!(std::path::Path::new(&created).is_dir());
+
+        let new_folder = super::rename_server_instance(&lib_str, "cs", "Default", "surf").unwrap();
+        assert_eq!(new_folder, "cs_surf_ds");
+        assert!(!lib.join("cs_ds").exists());
+        assert!(lib.join("cs_surf_ds").is_dir());
 
         let _ = fs::remove_dir_all(&lib);
     }

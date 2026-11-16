@@ -68,7 +68,7 @@ pub struct SteamCmdRunResult {
     pub cancelled: bool,
 }
 
-fn emit_log(app: &AppHandle, server_id: &str, line: impl Into<String>) {
+pub(crate) fn emit_log(app: &AppHandle, server_id: &str, line: impl Into<String>) {
     if server_id.is_empty() {
         return;
     }
@@ -81,7 +81,7 @@ fn emit_log(app: &AppHandle, server_id: &str, line: impl Into<String>) {
     );
 }
 
-fn emit_task_state(
+pub(crate) fn emit_task_state(
     app: &AppHandle,
     active: bool,
     server_id: &str,
