@@ -14,7 +14,9 @@ use crate::servers::{
 };
 
 #[cfg(target_os = "windows")]
-const STEAMCMD_WINDOWS_URL: &str = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip";
+const STEAMCMD_DOWNLOAD_URL: &str = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip";
+#[cfg(not(target_os = "windows"))]
+const STEAMCMD_DOWNLOAD_URL: &str = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz";
 
 #[cfg(target_os = "windows")]
 const CREATE_NO_WINDOW: u32 = 0x0800_0000;
@@ -394,77 +396,80 @@ async fn ensure_steamcmd_windows_inner(
         return Ok(exe_path);
     }
 
-    #[cfg(not(target_os = "windows"))]
-    {
-        let _ = (app, server_id, task_id);
-        return Err("SteamCMD automatic setup is currently implemented for Windows only.".to_string());
+    let archive_label = if cfg!(target_os = "windows") {
+        "steamcmd.zip"
+    } else {
+        "steamcmd_linux.tar.gz"
+    };
+    emit_log(
+        app,
+        server_id,
+        format!("SteamCMD not found. Downloading {}...", archive_label),
+    );
+    update_task_label(app, task_id, "Downloading SteamCMD...", true, 0.0, "0%");
+
+    let client = reqwest::Client::builder()
+        .timeout(std::time::Duration::from_secs(120))
+        .user_agent(concat!("Server-Creation-Tool/", env!("CARGO_PKG_VERSION")))
+        .build()
+        .map_err(|e| format!("Failed to initialize HTTP client: {}", e))?;
+
+    let mut response = client
+        .get(STEAMCMD_DOWNLOAD_URL)
+        .send()
+        .await
+        .map_err(|e| format!("Failed to download SteamCMD: {}", e))?;
+
+    if !response.status().is_success() {
+        return Err(format!(
+            "SteamCMD download failed with HTTP status {}",
+            response.status()
+        ));
     }
 
-    #[cfg(target_os = "windows")]
+    let total_len = response.content_length().unwrap_or(0);
+    let mut downloaded: u64 = 0;
+    let mut bytes = Vec::new();
+
+    while let Some(chunk) = response
+        .chunk()
+        .await
+        .map_err(|e| format!("Failed to read SteamCMD archive stream: {}", e))?
     {
-        emit_log(app, server_id, "SteamCMD not found. Downloading steamcmd.zip...");
-        update_task_label(app, task_id, "Downloading SteamCMD...", true, 0.0, "0%");
-
-        let client = reqwest::Client::builder()
-            .timeout(std::time::Duration::from_secs(120))
-            .user_agent(concat!("Server-Creation-Tool/", env!("CARGO_PKG_VERSION")))
-            .build()
-            .map_err(|e| format!("Failed to initialize HTTP client: {}", e))?;
-
-        let mut response = client
-            .get(STEAMCMD_WINDOWS_URL)
-            .send()
-            .await
-            .map_err(|e| format!("Failed to download SteamCMD: {}", e))?;
-
-        if !response.status().is_success() {
-            return Err(format!(
-                "SteamCMD download failed with HTTP status {}",
-                response.status()
-            ));
-        }
-
-        let total_len = response.content_length().unwrap_or(0);
-        let mut downloaded: u64 = 0;
-        let mut bytes = Vec::new();
-
-        while let Some(chunk) = response
-            .chunk()
-            .await
-            .map_err(|e| format!("Failed to read SteamCMD archive stream: {}", e))?
-        {
-            if is_task_cancelled(task_id) {
-                return Err("SteamCMD download cancelled.".to_string());
-            }
-            downloaded += chunk.len() as u64;
-            bytes.extend_from_slice(&chunk);
-
-            if total_len > 0 {
-                let pct = ((downloaded as f64 / total_len as f64) * 100.0).clamp(0.0, 100.0);
-                let extra = format!("{:.0}%", pct);
-                update_task_label(app, task_id, "Downloading SteamCMD...", true, pct, &extra);
-            } else {
-                update_task_label(app, task_id, "Downloading SteamCMD...", false, 0.0, "");
-            }
-        }
-
         if is_task_cancelled(task_id) {
             return Err("SteamCMD download cancelled.".to_string());
         }
+        downloaded += chunk.len() as u64;
+        bytes.extend_from_slice(&chunk);
 
-        let steamcmd_dir = lib_dir.join("steamcmd");
-        let zip_path = steamcmd_dir.join("steamcmd.zip");
-        fs::write(&zip_path, &bytes)
-            .map_err(|e| format!("Failed to write '{}': {}", zip_path.display(), e))?;
+        if total_len > 0 {
+            let pct = ((downloaded as f64 / total_len as f64) * 100.0).clamp(0.0, 100.0);
+            let extra = format!("{:.0}%", pct);
+            update_task_label(app, task_id, "Downloading SteamCMD...", true, pct, &extra);
+        } else {
+            update_task_label(app, task_id, "Downloading SteamCMD...", false, 0.0, "");
+        }
+    }
 
-        emit_log(app, server_id, "Extracting SteamCMD...");
-        update_task_label(app, task_id, "Extracting SteamCMD...", false, 0.0, "");
+    if is_task_cancelled(task_id) {
+        return Err("SteamCMD download cancelled.".to_string());
+    }
 
-        let extract_dir = steamcmd_dir.clone();
-        let zip_file_path = zip_path.clone();
+    let steamcmd_dir = lib_dir.join("steamcmd");
+    let archive_path = steamcmd_dir.join(archive_label);
+    fs::write(&archive_path, &bytes)
+        .map_err(|e| format!("Failed to write '{}': {}", archive_path.display(), e))?;
+
+    emit_log(app, server_id, "Extracting SteamCMD...");
+    update_task_label(app, task_id, "Extracting SteamCMD...", false, 0.0, "");
+
+    let extract_dir = steamcmd_dir.clone();
+    let archive_file_path = archive_path.clone();
+    #[cfg(target_os = "windows")]
+    {
         tauri::async_runtime::spawn_blocking(move || -> Result<(), String> {
-            let file = File::open(&zip_file_path)
-                .map_err(|e| format!("Failed to open '{}': {}", zip_file_path.display(), e))?;
+            let file = File::open(&archive_file_path)
+                .map_err(|e| format!("Failed to open '{}': {}", archive_file_path.display(), e))?;
             let mut archive = zip::ZipArchive::new(BufReader::new(file))
                 .map_err(|e| format!("Invalid steamcmd.zip archive: {}", e))?;
 
@@ -485,19 +490,46 @@ async fn ensure_steamcmd_windows_inner(
                 }
             }
 
-            let _ = fs::remove_file(&zip_file_path);
+            let _ = fs::remove_file(&archive_file_path);
             Ok(())
         })
         .await
         .map_err(|e| format!("Failed to extract SteamCMD: {}", e))??;
-
-        if !exe_path.is_file() {
-            return Err("steamcmd.exe was not found after extraction.".to_string());
-        }
-
-        emit_log(app, server_id, "SteamCMD is ready.");
-        Ok(exe_path)
     }
+
+    #[cfg(not(target_os = "windows"))]
+    {
+        tauri::async_runtime::spawn_blocking(move || -> Result<(), String> {
+            let output = Command::new("tar")
+                .arg("-xzf")
+                .arg(&archive_file_path)
+                .arg("-C")
+                .arg(&extract_dir)
+                .output()
+                .map_err(|e| format!("Failed to run tar for SteamCMD: {}", e))?;
+            if !output.status.success() {
+                let err = String::from_utf8_lossy(&output.stderr).trim().to_string();
+                return Err(format!("Failed to extract SteamCMD archive: {}", err));
+            }
+            let _ = fs::remove_file(&archive_file_path);
+            Ok(())
+        })
+        .await
+        .map_err(|e| format!("Failed to extract SteamCMD: {}", e))??;
+    }
+
+    if !exe_path.is_file() {
+        return Err(format!(
+            "{} was not found after extraction.",
+            exe_path
+                .file_name()
+                .and_then(|n| n.to_str())
+                .unwrap_or("steamcmd")
+        ));
+    }
+
+    emit_log(app, server_id, "SteamCMD is ready.");
+    Ok(exe_path)
 }
 
 pub async fn ensure_steamcmd_windows(

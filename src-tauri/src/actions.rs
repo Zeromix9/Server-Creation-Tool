@@ -1,11 +1,12 @@
+use mlua::{Function, Lua, MultiValue, Table, Value as LuaValue};
 use reqwest::header::CONTENT_DISPOSITION;
 use serde::{Deserialize, Serialize};
-use serde_json::Value;
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{self, BufReader, Read};
 use std::path::{Path, PathBuf};
 use std::process::Command;
+use std::sync::{Arc, Mutex};
 use tauri::AppHandle;
 use zip::ZipArchive;
 
@@ -206,7 +207,7 @@ fn read_archive_entry_bytes(
 
 async fn download_bytes_from_url(url: &str) -> Result<(Vec<u8>, String), String> {
     let client = reqwest::Client::builder()
-        .user_agent("ServerCreationTool/5.2")
+        .user_agent("ServerCreationTool/6.0")
         .redirect(reqwest::redirect::Policy::limited(10))
         .build()
         .map_err(|e| format!("Failed to initialize HTTP client: {}", e))?;
@@ -659,110 +660,70 @@ fn execute_simple_action_recursive<'a>(
     })
 }
 
-fn fnv1a_hex_bytes(data: &[u8]) -> String {
-    let mut hash: u64 = 0xcbf2_9ce4_8422_2325;
-    for b in data {
-        hash ^= *b as u64;
-        hash = hash.wrapping_mul(0x0100_0000_01b3);
-    }
-    format!("{:016x}", hash)
-}
-
-fn read_funcs_dll_bytes(
+fn read_funcs_lua_source(
     codename: &str,
     folder_name: &str,
     source_file: &str,
-) -> Option<(Vec<u8>, String)> {
-    if let Some(arch) = find_server_archive_path(source_file) {
-        if let Ok(file) = File::open(&arch) {
-            if let Ok(mut archive) = ZipArchive::new(BufReader::new(file)) {
-                let expected_name = format!("{}_funcs.dll", codename).to_lowercase();
-                let folder_norm = folder_name.trim().trim_matches('/').to_lowercase();
+) -> Result<String, String> {
+    let arch = find_server_archive_path(source_file)
+        .ok_or_else(|| format!("Server archive '{}' was not found.", source_file))?;
+    let file = File::open(&arch)
+        .map_err(|e| format!("Failed to open '{}': {}", arch.display(), e))?;
+    let mut archive = ZipArchive::new(BufReader::new(file))
+        .map_err(|e| format!("Invalid archive '{}': {}", arch.display(), e))?;
 
-                let mut matched_idx = None;
-                let mut matched_name = String::new();
-                for i in 0..archive.len() {
-                    if let Ok(entry) = archive.by_index(i) {
-                        if entry.is_dir() {
-                            continue;
-                        }
-                        let name_clean = entry.name().replace('\\', "/");
-                        let name_lower = name_clean.to_lowercase();
-                        let matches_expected = name_lower == format!("{}/{}", folder_norm, expected_name)
-                            || name_lower == expected_name
-                            || name_lower.ends_with("_funcs.dll");
-                        if matches_expected {
-                            matched_idx = Some(i);
-                            matched_name = Path::new(&name_clean)
-                                .file_name()
-                                .and_then(|s| s.to_str())
-                                .unwrap_or("funcs.dll")
-                                .to_string();
-                            if name_lower == format!("{}/{}", folder_norm, expected_name)
-                                || name_lower == expected_name
-                            {
-                                break;
-                            }
-                        }
-                    }
-                }
+    let expected_name = format!("{}_funcs.lua", codename).to_lowercase();
+    let folder_norm = folder_name.trim().trim_matches('/').to_lowercase();
+    let expected_in_folder = format!("{}/{}", folder_norm, expected_name);
+    let funcs_in_folder = format!("{}/funcs.lua", folder_norm);
 
-                if let Some(idx) = matched_idx {
-                    if let Ok(mut entry) = archive.by_index(idx) {
-                        let mut buf = Vec::with_capacity(entry.size() as usize);
-                        if entry.read_to_end(&mut buf).is_ok() {
-                            return Some((buf, matched_name));
-                        }
-                    }
-                }
+    let mut fallback_idx = None;
+    let mut exact_idx = None;
+
+    for i in 0..archive.len() {
+        if let Ok(entry) = archive.by_index(i) {
+            if entry.is_dir() {
+                continue;
+            }
+            let name_lower = entry.name().replace('\\', "/").to_lowercase();
+            if name_lower == expected_in_folder || name_lower == expected_name {
+                exact_idx = Some(i);
+                break;
+            }
+            if name_lower == funcs_in_folder
+                || name_lower == "funcs.lua"
+                || name_lower.ends_with("_funcs.lua")
+            {
+                fallback_idx = Some(i);
             }
         }
     }
 
-    None
+    let idx = exact_idx.or(fallback_idx).ok_or_else(|| {
+        format!(
+            "'{}_funcs.lua' was not found in '{}'.",
+            codename,
+            arch.display()
+        )
+    })?;
+
+    let mut entry = archive.by_index(idx).map_err(|e| e.to_string())?;
+    let mut source = String::new();
+    entry
+        .read_to_string(&mut source)
+        .map_err(|e| format!("Failed to read Lua script: {}", e))?;
+    Ok(source)
 }
 
-fn funcs_cache_root() -> PathBuf {
-    let base = std::env::var_os("LOCALAPPDATA")
-        .map(PathBuf::from)
-        .unwrap_or_else(std::env::temp_dir);
-    base.join("ServerCreationTool").join("funcs_cache")
-}
-
-#[cfg(target_os = "windows")]
-static FUNCS_RUNNER_BYTES: &[u8] = include_bytes!(concat!(env!("OUT_DIR"), "/SctFuncsRunner.exe"));
-#[cfg(not(target_os = "windows"))]
-static FUNCS_RUNNER_BYTES: &[u8] = include_bytes!(concat!(env!("OUT_DIR"), "/SctFuncsRunner"));
-
-fn ensure_bundled_runner_exe() -> Result<PathBuf, String> {
-    let runner_hash = fnv1a_hex_bytes(FUNCS_RUNNER_BYTES);
-    let runner_dir = funcs_cache_root().join(format!("runner_{}", runner_hash));
-    let exe_name = if cfg!(target_os = "windows") {
-        "SctFuncsRunner.exe"
-    } else {
-        "SctFuncsRunner"
-    };
-    let runner_exe = runner_dir.join(exe_name);
-    if !runner_exe.is_file() {
-        fs::create_dir_all(&runner_dir)
-            .map_err(|e| format!("Failed to create funcs runner dir: {}", e))?;
-        fs::write(&runner_exe, FUNCS_RUNNER_BYTES)
-            .map_err(|e| format!("Failed to extract bundled SctFuncsRunner: {}", e))?;
+fn lua_value_to_string(val: &LuaValue) -> String {
+    match val {
+        LuaValue::String(s) => s.to_str().map(|v| v.to_string()).unwrap_or_default(),
+        LuaValue::Integer(n) => n.to_string(),
+        LuaValue::Number(n) => n.to_string(),
+        LuaValue::Boolean(b) => b.to_string(),
+        LuaValue::Nil => String::new(),
+        other => format!("{:?}", other),
     }
-    Ok(runner_exe)
-}
-
-#[derive(Serialize)]
-#[serde(rename_all = "camelCase")]
-struct RunnerInputPayload<'a> {
-    server_dir: &'a str,
-    install_dir: &'a str,
-    data_dir: &'a str,
-    codename: &'a str,
-    method: &'a str,
-    optional: bool,
-    dll_path: &'a str,
-    properties: &'a HashMap<String, String>,
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -790,103 +751,357 @@ pub async fn execute_funcs_method(
     }
 
     let (server_dir, _) = resolve_instance_dir(library_path, codename, instance_name)?;
-    let (dll_bytes, dll_name) = read_funcs_dll_bytes(codename, folder_name, source_file)
-        .ok_or_else(|| format!("'{}_funcs.dll' was not found in the .server archive.", codename))?;
+    let lua_source = read_funcs_lua_source(codename, folder_name, source_file)?;
     let data_dir = find_sct_data_dir().unwrap_or_else(|| server_dir.clone());
 
     let codename_owned = codename.to_string();
+    let instance_owned = instance_name.to_string();
     let method_owned = trimmed_method.to_string();
     let server_id_owned = server_id.to_string();
     let props_owned = properties.clone();
     let app_cloned = app.cloned();
 
     let (logs, updated_props) = tauri::async_runtime::spawn_blocking(move || -> Result<(Vec<String>, HashMap<String, String>), String> {
-        let runner_exe = ensure_bundled_runner_exe()?;
+        let lua = Lua::new();
+        let logs_shared: Arc<Mutex<Vec<String>>> = Arc::new(Mutex::new(Vec::new()));
 
-        let dll_hash = fnv1a_hex_bytes(&dll_bytes);
-        let cache_dir = funcs_cache_root().join("dlls").join(&dll_hash);
-        fs::create_dir_all(&cache_dir).map_err(|e| e.to_string())?;
-        let extracted_dll = cache_dir.join(&dll_name);
-        if !extracted_dll.is_file() {
-            fs::write(&extracted_dll, &dll_bytes).map_err(|e| e.to_string())?;
-        }
-        let target_dll_path = extracted_dll.to_string_lossy().into_owned();
-
-        let input_path = cache_dir.join("run_input.json");
-        let output_path = cache_dir.join("run_output.json");
-        let server_str = server_dir.to_string_lossy();
-        let data_str = data_dir.to_string_lossy();
-        let payload = RunnerInputPayload {
-            server_dir: &server_str,
-            install_dir: &server_str,
-            data_dir: &data_str,
-            codename: &codename_owned,
-            method: &method_owned,
-            optional,
-            dll_path: &target_dll_path,
-            properties: &props_owned,
-        };
-        fs::write(&input_path, serde_json::to_string(&payload).map_err(|e| e.to_string())?)
-            .map_err(|e| e.to_string())?;
-        if output_path.exists() {
-            let _ = fs::remove_file(&output_path);
-        }
-
-        let mut run_cmd = Command::new(&runner_exe);
-        run_cmd.arg(&input_path).arg(&output_path);
-        #[cfg(target_os = "windows")]
+        // Override global print(...) to forward output to the server terminal and result logs.
         {
-            use std::os::windows::process::CommandExt;
-            run_cmd.creation_flags(0x0800_0000);
+            let logs_ref = Arc::clone(&logs_shared);
+            let app_ref = app_cloned.clone();
+            let sid_ref = server_id_owned.clone();
+            let print_fn = lua
+                .create_function(move |_, args: MultiValue| {
+                    let line = args
+                        .iter()
+                        .map(lua_value_to_string)
+                        .collect::<Vec<_>>()
+                        .join("\t");
+                    if let Some(ref handle) = app_ref {
+                        emit_log(handle, &sid_ref, line.clone());
+                    }
+                    if let Ok(mut guard) = logs_ref.lock() {
+                        guard.push(line);
+                    }
+                    Ok(())
+                })
+                .map_err(|e| format!("Failed to register print(): {}", e))?;
+            lua.globals()
+                .set("print", print_fn)
+                .map_err(|e| format!("Failed to set print(): {}", e))?;
         }
-        let run_out = run_cmd
-            .output()
-            .map_err(|e| format!("Failed to run {}_funcs.dll: {}", codename_owned, e))?;
 
-        let mut logs = Vec::new();
-        let stdout = String::from_utf8_lossy(&run_out.stdout);
-        let stderr = String::from_utf8_lossy(&run_out.stderr);
-        for line in stdout.lines().chain(stderr.lines()) {
-            let trimmed = line.trim();
-            if !trimmed.is_empty() {
-                if let Some(ref handle) = app_cloned {
-                    emit_log(handle, &server_id_owned, trimmed.to_string());
+        // Build global Context table matching MakeServer's _funcs.lua contract.
+        let ctx_table = lua.create_table().map_err(|e| e.to_string())?;
+        let server_str = server_dir.to_string_lossy().into_owned();
+        let data_str = data_dir.to_string_lossy().into_owned();
+        ctx_table.set("ServerDir", server_str.as_str()).map_err(|e| e.to_string())?;
+        ctx_table.set("InstallDir", server_str.as_str()).map_err(|e| e.to_string())?;
+        ctx_table.set("DataDir", data_str.as_str()).map_err(|e| e.to_string())?;
+        ctx_table.set("Codename", codename_owned.as_str()).map_err(|e| e.to_string())?;
+        let os_name = if cfg!(target_os = "windows") { "windows" } else { "linux" };
+        ctx_table.set("OS", os_name).map_err(|e| e.to_string())?;
+        ctx_table.set("IsWindows", cfg!(target_os = "windows")).map_err(|e| e.to_string())?;
+        ctx_table.set("IsLinux", cfg!(target_os = "linux")).map_err(|e| e.to_string())?;
+
+        let props_table = lua.create_table().map_err(|e| e.to_string())?;
+        for (k, v) in &props_owned {
+            props_table.set(k.as_str(), v.as_str()).map_err(|e| e.to_string())?;
+        }
+        ctx_table.set("Properties", props_table).map_err(|e| e.to_string())?;
+
+        let get_prop_fn = lua
+            .create_function(|_, (self_tbl, key, default_val): (Table, String, Option<String>)| {
+                let props: Table = self_tbl.get("Properties")?;
+                let target = key.to_lowercase();
+                for pair in props.pairs::<String, LuaValue>() {
+                    if let Ok((k, v)) = pair {
+                        if k.to_lowercase() == target {
+                            let s = lua_value_to_string(&v);
+                            if !s.is_empty() {
+                                return Ok(s);
+                            }
+                        }
+                    }
                 }
-                logs.push(trimmed.to_string());
+                Ok(default_val.unwrap_or_default())
+            })
+            .map_err(|e| e.to_string())?;
+        ctx_table.set("GetProperty", get_prop_fn).map_err(|e| e.to_string())?;
+
+        let set_prop_fn = lua
+            .create_function(|_, (self_tbl, key, val): (Table, String, LuaValue)| {
+                let props: Table = self_tbl.get("Properties")?;
+                let target = key.to_lowercase();
+                let mut matched_key = None;
+                for pair in props.pairs::<String, LuaValue>() {
+                    if let Ok((k, _)) = pair {
+                        if k.to_lowercase() == target {
+                            matched_key = Some(k);
+                            break;
+                        }
+                    }
+                }
+                let final_key = matched_key.unwrap_or(key);
+                props.set(final_key, lua_value_to_string(&val))?;
+                Ok(())
+            })
+            .map_err(|e| e.to_string())?;
+        ctx_table.set("SetProperty", set_prop_fn).map_err(|e| e.to_string())?;
+
+        let srv_dir_for_tokens = server_dir.clone();
+        let data_dir_for_tokens = data_dir.clone();
+        let code_for_tokens = codename_owned.clone();
+        let inst_for_tokens = instance_owned.clone();
+        let resolve_tokens_fn = lua
+            .create_function(move |_, (self_tbl, template): (Table, String)| {
+                let props: Table = self_tbl.get("Properties")?;
+                let mut map = HashMap::new();
+                for pair in props.pairs::<String, LuaValue>() {
+                    if let Ok((k, v)) = pair {
+                        map.insert(k, lua_value_to_string(&v));
+                    }
+                }
+                Ok(resolve_tokens(
+                    &template,
+                    &srv_dir_for_tokens,
+                    &data_dir_for_tokens,
+                    &code_for_tokens,
+                    &inst_for_tokens,
+                    &map,
+                ))
+            })
+            .map_err(|e| e.to_string())?;
+        ctx_table
+            .set("ResolveTokens", resolve_tokens_fn)
+            .map_err(|e| e.to_string())?;
+
+        // Cross-platform filesystem helpers for _funcs.lua (accept both Context:Fn(...) and Context.Fn(...)).
+        fn strip_self_args(args: MultiValue) -> Vec<LuaValue> {
+            let mut items: Vec<LuaValue> = args.into_iter().collect();
+            if matches!(items.first(), Some(LuaValue::Table(_))) {
+                items.remove(0);
+            }
+            items
+        }
+
+        fn to_os_path(raw: &str) -> PathBuf {
+            #[cfg(not(target_os = "windows"))]
+            {
+                PathBuf::from(raw.replace('\\', "/"))
+            }
+            #[cfg(target_os = "windows")]
+            {
+                PathBuf::from(raw)
             }
         }
 
-        if !run_out.status.success() {
-            return Err(format!(
-                "{}() failed: {}",
-                method_owned,
-                if logs.is_empty() {
-                    format!("exit code {:?}", run_out.status.code())
-                } else {
-                    logs.join("\n")
+        let make_dir_fn = lua
+            .create_function(|_, args: MultiValue| {
+                let items = strip_self_args(args);
+                let path_str = items
+                    .first()
+                    .map(lua_value_to_string)
+                    .unwrap_or_default();
+                if path_str.trim().is_empty() {
+                    return Err(mlua::Error::RuntimeError("MakeDir: path is empty.".into()));
                 }
-            ));
-        }
+                let p = to_os_path(path_str.trim());
+                fs::create_dir_all(&p).map_err(|e| {
+                    mlua::Error::RuntimeError(format!("MakeDir('{}') failed: {}", p.display(), e))
+                })?;
+                Ok(true)
+            })
+            .map_err(|e| e.to_string())?;
+        ctx_table.set("MakeDir", make_dir_fn).map_err(|e| e.to_string())?;
 
-        let updated: HashMap<String, String> = if output_path.is_file() {
-            let raw = fs::read_to_string(&output_path).map_err(|e| e.to_string())?;
-            serde_json::from_str::<Value>(&raw)
-                .ok()
-                .and_then(|v| v.as_object().cloned())
-                .map(|obj| {
-                    obj.into_iter()
-                        .filter_map(|(k, v)| v.as_str().map(|s| (k, s.to_string())))
-                        .collect()
+        let delete_fn = lua
+            .create_function(|_, args: MultiValue| {
+                let items = strip_self_args(args);
+                let path_str = items
+                    .first()
+                    .map(lua_value_to_string)
+                    .unwrap_or_default();
+                if path_str.trim().is_empty() {
+                    return Err(mlua::Error::RuntimeError("Delete: path is empty.".into()));
+                }
+                let p = to_os_path(path_str.trim());
+                if p.is_dir() {
+                    fs::remove_dir_all(&p).map_err(|e| {
+                        mlua::Error::RuntimeError(format!("Delete('{}') failed: {}", p.display(), e))
+                    })?;
+                    Ok(true)
+                } else if p.is_file() {
+                    fs::remove_file(&p).map_err(|e| {
+                        mlua::Error::RuntimeError(format!("Delete('{}') failed: {}", p.display(), e))
+                    })?;
+                    Ok(true)
+                } else {
+                    Ok(false)
+                }
+            })
+            .map_err(|e| e.to_string())?;
+        ctx_table.set("Delete", delete_fn).map_err(|e| e.to_string())?;
+
+        let copy_fn = lua
+            .create_function(|_, args: MultiValue| {
+                let items = strip_self_args(args);
+                let src_str = items.first().map(lua_value_to_string).unwrap_or_default();
+                let dst_str = items.get(1).map(lua_value_to_string).unwrap_or_default();
+                let overwrite = match items.get(2) {
+                    Some(LuaValue::Boolean(b)) => *b,
+                    _ => true,
+                };
+                if src_str.trim().is_empty() || dst_str.trim().is_empty() {
+                    return Err(mlua::Error::RuntimeError(
+                        "Copy: source and destination paths are required.".into(),
+                    ));
+                }
+                let src = to_os_path(src_str.trim());
+                let dst = to_os_path(dst_str.trim());
+                if src.is_dir() {
+                    copy_dir_recursive(&src, &dst, overwrite)
+                        .map_err(mlua::Error::RuntimeError)?;
+                    Ok(true)
+                } else if src.is_file() {
+                    let final_dst = if dst.is_dir() {
+                        dst.join(src.file_name().unwrap_or_default())
+                    } else {
+                        dst
+                    };
+                    if !overwrite && final_dst.exists() {
+                        return Ok(false);
+                    }
+                    if let Some(parent) = final_dst.parent() {
+                        fs::create_dir_all(parent).map_err(|e| {
+                            mlua::Error::RuntimeError(format!("Copy failed: {}", e))
+                        })?;
+                    }
+                    fs::copy(&src, &final_dst).map_err(|e| {
+                        mlua::Error::RuntimeError(format!(
+                            "Copy('{}' -> '{}') failed: {}",
+                            src.display(),
+                            final_dst.display(),
+                            e
+                        ))
+                    })?;
+                    Ok(true)
+                } else {
+                    Err(mlua::Error::RuntimeError(format!(
+                        "Copy: source '{}' not found.",
+                        src.display()
+                    )))
+                }
+            })
+            .map_err(|e| e.to_string())?;
+        ctx_table.set("Copy", copy_fn).map_err(|e| e.to_string())?;
+
+        let read_text_fn = lua
+            .create_function(|_, args: MultiValue| {
+                let items = strip_self_args(args);
+                let path_str = items.first().map(lua_value_to_string).unwrap_or_default();
+                if path_str.trim().is_empty() {
+                    return Err(mlua::Error::RuntimeError("ReadText: path is empty.".into()));
+                }
+                let p = to_os_path(path_str.trim());
+                fs::read_to_string(&p).map_err(|e| {
+                    mlua::Error::RuntimeError(format!("ReadText('{}') failed: {}", p.display(), e))
                 })
-                .unwrap_or(props_owned)
-        } else {
-            props_owned
+            })
+            .map_err(|e| e.to_string())?;
+        ctx_table.set("ReadText", read_text_fn).map_err(|e| e.to_string())?;
+
+        let write_text_fn = lua
+            .create_function(|_, args: MultiValue| {
+                let items = strip_self_args(args);
+                let path_str = items.first().map(lua_value_to_string).unwrap_or_default();
+                let content = items.get(1).map(lua_value_to_string).unwrap_or_default();
+                if path_str.trim().is_empty() {
+                    return Err(mlua::Error::RuntimeError("WriteText: path is empty.".into()));
+                }
+                let p = to_os_path(path_str.trim());
+                if let Some(parent) = p.parent() {
+                    fs::create_dir_all(parent).map_err(|e| {
+                        mlua::Error::RuntimeError(format!("WriteText failed: {}", e))
+                    })?;
+                }
+                fs::write(&p, content).map_err(|e| {
+                    mlua::Error::RuntimeError(format!("WriteText('{}') failed: {}", p.display(), e))
+                })?;
+                Ok(true)
+            })
+            .map_err(|e| e.to_string())?;
+        ctx_table.set("WriteText", write_text_fn).map_err(|e| e.to_string())?;
+
+        let exists_fn = lua
+            .create_function(|_, args: MultiValue| {
+                let items = strip_self_args(args);
+                let path_str = items.first().map(lua_value_to_string).unwrap_or_default();
+                if path_str.trim().is_empty() {
+                    return Ok(false);
+                }
+                Ok(to_os_path(path_str.trim()).exists())
+            })
+            .map_err(|e| e.to_string())?;
+        ctx_table.set("Exists", exists_fn).map_err(|e| e.to_string())?;
+
+        lua.globals()
+            .set("Context", ctx_table)
+            .map_err(|e| format!("Failed to inject Context: {}", e))?;
+
+        lua.load(&lua_source)
+            .set_name(format!("{}_funcs.lua", codename_owned))
+            .exec()
+            .map_err(|e| format!("Lua error in {}_funcs.lua: {}", codename_owned, e))?;
+
+        let globals = lua.globals();
+        let target_fn: Option<Function> = match globals.get::<LuaValue>(method_owned.as_str()) {
+            Ok(LuaValue::Function(f)) => Some(f),
+            _ => {
+                let target_lower = method_owned.to_lowercase();
+                let mut found = None;
+                for pair in globals.pairs::<String, LuaValue>() {
+                    if let Ok((k, LuaValue::Function(f))) = pair {
+                        if k.to_lowercase() == target_lower {
+                            found = Some(f);
+                            break;
+                        }
+                    }
+                }
+                found
+            }
         };
 
-        Ok((logs, updated))
+        let Some(func) = target_fn else {
+            if optional {
+                let collected_logs = logs_shared.lock().map(|g| g.clone()).unwrap_or_default();
+                return Ok((collected_logs, props_owned));
+            }
+            return Err(format!(
+                "Function '{}' was not found in {}_funcs.lua.",
+                method_owned, codename_owned
+            ));
+        };
+
+        func.call::<()>(())
+            .map_err(|e| format!("{}() failed: {}", method_owned, e))?;
+
+        let mut updated = HashMap::new();
+        if let Ok(ctx) = globals.get::<Table>("Context") {
+            if let Ok(props) = ctx.get::<Table>("Properties") {
+                for pair in props.pairs::<String, LuaValue>() {
+                    if let Ok((k, v)) = pair {
+                        updated.insert(k, lua_value_to_string(&v));
+                    }
+                }
+            }
+        }
+
+        let collected_logs = logs_shared.lock().map(|g| g.clone()).unwrap_or_default();
+        Ok((collected_logs, updated))
     })
     .await
-    .map_err(|e| format!("Funcs runner task failed: {}", e))??;
+    .map_err(|e| format!("Lua runner task failed: {}", e))??;
 
     Ok(ActionExecResultDto {
         success: true,
@@ -1038,70 +1253,45 @@ mod tests {
     }
 
     #[test]
-    fn funcs_dll_in_archive_executes_method_and_updates_properties() {
-        let lib = make_temp_dir("funcs_dll");
-        let build_dir = make_temp_dir("funcs_dll_build");
+    fn funcs_lua_in_archive_executes_method_and_updates_properties() {
+        let lib = make_temp_dir("funcs_lua");
         let lib_str = lib.to_string_lossy().into_owned();
-        fs::create_dir_all(lib.join("testdll_ds")).unwrap();
+        fs::create_dir_all(lib.join("testlua_ds")).unwrap();
 
         let sct_data = crate::servers::find_sct_data_dir().unwrap();
-        let cs_source = r#"
-using System;
-using System.Collections.Generic;
-namespace ServerCreationTool.Servers
-{
-    public class testdll_funcs
-    {
-        public ServerContext Context { get; set; } = new ServerContext();
-        public void PostInstall()
-        {
-            Context.SetProperty("InstalledAt", "2026-01-01T00:00:00Z");
-        }
-    }
-    public class ServerContext
-    {
-        public string ServerDir { get; set; } = "";
-        public string InstallDir { get; set; } = "";
-        public string DataDir { get; set; } = "";
-        public string Codename { get; set; } = "";
-        public Dictionary<string, string> Properties { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        public void SetProperty(string key, string value) { Properties[key] = value; }
-    }
-}
+        let lua_source = r#"
+function PostInstall()
+    local saveDir = Context:ResolveTokens("{SERVER_DIR}/saves")
+    Context:MakeDir(saveDir)
+    Context:WriteText(saveDir .. "/cfg.txt", "os=" .. Context.OS)
+    Context:Copy(saveDir .. "/cfg.txt", saveDir .. "/cfg_copy.txt")
+    local content = Context:ReadText(saveDir .. "/cfg_copy.txt")
+    Context:Delete(saveDir .. "/cfg.txt")
+    print("PostInstall saves: " .. saveDir .. " [" .. content .. "]")
+    Context:SetProperty("InstalledAt", os.date("!%Y-%m-%dT%H:%M:%SZ"))
+    Context:SetProperty("DetectedOS", Context.OS)
+end
 "#;
-        let csproj = "<Project Sdk=\"Microsoft.NET.Sdk\">\n  <PropertyGroup>\n    <TargetFramework>net8.0</TargetFramework>\n    <ImplicitUsings>enable</ImplicitUsings>\n    <Nullable>enable</Nullable>\n  </PropertyGroup>\n</Project>\n";
-        fs::write(build_dir.join("TestDllFuncs.csproj"), csproj).unwrap();
-        fs::write(build_dir.join("Funcs.cs"), cs_source).unwrap();
 
-        let out_dir = build_dir.join("out");
-        let build_out = std::process::Command::new("dotnet")
-            .args(["build", "-c", "Release", "--nologo", "-o"])
-            .arg(&out_dir)
-            .current_dir(&build_dir)
-            .output()
-            .unwrap();
-        assert!(build_out.status.success());
-
-        let compiled_dll = fs::read(out_dir.join("TestDllFuncs.dll")).unwrap();
-        let archive_name = "__test_dll.server";
+        let archive_name = "__test_lua.server";
         let archive_path = sct_data.join(archive_name);
         {
             let file = File::create(&archive_path).unwrap();
             let mut zip = ZipWriter::new(file);
-            zip.start_file("testdll/testdll_funcs.dll", SimpleFileOptions::default())
+            zip.start_file("testlua/testlua_funcs.lua", SimpleFileOptions::default())
                 .unwrap();
-            zip.write_all(&compiled_dll).unwrap();
+            zip.write_all(lua_source.as_bytes()).unwrap();
             zip.finish().unwrap();
         }
 
         let res = tauri::async_runtime::block_on(execute_funcs_method(
             None,
             &lib_str,
-            "testdll",
-            "testdll",
+            "testlua",
+            "testlua",
             archive_name,
             "Default",
-            "testdll",
+            "testlua",
             "PostInstall",
             false,
             &HashMap::new(),
@@ -1111,9 +1301,15 @@ namespace ServerCreationTool.Servers
 
         assert!(res.success);
         assert!(res.updated_properties.contains_key("InstalledAt"));
+        assert!(res.updated_properties.contains_key("DetectedOS"));
+        assert!(!lib.join("testlua_ds").join("saves").join("cfg.txt").exists());
+        assert!(lib.join("testlua_ds").join("saves").join("cfg_copy.txt").is_file());
+        assert!(res
+            .logs
+            .iter()
+            .any(|l| l.contains("PostInstall saves:") && l.contains("os=")));
 
         let _ = fs::remove_file(&archive_path);
-        let _ = fs::remove_dir_all(&build_dir);
         let _ = fs::remove_dir_all(&lib);
     }
 }

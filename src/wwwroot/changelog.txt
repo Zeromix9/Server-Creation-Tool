@@ -1,3 +1,12 @@
+18.11.2026 - Version 6.0
+-Total code rewrite in Rust (Tauri) with an improved UI.
+-Added online server catalog system with signature verification to download and update servers independently of the executable.
+-Added multi-instance support for managing multiple configurations per server.
+-Added built-in server backup and restore, and run-on-startup auto-launch.
+-Added integrated live server console and improved start option selection.
+-Remember last selected server or Welcome page on startup.
+-Various stability and performance improvements.
+
 14.7.2026 - Version 5.2
 -Added Necesse Server
 -Bug fix: Error when deleting servers on a drive other than C:

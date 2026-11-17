@@ -31,6 +31,11 @@
     );
   }
 
+  const IS_WINDOWS_HOST = /win/i.test(
+    (typeof navigator !== 'undefined' && (navigator.platform || navigator.userAgent)) || ''
+  );
+  const DEFAULT_TEXT_EDITOR = IS_WINDOWS_HOST ? 'notepad.exe' : '';
+
   // Synced from Rust compile-time IS_RELEASE on startup (false in `cargo tauri dev`, true in `cargo tauri build` or `SCT_RELEASE=1`).
   let isRelease = true;
 
@@ -206,7 +211,7 @@
 
   const state = {
     isMoreOpen: false,
-    isWelcomeActive: false,
+    isWelcomeActive: true,
     showFavoritesOnly: false,
     searchQuery: '',
     isInstanceMenuOpen: false,
@@ -228,7 +233,7 @@
       autoCheckUpdates: true,
       closeToTray: false,
       runOnStartup: false,
-      defaultTextEditor: 'notepad.exe'
+      defaultTextEditor: DEFAULT_TEXT_EDITOR
     },
     libraryStatus: {
       libraryExists: false,
@@ -675,12 +680,22 @@
         state.servers[0] ||
         null;
     } else if (!state.selectedServer) {
-      state.selectedServer =
-        state.servers.find(function (s) {
-          return s.id === 'cs';
-        }) ||
-        state.servers[0] ||
-        null;
+      let lastId = '';
+      try {
+        lastId = localStorage.getItem('sct_last_selected_server_v1') || '';
+      } catch {}
+      const matched = lastId
+        ? state.servers.find(function (s) {
+            return s.id === lastId;
+          })
+        : null;
+      if (matched) {
+        state.selectedServer = matched;
+        state.isWelcomeActive = false;
+      } else {
+        state.selectedServer = null;
+        state.isWelcomeActive = true;
+      }
     } else {
       const currentId = state.selectedServer.id;
       state.selectedServer =
@@ -746,7 +761,7 @@
         closeToTray: parsed.closeToTray ?? parsed.CloseToTray ?? false,
         runOnStartup: parsed.runOnStartup ?? parsed.RunOnStartup ?? false,
         defaultTextEditor:
-          parsed.defaultTextEditor ?? parsed.DefaultTextEditor ?? 'notepad.exe'
+          parsed.defaultTextEditor ?? parsed.DefaultTextEditor ?? DEFAULT_TEXT_EDITOR
       };
       state.favoriteIds = Array.isArray(parsed.favorites) ? parsed.favorites : [];
       state.startupServers =
@@ -960,10 +975,10 @@
     return (
       '<div class="sct-welcome-container">' +
       '<div class="sct-welcome-banner">' +
-      '<h2 class="sct-welcome-headline">Welcome to Server Creation Tool 5.0</h2>' +
+      '<h2 class="sct-welcome-headline">Welcome to Server Creation Tool 6.0</h2>' +
       '<p class="sct-welcome-subtext">' +
-      'This tool allows you to download, install and manage<br />' +
-      'steam and non-steam servers quick and easy.' +
+      'This tool allows you to download, install, back up and manage<br />' +
+      'Steam and non-Steam servers quickly and easily.' +
       '</p>' +
       '</div>' +
       '<div class="sct-donate-row">' +
@@ -972,14 +987,14 @@
       '<div class="sct-instructions-card">' +
       '<div class="sct-instructions-header">Basic Instructions:</div>' +
       '<div class="sct-instructions-text-area">' +
-      '<p>1) Select the game you want and click the "Install Server" button.</p>' +
-      '<p>2) If its the first time you\'re installing a server, select the installation folder, and then wait for it to finish.</p>' +
-      '<p>3) Type "quit" in the command line after the installation has finished. - (only for steam servers)</p>' +
-      '<p>4) Configure the server the way you like by editing the settings files (optional).</p>' +
-      '<p>5) Start the server and enjoy!</p>' +
+      '<p>1) Select a game from the list on the left and click "Install".</p>' +
+      '<p>2) If no Server Library location is set yet, choose a folder when prompted and wait for the installation to finish automatically.</p>' +
+      '<p>3) Optionally configure the server by editing its config files, instance settings, or startup options.</p>' +
+      '<p>4) Use the instance dropdown to create or switch between multiple instances of the same server, and back up/restore under Tools &amp; Maintenance.</p>' +
+      '<p>5) Click "Start" to launch the server and enjoy!</p>' +
       '<p style="margin-top: 8px; color: #a0aec0;">' +
-      'NOTE: If you need extra help, some servers include a guide in the "Extra" section.<br />' +
-      'You can also go to the "Language" or "About" options for additional help, or join our Steam / Discord communities!' +
+      '<br />' +
+      'Check "More" -&gt; "FAQ" or "About" for extra help, or join our Discord / GitHub communities!' +
       '</p>' +
       '</div>' +
       '</div>' +
@@ -2127,6 +2142,69 @@
     }
   }
 
+  async function checkAndPromptServerCatalog(isManual, preserveSelection) {
+    if (!window.sctCheckServerCatalog) return;
+    const isLocalCatalogEmpty =
+      !Array.isArray(state.servers) || state.servers.length === 0;
+    let checkResult = null;
+    try {
+      checkResult = await window.sctCheckServerCatalog(true);
+    } catch (err) {
+      const msg = err && err.message ? err.message : String(err);
+      checkResult = { checked: false, availableFiles: [], updatedFiles: [], skippedFiles: [], error: msg };
+    }
+    if (!checkResult) return;
+
+    const available = Array.isArray(checkResult.availableFiles)
+      ? checkResult.availableFiles
+      : [];
+    const availableNames =
+      Array.isArray(checkResult.availableNames) &&
+      checkResult.availableNames.length === available.length
+        ? checkResult.availableNames
+        : available;
+    if (available.length > 0) {
+      let shouldDownload = isLocalCatalogEmpty;
+      if (!shouldDownload && window.SctModal && window.SctModal.confirm) {
+        shouldDownload = await window.SctModal.confirm(
+          'The following servers are now available for download:\n• ' +
+            availableNames.join('\n• '),
+          'Server Catalog',
+          '📦',
+          'Add to library',
+          'Later'
+        );
+      }
+      if (shouldDownload && window.sctSyncServerCatalog) {
+        let syncResult = null;
+        try {
+          syncResult = await window.sctSyncServerCatalog(true);
+        } catch (err) {
+          const msg = err && err.message ? err.message : String(err);
+          syncResult = { error: msg };
+        }
+        await refreshServers({ preserveSelection: Boolean(preserveSelection) });
+        renderAll();
+        if (syncResult && syncResult.error && window.SctModal && window.SctModal.alert) {
+          await window.SctModal.alert(
+            'Failed to sync some catalog servers:\n' + syncResult.error,
+            'Server Catalog',
+            '⚠️'
+          );
+        }
+      }
+      return;
+    }
+
+    if (isManual && checkResult.error && window.SctModal && window.SctModal.alert) {
+      await window.SctModal.alert(
+        'Failed to check online server catalog:\n' + checkResult.error,
+        'Reload Servers',
+        '⚠️'
+      );
+    }
+  }
+
   async function executeSteamInstallOrUpdate(srv, opts) {
     if (!srv || isSteamTaskBusy()) return;
 
@@ -2298,10 +2376,13 @@
       case 'select-welcome':
         state.isWelcomeActive = true;
         state.isInstanceMenuOpen = false;
+        try {
+          localStorage.setItem('sct_last_selected_server_v1', '__welcome__');
+        } catch {}
         renderAll();
         break;
 
-      case 'reload-servers':
+      case 'reload-servers': {
         state.isReloading = true;
         renderFrameAndLeftColumn();
         await refreshServers({ preserveSelection: true });
@@ -2310,7 +2391,9 @@
           state.isReloading = false;
           renderFrameAndLeftColumn();
         }, 200);
+        await checkAndPromptServerCatalog(true, true);
         break;
+      }
 
       case 'open-donate':
         await window.sctOpenUrl('https://paypal.me/Zeromix');
@@ -3765,6 +3848,9 @@
           }
           state.selectedServer = found;
           state.isWelcomeActive = false;
+          try {
+            localStorage.setItem('sct_last_selected_server_v1', found.id);
+          } catch {}
           state.isInstanceMenuOpen = false;
           state.openCustomDropdownIdx = null;
           renderAll();
@@ -4056,6 +4142,8 @@
     } catch {}
 
     await autoStartConfiguredServersOnStartup();
+
+    await checkAndPromptServerCatalog(false, true);
 
     if (state.settings.autoCheckUpdates) {
       checkForUpdates(false);

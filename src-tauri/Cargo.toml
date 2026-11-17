@@ -1,6 +1,6 @@
 [package]
 name = "server_creation_tool"
-version = "5.2.0"
+version = "6.0.0"
 description = "Server Creation Tool"
 authors = ["Zeromix"]
 edition = "2021"
@@ -23,6 +23,7 @@ zip = { version = "2", default-features = false, features = ["deflate"] }
 base64 = "0.22"
 ed25519-dalek = "2"
 sha2 = "0.10"
+mlua = { version = "0.10", features = ["lua54", "vendored"] }
 portable-pty = "0.9"
 
 [profile.release]

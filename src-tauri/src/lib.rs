@@ -20,6 +20,7 @@ fn is_release_mode() -> bool {
 
 mod actions;
 mod backups;
+mod catalog;
 mod logger;
 mod non_steam;
 mod servers;
@@ -178,7 +179,28 @@ fn set_run_on_startup(enabled: bool) -> Result<(), String> {
     }
     #[cfg(not(target_os = "windows"))]
     {
-        let _ = enabled;
+        let config_dir = std::env::var_os("XDG_CONFIG_HOME")
+            .map(std::path::PathBuf::from)
+            .or_else(|| std::env::var_os("HOME").map(|h| std::path::PathBuf::from(h).join(".config")))
+            .ok_or_else(|| "Failed to locate user config directory.".to_string())?;
+        let autostart_dir = config_dir.join("autostart");
+        let desktop_file = autostart_dir.join("server-creation-tool.desktop");
+
+        if enabled {
+            let exe = std::env::current_exe()
+                .map_err(|e| format!("Failed to resolve executable path: {}", e))?;
+            std::fs::create_dir_all(&autostart_dir)
+                .map_err(|e| format!("Failed to create autostart directory: {}", e))?;
+            let content = format!(
+                "[Desktop Entry]\nType=Application\nName=Server Creation Tool\nExec=\"{}\"\nTerminal=false\nX-GNOME-Autostart-enabled=true\n",
+                exe.to_string_lossy()
+            );
+            std::fs::write(&desktop_file, content)
+                .map_err(|e| format!("Failed to write '{}': {}", desktop_file.display(), e))?;
+        } else if desktop_file.exists() {
+            std::fs::remove_file(&desktop_file)
+                .map_err(|e| format!("Failed to remove '{}': {}", desktop_file.display(), e))?;
+        }
         Ok(())
     }
 }
@@ -400,6 +422,19 @@ fn open_file(path: String, editor: Option<String>) {
 #[tauri::command]
 fn open_url(url: String) {
     let _ = tauri_plugin_opener::open_url(&url, None::<&str>);
+}
+
+#[tauri::command]
+async fn check_online_server_catalog(force: Option<bool>) -> catalog::CatalogSyncResultDto {
+    catalog::check_online_catalog(force.unwrap_or(false)).await
+}
+
+#[tauri::command]
+async fn sync_online_server_catalog(
+    app: tauri::AppHandle,
+    force: Option<bool>,
+) -> catalog::CatalogSyncResultDto {
+    catalog::sync_online_catalog(Some(&app), force.unwrap_or(false)).await
 }
 
 #[tauri::command]
@@ -936,7 +971,7 @@ pub fn run() {
 
             let mut tray_builder = TrayIconBuilder::with_id("sct_tray")
                 .menu(&tray_menu)
-                .tooltip("Server Creation Tool 5.2")
+                .tooltip("Server Creation Tool 6.0")
                 .show_menu_on_left_click(false)
                 .on_tray_icon_event(|tray, event| {
                     if let TrayIconEvent::Click {
@@ -1028,6 +1063,8 @@ pub fn run() {
             append_app_log,
             open_file,
             open_url,
+            check_online_server_catalog,
+            sync_online_server_catalog,
             load_servers,
             ensure_library_location,
             mock_install_server,

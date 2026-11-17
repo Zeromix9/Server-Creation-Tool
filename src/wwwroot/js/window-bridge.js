@@ -276,6 +276,36 @@ window.sctSaveAppSettingsFile = function (json) {
   return Promise.resolve();
 };
 
+window.sctCheckServerCatalog = function (force) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('check_online_server_catalog', { force: Boolean(force) });
+  }
+  return Promise.resolve({
+    checked: false,
+    availableFiles: [],
+    availableNames: [],
+    updatedFiles: [],
+    skippedFiles: [],
+    error: null
+  });
+};
+
+window.sctSyncServerCatalog = function (force) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('sync_online_server_catalog', { force: Boolean(force) });
+  }
+  return Promise.resolve({
+    checked: false,
+    availableFiles: [],
+    availableNames: [],
+    updatedFiles: [],
+    skippedFiles: [],
+    error: null
+  });
+};
+
 window.sctLoadServers = function (libraryPath) {
   const core = getTauriCore();
   if (core) {
@@ -683,7 +713,7 @@ window.sctExecuteFuncsMethod = function (params) {
       allowUntrusted: Boolean(params.allowUntrusted)
     });
   }
-  return Promise.reject(new Error('_funcs.cs execution requires the desktop app.'));
+  return Promise.reject(new Error('_funcs.lua execution requires the desktop app.'));
 };
 
 window.sctShowContextMenu = async function (x, y, files, libraryPath, serverId) {

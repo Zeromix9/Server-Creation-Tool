@@ -11,7 +11,7 @@ use std::time::UNIX_EPOCH;
 use zip::ZipArchive;
 
 /// Embedded Ed25519 public key for official .server packages signed by MakeServer.
-pub const OFFICIAL_PUBLIC_KEY_B64: &str = "AACvdIPwAqVOYdoFngk32m2OiVtFwrZ2zMGz0H4Hpk0=";
+pub const OFFICIAL_PUBLIC_KEY_B64: &str = "AACvdIPwAqVOYdoFngk32m2OivTfwrZ2zMGz0H4Hpk0=";
 
 #[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -373,5 +373,14 @@ mod tests {
         let _ = fs::remove_file(&p_tampered);
         let _ = fs::remove_file(&p_extra);
         let _ = fs::remove_file(&p_wrong_key);
+    }
+
+    #[test]
+    fn real_beamng_server_verifies_as_official() {
+        let sct_data = crate::servers::find_sct_data_dir().unwrap();
+        let beamng = sct_data.join("beamng.server");
+        let res = super::verify_server_package(&beamng);
+        assert!(res.is_official, "Expected beamng.server to be official: {:?}", res);
+        assert_eq!(res.status, "official");
     }
 }

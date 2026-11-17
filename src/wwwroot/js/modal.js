@@ -135,7 +135,7 @@
         '<div>' +
         '<label class="sct-field-label">Default Text Editor:</label>' +
         '<div style="display: flex; gap: 6px; margin-top: 4px;">' +
-        '<input type="text" id="sct-modal-text-editor" class="sct-input" style="flex: 1;" value="' + escapeHtml(s.defaultTextEditor || 'notepad.exe') + '" placeholder="notepad.exe" />' +
+        '<input type="text" id="sct-modal-text-editor" class="sct-input" style="flex: 1;" value="' + escapeHtml(s.defaultTextEditor || '') + '" placeholder="System default" />' +
         '<button type="button" class="sct-btn" style="padding: 4px 10px;" data-modal-action="settings-browse-editor">Browse...</button>' +
         '</div>' +
         '</div>' +
@@ -389,7 +389,7 @@
     const runStartup = document.getElementById('sct-modal-run-startup');
 
     if (libInput) activeModal.tempSettings.serverLibraryPath = libInput.value;
-    if (editorInput) activeModal.tempSettings.defaultTextEditor = editorInput.value.trim() || 'notepad.exe';
+    if (editorInput) activeModal.tempSettings.defaultTextEditor = editorInput.value.trim();
     if (autoUpdates) activeModal.tempSettings.autoCheckUpdates = autoUpdates.checked;
     if (closeTray) activeModal.tempSettings.closeToTray = closeTray.checked;
     if (runStartup) activeModal.tempSettings.runOnStartup = runStartup.checked;
@@ -711,7 +711,7 @@
             autoCheckUpdates: Boolean(currentSettings.autoCheckUpdates),
             closeToTray: Boolean(currentSettings.closeToTray),
             runOnStartup: Boolean(currentSettings.runOnStartup),
-            defaultTextEditor: currentSettings.defaultTextEditor || 'notepad.exe'
+            defaultTextEditor: currentSettings.defaultTextEditor ?? ''
           },
           tempStartupServers: list,
           iconUrl: 'img/icons/settingsBtn.Image.png',
