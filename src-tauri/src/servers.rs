@@ -5,7 +5,16 @@ use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::Read;
 use std::path::{Path, PathBuf};
-use std::process::Command;
+use std::process::{Child, Command, Stdio};
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::{Mutex, OnceLock};
+use tauri::{AppHandle, Emitter};
+
+static DELETE_CANCELLED: AtomicBool = AtomicBool::new(false);
+
+pub fn cancel_delete_task() {
+    DELETE_CANCELLED.store(true, Ordering::SeqCst);
+}
 
 pub const INCOMPLETE_INSTALL_MARKER: &str = ".sct_incomplete";
 
@@ -1220,10 +1229,74 @@ pub(crate) fn clear_readonly_recursive(path: &Path) {
     }
 }
 
+fn remove_dir_all_cancellable(dir: &Path, cancel_flag: &AtomicBool) -> Result<(), String> {
+    if cancel_flag.load(Ordering::Relaxed) {
+        return Err("Delete cancelled by user.".to_string());
+    }
+    let entries = fs::read_dir(dir)
+        .map_err(|e| format!("Failed to read folder '{}': {}", dir.display(), e))?;
+    for entry in entries.flatten() {
+        if cancel_flag.load(Ordering::Relaxed) {
+            return Err("Delete cancelled by user.".to_string());
+        }
+        let path = entry.path();
+        let file_type = entry
+            .file_type()
+            .map_err(|e| format!("Failed to inspect '{}': {}", path.display(), e))?;
+        if file_type.is_dir() && !file_type.is_symlink() {
+            remove_dir_all_cancellable(&path, cancel_flag)?;
+        } else if fs::remove_file(&path).is_err() {
+            if let Ok(meta) = fs::metadata(&path) {
+                let mut perms = meta.permissions();
+                if perms.readonly() {
+                    perms.set_readonly(false);
+                    let _ = fs::set_permissions(&path, perms);
+                }
+            }
+            fs::remove_file(&path)
+                .map_err(|e| format!("Failed to delete '{}': {}", path.display(), e))?;
+        }
+    }
+    if cancel_flag.load(Ordering::Relaxed) {
+        return Err("Delete cancelled by user.".to_string());
+    }
+    if fs::remove_dir(dir).is_err() {
+        if let Ok(meta) = fs::metadata(dir) {
+            let mut perms = meta.permissions();
+            if perms.readonly() {
+                perms.set_readonly(false);
+                let _ = fs::set_permissions(dir, perms);
+            }
+        }
+        fs::remove_dir(dir)
+            .map_err(|e| format!("Failed to remove folder '{}': {}", dir.display(), e))?;
+    }
+    Ok(())
+}
+
+pub fn delete_server_instance_cancellable(
+    library_path: &str,
+    codename: &str,
+    instance_name: &str,
+) -> Result<bool, String> {
+    DELETE_CANCELLED.store(false, Ordering::SeqCst);
+    delete_server_instance_inner(library_path, codename, instance_name, Some(&DELETE_CANCELLED))
+}
+
+#[allow(dead_code)]
 pub fn delete_server_instance(
     library_path: &str,
     codename: &str,
     instance_name: &str,
+) -> Result<bool, String> {
+    delete_server_instance_inner(library_path, codename, instance_name, None)
+}
+
+fn delete_server_instance_inner(
+    library_path: &str,
+    codename: &str,
+    instance_name: &str,
+    cancel_flag: Option<&AtomicBool>,
 ) -> Result<bool, String> {
     let (expected_dir, expected_name) = resolve_instance_dir(library_path, codename, instance_name)?;
     let lib_dir = PathBuf::from(library_path.trim());
@@ -1256,7 +1329,9 @@ pub fn delete_server_instance(
         return Ok(false);
     };
 
-    if fs::remove_dir_all(&server_dir).is_err() {
+    if let Some(flag) = cancel_flag {
+        remove_dir_all_cancellable(&server_dir, flag)?;
+    } else if fs::remove_dir_all(&server_dir).is_err() {
         clear_readonly_recursive(&server_dir);
         fs::remove_dir_all(&server_dir)
             .map_err(|e| format!("Failed to delete server folder '{}': {}", server_dir.display(), e))?;
@@ -1369,7 +1444,112 @@ pub fn get_available_start_options(
     Ok(available)
 }
 
-pub fn launch_server_option(file_path: &str, args: &str) -> Result<(), String> {
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct RunningInstanceDto {
+    pub server_id: String,
+    pub instance_name: String,
+    pub pid: u32,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct ServerProcessPayload {
+    pub server_id: String,
+    pub instance_name: String,
+    pub running: bool,
+    pub pid: u32,
+}
+
+static RUNNING_PROCESSES: OnceLock<Mutex<HashMap<(String, String), (String, String, u32)>>> =
+    OnceLock::new();
+
+fn running_processes_map() -> &'static Mutex<HashMap<(String, String), (String, String, u32)>> {
+    RUNNING_PROCESSES.get_or_init(|| Mutex::new(HashMap::new()))
+}
+
+fn process_key(server_id: &str, instance_name: &str) -> (String, String) {
+    let inst = if instance_name.trim().is_empty() {
+        "default"
+    } else {
+        instance_name.trim()
+    };
+    (server_id.trim().to_lowercase(), inst.to_lowercase())
+}
+
+fn emit_server_process(
+    app: &AppHandle,
+    server_id: &str,
+    instance_name: &str,
+    running: bool,
+    pid: u32,
+) {
+    let _ = app.emit(
+        "sct-server-process",
+        ServerProcessPayload {
+            server_id: server_id.to_string(),
+            instance_name: instance_name.to_string(),
+            running,
+            pid,
+        },
+    );
+}
+
+fn spawn_server_child(target: &Path, working_dir: &Path, extra_args: &[String]) -> Result<Child, String> {
+    #[cfg(target_os = "windows")]
+    {
+        use std::os::windows::process::CommandExt;
+        const CREATE_NEW_CONSOLE: u32 = 0x0000_0010;
+
+        let ext = target
+            .extension()
+            .and_then(|e| e.to_str())
+            .unwrap_or("")
+            .to_lowercase();
+
+        if ext == "bat" || ext == "cmd" {
+            let mut cmd = Command::new("cmd");
+            cmd.arg("/C").arg(target);
+            for arg in extra_args {
+                cmd.arg(arg);
+            }
+            cmd.current_dir(working_dir);
+            cmd.creation_flags(CREATE_NEW_CONSOLE);
+            return cmd
+                .spawn()
+                .map_err(|e| format!("Failed to start '{}': {}", target.display(), e));
+        }
+
+        let mut cmd = Command::new(target);
+        cmd.current_dir(working_dir);
+        for arg in extra_args {
+            cmd.arg(arg);
+        }
+        cmd.creation_flags(CREATE_NEW_CONSOLE);
+        return cmd
+            .spawn()
+            .map_err(|e| format!("Failed to start '{}': {}", target.display(), e));
+    }
+
+    #[cfg(not(target_os = "windows"))]
+    {
+        let mut cmd = Command::new(target);
+        cmd.current_dir(working_dir);
+        for arg in extra_args {
+            cmd.arg(arg);
+        }
+        cmd.spawn()
+            .map_err(|e| format!("Failed to start '{}': {}", target.display(), e))
+    }
+}
+
+pub fn launch_server_option(
+    app: &AppHandle,
+    server_id: &str,
+    instance_name: &str,
+    file_path: &str,
+    args: &str,
+) -> Result<u32, String> {
     let target = PathBuf::from(file_path.trim());
     if !target.is_file() {
         return Err(format!("Start file not found: '{}'", target.display()));
@@ -1386,40 +1566,97 @@ pub fn launch_server_option(file_path: &str, args: &str) -> Result<(), String> {
         .map(|s| s.to_string())
         .collect();
 
+    let mut child = spawn_server_child(&target, &working_dir, &extra_args)?;
+    let pid = child.id();
+
+    let norm_inst = if instance_name.trim().is_empty() {
+        "Default".to_string()
+    } else {
+        instance_name.trim().to_string()
+    };
+    let key = process_key(server_id, &norm_inst);
+
+    if let Ok(mut map) = running_processes_map().lock() {
+        map.insert(key.clone(), (server_id.to_string(), norm_inst.clone(), pid));
+    }
+
+    emit_server_process(app, server_id, &norm_inst, true, pid);
+
+    let app_clone = app.clone();
+    let sid_clone = server_id.to_string();
+    let inst_clone = norm_inst.clone();
+    std::thread::spawn(move || {
+        let _ = child.wait();
+        let removed = if let Ok(mut map) = running_processes_map().lock() {
+            if map.get(&key).map(|entry| entry.2 == pid).unwrap_or(false) {
+                map.remove(&key);
+                true
+            } else {
+                false
+            }
+        } else {
+            false
+        };
+        if removed {
+            emit_server_process(&app_clone, &sid_clone, &inst_clone, false, pid);
+        }
+    });
+
+    Ok(pid)
+}
+
+pub fn stop_server_instance(
+    app: &AppHandle,
+    server_id: &str,
+    instance_name: &str,
+) -> Result<bool, String> {
+    let key = process_key(server_id, instance_name);
+    let entry = {
+        let mut map = running_processes_map()
+            .lock()
+            .map_err(|_| "Failed to lock running processes map.".to_string())?;
+        map.remove(&key)
+    };
+
+    let Some((orig_sid, orig_inst, pid)) = entry else {
+        return Ok(false);
+    };
+
     #[cfg(target_os = "windows")]
     {
-        let ext = target
-            .extension()
-            .and_then(|e| e.to_str())
-            .unwrap_or("")
-            .to_lowercase();
-
-        if ext == "bat" || ext == "cmd" {
-            let mut cmd = Command::new("cmd");
-            cmd.arg("/C")
-                .arg("start")
-                .arg("")
-                .arg("/D")
-                .arg(&working_dir)
-                .arg(&target);
-            for arg in &extra_args {
-                cmd.arg(arg);
-            }
-            cmd.spawn()
-                .map_err(|e| format!("Failed to start '{}': {}", target.display(), e))?;
-            return Ok(());
-        }
+        use std::os::windows::process::CommandExt;
+        const CREATE_NO_WINDOW: u32 = 0x0800_0000;
+        let mut cmd = Command::new("taskkill");
+        cmd.args(["/PID", &pid.to_string(), "/T", "/F"]);
+        cmd.creation_flags(CREATE_NO_WINDOW);
+        cmd.stdout(Stdio::null()).stderr(Stdio::null());
+        let _ = cmd.status();
     }
 
-    let mut cmd = Command::new(&target);
-    cmd.current_dir(&working_dir);
-    for arg in &extra_args {
-        cmd.arg(arg);
+    #[cfg(not(target_os = "windows"))]
+    {
+        let _ = Command::new("kill")
+            .args(["-TERM", &pid.to_string()])
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .status();
     }
-    cmd.spawn()
-        .map_err(|e| format!("Failed to start '{}': {}", target.display(), e))?;
 
-    Ok(())
+    emit_server_process(app, &orig_sid, &orig_inst, false, pid);
+    Ok(true)
+}
+
+pub fn get_running_instances() -> Vec<RunningInstanceDto> {
+    let Ok(map) = running_processes_map().lock() else {
+        return Vec::new();
+    };
+    map.values()
+        .map(|(server_id, instance_name, pid)| RunningInstanceDto {
+            server_id: server_id.clone(),
+            instance_name: instance_name.clone(),
+            pid: *pid,
+        })
+        .collect()
 }
 
 #[cfg(test)]

@@ -59,6 +59,22 @@ window.sctCloseWindow = function () {
   }
 };
 
+window.sctSetCloseToTray = function (enabled) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('set_close_to_tray', { enabled: Boolean(enabled) });
+  }
+  return Promise.resolve();
+};
+
+window.sctSetRunOnStartup = function (enabled) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('set_run_on_startup', { enabled: Boolean(enabled) });
+  }
+  return Promise.resolve();
+};
+
 window.sctOpenUrl = function (url) {
   const core = getTauriCore();
   if (core) {
@@ -372,15 +388,36 @@ window.sctGetAvailableStartOptions = function (libraryPath, codename, instanceNa
   return Promise.resolve([]);
 };
 
-window.sctLaunchServerOption = function (filePath, args) {
+window.sctLaunchServerOption = function (serverId, instanceName, filePath, args) {
   const core = getTauriCore();
   if (core) {
     return core.invoke('launch_server_option', {
+      serverId: serverId || '',
+      instanceName: instanceName || 'Default',
       filePath: filePath || '',
       args: args || ''
     });
   }
   return Promise.reject(new Error('Launching a server requires the desktop app.'));
+};
+
+window.sctStopServerInstance = function (serverId, instanceName) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('stop_server_instance', {
+      serverId: serverId || '',
+      instanceName: instanceName || 'Default'
+    });
+  }
+  return Promise.resolve(false);
+};
+
+window.sctGetRunningInstances = function () {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('get_running_instances');
+  }
+  return Promise.resolve([]);
 };
 
 window.sctLoadDefaultStartOption = function (serverKey) {
@@ -432,6 +469,24 @@ window.sctInstallOrUpdateSteamServer = function (params) {
   return Promise.reject(new Error('SteamCMD install requires the desktop app.'));
 };
 
+window.sctInstallOrUpdateNonSteamServer = function (params) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('install_or_update_non_steam_server', {
+      libraryPath: params.libraryPath || '',
+      codename: params.codename || '',
+      instanceName: params.instanceName || 'Default',
+      serverId: params.serverId || '',
+      serverName: params.serverName || '',
+      downloadLink: params.downloadLink || '',
+      areFilesLocal: Boolean(params.areFilesLocal),
+      autoExtractFiles: params.autoExtractFiles !== undefined ? Boolean(params.autoExtractFiles) : true,
+      sourceFile: params.sourceFile || ''
+    });
+  }
+  return Promise.reject(new Error('Server install requires the desktop app.'));
+};
+
 window.sctCancelSteamCmd = function (force) {
   const core = getTauriCore();
   if (core) {
@@ -474,6 +529,21 @@ window.sctListenTaskState = function (handler) {
     typeof window.__TAURI__.event.listen === 'function'
   ) {
     return window.__TAURI__.event.listen('sct-task-state', function (event) {
+      if (event && event.payload) {
+        handler(event.payload);
+      }
+    });
+  }
+  return Promise.resolve(function () {});
+};
+
+window.sctListenServerProcess = function (handler) {
+  if (
+    window.__TAURI__ &&
+    window.__TAURI__.event &&
+    typeof window.__TAURI__.event.listen === 'function'
+  ) {
+    return window.__TAURI__.event.listen('sct-server-process', function (event) {
       if (event && event.payload) {
         handler(event.payload);
       }
@@ -536,6 +606,30 @@ window.sctBackupServer = function (params) {
   return Promise.reject(new Error('Backup requires the desktop app.'));
 };
 
+window.sctCancelBackup = function () {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('cancel_backup_task');
+  }
+  return Promise.resolve();
+};
+
+window.sctCancelRestore = function () {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('cancel_restore_task');
+  }
+  return Promise.resolve();
+};
+
+window.sctCancelDelete = function () {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('cancel_delete_task');
+  }
+  return Promise.resolve();
+};
+
 window.sctListServerBackups = function (libraryPath, codename, instanceName) {
   const core = getTauriCore();
   if (core) {
@@ -546,6 +640,19 @@ window.sctListServerBackups = function (libraryPath, codename, instanceName) {
     });
   }
   return Promise.resolve([]);
+};
+
+window.sctDeleteServerBackup = function (params) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('delete_server_backup', {
+      libraryPath: params.libraryPath || '',
+      codename: params.codename || '',
+      instanceName: params.instanceName || 'Default',
+      backupPath: params.backupPath || ''
+    });
+  }
+  return Promise.reject(new Error('Delete backup requires the desktop app.'));
 };
 
 window.sctRestoreServerBackup = function (params) {

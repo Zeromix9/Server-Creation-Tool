@@ -1,11 +1,23 @@
 use serde::Serialize;
 use std::fs::{self, File};
-use std::io::{self, BufReader, BufWriter};
+use std::io::{BufReader, BufWriter, Read, Write};
 use std::path::{Path, PathBuf};
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::{SystemTime, UNIX_EPOCH};
 use tauri::AppHandle;
 use zip::write::SimpleFileOptions;
 use zip::{CompressionMethod, ZipArchive, ZipWriter};
+
+static BACKUP_CANCELLED: AtomicBool = AtomicBool::new(false);
+static RESTORE_CANCELLED: AtomicBool = AtomicBool::new(false);
+
+pub fn cancel_backup_task() {
+    BACKUP_CANCELLED.store(true, Ordering::SeqCst);
+}
+
+pub fn cancel_restore_task() {
+    RESTORE_CANCELLED.store(true, Ordering::SeqCst);
+}
 
 use crate::servers::{
     clear_readonly_recursive, clear_instance_incomplete, format_bytes, is_instance_incomplete,
@@ -189,16 +201,43 @@ fn collect_recursive(
     Ok(())
 }
 
+#[allow(dead_code)]
 pub fn create_backup_core<F>(
     library_path: &str,
     codename: &str,
     instance_name: &str,
     destination_path: Option<&str>,
+    on_progress: F,
+) -> Result<BackupCreatedDto, String>
+where
+    F: FnMut(usize, usize, u64, u64),
+{
+    create_backup_core_with_cancel(
+        library_path,
+        codename,
+        instance_name,
+        destination_path,
+        None,
+        on_progress,
+    )
+}
+
+pub fn create_backup_core_with_cancel<F>(
+    library_path: &str,
+    codename: &str,
+    instance_name: &str,
+    destination_path: Option<&str>,
+    cancel_flag: Option<&AtomicBool>,
     mut on_progress: F,
 ) -> Result<BackupCreatedDto, String>
 where
     F: FnMut(usize, usize, u64, u64),
 {
+    let is_cancelled = || {
+        cancel_flag
+            .map(|f| f.load(Ordering::Relaxed))
+            .unwrap_or(false)
+    };
     let (server_dir, _) = resolve_instance_dir(library_path, codename, instance_name)?;
     if !server_dir.is_dir() {
         return Err(format!(
@@ -270,6 +309,9 @@ where
             SimpleFileOptions::default().compression_method(CompressionMethod::Deflated);
 
         for dir_rel in &collected.dirs {
+            if is_cancelled() {
+                return Err("Backup cancelled by user.".to_string());
+            }
             let entry_name = if dir_rel.ends_with('/') {
                 dir_rel.clone()
             } else {
@@ -281,15 +323,31 @@ where
         }
 
         let mut done_bytes = 0u64;
+        let mut buf = [0u8; 65536];
         for (idx, (src_path, rel_name, file_len)) in collected.files.iter().enumerate() {
+            if is_cancelled() {
+                return Err("Backup cancelled by user.".to_string());
+            }
             writer
                 .start_file(rel_name, file_opts)
                 .map_err(|e| format!("Failed to add '{}' to backup: {}", rel_name, e))?;
             let src_file = File::open(src_path)
                 .map_err(|e| format!("Failed to read '{}': {}", src_path.display(), e))?;
             let mut reader = BufReader::new(src_file);
-            io::copy(&mut reader, &mut writer)
-                .map_err(|e| format!("Failed to compress '{}': {}", rel_name, e))?;
+            loop {
+                if is_cancelled() {
+                    return Err("Backup cancelled by user.".to_string());
+                }
+                let n = reader
+                    .read(&mut buf)
+                    .map_err(|e| format!("Failed to read '{}': {}", src_path.display(), e))?;
+                if n == 0 {
+                    break;
+                }
+                writer
+                    .write_all(&buf[..n])
+                    .map_err(|e| format!("Failed to compress '{}': {}", rel_name, e))?;
+            }
 
             done_bytes = done_bytes.saturating_add(*file_len);
             on_progress(idx + 1, total_files, done_bytes, total_bytes);
@@ -416,16 +474,91 @@ pub fn list_server_backups(
     Ok(out)
 }
 
+pub fn delete_server_backup(
+    library_path: &str,
+    codename: &str,
+    instance_name: &str,
+    backup_path: &str,
+) -> Result<(), String> {
+    let raw = backup_path.trim();
+    if raw.is_empty() {
+        return Err("Backup path is empty.".to_string());
+    }
+
+    let target = PathBuf::from(raw);
+    if !target.is_file() {
+        return Err(format!("Backup file not found: {}", target.display()));
+    }
+
+    let is_zip = target
+        .extension()
+        .and_then(|e| e.to_str())
+        .map(|e| e.eq_ignore_ascii_case("zip"))
+        .unwrap_or(false);
+    if !is_zip {
+        return Err("Only .zip backup archives can be deleted.".to_string());
+    }
+
+    // Restrict deletion to files inside the configured backups directory.
+    let backups_root = PathBuf::from(library_path.trim()).join("backups");
+    let instance_dir = default_backup_dir(library_path, codename, instance_name)?;
+    let canon_target = fs::canonicalize(&target)
+        .map_err(|e| format!("Failed to resolve backup path: {}", e))?;
+
+    let in_instance = instance_dir.is_dir()
+        && fs::canonicalize(&instance_dir)
+            .map(|d| canon_target.starts_with(&d))
+            .unwrap_or(false);
+    let in_root = backups_root.is_dir()
+        && fs::canonicalize(&backups_root)
+            .map(|d| canon_target.starts_with(&d))
+            .unwrap_or(false);
+
+    if !in_instance && !in_root {
+        return Err("Backup file is outside the server backups folder.".to_string());
+    }
+
+    fs::remove_file(&canon_target)
+        .map_err(|e| format!("Failed to delete backup '{}': {}", target.display(), e))
+}
+
+#[allow(dead_code)]
 pub fn restore_backup_core<F>(
     library_path: &str,
     codename: &str,
     instance_name: &str,
     backup_path: &str,
+    on_progress: F,
+) -> Result<RestoreResultDto, String>
+where
+    F: FnMut(usize, usize),
+{
+    restore_backup_core_with_cancel(
+        library_path,
+        codename,
+        instance_name,
+        backup_path,
+        None,
+        on_progress,
+    )
+}
+
+pub fn restore_backup_core_with_cancel<F>(
+    library_path: &str,
+    codename: &str,
+    instance_name: &str,
+    backup_path: &str,
+    cancel_flag: Option<&AtomicBool>,
     mut on_progress: F,
 ) -> Result<RestoreResultDto, String>
 where
     F: FnMut(usize, usize),
 {
+    let is_cancelled = || {
+        cancel_flag
+            .map(|f| f.load(Ordering::Relaxed))
+            .unwrap_or(false)
+    };
     let zip_path = PathBuf::from(backup_path.trim());
     if !zip_path.is_file() {
         return Err(format!("Backup file not found: '{}'", zip_path.display()));
@@ -439,6 +572,9 @@ where
 
     let total_entries = archive.len();
     for i in 0..total_entries {
+        if is_cancelled() {
+            return Err("Restore cancelled by user.".to_string());
+        }
         let entry = archive
             .by_index(i)
             .map_err(|e| format!("Corrupt entry in backup archive: {}", e))?;
@@ -448,6 +584,10 @@ where
                 entry.name()
             ));
         }
+    }
+
+    if is_cancelled() {
+        return Err("Restore cancelled by user.".to_string());
     }
 
     let (server_dir, _) = resolve_instance_dir(library_path, codename, instance_name)?;
@@ -472,7 +612,11 @@ where
     })?;
 
     let mut extracted_files = 0usize;
+    let mut buf = [0u8; 65536];
     for i in 0..total_entries {
+        if is_cancelled() {
+            return Err("Restore cancelled by user.".to_string());
+        }
         let mut entry = archive.by_index(i).map_err(|e| e.to_string())?;
         let Some(rel_path) = entry.enclosed_name() else {
             continue;
@@ -487,9 +631,20 @@ where
             let mut out_file = File::create(&out_path).map_err(|e| {
                 format!("Failed to write '{}': {}", out_path.display(), e)
             })?;
-            io::copy(&mut entry, &mut out_file).map_err(|e| {
-                format!("Failed to extract '{}': {}", out_path.display(), e)
-            })?;
+            loop {
+                if is_cancelled() {
+                    return Err("Restore cancelled by user.".to_string());
+                }
+                let n = entry.read(&mut buf).map_err(|e| {
+                    format!("Failed to extract '{}': {}", out_path.display(), e)
+                })?;
+                if n == 0 {
+                    break;
+                }
+                out_file.write_all(&buf[..n]).map_err(|e| {
+                    format!("Failed to extract '{}': {}", out_path.display(), e)
+                })?;
+            }
             extracted_files += 1;
         }
         on_progress(i + 1, total_entries);
@@ -532,13 +687,16 @@ pub async fn run_backup_task(
         format!("Starting backup for {} ({})...", sname, instance_name),
     );
 
+    BACKUP_CANCELLED.store(false, Ordering::SeqCst);
+
     let res = tauri::async_runtime::spawn_blocking(move || {
         let mut last_pct: i32 = -1;
-        create_backup_core(
+        create_backup_core_with_cancel(
             &library_path,
             &codename,
             &instance_name,
             destination_path.as_deref(),
+            Some(&BACKUP_CANCELLED),
             |done_files, total_files, done_bytes, total_bytes| {
                 let pct = if total_bytes > 0 {
                     ((done_bytes as f64 / total_bytes as f64) * 100.0).clamp(0.0, 100.0)
@@ -620,13 +778,16 @@ pub async fn run_restore_task(
         ),
     );
 
+    RESTORE_CANCELLED.store(false, Ordering::SeqCst);
+
     let res = tauri::async_runtime::spawn_blocking(move || {
         let mut last_pct: i32 = -1;
-        restore_backup_core(
+        restore_backup_core_with_cancel(
             &library_path,
             &codename,
             &instance_name,
             &backup_path,
+            Some(&RESTORE_CANCELLED),
             |done_entries, total_entries| {
                 let pct = if total_entries > 0 {
                     ((done_entries as f64 / total_entries as f64) * 100.0).clamp(0.0, 100.0)
@@ -676,7 +837,7 @@ pub async fn run_restore_task(
 
 #[cfg(test)]
 mod tests {
-    use super::{create_backup_core, list_server_backups, restore_backup_core};
+    use super::{create_backup_core, delete_server_backup, list_server_backups, restore_backup_core};
     use std::fs;
     use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -749,5 +910,65 @@ mod tests {
 
         let _ = fs::remove_dir_all(&lib);
         let _ = fs::remove_dir_all(&custom_dir);
+    }
+
+    #[test]
+    fn delete_server_backup_removes_file_and_blocks_outside_paths() {
+        let lib = make_temp_dir("delete_backup");
+        let outside_dir = make_temp_dir("delete_outside");
+        let lib_str = lib.to_string_lossy().into_owned();
+        let cs_dir = lib.join("cs_ds");
+        fs::create_dir_all(&cs_dir).unwrap();
+        fs::write(cs_dir.join("hlds.exe"), b"binary-v1").unwrap();
+
+        let created = create_backup_core(&lib_str, "cs", "Default", None, |_, _, _, _| {}).unwrap();
+        assert!(std::path::Path::new(&created.full_path).is_file());
+
+        let outside_zip = outside_dir.join("external.zip");
+        fs::write(&outside_zip, b"not-in-backups").unwrap();
+        let outside_err = delete_server_backup(
+            &lib_str,
+            "cs",
+            "Default",
+            &outside_zip.to_string_lossy(),
+        )
+        .unwrap_err();
+        assert!(outside_err.contains("outside"));
+        assert!(outside_zip.is_file());
+
+        delete_server_backup(&lib_str, "cs", "Default", &created.full_path).unwrap();
+        assert!(!std::path::Path::new(&created.full_path).exists());
+        assert!(list_server_backups(&lib_str, "cs", "Default").unwrap().is_empty());
+
+        let _ = fs::remove_dir_all(&lib);
+        let _ = fs::remove_dir_all(&outside_dir);
+    }
+
+    #[test]
+    fn backup_cancel_removes_temp_file_and_keeps_server_intact() {
+        use super::create_backup_core_with_cancel;
+        use std::sync::atomic::AtomicBool;
+
+        let lib = make_temp_dir("cancel_backup");
+        let lib_str = lib.to_string_lossy().into_owned();
+        let cs_dir = lib.join("cs_ds");
+        fs::create_dir_all(&cs_dir).unwrap();
+        fs::write(cs_dir.join("hlds.exe"), b"binary-v1").unwrap();
+
+        let cancel = AtomicBool::new(true);
+        let err = create_backup_core_with_cancel(
+            &lib_str,
+            "cs",
+            "Default",
+            None,
+            Some(&cancel),
+            |_, _, _, _| {},
+        )
+        .unwrap_err();
+        assert!(err.contains("cancelled"));
+        assert!(list_server_backups(&lib_str, "cs", "Default").unwrap().is_empty());
+        assert_eq!(fs::read(cs_dir.join("hlds.exe")).unwrap(), b"binary-v1");
+
+        let _ = fs::remove_dir_all(&lib);
     }
 }

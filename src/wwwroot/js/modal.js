@@ -122,10 +122,6 @@
         'Minimize to system tray when closing' +
         '</label>' +
         '<label style="display: flex; align-items: center; gap: 8px; font-size: 12px; cursor: pointer;">' +
-        '<input type="checkbox" id="sct-modal-steamcmd-min" ' + (s.runSteamCmdMinimized ? 'checked' : '') + ' />' +
-        'Run SteamCMD in background / minimized' +
-        '</label>' +
-        '<label style="display: flex; align-items: center; gap: 8px; font-size: 12px; cursor: pointer;">' +
         '<input type="checkbox" id="sct-modal-run-startup" ' + (s.runOnStartup ? 'checked' : '') + ' />' +
         'Run on startup' +
         '</label>' +
@@ -268,6 +264,34 @@
               })
               .join('');
 
+      const pendingDeleteItem =
+        m.confirmDeletePath &&
+        m.backups.find(function (b) {
+          return b.fullPath === m.confirmDeletePath;
+        });
+      const deleteConfirmHtml = pendingDeleteItem
+        ? '<div class="sct-restore-delete-confirm">' +
+          '<span class="sct-restore-delete-confirm-text">Delete <strong>' +
+          escapeHtml(pendingDeleteItem.fileName) +
+          '</strong>?</span>' +
+          '<div class="sct-restore-delete-confirm-actions">' +
+          '<button type="button" class="sct-btn sct-btn-danger" data-modal-action="restore-delete-confirm" ' +
+          (m.isDeletingBackup ? 'disabled' : '') +
+          '>' +
+          (m.isDeletingBackup ? 'Deleting...' : 'Confirm Delete') +
+          '</button>' +
+          '<button type="button" class="sct-btn" data-modal-action="restore-delete-cancel" ' +
+          (m.isDeletingBackup ? 'disabled' : '') +
+          '>Cancel</button>' +
+          '</div>' +
+          '</div>'
+        : '';
+      const deleteErrorHtml = m.deleteError
+        ? '<div class="sct-restore-delete-error">' +
+          escapeHtml(m.deleteError) +
+          '</div>'
+        : '';
+
       bodyHtml =
         '<div class="sct-modal-body sct-restore-body">' +
         '<div class="sct-restore-subtitle">Select a backup for ' +
@@ -278,13 +302,18 @@
         '<div class="sct-restore-list">' +
         listHtml +
         '</div>' +
+        deleteConfirmHtml +
+        deleteErrorHtml +
         '</div>';
       footerHtml =
         '<div class="sct-modal-footer sct-restore-footer">' +
         '<button type="button" class="sct-btn" data-modal-action="restore-browse">Browse Elsewhere...</button>' +
         '<div class="sct-restore-footer-right">' +
+        '<button type="button" class="sct-btn sct-btn-danger" id="sct-restore-delete-btn" data-modal-action="restore-delete" ' +
+        (!m.selectedPath || m.isDeletingBackup ? 'disabled' : '') +
+        '>Delete</button>' +
         '<button type="button" class="sct-btn" id="sct-restore-confirm-btn" data-modal-action="restore-confirm" ' +
-        (m.selectedPath ? '' : 'disabled') +
+        (!m.selectedPath || m.isDeletingBackup ? 'disabled' : '') +
         '>Restore</button>' +
         '<button type="button" class="sct-btn" data-modal-action="restore-cancel">Cancel</button>' +
         '</div>' +
@@ -323,13 +352,11 @@
     const libInput = document.getElementById('sct-modal-lib-path');
     const autoUpdates = document.getElementById('sct-modal-auto-updates');
     const closeTray = document.getElementById('sct-modal-close-tray');
-    const steamCmdMin = document.getElementById('sct-modal-steamcmd-min');
     const runStartup = document.getElementById('sct-modal-run-startup');
 
     if (libInput) activeModal.tempSettings.serverLibraryPath = libInput.value;
     if (autoUpdates) activeModal.tempSettings.autoCheckUpdates = autoUpdates.checked;
     if (closeTray) activeModal.tempSettings.closeToTray = closeTray.checked;
-    if (steamCmdMin) activeModal.tempSettings.runSteamCmdMinimized = steamCmdMin.checked;
     if (runStartup) activeModal.tempSettings.runOnStartup = runStartup.checked;
   }
 
@@ -388,6 +415,60 @@
             }) || null;
           if (chosen) {
             closeModal(chosen);
+          }
+        } else if (action === 'restore-delete') {
+          if (activeModal.selectedPath && !activeModal.isDeletingBackup) {
+            activeModal.confirmDeletePath = activeModal.selectedPath;
+            activeModal.deleteError = '';
+            render();
+          }
+        } else if (action === 'restore-delete-cancel') {
+          if (!activeModal.isDeletingBackup) {
+            activeModal.confirmDeletePath = '';
+            render();
+          }
+        } else if (action === 'restore-delete-confirm') {
+          const targetPath = activeModal.confirmDeletePath;
+          const targetItem =
+            activeModal.backups.find(function (b) {
+              return b.fullPath === targetPath;
+            }) || null;
+          if (
+            targetItem &&
+            typeof activeModal.onDeleteBackup === 'function' &&
+            !activeModal.isDeletingBackup
+          ) {
+            activeModal.isDeletingBackup = true;
+            activeModal.deleteError = '';
+            render();
+            try {
+              await activeModal.onDeleteBackup(targetItem);
+              if (activeModal && activeModal.type === 'restore-light') {
+                const idx = activeModal.backups.findIndex(function (b) {
+                  return b.fullPath === targetPath;
+                });
+                activeModal.backups = activeModal.backups.filter(function (b) {
+                  return b.fullPath !== targetPath;
+                });
+                const nextItem =
+                  activeModal.backups[idx] ||
+                  activeModal.backups[idx - 1] ||
+                  activeModal.backups[0] ||
+                  null;
+                activeModal.selectedPath = nextItem ? nextItem.fullPath : '';
+                activeModal.confirmDeletePath = '';
+              }
+            } catch (err) {
+              if (activeModal && activeModal.type === 'restore-light') {
+                activeModal.deleteError =
+                  (err && err.message) || String(err || 'Failed to delete backup.');
+              }
+            } finally {
+              if (activeModal && activeModal.type === 'restore-light') {
+                activeModal.isDeletingBackup = false;
+                render();
+              }
+            }
           }
         } else if (action === 'restore-browse') {
           if (typeof activeModal.onBrowseElsewhere === 'function') {
@@ -472,12 +553,20 @@
         if (!activeModal || activeModal.type !== 'restore-light') return;
         const path = row.getAttribute('data-restore-path');
         activeModal.selectedPath = path;
+        if (activeModal.confirmDeletePath && activeModal.confirmDeletePath !== path) {
+          activeModal.confirmDeletePath = '';
+        }
+        activeModal.deleteError = '';
         root.querySelectorAll('[data-restore-path]').forEach(function (el) {
           el.classList.toggle('selected', el.getAttribute('data-restore-path') === path);
         });
         const confirmBtn = document.getElementById('sct-restore-confirm-btn');
         if (confirmBtn) {
-          confirmBtn.disabled = !path;
+          confirmBtn.disabled = !path || Boolean(activeModal.isDeletingBackup);
+        }
+        const deleteBtn = document.getElementById('sct-restore-delete-btn');
+        if (deleteBtn) {
+          deleteBtn.disabled = !path || Boolean(activeModal.isDeletingBackup);
         }
       });
 
@@ -553,7 +642,6 @@
             language: currentSettings.language,
             autoCheckUpdates: Boolean(currentSettings.autoCheckUpdates),
             closeToTray: Boolean(currentSettings.closeToTray),
-            runSteamCmdMinimized: Boolean(currentSettings.runSteamCmdMinimized),
             runOnStartup: Boolean(currentSettings.runOnStartup),
             defaultTextEditor: currentSettings.defaultTextEditor || 'notepad.exe'
           },
@@ -628,7 +716,7 @@
       });
     },
 
-    showRestoreBackup: function (serverName, instanceName, backups, onBrowseElsewhere) {
+    showRestoreBackup: function (serverName, instanceName, backups, onBrowseElsewhere, onDeleteBackup) {
       return new Promise(function (resolve) {
         const list = Array.isArray(backups) ? backups : [];
         activeModal = {
@@ -638,7 +726,11 @@
           instanceName: instanceName || 'Default',
           backups: list,
           selectedPath: list[0] ? list[0].fullPath : '',
+          confirmDeletePath: '',
+          isDeletingBackup: false,
+          deleteError: '',
           onBrowseElsewhere: onBrowseElsewhere,
+          onDeleteBackup: onDeleteBackup,
           iconUrl: 'img/icons/icons8-rotate2-24.png',
           modalClass: 'sct-modal-restore-light',
           resolve: resolve

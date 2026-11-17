@@ -1,8 +1,9 @@
+use portable_pty::{native_pty_system, CommandBuilder, PtySize};
 use serde::Serialize;
 use std::fs::{self, File};
 use std::io::{BufReader, Read, Write};
 use std::path::{Path, PathBuf};
-use std::process::{ChildStdin, Command, Stdio};
+use std::process::{Command, Stdio};
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Mutex, OnceLock};
 use tauri::{AppHandle, Emitter};
@@ -25,13 +26,15 @@ pub enum CancelState {
     ForceStopped,
 }
 
+pub type SharedPtyWriter = Arc<Mutex<Option<Box<dyn Write + Send>>>>;
+
 pub struct ActiveSteamTask {
     pub task_id: u64,
     pub server_id: String,
     pub task_label: String,
     pub server_dir: Option<PathBuf>,
     pub pid: Option<u32>,
-    pub stdin: Option<ChildStdin>,
+    pub stdin: Option<SharedPtyWriter>,
     pub cancel_state: CancelState,
 }
 
@@ -105,7 +108,7 @@ pub(crate) fn emit_task_state(
     );
 }
 
-struct TaskGuard {
+pub(crate) struct TaskGuard {
     app: AppHandle,
     task_id: u64,
     server_id: String,
@@ -131,7 +134,7 @@ impl Drop for TaskGuard {
     }
 }
 
-fn begin_steam_task(
+pub(crate) fn begin_steam_task(
     app: &AppHandle,
     server_id: &str,
     task_label: &str,
@@ -178,7 +181,7 @@ fn begin_steam_task(
     ))
 }
 
-fn is_task_cancelled(task_id: u64) -> bool {
+pub(crate) fn is_task_cancelled(task_id: u64) -> bool {
     if let Ok(guard) = active_task_slot().lock() {
         if let Some(task) = guard.as_ref() {
             if task.task_id == task_id {
@@ -189,7 +192,7 @@ fn is_task_cancelled(task_id: u64) -> bool {
     false
 }
 
-fn update_task_label(app: &AppHandle, task_id: u64, new_label: &str, known_progress: bool, progress: f64, extra_info: &str) {
+pub(crate) fn update_task_label(app: &AppHandle, task_id: u64, new_label: &str, known_progress: bool, progress: f64, extra_info: &str) {
     let mut sid = String::new();
     let mut cancelling = false;
     if let Ok(mut guard) = active_task_slot().lock() {
@@ -237,7 +240,7 @@ fn run_taskkill(pid: u32, force: bool) {
 }
 
 pub fn cancel_steamcmd_task(app: &AppHandle, force: bool) -> Result<bool, String> {
-    let (task_id, server_id, pid_opt, mut stdin_opt, server_dir_opt) = {
+    let (task_id, server_id, pid_opt, stdin_opt, server_dir_opt) = {
         let mut guard = active_task_slot()
             .lock()
             .map_err(|_| "Failed to lock active SteamCMD task.".to_string())?;
@@ -289,9 +292,13 @@ pub fn cancel_steamcmd_task(app: &AppHandle, force: bool) -> Result<bool, String
         }
     } else {
         emit_log(app, &server_id, "Cancelling SteamCMD operation...");
-        if let Some(ref mut stdin) = stdin_opt {
-            let _ = stdin.write_all(b"quit\r\n");
-            let _ = stdin.flush();
+        if let Some(ref shared_stdin) = stdin_opt {
+            if let Ok(mut guard) = shared_stdin.lock() {
+                if let Some(ref mut stdin) = *guard {
+                    let _ = stdin.write_all(b"quit\r\n");
+                    let _ = stdin.flush();
+                }
+            }
         }
         drop(stdin_opt);
 
@@ -502,38 +509,96 @@ pub async fn ensure_steamcmd_windows(
     ensure_steamcmd_windows_inner(app, library_path, server_id, task_id).await
 }
 
+/// Removes ANSI/VT escape sequences emitted by ConPTY/PTY terminals,
+/// turning cursor-positioning sequences into newlines so lines split cleanly.
+fn strip_ansi_escapes(raw: &str) -> String {
+    let mut out = String::with_capacity(raw.len());
+    let mut chars = raw.chars().peekable();
+    while let Some(ch) = chars.next() {
+        if ch == '\x1b' {
+            match chars.peek().copied() {
+                Some('[') => {
+                    chars.next();
+                    for c in chars.by_ref() {
+                        if ('@'..='~').contains(&c) {
+                            if matches!(c, 'H' | 'f' | 'E' | 'F') {
+                                out.push('\n');
+                            }
+                            break;
+                        }
+                    }
+                }
+                Some(']') => {
+                    chars.next();
+                    while let Some(c) = chars.next() {
+                        if c == '\x07' {
+                            break;
+                        }
+                        if c == '\x1b' && chars.peek() == Some(&'\\') {
+                            chars.next();
+                            break;
+                        }
+                    }
+                }
+                Some(_) => {
+                    chars.next();
+                }
+                None => {}
+            }
+        } else if ch == '\n' || ch == '\r' || ch == '\t' || !ch.is_control() {
+            out.push(ch);
+        }
+    }
+    out
+}
+
 fn stream_reader_lines<R: Read>(
     app: AppHandle,
     server_id: String,
     task_id: u64,
     task_label: String,
     saw_error: Arc<AtomicBool>,
+    pty_writer: SharedPtyWriter,
     mut reader: R,
 ) {
     let mut buf = [0u8; 2048];
     let mut line_buf = Vec::new();
 
     let handle_line = |raw: &[u8]| {
-        let text = String::from_utf8_lossy(raw).trim().to_string();
-        if text.is_empty() {
-            return;
+        let decoded = String::from_utf8_lossy(raw);
+        let cleaned = strip_ansi_escapes(&decoded);
+        for part in cleaned.split(['\n', '\r']) {
+            let text = part.trim().to_string();
+            if text.is_empty() {
+                continue;
+            }
+            let lower = text.to_lowercase();
+            if lower.starts_with("error! app") || lower.contains("failed (") {
+                saw_error.store(true, Ordering::SeqCst);
+            }
+            if let Some(pct) = parse_steamcmd_progress(&text) {
+                let extra = format!("{:.0}%", pct);
+                update_task_label(&app, task_id, &task_label, true, pct, &extra);
+            }
+            emit_log(&app, &server_id, text);
         }
-        let lower = text.to_lowercase();
-        if lower.starts_with("error! app") || lower.contains("failed (") {
-            saw_error.store(true, Ordering::SeqCst);
-        }
-        if let Some(pct) = parse_steamcmd_progress(&text) {
-            let extra = format!("{:.0}%", pct);
-            update_task_label(&app, task_id, &task_label, true, pct, &extra);
-        }
-        emit_log(&app, &server_id, text);
     };
 
     loop {
         match reader.read(&mut buf) {
             Ok(0) => break,
             Ok(n) => {
-                for &b in &buf[..n] {
+                let chunk = &buf[..n];
+                // Answer ConPTY Device Status Report (\x1b[6n) so ConPTY unblocks child output.
+                if chunk.windows(4).any(|w| w == b"\x1b[6n") {
+                    if let Ok(mut guard) = pty_writer.lock() {
+                        if let Some(ref mut w) = *guard {
+                            let _ = w.write_all(b"\x1b[1;1R");
+                            let _ = w.flush();
+                        }
+                    }
+                }
+                for &b in chunk {
                     if b == b'\n' || b == b'\r' {
                         if !line_buf.is_empty() {
                             handle_line(&line_buf);
@@ -541,6 +606,14 @@ fn stream_reader_lines<R: Read>(
                         }
                     } else {
                         line_buf.push(b);
+                        // Also flush when ConPTY emits a CSI cursor-position sequence (H/f).
+                        if line_buf.len() >= 4
+                            && (b == b'H' || b == b'f')
+                            && line_buf.windows(2).any(|w| w == b"\x1b[")
+                        {
+                            handle_line(&line_buf);
+                            line_buf.clear();
+                        }
                     }
                 }
             }
@@ -560,7 +633,7 @@ pub async fn run_steamcmd_app_update(
     instance_name: String,
     steam_app_id: String,
     server_id: String,
-    minimized: bool,
+    _minimized: bool,
     validate: bool,
 ) -> Result<SteamCmdRunResult, String> {
     let trimmed_app_id = steam_app_id.trim().to_string();
@@ -639,33 +712,43 @@ pub async fn run_steamcmd_app_update(
     let saw_error = Arc::new(AtomicBool::new(false));
     let saw_error_clone = Arc::clone(&saw_error);
 
-    let status_res = tauri::async_runtime::spawn_blocking(move || -> Result<std::process::ExitStatus, String> {
-        let mut cmd = Command::new(&steamcmd_exe);
-        cmd.args(&args).current_dir(&steamcmd_dir);
+    let status_res = tauri::async_runtime::spawn_blocking(move || -> Result<(bool, Option<i32>), String> {
+        let pty_system = native_pty_system();
+        let pair = pty_system
+                .openpty(PtySize {
+                    rows: 30,
+                    cols: 160,
+                    pixel_width: 0,
+                    pixel_height: 0,
+                })
+                .map_err(|e| format!("Failed to open PTY for SteamCMD: {}", e))?;
 
-        if minimized {
-            #[cfg(target_os = "windows")]
-            {
-                use std::os::windows::process::CommandExt;
-                cmd.creation_flags(CREATE_NO_WINDOW);
-            }
-            cmd.stdin(Stdio::piped())
-                .stdout(Stdio::piped())
-                .stderr(Stdio::piped());
+            let mut pty_cmd = CommandBuilder::new(&steamcmd_exe);
+            pty_cmd.args(&args);
+            pty_cmd.cwd(&steamcmd_dir);
 
-            let mut child = cmd
-                .spawn()
-                .map_err(|e| format!("Failed to launch SteamCMD: {}", e))?;
+            let mut child = pair
+                .slave
+                .spawn_command(pty_cmd)
+                .map_err(|e| format!("Failed to launch SteamCMD in PTY: {}", e))?;
 
-            let pid = child.id();
-            let stdin = child.stdin.take();
+            // Drop slave handle in parent so the master reader receives EOF on child exit.
+            drop(pair.slave);
+
+            let pid = child.process_id();
+            let shared_writer: SharedPtyWriter =
+                Arc::new(Mutex::new(pair.master.take_writer().ok()));
+            let reader = pair
+                .master
+                .try_clone_reader()
+                .map_err(|e| format!("Failed to read SteamCMD PTY output: {}", e))?;
 
             let already_cancelled = {
                 if let Ok(mut guard) = active_task_slot().lock() {
                     if let Some(task) = guard.as_mut() {
                         if task.task_id == task_id {
-                            task.pid = Some(pid);
-                            task.stdin = stdin;
+                            task.pid = pid;
+                            task.stdin = Some(Arc::clone(&shared_writer));
                             task.cancel_state != CancelState::None
                         } else {
                             true
@@ -679,73 +762,37 @@ pub async fn run_steamcmd_app_update(
             };
 
             if already_cancelled {
-                #[cfg(target_os = "windows")]
-                run_taskkill(pid, true);
+                if let Some(p) = pid {
+                    #[cfg(target_os = "windows")]
+                    run_taskkill(p, true);
+                }
                 let _ = child.kill();
             }
 
-            let stdout = child.stdout.take();
-            let stderr = child.stderr.take();
-
-            let t_out = stdout.map(|out| {
-                let app_h = app_clone.clone();
-                let sid = sid_clone.clone();
-                let lbl = label_clone.clone();
-                let err_flag = Arc::clone(&saw_error_clone);
-                std::thread::spawn(move || stream_reader_lines(app_h, sid, task_id, lbl, err_flag, out))
-            });
-
-            let t_err = stderr.map(|err| {
-                let app_h = app_clone.clone();
-                let sid = sid_clone.clone();
-                let lbl = label_clone.clone();
-                let err_flag = Arc::clone(&saw_error_clone);
-                std::thread::spawn(move || stream_reader_lines(app_h, sid, task_id, lbl, err_flag, err))
+            let writer_for_reader = Arc::clone(&shared_writer);
+            let t_out = std::thread::spawn(move || {
+                stream_reader_lines(
+                    app_clone,
+                    sid_clone,
+                    task_id,
+                    label_clone,
+                    saw_error_clone,
+                    writer_for_reader,
+                    reader,
+                )
             });
 
             let exit_status = child
                 .wait()
                 .map_err(|e| format!("Failed waiting for SteamCMD: {}", e))?;
 
-            if let Some(h) = t_out {
-                let _ = h.join();
+            if let Ok(mut guard) = shared_writer.lock() {
+                *guard = None;
             }
-            if let Some(h) = t_err {
-                let _ = h.join();
-            }
+            drop(pair.master);
+            let _ = t_out.join();
 
-            Ok(exit_status)
-        } else {
-            let mut child = cmd
-                .spawn()
-                .map_err(|e| format!("Failed to launch SteamCMD: {}", e))?;
-            let pid = child.id();
-            let already_cancelled = {
-                if let Ok(mut guard) = active_task_slot().lock() {
-                    if let Some(task) = guard.as_mut() {
-                        if task.task_id == task_id {
-                            task.pid = Some(pid);
-                            task.cancel_state != CancelState::None
-                        } else {
-                            true
-                        }
-                    } else {
-                        true
-                    }
-                } else {
-                    false
-                }
-            };
-            if already_cancelled {
-                #[cfg(target_os = "windows")]
-                run_taskkill(pid, true);
-                let _ = child.kill();
-            }
-
-            child
-                .wait()
-                .map_err(|e| format!("Failed waiting for SteamCMD: {}", e))
-        }
+            Ok((exit_status.success(), Some(exit_status.exit_code() as i32)))
     })
     .await
     .map_err(|e| format!("SteamCMD task failed: {}", e))?;
@@ -761,7 +808,7 @@ pub async fn run_steamcmd_app_update(
         });
     }
 
-    let status = match status_res {
+    let (succeeded, exit_code) = match status_res {
         Ok(s) => s,
         Err(err) => {
             let _ = mark_instance_incomplete(&server_dir);
@@ -769,10 +816,9 @@ pub async fn run_steamcmd_app_update(
         }
     };
 
-    if !status.success() || saw_error.load(Ordering::SeqCst) {
+    if !succeeded || saw_error.load(Ordering::SeqCst) {
         let _ = mark_instance_incomplete(&server_dir);
-        let code = status
-            .code()
+        let code = exit_code
             .map(|c| c.to_string())
             .unwrap_or_else(|| "unknown".to_string());
         let msg = if saw_error.load(Ordering::SeqCst) {
@@ -830,5 +876,76 @@ mod tests {
         let line = " Update state (0x61) downloading, progress: 42.75 (123456 / 288888)";
         assert_eq!(parse_steamcmd_progress(line), Some(42.75));
         assert_eq!(parse_steamcmd_progress("Connecting anonymously to Steam Public..."), None);
+    }
+
+    #[test]
+    fn strips_ansi_escape_sequences() {
+        let raw = "\x1b]0;SteamCMD\x07\x1b[32mUpdate state (0x61) downloading, progress: 55.50 (10 / 18)\x1b[0m";
+        let clean = super::strip_ansi_escapes(raw);
+        assert_eq!(
+            clean,
+            "Update state (0x61) downloading, progress: 55.50 (10 / 18)"
+        );
+        assert_eq!(super::parse_steamcmd_progress(&clean), Some(55.5));
+    }
+
+    #[test]
+    fn pty_streams_output_immediately() {
+        use portable_pty::{native_pty_system, CommandBuilder, PtySize};
+        use std::io::{Read, Write};
+        use std::sync::{Arc, Mutex};
+
+        let pty_system = native_pty_system();
+        let pair = pty_system
+            .openpty(PtySize {
+                rows: 30,
+                cols: 160,
+                pixel_width: 0,
+                pixel_height: 0,
+            })
+            .unwrap();
+        let mut cmd = CommandBuilder::new("cmd");
+        cmd.args(["/C", "echo hello_pty_line1 && echo hello_pty_line2"]);
+        let mut child = pair.slave.spawn_command(cmd).unwrap();
+        drop(pair.slave);
+        let mut reader = pair.master.try_clone_reader().unwrap();
+        let writer = Arc::new(Mutex::new(Some(pair.master.take_writer().unwrap())));
+        let writer_for_reader = Arc::clone(&writer);
+
+        let t = std::thread::spawn(move || {
+            let mut all = Vec::new();
+            let mut buf = [0u8; 1024];
+            loop {
+                match reader.read(&mut buf) {
+                    Ok(0) => break,
+                    Ok(n) => {
+                        let chunk = &buf[..n];
+                        if chunk.windows(4).any(|w| w == b"\x1b[6n") {
+                            if let Ok(mut guard) = writer_for_reader.lock() {
+                                if let Some(ref mut w) = *guard {
+                                    let _ = w.write_all(b"\x1b[1;1R");
+                                    let _ = w.flush();
+                                }
+                            }
+                        }
+                        all.extend_from_slice(chunk);
+                    }
+                    Err(_) => break,
+                }
+            }
+            all
+        });
+
+        let status = child.wait().unwrap();
+        if let Ok(mut guard) = writer.lock() {
+            *guard = None;
+        }
+        drop(pair.master);
+
+        let all = t.join().unwrap();
+        let text = String::from_utf8_lossy(&all);
+        assert!(status.success());
+        assert!(text.contains("hello_pty_line1"));
+        assert!(text.contains("hello_pty_line2"));
     }
 }

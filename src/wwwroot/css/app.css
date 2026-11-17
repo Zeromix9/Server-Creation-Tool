@@ -197,6 +197,32 @@ html, body, #app {
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
 }
 
+.sct-titlebar-task-cancel {
+    pointer-events: auto;
+    -webkit-app-region: no-drag;
+    margin-left: 4px;
+    height: 14px;
+    padding: 0 6px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 7.5pt;
+    line-height: 12px;
+    color: #fee2e2;
+    background-color: #7f1d1d;
+    border: 1px solid #b91c1c;
+    cursor: pointer;
+}
+
+.sct-titlebar-task-cancel:hover:not(:disabled) {
+    background-color: #991b1b;
+    border-color: #ef4444;
+    color: #ffffff;
+}
+
+.sct-titlebar-task-cancel:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
 .sct-titlebar-controls {
     display: flex;
     align-items: center;
@@ -2976,6 +3002,11 @@ html, body, #app {
     flex-shrink: 0;
 }
 
+.sct-settings-card.is-disabled {
+    opacity: 0.55;
+    pointer-events: none;
+}
+
 /* CustomContainers & CustomControls grid (SchemaVersion 2) */
 .sct-custom-grid {
     display: grid;
@@ -3161,6 +3192,52 @@ html, body, #app {
     cursor: not-allowed;
 }
 
+.sct-btn-danger {
+    background-color: #7f1d1d;
+    border-color: #b91c1c;
+    color: #fee2e2;
+}
+
+.sct-btn-danger:hover:not(:disabled) {
+    background-color: #991b1b;
+    border-color: #ef4444;
+    color: #ffffff;
+}
+
+.sct-restore-delete-confirm {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 7px 9px;
+    background-color: rgba(127, 29, 29, 0.35);
+    border: 1px solid #b91c1c;
+    font-size: 11.5px;
+    color: #fee2e2;
+}
+
+.sct-restore-delete-confirm-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sct-restore-delete-confirm-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.sct-restore-delete-error {
+    padding: 6px 8px;
+    background-color: rgba(127, 29, 29, 0.45);
+    border: 1px solid #ef4444;
+    font-size: 11px;
+    color: #fecaca;
+}
+
 /* Instance Settings subcontainer inside -Game Server- */
 .sct-subcontainer-card {
     background: rgba(15, 23, 36, 0.45);
@@ -3198,6 +3275,40 @@ html, body, #app {
     min-height: 24px;
     padding: 0 10px;
     flex-shrink: 0;
+}
+
+/* Running instance indicators */
+.sct-instance-running-rect {
+    margin-left: auto;
+    width: 10px;
+    height: 6px;
+    background-color: #22c55e;
+    border: 1px solid #4ade80;
+    flex-shrink: 0;
+}
+
+@keyframes sct-arrow-pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    50% {
+        opacity: 0.35;
+        transform: translateX(3px);
+    }
+}
+
+.sct-running-arrow-pulse {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 4px;
+    font-size: 11px;
+    line-height: 1;
+    color: #4ade80;
+    text-shadow: 0 0 6px rgba(74, 222, 128, 0.65);
+    animation: sct-arrow-pulse 1.15s ease-in-out infinite;
+    user-select: none;
+    pointer-events: none;
 }
 
 

@@ -31,6 +31,9 @@
     );
   }
 
+  // Set to true for release builds to hide unfinished tabs (e.g. Automation & Watchdog).
+  const isRelease = true;
+
   const state = {
     isMoreOpen: false,
     isWelcomeActive: false,
@@ -43,6 +46,7 @@
     isCheckingForUpdates: false,
     isLangMenuOpen: false,
     isSteamCmdMenuOpen: false,
+    runningInstances: {},
     langMenuTop: 70,
     langMenuLeft: 76,
     steamCmdMenuTop: 146,
@@ -53,7 +57,6 @@
       language: 'English',
       autoCheckUpdates: true,
       closeToTray: false,
-      runSteamCmdMinimized: true,
       runOnStartup: false,
       defaultTextEditor: 'notepad.exe'
     },
@@ -147,6 +150,14 @@
     }
     if (extraEl) {
       extraEl.textContent = known ? state.task.extraInfo || '' : '';
+    }
+
+    const cancelEl = document.getElementById('sct-titlebar-task-cancel');
+    if (cancelEl) {
+      const showCancel = Boolean(state.task.active) && Boolean(state.task.cancellable);
+      cancelEl.style.display = showCancel ? 'inline-block' : 'none';
+      cancelEl.disabled = Boolean(state.task.cancelling);
+      cancelEl.textContent = state.task.cancelling ? 'Cancelling...' : 'Cancel';
     }
   }
 
@@ -323,7 +334,7 @@
       configFiles: configFiles,
       launchArgs: prev ? prev.launchArgs : '',
       terminalOutput: prev ? prev.terminalOutput : '',
-      isRunning: prev ? prev.isRunning : false,
+      isRunning: isInstanceRunning(dto.id, activeInstName),
       isInstalling: prev ? prev.isInstalling : false,
       isCancelling: prev ? Boolean(prev.isCancelling) : false,
       isDeleting: prev ? Boolean(prev.isDeleting) : false,
@@ -462,8 +473,6 @@
         autoCheckUpdates:
           parsed.autoCheckUpdates ?? parsed.AutoCheckUpdates ?? true,
         closeToTray: parsed.closeToTray ?? parsed.CloseToTray ?? false,
-        runSteamCmdMinimized:
-          parsed.runSteamCmdMinimized ?? parsed.RunSteamCmdMinimized ?? true,
         runOnStartup: parsed.runOnStartup ?? parsed.RunOnStartup ?? false,
         defaultTextEditor:
           parsed.defaultTextEditor ?? parsed.DefaultTextEditor ?? 'notepad.exe'
@@ -491,6 +500,60 @@
     if (window.sctAppendLog && message) {
       window.sctAppendLog(message);
     }
+  }
+
+  function normInstName(name) {
+    const t = String(name || 'Default').trim();
+    return (t || 'Default').toLowerCase();
+  }
+
+  function setInstanceRunning(serverId, instanceName, running) {
+    if (!serverId) return;
+    const key = String(serverId).toLowerCase();
+    const instNorm = normInstName(instanceName);
+    const list = Array.isArray(state.runningInstances[key])
+      ? state.runningInstances[key]
+      : [];
+    const filtered = list.filter(function (x) {
+      return normInstName(x) !== instNorm;
+    });
+    if (running) {
+      filtered.push(String(instanceName || 'Default').trim() || 'Default');
+    }
+    if (filtered.length > 0) {
+      state.runningInstances[key] = filtered;
+    } else {
+      delete state.runningInstances[key];
+    }
+    state.servers.forEach(function (s) {
+      if (s.id.toLowerCase() === key) {
+        s.isRunning = isInstanceRunning(s.id, s.currentInstance);
+      }
+    });
+  }
+
+  function isInstanceRunning(serverId, instanceName) {
+    if (!serverId) return false;
+    const list = state.runningInstances[String(serverId).toLowerCase()];
+    if (!Array.isArray(list) || list.length === 0) return false;
+    const target = normInstName(instanceName);
+    return list.some(function (x) {
+      return normInstName(x) === target;
+    });
+  }
+
+  function isAnyInstanceRunning(serverId) {
+    if (!serverId) return false;
+    const list = state.runningInstances[String(serverId).toLowerCase()];
+    return Array.isArray(list) && list.length > 0;
+  }
+
+  function hasOtherRunningInstance(srv) {
+    if (!srv) return false;
+    return (
+      isAnyInstanceRunning(srv.id) &&
+      !isInstanceRunning(srv.id, srv.currentInstance)
+    );
   }
 
   function appendTerminalLine(server, message) {
@@ -578,10 +641,11 @@
             (srv.instanceInfos || []).some(function (inst) {
               return Boolean(inst.isInstalled);
             });
+          const anyRunning = isAnyInstanceRunning(srv.id);
           return (
             '<button type="button" class="sct-list-item-srv ' +
             (isAnyInstalled ? 'installed ' : '') +
-            (srv.isRunning ? 'running ' : '') +
+            (anyRunning ? 'running ' : '') +
             (isSelected ? 'selected' : '') +
             '" data-srv-id="' +
             escapeHtml(srv.id) +
@@ -825,6 +889,8 @@
       );
     }
 
+    const controlDisabledAttr =
+      isDeleting || (isGameServerContainer && srv.isRunning) ? 'disabled' : '';
     const controlsHtml = matched
       .map(function (item) {
         return renderCustomControlItem(
@@ -832,7 +898,7 @@
           item.ctrl,
           item.idx,
           cols,
-          panelDisabledAttr
+          controlDisabledAttr
         );
       })
       .join('');
@@ -846,7 +912,8 @@
           '</div>'
         : '';
 
-    let gameServerFooterHtml = '';
+    let instanceSettingsHtml = '';
+    let gameServerSaveHtml = '';
     if (isGameServerContainer) {
       const taskBusy = isSteamTaskBusy();
       const instValue =
@@ -864,7 +931,7 @@
         !srv.isRunning &&
         !srv.isInstalling;
 
-      gameServerFooterHtml =
+      instanceSettingsHtml =
         '<div class="sct-subcontainer-card">' +
         '<div class="sct-subcontainer-title">-Instance Settings-</div>' +
         '<div class="sct-instance-settings-row">' +
@@ -881,7 +948,9 @@
         '<span class="sct-tool-btn-text">Delete</span>' +
         '</button>' +
         '</div>' +
-        '</div>' +
+        '</div>';
+
+      gameServerSaveHtml =
         '<div class="sct-settings-buttons-bar">' +
         '<button type="button" class="sct-tool-btn" data-action="save-game-server" ' +
         instLockAttr +
@@ -894,14 +963,16 @@
     return (
       '<div class="' +
       cardClass +
+      (isGameServerContainer && srv.isRunning ? ' is-disabled' : '') +
       '" data-container-id="' +
       escapeHtml(cont.id) +
       '">' +
       '<div class="sct-card-section-title">-' +
       escapeHtml(title) +
       '-</div>' +
+      instanceSettingsHtml +
       gridSectionHtml +
-      gameServerFooterHtml +
+      gameServerSaveHtml +
       '</div>'
     );
   }
@@ -919,6 +990,9 @@
   }
 
   function renderTabContent(srv) {
+    if (isRelease && state.activeTab === 'automation') {
+      state.activeTab = 'general';
+    }
     const activeInstInfo = getActiveInstanceInfo(srv);
     const activeFolderName = getServerFolderName(srv);
     const installLoc =
@@ -1011,9 +1085,13 @@
       const disabledAttr =
         srv.isInstalled && !srv.isInstalling && !isDeleting ? '' : 'disabled';
       const updateDisabledAttr =
-        srv.isInstalled && !taskBusy && !isDeleting ? '' : 'disabled';
+        srv.isInstalled && !taskBusy && !isDeleting && !srv.isRunning
+          ? ''
+          : 'disabled';
       const deleteDisabledAttr =
-        srv.isInstalled && !taskBusy && !isDeleting ? '' : 'disabled';
+        srv.isInstalled && !taskBusy && !isDeleting && !srv.isRunning
+          ? ''
+          : 'disabled';
       const openFolderDisabledAttr =
         srv.isInstalled && !isDeleting ? '' : 'disabled';
 
@@ -1248,6 +1326,7 @@
       ? '<div class="sct-instances-popup" data-stop-propagation="true">' +
         srv.instances
           .map(function (inst) {
+            const instRunning = isInstanceRunning(srv.id, inst);
             return (
               '<button type="button" class="sct-instance-option ' +
               (srv.currentInstance === inst ? 'active' : '') +
@@ -1258,13 +1337,16 @@
               '<span>' +
               escapeHtml(inst) +
               '</span>' +
+              (instRunning
+                ? '<span class="sct-instance-running-rect" title="Running"></span>'
+                : '') +
               '</button>'
             );
           })
           .join('') +
         '<div class="sct-popup-divider"></div>' +
         '<button type="button" class="sct-instance-option" data-action="add-new-instance">' +
-        '<img class="sct-context-menu-icon" src="img/icons/refresh16x161.png" style="width: 14px; height: 14px;" alt="" />' +
+        '<svg class="sct-context-menu-icon" style="width: 14px; height: 14px;" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3V13M3 8H13" stroke="#e2e8f0" stroke-width="2" stroke-linecap="round" /></svg>' +
         '<span>Add New Instance...</span>' +
         '</button>' +
         '</div>'
@@ -1378,6 +1460,9 @@
       ']</span>' +
       '<span class="sct-caret">▼</span>' +
       '</button>' +
+      (hasOtherRunningInstance(srv)
+        ? '<span class="sct-running-arrow-pulse" title="Another instance is currently running">◀</span>'
+        : '') +
       instancesPopupHtml +
       '</div>' +
       '<div class="sct-center-logo-area">' +
@@ -1446,14 +1531,16 @@
       '<img src="img/icons/settingsBtn.Image.png" class="sct-tab-icon" alt="" />' +
       '<span>Settings</span>' +
       '</button>' +
-      '<button type="button" class="sct-tab-btn ' +
-      (state.activeTab === 'automation' ? 'active' : '') +
-      '" data-tab="automation" ' +
-      panelDisabledAttr +
-      '>' +
-      '<img src="img/icons/cmd_icon21.png" class="sct-tab-icon" alt="" />' +
-      '<span>Automation &amp; Watchdog</span>' +
-      '</button>' +
+      (isRelease
+        ? ''
+        : '<button type="button" class="sct-tab-btn ' +
+          (state.activeTab === 'automation' ? 'active' : '') +
+          '" data-tab="automation" ' +
+          panelDisabledAttr +
+          '>' +
+          '<img src="img/icons/cmd_icon21.png" class="sct-tab-icon" alt="" />' +
+          '<span>Automation &amp; Watchdog</span>' +
+          '</button>') +
       '</div>' +
       '<div class="sct-tab-content">' +
       renderTabContent(srv) +
@@ -1612,9 +1699,21 @@
       }
       saveSettings();
       logUserAction('Saved application settings');
+      try {
+        await window.sctSetCloseToTray(Boolean(state.settings.closeToTray));
+      } catch {}
+      try {
+        await window.sctSetRunOnStartup(Boolean(state.settings.runOnStartup));
+      } catch (err) {
+        const msg = err && err.message ? err.message : String(err);
+        await window.SctModal.alert(
+          'Failed to update Run on startup setting:\n' + msg,
+          'Startup Setting Error',
+          '⚠️'
+        );
+      }
       await refreshServers({ preserveSelection: true });
       renderAll();
-      await window.SctModal.alert('Settings have been saved.', 'Settings Saved');
     }
   }
 
@@ -1688,9 +1787,18 @@
       }
     }
 
-    if (!srv.isSteamServer || !srv.steamAppId) {
+    if (srv.isSteamServer && !srv.steamAppId) {
       await window.SctModal.alert(
-        'Non-Steam server installation is not implemented yet.',
+        'No Steam App ID is configured for ' + srv.name + '.',
+        opts.errorTitle || 'Install',
+        '⚠️'
+      );
+      return;
+    }
+
+    if (!srv.isSteamServer && !srv.areFilesLocal && !(srv.filesDownloadLink || '').trim()) {
+      await window.SctModal.alert(
+        'No download link or local files are configured for ' + srv.name + '.',
         opts.errorTitle || 'Install',
         '⚠️'
       );
@@ -1715,15 +1823,27 @@
     renderAll();
 
     try {
-      const result = await window.sctInstallOrUpdateSteamServer({
-        libraryPath: state.settings.serverLibraryPath,
-        codename: srv.codename,
-        instanceName: srv.currentInstance,
-        steamAppId: srv.steamAppId,
-        serverId: targetId,
-        minimized: state.settings.runSteamCmdMinimized,
-        validate: Boolean(opts.validate)
-      });
+      const result = srv.isSteamServer
+        ? await window.sctInstallOrUpdateSteamServer({
+            libraryPath: state.settings.serverLibraryPath,
+            codename: srv.codename,
+            instanceName: srv.currentInstance,
+            steamAppId: srv.steamAppId,
+            serverId: targetId,
+            minimized: true,
+            validate: Boolean(opts.validate)
+          })
+        : await window.sctInstallOrUpdateNonSteamServer({
+            libraryPath: state.settings.serverLibraryPath,
+            codename: srv.codename,
+            instanceName: srv.currentInstance,
+            serverId: targetId,
+            serverName: srv.name,
+            downloadLink: srv.filesDownloadLink || '',
+            areFilesLocal: Boolean(srv.areFilesLocal),
+            autoExtractFiles: srv.autoExtractFiles,
+            sourceFile: srv.sourceFile || ''
+          });
 
       state.task.active = false;
       await refreshServerLikeClicked(targetId);
@@ -1877,23 +1997,17 @@
 
       case 'start-or-stop': {
         if (!srv || isServerBusy(srv)) break;
-        if (srv.isRunning) {
-          srv.isRunning = false;
+        if (isInstanceRunning(srv.id, srv.currentInstance)) {
+          try {
+            await window.sctStopServerInstance(srv.id, srv.currentInstance);
+          } catch {}
+          setInstanceRunning(srv.id, srv.currentInstance, false);
           logUserAction('Stopped ' + srv.name + ' (' + srv.currentInstance + ')');
           appendTerminalLine(
             srv,
             'Stopped ' + srv.name + ' (' + srv.currentInstance + ').'
           );
           renderAll();
-          await window.SctModal.alert(
-            'Server process for ' +
-              srv.name +
-              ' (' +
-              srv.currentInstance +
-              ') stopped.',
-            'Server Stopped',
-            '⏹'
-          );
         } else {
           try {
             const available = await window.sctGetAvailableStartOptions(
@@ -1935,7 +2049,13 @@
               }
             }
 
-            await window.sctLaunchServerOption(chosen.resolvedPath, chosen.args || '');
+            await window.sctLaunchServerOption(
+              srv.id,
+              srv.currentInstance,
+              chosen.resolvedPath,
+              chosen.args || ''
+            );
+            setInstanceRunning(srv.id, srv.currentInstance, true);
             srv.lastRan = formatDateDmy(new Date());
             logUserAction(
               'Started ' +
@@ -2002,6 +2122,18 @@
         if (!activeSrv || !activeSrv.isInstalling) break;
 
         if (!activeSrv.isCancelling) {
+          const confirmCancel = await window.SctModal.confirm(
+            'Are you sure you want to cancel the current installation / update for ' +
+              activeSrv.name +
+              '?',
+            'Cancel Task?',
+            '⚠️',
+            'Yes',
+            'No'
+          );
+          if (!confirmCancel || !activeSrv.isInstalling || activeSrv.isCancelling) {
+            break;
+          }
           activeSrv.isCancelling = true;
           logUserAction('Requested cancel for ' + activeSrv.name + ' SteamCMD task');
           state.task.cancelling = true;
@@ -2102,7 +2234,7 @@
         break;
 
       case 'update-or-repair': {
-        if (!srv || isSteamTaskBusy()) break;
+        if (!srv || isSteamTaskBusy() || srv.isRunning) break;
         const confirmed = await window.SctModal.confirm(
           'Validate and repair installation files for ' + srv.name + '?',
           'Update/Repair',
@@ -2123,7 +2255,7 @@
       }
 
       case 'delete-server': {
-        if (!srv || isSteamTaskBusy()) break;
+        if (!srv || isSteamTaskBusy() || srv.isRunning) break;
         const confirmed = await window.SctModal.confirm(
           'Are you sure you want to delete server files for ' +
             srv.name +
@@ -2143,6 +2275,8 @@
         srv.isDeleting = true;
         state.task = {
           active: true,
+          kind: 'delete',
+          cancellable: true,
           serverId: srv.id,
           message: 'Deleting ' + srv.name + ' (' + srv.currentInstance + ')...',
           knownProgress: false,
@@ -2159,6 +2293,7 @@
             srv.currentInstance
           );
           state.task.active = false;
+          state.task.cancellable = false;
           state.deletingServerId = '';
           srv.isDeleting = false;
           await refreshServerLikeClicked(srv.id);
@@ -2173,16 +2308,22 @@
             'Deleted'
           );
         } catch (err) {
+          const wasCancelling = Boolean(state.task.cancelling);
           state.task.active = false;
+          state.task.cancellable = false;
           state.deletingServerId = '';
           srv.isDeleting = false;
           await refreshServerLikeClicked(srv.id);
           const msg = err && err.message ? err.message : String(err);
-          await window.SctModal.alert(
-            'Failed to delete server:\n' + msg,
-            'Delete Error',
-            '⚠️'
-          );
+          if (wasCancelling || /cancelled/i.test(msg)) {
+            appendTerminalLine(srv, 'Server deletion cancelled.');
+          } else {
+            await window.SctModal.alert(
+              'Failed to delete server:\n' + msg,
+              'Delete Error',
+              '⚠️'
+            );
+          }
         }
         break;
       }
@@ -2277,6 +2418,8 @@
         closeContextMenus();
         state.task = {
           active: true,
+          kind: 'backup',
+          cancellable: true,
           serverId: srv.id,
           message: 'Backing up ' + srv.name + '...',
           knownProgress: false,
@@ -2296,6 +2439,7 @@
             destinationPath: destinationPath
           });
           state.task.active = false;
+          state.task.cancellable = false;
           renderAll();
           await window.SctModal.alert(
             'Backup created successfully:\n' +
@@ -2309,14 +2453,76 @@
             '💾'
           );
         } catch (err) {
+          const wasCancelling = Boolean(state.task.cancelling);
           state.task.active = false;
+          state.task.cancellable = false;
           renderAll();
           const msg = err && err.message ? err.message : String(err);
-          await window.SctModal.alert(
-            'Failed to create backup:\n' + msg,
-            'Backup Error',
-            '⚠️'
+          if (wasCancelling || /cancelled/i.test(msg)) {
+            appendTerminalLine(srv, 'Backup cancelled.');
+          } else {
+            await window.SctModal.alert(
+              'Failed to create backup:\n' + msg,
+              'Backup Error',
+              '⚠️'
+            );
+          }
+        }
+        break;
+      }
+
+      case 'cancel-active-task': {
+        if (!state.task.active || !state.task.cancellable || state.task.cancelling) {
+          break;
+        }
+        if (state.task.kind === 'backup') {
+          const ok = await window.SctModal.confirm(
+            'Are you sure you want to cancel the backup?',
+            'Cancel Backup?',
+            '⚠️',
+            'Yes',
+            'No'
           );
+          if (!ok || !state.task.active || state.task.kind !== 'backup') {
+            break;
+          }
+          state.task.cancelling = true;
+          state.task.message = 'Cancelling backup...';
+          renderTaskBar();
+          logUserAction('Requested backup cancellation');
+          await window.sctCancelBackup();
+        } else if (state.task.kind === 'delete') {
+          const ok = await window.SctModal.confirm(
+            'Cancelling deletion mid-way will corrupt the server, leave it in an unusable state, and it will need to be reinstalled.\n\nAre you sure you want to cancel?',
+            'Cancel Delete?',
+            '⚠️',
+            'Yes',
+            'No'
+          );
+          if (!ok || !state.task.active || state.task.kind !== 'delete') {
+            break;
+          }
+          state.task.cancelling = true;
+          state.task.message = 'Cancelling delete...';
+          renderTaskBar();
+          logUserAction('Requested delete cancellation');
+          await window.sctCancelDelete();
+        } else if (state.task.kind === 'restore') {
+          const ok = await window.SctModal.confirm(
+            'Cancelling backup restore mid-way will corrupt the server, leave it in an unusable state, and you will have to reinstall the server again or restore the backup again.\n\nAre you sure you want to cancel?',
+            'Cancel Restore?',
+            '⚠️',
+            'Yes',
+            'No'
+          );
+          if (!ok || !state.task.active || state.task.kind !== 'restore') {
+            break;
+          }
+          state.task.cancelling = true;
+          state.task.message = 'Cancelling restore...';
+          renderTaskBar();
+          logUserAction('Requested restore cancellation');
+          await window.sctCancelRestore();
         }
         break;
       }
@@ -2359,6 +2565,23 @@
           backups,
           function () {
             return window.sctPickBackupOpenPath();
+          },
+          async function (backupItem) {
+            await window.sctDeleteServerBackup({
+              libraryPath: libPath,
+              codename: srv.codename,
+              instanceName: srv.currentInstance,
+              backupPath: backupItem.fullPath
+            });
+            logUserAction(
+              'Deleted backup ' +
+                (backupItem.fileName || backupItem.fullPath) +
+                ' for ' +
+                srv.name +
+                ' (' +
+                srv.currentInstance +
+                ')'
+            );
           }
         );
         if (!chosen || !chosen.fullPath) break;
@@ -2390,6 +2613,8 @@
         closeContextMenus();
         state.task = {
           active: true,
+          kind: 'restore',
+          cancellable: true,
           serverId: srv.id,
           message: 'Restoring ' + srv.name + '...',
           knownProgress: false,
@@ -2409,6 +2634,7 @@
             backupPath: chosen.fullPath
           });
           state.task.active = false;
+          state.task.cancellable = false;
           await refreshServerLikeClicked(srv.id);
           await window.SctModal.alert(
             'Backup restored successfully (' +
@@ -2419,14 +2645,20 @@
             '📦'
           );
         } catch (err) {
+          const wasCancelling = Boolean(state.task.cancelling);
           state.task.active = false;
+          state.task.cancellable = false;
           await refreshServerLikeClicked(srv.id);
           const msg = err && err.message ? err.message : String(err);
-          await window.SctModal.alert(
-            'Failed to restore backup:\n' + msg,
-            'Restore Error',
-            '⚠️'
-          );
+          if (wasCancelling || /cancelled/i.test(msg)) {
+            appendTerminalLine(srv, 'Backup restore cancelled.');
+          } else {
+            await window.SctModal.alert(
+              'Failed to restore backup:\n' + msg,
+              'Restore Error',
+              '⚠️'
+            );
+          }
         }
         break;
       }
@@ -2851,7 +3083,9 @@
 
       const tabBtn = e.target.closest('[data-tab]');
       if (tabBtn) {
-        state.activeTab = tabBtn.getAttribute('data-tab');
+        const nextTab = tabBtn.getAttribute('data-tab');
+        if (isRelease && nextTab === 'automation') return;
+        state.activeTab = nextTab;
         state.openCustomDropdownIdx = null;
         renderRightColumn();
         return;
@@ -2861,6 +3095,10 @@
       if (instBtn && state.selectedServer) {
         const nextInst = instBtn.getAttribute('data-switch-instance');
         state.selectedServer.currentInstance = nextInst;
+        state.selectedServer.isRunning = isInstanceRunning(
+          state.selectedServer.id,
+          nextInst
+        );
         state.selectedServer.pendingInstanceName = undefined;
         state.selectedServer.customCheckStates =
           window.sctLoadGameServerControls(
@@ -3050,22 +3288,65 @@
 
     await window.sctListenTaskState(function (payload) {
       if (!payload) return;
+      const isActive = Boolean(payload.active);
       state.task = {
-        active: Boolean(payload.active),
+        active: isActive,
+        kind: isActive ? state.task.kind || '' : '',
+        cancellable: isActive ? Boolean(state.task.cancellable) : false,
         serverId: payload.serverId || '',
         message: payload.message || '',
         knownProgress: Boolean(payload.knownProgress),
         progress: Number(payload.progress) || 0,
         extraInfo: payload.extraInfo || '',
-        cancelling: Boolean(payload.cancelling)
+        cancelling: Boolean(payload.cancelling) || (isActive && Boolean(state.task.cancelling))
       };
       renderTaskBar();
     });
+
+    await window.sctListenServerProcess(function (payload) {
+      if (!payload || !payload.serverId) return;
+      const instName = payload.instanceName || 'Default';
+      setInstanceRunning(payload.serverId, instName, Boolean(payload.running));
+      if (!payload.running) {
+        const target = state.servers.find(function (s) {
+          return s.id.toLowerCase() === String(payload.serverId).toLowerCase();
+        });
+        if (target) {
+          appendTerminalLine(
+            target,
+            'Process exited for ' + target.name + ' (' + instName + ').'
+          );
+        }
+      }
+      renderAll();
+    });
+
+    try {
+      const runningList = await window.sctGetRunningInstances();
+      if (Array.isArray(runningList)) {
+        runningList.forEach(function (item) {
+          if (item && item.serverId) {
+            setInstanceRunning(
+              item.serverId,
+              item.instanceName || 'Default',
+              true
+            );
+          }
+        });
+      }
+    } catch {}
 
     await refreshServers({ preserveSelection: false });
     renderAll();
 
     await ensureValidLibraryLocationOnStartup();
+
+    try {
+      await window.sctSetCloseToTray(Boolean(state.settings.closeToTray));
+      if (state.settings.runOnStartup) {
+        await window.sctSetRunOnStartup(true);
+      }
+    } catch {}
 
     if (state.settings.autoCheckUpdates) {
       checkForUpdates(false);

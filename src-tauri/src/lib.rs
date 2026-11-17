@@ -1,8 +1,13 @@
-use tauri::Manager;
+use std::sync::atomic::{AtomicBool, Ordering};
 use tauri::menu::{ContextMenu, MenuBuilder, MenuItemBuilder};
+use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
+use tauri::Manager;
+
+static CLOSE_TO_TRAY: AtomicBool = AtomicBool::new(false);
 
 mod backups;
 mod logger;
+mod non_steam;
 mod servers;
 mod steamcmd;
 
@@ -47,11 +52,78 @@ fn window_minimize(window: tauri::WebviewWindow) -> Result<(), String> {
 #[tauri::command]
 async fn window_close(window: tauri::WebviewWindow) -> Result<(), String> {
     if window.label() == "main" {
-        std::process::exit(0);
+        if CLOSE_TO_TRAY.load(Ordering::Relaxed) {
+            let _ = window.hide();
+        } else {
+            std::process::exit(0);
+        }
     } else {
         let _ = window.close();
     }
     Ok(())
+}
+
+#[tauri::command]
+fn set_close_to_tray(enabled: bool) {
+    CLOSE_TO_TRAY.store(enabled, Ordering::Relaxed);
+}
+
+#[tauri::command]
+fn set_run_on_startup(enabled: bool) -> Result<(), String> {
+    #[cfg(target_os = "windows")]
+    {
+        use std::os::windows::process::CommandExt;
+        const CREATE_NO_WINDOW: u32 = 0x08000000;
+        const RUN_KEY: &str = r"HKCU\Software\Microsoft\Windows\CurrentVersion\Run";
+        const VALUE_NAME: &str = "Server Creation Tool";
+
+        if enabled {
+            let exe = std::env::current_exe()
+                .map_err(|e| format!("Failed to resolve executable path: {}", e))?;
+            let quoted = format!("\"{}\"", exe.to_string_lossy());
+            let output = std::process::Command::new("reg")
+                .args(["add", RUN_KEY, "/v", VALUE_NAME, "/t", "REG_SZ", "/d", &quoted, "/f"])
+                .creation_flags(CREATE_NO_WINDOW)
+                .output()
+                .map_err(|e| format!("Failed to update startup registry: {}", e))?;
+            if !output.status.success() {
+                let err = String::from_utf8_lossy(&output.stderr).trim().to_string();
+                return Err(if err.is_empty() {
+                    "Failed to enable Run on startup in Windows registry.".to_string()
+                } else {
+                    err
+                });
+            }
+        } else {
+            let query = std::process::Command::new("reg")
+                .args(["query", RUN_KEY, "/v", VALUE_NAME])
+                .creation_flags(CREATE_NO_WINDOW)
+                .output();
+            if let Ok(q) = query {
+                if q.status.success() {
+                    let output = std::process::Command::new("reg")
+                        .args(["delete", RUN_KEY, "/v", VALUE_NAME, "/f"])
+                        .creation_flags(CREATE_NO_WINDOW)
+                        .output()
+                        .map_err(|e| format!("Failed to remove startup registry entry: {}", e))?;
+                    if !output.status.success() {
+                        let err = String::from_utf8_lossy(&output.stderr).trim().to_string();
+                        return Err(if err.is_empty() {
+                            "Failed to disable Run on startup in Windows registry.".to_string()
+                        } else {
+                            err
+                        });
+                    }
+                }
+            }
+        }
+        Ok(())
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        let _ = enabled;
+        Ok(())
+    }
 }
 
 fn open_subwindow(
@@ -121,9 +193,14 @@ fn start_steamcmd(install_dir: String) -> Result<bool, String> {
 
     for path in candidates {
         if path.exists() {
-            std::process::Command::new(&path)
-                .spawn()
-                .map_err(|e| e.to_string())?;
+            let mut cmd = std::process::Command::new(&path);
+            #[cfg(target_os = "windows")]
+            {
+                use std::os::windows::process::CommandExt;
+                const CREATE_NEW_CONSOLE: u32 = 0x0000_0010;
+                cmd.creation_flags(CREATE_NEW_CONSOLE);
+            }
+            cmd.spawn().map_err(|e| e.to_string())?;
             return Ok(true);
         }
     }
@@ -300,11 +377,16 @@ async fn delete_server(
     instance_name: String,
 ) -> Result<bool, String> {
     let res = tauri::async_runtime::spawn_blocking(move || {
-        servers::delete_server_instance(&library_path, &codename, &instance_name)
+        servers::delete_server_instance_cancellable(&library_path, &codename, &instance_name)
     })
     .await
     .map_err(|e| format!("Failed to delete server: {}", e))?;
     log_err("delete_server", res)
+}
+
+#[tauri::command]
+fn cancel_delete_task() {
+    servers::cancel_delete_task();
 }
 
 #[tauri::command]
@@ -321,11 +403,34 @@ fn get_available_start_options(
 }
 
 #[tauri::command]
-fn launch_server_option(file_path: String, args: String) -> Result<(), String> {
+fn launch_server_option(
+    app: tauri::AppHandle,
+    server_id: String,
+    instance_name: String,
+    file_path: String,
+    args: String,
+) -> Result<u32, String> {
     log_err(
         "launch_server_option",
-        servers::launch_server_option(&file_path, &args),
+        servers::launch_server_option(&app, &server_id, &instance_name, &file_path, &args),
     )
+}
+
+#[tauri::command]
+fn stop_server_instance(
+    app: tauri::AppHandle,
+    server_id: String,
+    instance_name: String,
+) -> Result<bool, String> {
+    log_err(
+        "stop_server_instance",
+        servers::stop_server_instance(&app, &server_id, &instance_name),
+    )
+}
+
+#[tauri::command]
+fn get_running_instances() -> Vec<servers::RunningInstanceDto> {
+    servers::get_running_instances()
 }
 
 #[tauri::command]
@@ -359,6 +464,35 @@ async fn install_or_update_steam_server(
     )
     .await;
     log_err("install_or_update_steam_server", res)
+}
+
+#[tauri::command]
+async fn install_or_update_non_steam_server(
+    app: tauri::AppHandle,
+    library_path: String,
+    codename: String,
+    instance_name: String,
+    server_id: String,
+    server_name: String,
+    download_link: String,
+    are_files_local: bool,
+    auto_extract_files: bool,
+    source_file: String,
+) -> Result<steamcmd::SteamCmdRunResult, String> {
+    let res = non_steam::run_non_steam_install_or_update(
+        app,
+        library_path,
+        codename,
+        instance_name,
+        server_id,
+        server_name,
+        download_link,
+        are_files_local,
+        auto_extract_files,
+        source_file,
+    )
+    .await;
+    log_err("install_or_update_non_steam_server", res)
 }
 
 #[tauri::command]
@@ -530,6 +664,16 @@ async fn backup_server(
 }
 
 #[tauri::command]
+fn cancel_backup_task() {
+    backups::cancel_backup_task();
+}
+
+#[tauri::command]
+fn cancel_restore_task() {
+    backups::cancel_restore_task();
+}
+
+#[tauri::command]
 fn list_server_backups(
     library_path: String,
     codename: String,
@@ -538,6 +682,19 @@ fn list_server_backups(
     log_err(
         "list_server_backups",
         backups::list_server_backups(&library_path, &codename, &instance_name),
+    )
+}
+
+#[tauri::command]
+fn delete_server_backup(
+    library_path: String,
+    codename: String,
+    instance_name: String,
+    backup_path: String,
+) -> Result<(), String> {
+    log_err(
+        "delete_server_backup",
+        backups::delete_server_backup(&library_path, &codename, &instance_name, &backup_path),
     )
 }
 
@@ -582,10 +739,18 @@ fn rename_server_instance(
     )
 }
 
+fn show_main_window(app: &tauri::AppHandle) {
+    if let Some(window) = app.get_webview_window("main") {
+        let _ = window.unminimize();
+        let _ = window.show();
+        let _ = window.set_focus();
+    }
+}
+
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .setup(|_app| {
+        .setup(|app| {
             let prev_hook = std::panic::take_hook();
             std::panic::set_hook(Box::new(move |info| {
                 logger::append(format!("PANIC: {}", info));
@@ -598,25 +763,78 @@ pub fn run() {
                 "Application started (v{})",
                 env!("CARGO_PKG_VERSION")
             ));
+
+            let show_item = MenuItemBuilder::with_id("tray_show", "Show Server Creation Tool")
+                .build(app)?;
+            let exit_item = MenuItemBuilder::with_id("tray_exit", "Exit")
+                .build(app)?;
+            let tray_menu = MenuBuilder::new(app)
+                .item(&show_item)
+                .separator()
+                .item(&exit_item)
+                .build()?;
+
+            let mut tray_builder = TrayIconBuilder::with_id("sct_tray")
+                .menu(&tray_menu)
+                .tooltip("Server Creation Tool 5.2")
+                .show_menu_on_left_click(false)
+                .on_tray_icon_event(|tray, event| {
+                    if let TrayIconEvent::Click {
+                        button: MouseButton::Left,
+                        button_state: MouseButtonState::Up,
+                        ..
+                    }
+                    | TrayIconEvent::DoubleClick {
+                        button: MouseButton::Left,
+                        ..
+                    } = event
+                    {
+                        show_main_window(tray.app_handle());
+                    }
+                });
+
+            if let Some(icon) = app.default_window_icon().cloned() {
+                tray_builder = tray_builder.icon(icon);
+            }
+            let _ = tray_builder.build(app)?;
+
             Ok(())
         })
-        .on_menu_event(|_app, event| {
-            let path = event.id().as_ref();
+        .on_menu_event(|app, event| {
+            let id = event.id().as_ref();
+            if id == "tray_show" {
+                show_main_window(app);
+                return;
+            }
+            if id == "tray_exit" {
+                std::process::exit(0);
+            }
             #[cfg(target_os = "windows")]
             {
                 let _ = std::process::Command::new("notepad")
-                    .arg(path)
+                    .arg(id)
                     .spawn();
             }
             #[cfg(not(target_os = "windows"))]
             {
-                let _ = tauri_plugin_opener::open_path(path, None::<&str>);
+                let _ = tauri_plugin_opener::open_path(id, None::<&str>);
             }
         })
         .on_window_event(|window, event| {
             if window.label() == "main" {
-                if let tauri::WindowEvent::CloseRequested { .. } | tauri::WindowEvent::Destroyed = event {
-                    std::process::exit(0);
+                match event {
+                    tauri::WindowEvent::CloseRequested { api, .. } => {
+                        if CLOSE_TO_TRAY.load(Ordering::Relaxed) {
+                            api.prevent_close();
+                            let _ = window.hide();
+                        } else {
+                            std::process::exit(0);
+                        }
+                    }
+                    tauri::WindowEvent::Destroyed => {
+                        std::process::exit(0);
+                    }
+                    _ => {}
                 }
             }
         })
@@ -624,6 +842,8 @@ pub fn run() {
             start_drag,
             window_minimize,
             window_close,
+            set_close_to_tray,
+            set_run_on_startup,
             open_about_window,
             open_faq_window,
             window_set_width,
@@ -634,7 +854,10 @@ pub fn run() {
             pick_backup_save_path,
             pick_backup_open_path,
             backup_server,
+            cancel_backup_task,
+            cancel_restore_task,
             list_server_backups,
+            delete_server_backup,
             restore_server_backup,
             open_folder,
             open_app_logs,
@@ -645,11 +868,15 @@ pub fn run() {
             ensure_library_location,
             mock_install_server,
             delete_server,
+            cancel_delete_task,
             rename_server_instance,
             get_available_start_options,
             launch_server_option,
+            stop_server_instance,
+            get_running_instances,
             download_steamcmd,
             install_or_update_steam_server,
+            install_or_update_non_steam_server,
             cancel_steamcmd,
             mark_server_incomplete,
             get_app_version,
