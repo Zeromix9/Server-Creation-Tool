@@ -31,8 +31,178 @@
     );
   }
 
-  // Set to true for release builds to hide unfinished tabs (e.g. Automation & Watchdog).
-  const isRelease = true;
+  // Synced from Rust compile-time IS_RELEASE on startup (false in `cargo tauri dev`, true in `cargo tauri build` or `SCT_RELEASE=1`).
+  let isRelease = true;
+
+  function loadStartupServersMap() {
+    return state.startupServers && typeof state.startupServers === 'object'
+      ? state.startupServers
+      : {};
+  }
+
+  function saveStartupServersMap(map) {
+    state.startupServers = map && typeof map === 'object' ? map : {};
+  }
+
+  function instanceCacheKey(codename, instanceName) {
+    return (
+      String(codename || '').trim().toLowerCase() +
+      ':' +
+      String(instanceName || 'Default').trim()
+    );
+  }
+
+  async function loadInstanceSettingsData(srv, instanceName) {
+    const inst = String(instanceName || (srv && srv.currentInstance) || 'Default').trim() || 'Default';
+    const key = instanceCacheKey(srv && srv.codename, inst);
+    const libPath = (state.settings.serverLibraryPath || '').trim();
+    if (!libPath || !srv || !srv.codename || !window.sctLoadInstanceSettings) {
+      return state.instanceSettingsCache[key] || {};
+    }
+    try {
+      const raw = await window.sctLoadInstanceSettings(libPath, srv.codename, inst);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+          state.instanceSettingsCache[key] = parsed;
+          return parsed;
+        }
+      }
+    } catch {}
+    return state.instanceSettingsCache[key] || {};
+  }
+
+  async function saveInstanceSettingsPatch(srv, instanceName, patch) {
+    const inst = String(instanceName || (srv && srv.currentInstance) || 'Default').trim() || 'Default';
+    const key = instanceCacheKey(srv && srv.codename, inst);
+    const current = Object.assign({}, state.instanceSettingsCache[key] || {}, patch || {});
+    delete current.instanceName;
+    state.instanceSettingsCache[key] = current;
+
+    const libPath = (state.settings.serverLibraryPath || '').trim();
+    if (!libPath || !srv || !srv.codename || !window.sctSaveInstanceSettings) {
+      return;
+    }
+    try {
+      await window.sctSaveInstanceSettings(
+        libPath,
+        srv.codename,
+        inst,
+        JSON.stringify(current, null, 2)
+      );
+    } catch {}
+  }
+
+  function startupInstanceKey(serverId, instanceName) {
+    return (
+      String(serverId || '').trim().toLowerCase() +
+      ':' +
+      String(instanceName || 'Default').trim()
+    );
+  }
+
+  function isInstanceRunOnStartup(serverId, instanceName) {
+    const map = loadStartupServersMap();
+    return Boolean(map[startupInstanceKey(serverId, instanceName)]);
+  }
+
+  function setInstanceRunOnStartup(serverId, instanceName, enabled, serverName) {
+    const map = loadStartupServersMap();
+    const key = startupInstanceKey(serverId, instanceName);
+    if (enabled) {
+      map[key] = {
+        serverId: String(serverId || '').trim(),
+        serverName: String(serverName || serverId || '').trim(),
+        instanceName: String(instanceName || 'Default').trim()
+      };
+    } else {
+      delete map[key];
+    }
+    saveStartupServersMap(map);
+    saveSettings();
+  }
+
+  function getStartupServerEntries() {
+    const map = loadStartupServersMap();
+    return Object.keys(map)
+      .map(function (k) {
+        const entry = map[k];
+        if (!entry || !entry.serverId) return null;
+        const matchedSrv = state.servers.find(function (s) {
+          return s.id.toLowerCase() === String(entry.serverId).toLowerCase();
+        });
+        return {
+          key: k,
+          serverId: entry.serverId,
+          serverName: (matchedSrv && matchedSrv.name) || entry.serverName || entry.serverId,
+          instanceName: entry.instanceName || 'Default'
+        };
+      })
+      .filter(Boolean);
+  }
+
+  async function autoStartConfiguredServersOnStartup() {
+    const libPath = (state.settings.serverLibraryPath || '').trim();
+    if (!libPath || !state.libraryStatus.libraryExists) return;
+
+    const entries = getStartupServerEntries();
+    for (let i = 0; i < entries.length; i += 1) {
+      const entry = entries[i];
+      const srv = state.servers.find(function (s) {
+        return s.id.toLowerCase() === String(entry.serverId).toLowerCase();
+      });
+      if (!srv) continue;
+
+      const instName = entry.instanceName || 'Default';
+      const instInfo = (srv.instanceInfos || []).find(function (info) {
+        return info.name === instName;
+      });
+      if (!instInfo || !instInfo.isInstalled || instInfo.hasIncompleteInstall) continue;
+      if (isInstanceRunning(srv.id, instName)) continue;
+
+      try {
+        const available = await window.sctGetAvailableStartOptions(
+          libPath,
+          srv.codename,
+          instName,
+          srv.startOptions || []
+        );
+        if (!available || available.length === 0) continue;
+
+        const instSettings = await loadInstanceSettingsData(srv, instName);
+        const savedDefaultId = instSettings.defaultStartOptionId || null;
+        const chosen =
+          (savedDefaultId &&
+            available.find(function (opt) {
+              return opt.id === savedDefaultId;
+            })) ||
+          available.find(function (opt) {
+            return opt.isDefault;
+          }) ||
+          available[0];
+        if (!chosen) continue;
+
+        const optType = String(chosen.optionType || '').toLowerCase();
+        if (optType === 'action' || optType === 'function') continue;
+
+        await window.sctLaunchServerOption(
+          srv.id,
+          instName,
+          chosen.resolvedPath,
+          chosen.args || ''
+        );
+        setInstanceRunning(srv.id, instName, true);
+        logUserAction(
+          'Auto-started ' + srv.name + ' (' + instName + ') on startup'
+        );
+        appendTerminalLine(
+          srv,
+          'Auto-started ' + srv.name + ' (' + instName + ') on startup.'
+        );
+      } catch {}
+    }
+    renderAll();
+  }
 
   const state = {
     isMoreOpen: false,
@@ -77,6 +247,8 @@
     },
     deletingServerId: '',
     favoriteIds: [],
+    startupServers: {},
+    instanceSettingsCache: {},
     servers: [],
     selectedServer: null
   };
@@ -188,13 +360,87 @@
     }) || null;
   }
 
+  const UI_STRINGS = {
+    en: {
+      tab_general: 'General',
+      tab_tools: 'Tools & Maintenance',
+      tab_settings: 'Settings',
+      tab_automation: 'Automation & Watchdog',
+      btn_install: 'Install',
+      btn_update: 'Update',
+      btn_start: 'Start',
+      btn_stop: 'Stop',
+      btn_cancel: 'Cancel',
+      btn_cancelling: 'Cancelling',
+      add_instance: 'Add New Instance...'
+    },
+    de: {
+      tab_general: 'Allgemein',
+      tab_tools: 'Werkzeuge & Wartung',
+      tab_settings: 'Einstellungen',
+      tab_automation: 'Automatisierung & Watchdog',
+      btn_install: 'Installieren',
+      btn_update: 'Aktualisieren',
+      btn_start: 'Starten',
+      btn_stop: 'Stoppen',
+      btn_cancel: 'Abbrechen',
+      btn_cancelling: 'Wird abgebrochen',
+      add_instance: 'Neue Instanz hinzufügen...'
+    }
+  };
+
+  function t(key) {
+    const lang = String(state.currentLang || 'en').toLowerCase();
+    const table = UI_STRINGS[lang] || UI_STRINGS.en;
+    return table[key] || UI_STRINGS.en[key] || key;
+  }
+
+  function getAvailableLanguages() {
+    const seen = {};
+    const list = [
+      { code: 'en', name: 'English', icon: 'img/icons/icons8-great-britain-24.png' },
+      { code: 'de', name: 'German', icon: 'img/icons/icons8-germany-24.png' }
+    ];
+    list.forEach(function (item) {
+      seen[item.code] = true;
+    });
+
+    (state.servers || []).forEach(function (srv) {
+      (srv.languages || []).forEach(function (lang) {
+        if (!lang || !lang.code) return;
+        const code = String(lang.code).trim().toLowerCase();
+        if (!code || seen[code]) return;
+        seen[code] = true;
+        list.push({
+          code: code,
+          name: lang.name || code.toUpperCase(),
+          icon: ''
+        });
+      });
+    });
+
+    return list;
+  }
+
   function getLocalizedText(map, fallback) {
     if (map && typeof map === 'object') {
-      if (state.currentLang && map[state.currentLang]) {
+      const target = String(state.currentLang || 'en').toLowerCase();
+      if (map[state.currentLang]) {
         return map[state.currentLang];
+      }
+      const keys = Object.keys(map);
+      for (let i = 0; i < keys.length; i += 1) {
+        if (keys[i].toLowerCase() === target && map[keys[i]]) {
+          return map[keys[i]];
+        }
       }
       if (map.en) {
         return map.en;
+      }
+      for (let i = 0; i < keys.length; i += 1) {
+        if (keys[i].toLowerCase() === 'en' && map[keys[i]]) {
+          return map[keys[i]];
+        }
       }
     }
     return fallback || '';
@@ -339,7 +585,7 @@
       isCancelling: prev ? Boolean(prev.isCancelling) : false,
       isDeleting: prev ? Boolean(prev.isDeleting) : false,
       autoRestartOnCrash: prev ? prev.autoRestartOnCrash : true,
-      runOnStartup: prev ? prev.runOnStartup : false,
+      runOnStartup: isInstanceRunOnStartup(dto.id, activeInstName),
       autoRestartOnConfigChange: prev ? prev.autoRestartOnConfigChange : false,
       watchedConfigFile: watchedConfigFile,
       scheduledRestart: prev ? prev.scheduledRestart : 'Disabled',
@@ -354,7 +600,8 @@
       customCheckStates:
         prev && prev.customCheckStates
           ? prev.customCheckStates
-          : window.sctLoadGameServerControls(dto.id + ':' + activeInstName),
+          : (state.instanceSettingsCache[instanceCacheKey(dto.codename, activeInstName)] || {})
+              .customCheckStates || {},
       startOptions: Array.isArray(dto.startOptions)
         ? dto.startOptions.map(function (opt) {
             return {
@@ -380,7 +627,9 @@
       customControls: Array.isArray(dto.customControls) ? dto.customControls : [],
       customFields: Array.isArray(dto.customFields) ? dto.customFields : [],
       languages: Array.isArray(dto.languages) ? dto.languages : [],
-      sourceFile: dto.sourceFile || ''
+      sourceFile: dto.sourceFile || '',
+      isOfficial: getCachedPackageTrust(dto.sourceFile).isOfficial,
+      trustReason: getCachedPackageTrust(dto.sourceFile).trustReason
     };
   }
 
@@ -400,6 +649,22 @@
     };
 
     const rawServers = scan && Array.isArray(scan.servers) ? scan.servers : [];
+    const libPathNow = (state.settings.serverLibraryPath || '').trim();
+    if (libPathNow && window.sctLoadInstanceSettings) {
+      await Promise.all(
+        rawServers.map(async function (dto) {
+          const prev = state.servers.find(function (s) {
+            return s.id === dto.id;
+          });
+          const instName =
+            prev && prev.currentInstance ? prev.currentInstance : 'Default';
+          await loadInstanceSettingsData(
+            { codename: dto.codename, currentInstance: instName },
+            instName
+          );
+        })
+      );
+    }
     state.servers = rawServers.map(mapServerDto);
 
     if (prevId) {
@@ -452,16 +717,21 @@
   }
 
   function loadFavorites() {
-    state.favoriteIds = window.sctLoadFavorites();
+    // Loaded from sct_data/settings.json inside loadSettings().
   }
 
   function saveFavorites() {
-    window.sctSaveFavorites(state.favoriteIds);
+    saveSettings();
   }
 
-  function loadSettings() {
+  async function loadSettings() {
     try {
-      const json = window.sctLoadSettings();
+      let json = null;
+      if (window.sctLoadAppSettingsFile) {
+        try {
+          json = await window.sctLoadAppSettingsFile();
+        } catch {}
+      }
       if (!json) return;
       const parsed = JSON.parse(json);
       if (!parsed || typeof parsed !== 'object') return;
@@ -470,6 +740,7 @@
         serverLibraryPath:
           parsed.serverLibraryPath ?? parsed.ServerLibraryPath ?? '',
         language: parsed.language ?? parsed.Language ?? 'English',
+        languageCode: parsed.languageCode ?? parsed.LanguageCode ?? '',
         autoCheckUpdates:
           parsed.autoCheckUpdates ?? parsed.AutoCheckUpdates ?? true,
         closeToTray: parsed.closeToTray ?? parsed.CloseToTray ?? false,
@@ -477,13 +748,30 @@
         defaultTextEditor:
           parsed.defaultTextEditor ?? parsed.DefaultTextEditor ?? 'notepad.exe'
       };
-      state.currentLang = state.settings.language === 'German' ? 'de' : 'en';
+      state.favoriteIds = Array.isArray(parsed.favorites) ? parsed.favorites : [];
+      state.startupServers =
+        parsed.startupServers && typeof parsed.startupServers === 'object'
+          ? parsed.startupServers
+          : {};
+      const savedCode = String(state.settings.languageCode || '').trim().toLowerCase();
+      if (savedCode) {
+        state.currentLang = savedCode;
+      } else {
+        state.currentLang = state.settings.language === 'German' ? 'de' : 'en';
+      }
     } catch {}
   }
 
   function saveSettings() {
     try {
-      window.sctSaveSettings(JSON.stringify(state.settings));
+      const payload = Object.assign({}, state.settings, {
+        favorites: Array.isArray(state.favoriteIds) ? state.favoriteIds : [],
+        startupServers: loadStartupServersMap()
+      });
+      const json = JSON.stringify(payload, null, 2);
+      if (window.sctSaveAppSettingsFile) {
+        window.sctSaveAppSettingsFile(json).catch(function () {});
+      }
     } catch {}
   }
 
@@ -642,10 +930,12 @@
               return Boolean(inst.isInstalled);
             });
           const anyRunning = isAnyInstanceRunning(srv.id);
+          const isUntrusted = !srv.isOfficial;
           return (
             '<button type="button" class="sct-list-item-srv ' +
             (isAnyInstalled ? 'installed ' : '') +
             (anyRunning ? 'running ' : '') +
+            (isUntrusted ? 'untrusted ' : '') +
             (isSelected ? 'selected' : '') +
             '" data-srv-id="' +
             escapeHtml(srv.id) +
@@ -655,6 +945,9 @@
             '</span>' +
             (srv.isFavorite
               ? '<img src="img/icons/starChecked_16.png" class="sct-star-icon-small" alt="Favorite" />'
+              : '') +
+            (isUntrusted
+              ? '<span class="sct-untrusted-icon-small" title="Using unverified .server file. Proceed with caution"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M8 1.5L15 14H1L8 1.5Z" fill="#f59e0b" stroke="#78350f" stroke-width="1"/><rect x="7.3" y="5.5" width="1.4" height="4.5" rx="0.6" fill="#1e293b"/><circle cx="8" cy="11.8" r="0.85" fill="#1e293b"/></svg></span>'
               : '') +
             '</button>'
           );
@@ -990,9 +1283,6 @@
   }
 
   function renderTabContent(srv) {
-    if (isRelease && state.activeTab === 'automation') {
-      state.activeTab = 'general';
-    }
     const activeInstInfo = getActiveInstanceInfo(srv);
     const activeFolderName = getServerFolderName(srv);
     const installLoc =
@@ -1204,6 +1494,26 @@
     }
 
     if (state.activeTab === 'automation') {
+      if (isRelease) {
+        return (
+          '<div class="sct-tab-pane">' +
+          '<div class="sct-auto-card">' +
+          '<div class="sct-card-section-title">-Startup-</div>' +
+          '<div class="sct-auto-card-body">' +
+          '<label class="sct-checkbox-label" title="Automatically start this server when Server Creation Tool launches">' +
+          '<input type="checkbox" class="sct-win-checkbox" data-srv-prop="runOnStartup" ' +
+          (srv.runOnStartup ? 'checked ' : '') +
+          panelDisabledAttr +
+          ' />' +
+          '<span class="sct-check-title">Run on startup</span>' +
+          '</label>' +
+          '<div class="sct-auto-hint">Automatically starts this server when Server Creation Tool opens.</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>'
+        );
+      }
+
       const customAutoHtml = renderCustomContainersForTab(
         srv,
         'automation_watchdog',
@@ -1347,7 +1657,9 @@
         '<div class="sct-popup-divider"></div>' +
         '<button type="button" class="sct-instance-option" data-action="add-new-instance">' +
         '<svg class="sct-context-menu-icon" style="width: 14px; height: 14px;" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3V13M3 8H13" stroke="#e2e8f0" stroke-width="2" stroke-linecap="round" /></svg>' +
-        '<span>Add New Instance...</span>' +
+        '<span>' +
+        escapeHtml(t('add_instance')) +
+        '</span>' +
         '</button>' +
         '</div>'
       : '';
@@ -1363,7 +1675,7 @@
         '<button type="button" class="sct-srv-action-btn state-stop" data-action="cancel-install">' +
         '<img src="img/icons/stop_img.png" class="sct-srv-btn-icon" alt="" />' +
         '<span class="sct-srv-btn-text">' +
-        (srv.isCancelling ? 'Cancelling' : 'Cancel') +
+        escapeHtml(srv.isCancelling ? t('btn_cancelling') : t('btn_cancel')) +
         '</span>' +
         '</button>';
     } else if (srv.isInstalled && srv.hasIncompleteInstall) {
@@ -1372,7 +1684,9 @@
         (taskBusy || isDeleting ? 'disabled' : '') +
         '>' +
         '<img src="img/icons/install_img.png" class="sct-srv-btn-icon" alt="" />' +
-        '<span class="sct-srv-btn-text">Update</span>' +
+        '<span class="sct-srv-btn-text">' +
+        escapeHtml(t('btn_update')) +
+        '</span>' +
         '</button>';
     } else if (srv.isInstalled) {
       actionBtnHtml =
@@ -1385,7 +1699,7 @@
         (srv.isRunning ? 'img/icons/stop_img.png' : 'img/icons/start_img.png') +
         '" class="sct-srv-btn-icon" alt="" />' +
         '<span class="sct-srv-btn-text">' +
-        (srv.isRunning ? 'Stop' : 'Start') +
+        escapeHtml(srv.isRunning ? t('btn_stop') : t('btn_start')) +
         '</span>' +
         '</button>';
     } else {
@@ -1394,7 +1708,9 @@
         (taskBusy || isDeleting ? 'disabled' : '') +
         '>' +
         '<img src="img/icons/install_img.png" class="sct-srv-btn-icon" alt="" />' +
-        '<span class="sct-srv-btn-text">Install</span>' +
+        '<span class="sct-srv-btn-text">' +
+        escapeHtml(t('btn_install')) +
+        '</span>' +
         '</button>';
     }
 
@@ -1531,16 +1847,14 @@
       '<img src="img/icons/settingsBtn.Image.png" class="sct-tab-icon" alt="" />' +
       '<span>Settings</span>' +
       '</button>' +
-      (isRelease
-        ? ''
-        : '<button type="button" class="sct-tab-btn ' +
-          (state.activeTab === 'automation' ? 'active' : '') +
-          '" data-tab="automation" ' +
-          panelDisabledAttr +
-          '>' +
-          '<img src="img/icons/cmd_icon21.png" class="sct-tab-icon" alt="" />' +
-          '<span>Automation &amp; Watchdog</span>' +
-          '</button>') +
+      '<button type="button" class="sct-tab-btn ' +
+      (state.activeTab === 'automation' ? 'active' : '') +
+      '" data-tab="automation" ' +
+      panelDisabledAttr +
+      '>' +
+      '<img src="img/icons/cmd_icon21.png" class="sct-tab-icon" alt="" />' +
+      '<span>Automation &amp; Watchdog</span>' +
+      '</button>' +
       '</div>' +
       '<div class="sct-tab-content">' +
       renderTabContent(srv) +
@@ -1596,25 +1910,38 @@
     let html = '<div class="sct-context-backdrop" data-action="close-context-menus"></div>';
 
     if (state.isLangMenuOpen) {
+      const langs = getAvailableLanguages();
       html +=
         '<div class="sct-custom-context-menu" style="top: ' +
         state.langMenuTop +
         'px; left: ' +
         state.langMenuLeft +
         'px;" data-stop-propagation="true">' +
-        '<button type="button" class="sct-context-menu-item ' +
-        (state.currentLang === 'en' ? 'selected' : '') +
-        '" data-select-lang="en">' +
-        '<img class="sct-context-menu-icon" src="img/icons/icons8-great-britain-24.png" alt="" />' +
-        '<span>English</span>' +
-        '</button>' +
-        '<div class="sct-context-menu-separator"></div>' +
-        '<button type="button" class="sct-context-menu-item ' +
-        (state.currentLang === 'de' ? 'selected' : '') +
-        '" data-select-lang="de">' +
-        '<img class="sct-context-menu-icon" src="img/icons/icons8-germany-24.png" alt="" />' +
-        '<span>German</span>' +
-        '</button>' +
+        langs
+          .map(function (langItem, idx) {
+            const sep = idx > 0 ? '<div class="sct-context-menu-separator"></div>' : '';
+            const iconHtml = langItem.icon
+              ? '<img class="sct-context-menu-icon" src="' + escapeHtml(langItem.icon) + '" alt="" />'
+              : '<span class="sct-context-menu-icon" style="display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#93c5fd;">' +
+                escapeHtml(langItem.code.toUpperCase()) +
+                '</span>';
+            return (
+              sep +
+              '<button type="button" class="sct-context-menu-item ' +
+              (state.currentLang === langItem.code ? 'selected' : '') +
+              '" data-select-lang="' +
+              escapeHtml(langItem.code) +
+              '" data-select-lang-name="' +
+              escapeHtml(langItem.name) +
+              '">' +
+              iconHtml +
+              '<span>' +
+              escapeHtml(langItem.name) +
+              '</span>' +
+              '</button>'
+            );
+          })
+          .join('') +
         '</div>';
     }
 
@@ -1687,10 +2014,33 @@
   }
 
   async function openSettingsModal() {
-    const updated = await window.SctModal.showSettings(state.settings);
+    const updated = await window.SctModal.showSettings(
+      state.settings,
+      getStartupServerEntries()
+    );
     if (updated) {
       const nextLib = (updated.serverLibraryPath || '').trim();
+      const nextStartupList = Array.isArray(updated.startupServers)
+        ? updated.startupServers
+        : null;
+      delete updated.startupServers;
       state.settings = updated;
+      if (nextStartupList !== null) {
+        const nextMap = {};
+        nextStartupList.forEach(function (item) {
+          if (!item || !item.serverId) return;
+          const inst = item.instanceName || 'Default';
+          nextMap[startupInstanceKey(item.serverId, inst)] = {
+            serverId: item.serverId,
+            serverName: item.serverName || item.serverId,
+            instanceName: inst
+          };
+        });
+        saveStartupServersMap(nextMap);
+        state.servers.forEach(function (srv) {
+          srv.runOnStartup = isInstanceRunOnStartup(srv.id, srv.currentInstance);
+        });
+      }
       if (nextLib) {
         try {
           const resolved = await window.sctEnsureLibraryLocation(nextLib);
@@ -1823,6 +2173,13 @@
     renderAll();
 
     try {
+      if (!opts.isUpdate) {
+        await runSimpleActionsForTrigger(srv, 'before_install');
+        if (srv.runCustomInstallFunc) {
+          await runFuncsMethod(srv, 'PreInstall', true);
+        }
+      }
+
       const result = srv.isSteamServer
         ? await window.sctInstallOrUpdateSteamServer({
             libraryPath: state.settings.serverLibraryPath,
@@ -1850,6 +2207,13 @@
 
       if (result && result.cancelled) {
         return;
+      }
+
+      if (!opts.isUpdate) {
+        await runSimpleActionsForTrigger(srv, 'after_install');
+        if (srv.runCustomInstallFunc) {
+          await runFuncsMethod(srv, 'PostInstall', true);
+        }
       }
 
       const updatedSrv = state.servers.find(function (s) {
@@ -2030,23 +2394,76 @@
               break;
             }
 
+            const instSettings = await loadInstanceSettingsData(
+              srv,
+              srv.currentInstance
+            );
             let chosen = null;
             if (available.length === 1) {
               chosen = available[0];
             } else {
-              const prefKey = srv.id + ':' + srv.currentInstance;
-              const savedDefaultId = window.sctLoadDefaultStartOption(prefKey);
+              const savedDefaultId = instSettings.defaultStartOptionId || null;
               chosen = await window.SctModal.showStartOptions(
                 srv.name,
                 available,
                 savedDefaultId,
                 function (newDefaultId) {
-                  window.sctSaveDefaultStartOption(prefKey, newDefaultId);
+                  saveInstanceSettingsPatch(srv, srv.currentInstance, {
+                    defaultStartOptionId: newDefaultId
+                  });
                 }
               );
               if (!chosen) {
                 break;
               }
+            }
+
+            const fullOpt = (srv.startOptions || []).find(function (o) {
+              return o.id === chosen.id;
+            });
+            const isFirstLaunch = !instSettings.firstLaunchDone;
+
+            if (isFirstLaunch) {
+              await runSimpleActionsForTrigger(srv, 'on_first_launch');
+              await saveInstanceSettingsPatch(srv, srv.currentInstance, {
+                firstLaunchDone: true
+              });
+            }
+
+            if (fullOpt && fullOpt.preLaunch) {
+              await runPreLaunchHookIfAny(srv, fullOpt);
+            }
+
+            const optType = String(chosen.optionType || '').toLowerCase();
+            if (optType === 'action') {
+              srv.lastRan = formatDateDmy(new Date());
+              logUserAction(
+                'Executed launch action ' +
+                  chosen.label +
+                  ' for ' +
+                  srv.name +
+                  ' (' +
+                  srv.currentInstance +
+                  ')'
+              );
+              renderAll();
+              break;
+            }
+            if (optType === 'function') {
+              const fnName = chosen.resolvedPath || chosen.filePath || '';
+              await runFuncsMethod(srv, fnName, false);
+              srv.lastRan = formatDateDmy(new Date());
+              logUserAction(
+                'Executed launch function ' +
+                  fnName +
+                  '() for ' +
+                  srv.name +
+                  ' (' +
+                  srv.currentInstance +
+                  ')'
+              );
+              renderAll();
+              break;
             }
 
             await window.sctLaunchServerOption(
@@ -2798,7 +3215,20 @@
 
         srv.pendingInstanceName = undefined;
         srv.customCheckStates = savedControls;
-        window.sctSaveGameServerControls(newKey, savedControls, oldKey);
+        if (oldInstance !== rawNewName) {
+          const oldCache =
+            state.instanceSettingsCache[instanceCacheKey(srv.codename, oldInstance)];
+          if (oldCache) {
+            state.instanceSettingsCache[instanceCacheKey(srv.codename, rawNewName)] =
+              oldCache;
+            delete state.instanceSettingsCache[
+              instanceCacheKey(srv.codename, oldInstance)
+            ];
+          }
+        }
+        await saveInstanceSettingsPatch(srv, rawNewName, {
+          customCheckStates: savedControls
+        });
         logUserAction(
           rawNewName !== oldInstance
             ? 'Renamed instance ' +
@@ -2841,9 +3271,11 @@
           });
           srv.currentInstance = srv.instances[0] || 'Default';
           srv.pendingInstanceName = undefined;
-          srv.customCheckStates = window.sctLoadGameServerControls(
-            srv.id + ':' + srv.currentInstance
+          const nextInstSettings = await loadInstanceSettingsData(
+            srv,
+            srv.currentInstance
           );
+          srv.customCheckStates = nextInstSettings.customCheckStates || {};
           renderAll();
         }
         break;
@@ -2977,6 +3409,242 @@
     }
   }
 
+  function buildServerProperties(srv) {
+    const props = {};
+    if (srv && Array.isArray(srv.customFields)) {
+      srv.customFields.forEach(function (f) {
+        if (f && f.name) {
+          props[f.name] = String(f.value || '');
+        }
+      });
+    }
+    if (srv) {
+      props.InstanceName = srv.currentInstance || 'Default';
+    }
+    return props;
+  }
+
+  function applyUpdatedProperties(srv, updatedProperties) {
+    if (!srv || !updatedProperties || typeof updatedProperties !== 'object') return;
+    if (!Array.isArray(srv.customFields)) {
+      srv.customFields = [];
+    }
+    Object.keys(updatedProperties).forEach(function (k) {
+      if (k === 'InstanceName') return;
+      const val = String(updatedProperties[k] ?? '');
+      const existing = srv.customFields.find(function (f) {
+        return f && f.name && f.name.toLowerCase() === k.toLowerCase();
+      });
+      if (existing) {
+        existing.value = val;
+      } else {
+        srv.customFields.push({ name: k, value: val, values: {} });
+      }
+    });
+  }
+
+  const TRUSTED_PACKAGES_STORAGE_KEY = 'sct_trusted_packages_v1';
+
+  function loadTrustedPackagesMap() {
+    try {
+      const raw = localStorage.getItem(TRUSTED_PACKAGES_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') return parsed;
+      }
+    } catch {}
+    return {};
+  }
+
+  function saveTrustedPackagesMap(map) {
+    try {
+      localStorage.setItem(TRUSTED_PACKAGES_STORAGE_KEY, JSON.stringify(map || {}));
+    } catch {}
+  }
+
+  function simpleActionChainHasRunProgram(actions, actionId, visited) {
+    const seen = visited || {};
+    if (!actionId || seen[actionId]) return false;
+    seen[actionId] = true;
+    const act = (actions || []).find(function (a) {
+      return a && a.id === actionId;
+    });
+    if (!act) return false;
+    if (String(act.actionType || '').toLowerCase() === 'run_program') {
+      return true;
+    }
+    if (act.enableChaining && Array.isArray(act.chainedActionIds)) {
+      for (let i = 0; i < act.chainedActionIds.length; i += 1) {
+        if (simpleActionChainHasRunProgram(actions, act.chainedActionIds[i], seen)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  const PACKAGE_VERIFY_CACHE_KEY = 'sct_package_verify_cache_v1';
+
+  function loadPackageVerifyCache() {
+    try {
+      const raw = localStorage.getItem(PACKAGE_VERIFY_CACHE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') return parsed;
+      }
+    } catch {}
+    return {};
+  }
+
+  function getCachedPackageTrust(sourceFile) {
+    const key = String(sourceFile || '').trim().toLowerCase();
+    if (!key) return { isOfficial: true, trustReason: '' };
+    const cache = loadPackageVerifyCache();
+    const entry = cache[key];
+    if (entry && typeof entry === 'object' && entry.isOfficial === false) {
+      return {
+        isOfficial: false,
+        trustReason: entry.trustReason || ''
+      };
+    }
+    return { isOfficial: true, trustReason: '' };
+  }
+
+  function setCachedPackageTrust(sourceFile, isOfficial, trustReason) {
+    const key = String(sourceFile || '').trim().toLowerCase();
+    if (!key) return;
+    const cache = loadPackageVerifyCache();
+    cache[key] = {
+      isOfficial: Boolean(isOfficial),
+      trustReason: trustReason || ''
+    };
+    try {
+      localStorage.setItem(PACKAGE_VERIFY_CACHE_KEY, JSON.stringify(cache));
+    } catch {}
+  }
+
+  function isPackageTrustedForever(src) {
+    const key = String(src || '').trim().toLowerCase();
+    if (!key) return false;
+    const trustedMap = loadTrustedPackagesMap();
+    return Boolean(trustedMap[key]);
+  }
+
+  async function ensurePackageTrustedOnSelect(srv) {
+    const src = (srv && srv.sourceFile) || '';
+    if (!src) return true;
+
+    const trust = await window.sctVerifyServerPackage(src);
+    const isOfficial = Boolean(trust && trust.isOfficial);
+    const reason = (trust && trust.reason) || 'Package signature could not be verified.';
+
+    srv.isOfficial = isOfficial;
+    srv.trustReason = isOfficial ? '' : reason;
+    setCachedPackageTrust(src, isOfficial, srv.trustReason);
+
+    if (isOfficial) {
+      return true;
+    }
+
+    if (isPackageTrustedForever(src)) {
+      return true;
+    }
+
+    const sha = (trust && trust.packageSha256) || '';
+    const ok = await window.SctModal.confirm(
+      'Untrusted Server Package: ' +
+        src +
+        '\n\n' +
+        reason +
+        '\n\nThis .server file is not officially signed. Custom functions or programs inside it can access your PC.\nDo you want to trust this .server file?' +
+        (sha ? '\n\nPackage SHA-256:\n' + sha : ''),
+      'Untrusted Server Package',
+      '⚠️',
+      'Trust',
+      'Cancel'
+    );
+    if (!ok) {
+      renderLeftColumn();
+      return false;
+    }
+    const key = src.trim().toLowerCase();
+    const trustedMap = loadTrustedPackagesMap();
+    trustedMap[key] = true;
+    saveTrustedPackagesMap(trustedMap);
+    return true;
+  }
+
+  async function runSimpleActionById(srv, actionId) {
+    const libPath = (state.settings.serverLibraryPath || '').trim();
+    if (!libPath) {
+      throw new Error('No Server Library location is configured.');
+    }
+    const allowUntrusted = isPackageTrustedForever(srv && srv.sourceFile);
+    const res = await window.sctExecuteSimpleAction({
+      libraryPath: libPath,
+      codename: srv.codename,
+      folderName: srv.folderName || srv.codename,
+      sourceFile: srv.sourceFile || '',
+      instanceName: srv.currentInstance || 'Default',
+      serverId: srv.id,
+      actionId: actionId,
+      actionsList: srv.simpleActions || [],
+      properties: buildServerProperties(srv),
+      allowUntrusted: allowUntrusted
+    });
+    if (res && res.updatedProperties) {
+      applyUpdatedProperties(srv, res.updatedProperties);
+    }
+    return res;
+  }
+
+  async function runFuncsMethod(srv, methodName, optional) {
+    const libPath = (state.settings.serverLibraryPath || '').trim();
+    if (!libPath) {
+      throw new Error('No Server Library location is configured.');
+    }
+    const allowUntrusted = isPackageTrustedForever(srv && srv.sourceFile);
+    const res = await window.sctExecuteFuncsMethod({
+      libraryPath: libPath,
+      codename: srv.codename,
+      folderName: srv.folderName || srv.codename,
+      sourceFile: srv.sourceFile || '',
+      instanceName: srv.currentInstance || 'Default',
+      serverId: srv.id,
+      methodName: methodName,
+      optional: Boolean(optional),
+      properties: buildServerProperties(srv),
+      allowUntrusted: allowUntrusted
+    });
+    if (res && res.updatedProperties) {
+      applyUpdatedProperties(srv, res.updatedProperties);
+    }
+    return res;
+  }
+
+  async function runSimpleActionsForTrigger(srv, whenTrigger) {
+    if (!srv || !srv.simpleActionsEnabled) return;
+    const lang = String(state.settings.language || 'en').toLowerCase();
+    const matching = (srv.simpleActions || []).filter(function (act) {
+      if (!act || String(act.when || '').toLowerCase() !== whenTrigger) return false;
+      const tLang = String(act.targetLanguage || 'all').toLowerCase();
+      return tLang === 'all' || !tLang || tLang === lang;
+    });
+    for (let i = 0; i < matching.length; i += 1) {
+      await runSimpleActionById(srv, matching[i].id);
+    }
+  }
+
+  async function runPreLaunchHookIfAny(srv, optMeta) {
+    if (!optMeta || !optMeta.preLaunch) return;
+    const hook = optMeta.preLaunch;
+    if (String(hook.kind || '').toLowerCase() === 'function' && hook.functionName) {
+      await runFuncsMethod(srv, hook.functionName, false);
+    } else if (hook.simpleActionId) {
+      await runSimpleActionById(srv, hook.simpleActionId);
+    }
+  }
+
   async function executeCustomControlAction(srv, ctrl, labelOverride) {
     if (!srv || !ctrl) return;
     if (
@@ -3004,31 +3672,50 @@
         return;
       }
       const actTitle = getLocalizedText(act.title, act.label || act.id);
-      appendTerminalLine(
-        srv,
-        'Triggered action: ' + actTitle + ' [' + act.actionType + ']'
-      );
-      await window.SctModal.alert(
-        'Action: ' +
+      logUserAction(
+        'Executed SimpleAction ' +
           actTitle +
-          '\nType: ' +
-          act.actionType,
-        label,
-        '⚡'
+          ' for ' +
+          srv.name +
+          ' (' +
+          srv.currentInstance +
+          ')'
       );
+      try {
+        await runSimpleActionById(srv, act.id);
+        await refreshServerLikeClicked(srv.id);
+      } catch (err) {
+        const msg = err && err.message ? err.message : String(err);
+        await window.SctModal.alert(
+          'Action failed:\n' + msg,
+          label,
+          '⚠️'
+        );
+      }
       return;
     }
 
     if (ctrl.buttonFuncName) {
-      appendTerminalLine(
-        srv,
-        'Triggered function: ' + ctrl.buttonFuncName + '()'
+      logUserAction(
+        'Executed function ' +
+          ctrl.buttonFuncName +
+          '() for ' +
+          srv.name +
+          ' (' +
+          srv.currentInstance +
+          ')'
       );
-      await window.SctModal.alert(
-        'Function: ' + ctrl.buttonFuncName + '()',
-        label,
-        '⚡'
-      );
+      try {
+        await runFuncsMethod(srv, ctrl.buttonFuncName, false);
+        await refreshServerLikeClicked(srv.id);
+      } catch (err) {
+        const msg = err && err.message ? err.message : String(err);
+        await window.SctModal.alert(
+          'Function ' + ctrl.buttonFuncName + '() failed:\n' + msg,
+          label,
+          '⚠️'
+        );
+      }
       return;
     }
 
@@ -3072,6 +3759,10 @@
           return s.id === srvId;
         });
         if (found) {
+          const trusted = await ensurePackageTrustedOnSelect(found);
+          if (!trusted) {
+            return;
+          }
           state.selectedServer = found;
           state.isWelcomeActive = false;
           state.isInstanceMenuOpen = false;
@@ -3084,7 +3775,6 @@
       const tabBtn = e.target.closest('[data-tab]');
       if (tabBtn) {
         const nextTab = tabBtn.getAttribute('data-tab');
-        if (isRelease && nextTab === 'automation') return;
         state.activeTab = nextTab;
         state.openCustomDropdownIdx = null;
         renderRightColumn();
@@ -3099,11 +3789,17 @@
           state.selectedServer.id,
           nextInst
         );
+        state.selectedServer.runOnStartup = isInstanceRunOnStartup(
+          state.selectedServer.id,
+          nextInst
+        );
         state.selectedServer.pendingInstanceName = undefined;
+        const switchedInstData = await loadInstanceSettingsData(
+          state.selectedServer,
+          nextInst
+        );
         state.selectedServer.customCheckStates =
-          window.sctLoadGameServerControls(
-            state.selectedServer.id + ':' + nextInst
-          );
+          switchedInstData.customCheckStates || {};
         const instInfo = getActiveInstanceInfo(state.selectedServer);
         if (instInfo) {
           state.selectedServer.isInstalled = Boolean(instInfo.isInstalled);
@@ -3120,17 +3816,15 @@
 
       const langBtn = e.target.closest('[data-select-lang]');
       if (langBtn) {
-        const lang = langBtn.getAttribute('data-select-lang');
+        const lang = langBtn.getAttribute('data-select-lang') || 'en';
+        const langName = langBtn.getAttribute('data-select-lang-name') || lang.toUpperCase();
         state.currentLang = lang;
         state.isLangMenuOpen = false;
-        state.settings.language = lang === 'de' ? 'German' : 'English';
+        state.settings.languageCode = lang;
+        state.settings.language = langName;
         state.servers.forEach(applyLanguageToServer);
         saveSettings();
         renderAll();
-        await window.SctModal.alert(
-          'Language changed to ' + state.settings.language + '.',
-          'Language'
-        );
         return;
       }
 
@@ -3156,7 +3850,7 @@
           (activeInst && activeInst.fullPath) || getServerInstallPath(srv);
         const filePath = baseDir + '\\' + relFile.replace(/\//g, '\\');
         try {
-          await window.sctOpenFile(filePath);
+          await window.sctOpenFile(filePath, state.settings.defaultTextEditor);
         } catch (err) {
           const msg = err && err.message ? err.message : String(err);
           await window.SctModal.alert(
@@ -3247,7 +3941,15 @@
       if (propCb) {
         const prop = propCb.getAttribute('data-srv-prop');
         srv[prop] = propCb.checked;
-        if (prop === 'autoRestartOnConfigChange') {
+        if (prop === 'runOnStartup') {
+          setInstanceRunOnStartup(
+            srv.id,
+            srv.currentInstance || 'Default',
+            propCb.checked,
+            srv.name
+          );
+          renderLeftColumn();
+        } else if (prop === 'autoRestartOnConfigChange') {
           renderRightColumn();
         }
         return;
@@ -3272,7 +3974,12 @@
   }
 
   document.addEventListener('DOMContentLoaded', async function () {
-    loadSettings();
+    try {
+      if (window.sctIsReleaseMode) {
+        isRelease = Boolean(await window.sctIsReleaseMode());
+      }
+    } catch {}
+    await loadSettings();
     loadFavorites();
     setupListeners();
 
@@ -3347,6 +4054,8 @@
         await window.sctSetRunOnStartup(true);
       }
     } catch {}
+
+    await autoStartConfiguredServersOnStartup();
 
     if (state.settings.autoCheckUpdates) {
       checkForUpdates(false);

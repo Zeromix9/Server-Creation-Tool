@@ -1,0 +1,9 @@
+{
+  "serverLibraryPath": "J:\\server_creation_tool_servers",
+  "language": "English",
+  "autoCheckUpdates": true,
+  "closeToTray": false,
+  "runOnStartup": false,
+  "defaultTextEditor": "notepad.exe",
+  "startupServers": {}
+}

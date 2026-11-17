@@ -5,10 +5,25 @@ use tauri::Manager;
 
 static CLOSE_TO_TRAY: AtomicBool = AtomicBool::new(false);
 
+/// Release mode flag: true automatically for `cargo tauri build` (`!debug_assertions`),
+/// or when compiled with `SCT_RELEASE=1` / `SCT_RELEASE=true` (e.g. during `cargo tauri dev`).
+pub const IS_RELEASE: bool = !cfg!(debug_assertions)
+    || match option_env!("SCT_RELEASE") {
+        Some(v) => matches!(v.as_bytes(), b"1" | b"true" | b"TRUE"),
+        None => false,
+    };
+
+#[tauri::command]
+fn is_release_mode() -> bool {
+    IS_RELEASE
+}
+
+mod actions;
 mod backups;
 mod logger;
 mod non_steam;
 mod servers;
+mod signing;
 mod steamcmd;
 
 #[tauri::command]
@@ -50,12 +65,12 @@ fn window_minimize(window: tauri::WebviewWindow) -> Result<(), String> {
 }
 
 #[tauri::command]
-async fn window_close(window: tauri::WebviewWindow) -> Result<(), String> {
+async fn window_close(app: tauri::AppHandle, window: tauri::WebviewWindow) -> Result<(), String> {
     if window.label() == "main" {
         if CLOSE_TO_TRAY.load(Ordering::Relaxed) {
             let _ = window.hide();
         } else {
-            std::process::exit(0);
+            app.exit(0);
         }
     } else {
         let _ = window.close();
@@ -66,6 +81,48 @@ async fn window_close(window: tauri::WebviewWindow) -> Result<(), String> {
 #[tauri::command]
 fn set_close_to_tray(enabled: bool) {
     CLOSE_TO_TRAY.store(enabled, Ordering::Relaxed);
+}
+
+fn resolve_settings_sct_data_dir() -> Result<std::path::PathBuf, String> {
+    if IS_RELEASE && !cfg!(test) {
+        let exe = std::env::current_exe()
+            .map_err(|e| format!("Failed to resolve startup directory: {}", e))?;
+        let exe_dir = exe
+            .parent()
+            .ok_or_else(|| "Failed to resolve startup directory.".to_string())?;
+        return Ok(exe_dir.join("sct_data"));
+    }
+    if let Some(dir) = servers::find_sct_data_dir() {
+        return Ok(dir);
+    }
+    let exe = std::env::current_exe()
+        .map_err(|e| format!("Failed to resolve startup directory: {}", e))?;
+    let exe_dir = exe
+        .parent()
+        .ok_or_else(|| "Failed to resolve startup directory.".to_string())?;
+    Ok(exe_dir.join("sct_data"))
+}
+
+#[tauri::command]
+fn load_app_settings() -> Result<Option<String>, String> {
+    let dir = resolve_settings_sct_data_dir()?;
+    let path = dir.join("settings.json");
+    if !path.is_file() {
+        return Ok(None);
+    }
+    let raw = std::fs::read_to_string(&path)
+        .map_err(|e| format!("Failed to read '{}': {}", path.display(), e))?;
+    Ok(Some(raw))
+}
+
+#[tauri::command]
+fn save_app_settings(json: String) -> Result<(), String> {
+    let dir = resolve_settings_sct_data_dir()?;
+    std::fs::create_dir_all(&dir)
+        .map_err(|e| format!("Failed to create '{}': {}", dir.display(), e))?;
+    let path = dir.join("settings.json");
+    std::fs::write(&path, json)
+        .map_err(|e| format!("Failed to write '{}': {}", path.display(), e))
 }
 
 #[tauri::command]
@@ -314,7 +371,18 @@ fn append_app_log(message: String) {
 }
 
 #[tauri::command]
-fn open_file(path: String) {
+fn open_file(path: String, editor: Option<String>) {
+    let custom_editor = editor
+        .as_deref()
+        .map(str::trim)
+        .filter(|s| !s.is_empty());
+
+    if let Some(ed) = custom_editor {
+        if std::process::Command::new(ed).arg(&path).spawn().is_ok() {
+            return;
+        }
+    }
+
     #[cfg(target_os = "windows")]
     {
         if tauri_plugin_opener::open_path(&path, None::<&str>).is_err() {
@@ -387,6 +455,73 @@ async fn delete_server(
 #[tauri::command]
 fn cancel_delete_task() {
     servers::cancel_delete_task();
+}
+
+#[tauri::command]
+fn verify_server_package(source_file: String) -> signing::PackageTrustDto {
+    actions::verify_server_package_by_source(&source_file)
+}
+
+#[tauri::command]
+async fn execute_simple_action(
+    app: tauri::AppHandle,
+    library_path: String,
+    codename: String,
+    folder_name: String,
+    source_file: String,
+    instance_name: String,
+    server_id: String,
+    action_id: String,
+    actions_list: Vec<servers::SimpleActionDto>,
+    properties: std::collections::HashMap<String, String>,
+    allow_untrusted: Option<bool>,
+) -> Result<actions::ActionExecResultDto, String> {
+    let res = actions::execute_simple_action(
+        Some(&app),
+        &library_path,
+        &codename,
+        &folder_name,
+        &source_file,
+        &instance_name,
+        &server_id,
+        &action_id,
+        &actions_list,
+        &properties,
+        allow_untrusted.unwrap_or(false),
+    )
+    .await;
+    log_err("execute_simple_action", res)
+}
+
+#[tauri::command]
+async fn execute_funcs_method(
+    app: tauri::AppHandle,
+    library_path: String,
+    codename: String,
+    folder_name: String,
+    source_file: String,
+    instance_name: String,
+    server_id: String,
+    method_name: String,
+    optional: bool,
+    properties: std::collections::HashMap<String, String>,
+    allow_untrusted: Option<bool>,
+) -> Result<actions::ActionExecResultDto, String> {
+    let res = actions::execute_funcs_method(
+        Some(&app),
+        &library_path,
+        &codename,
+        &folder_name,
+        &source_file,
+        &instance_name,
+        &server_id,
+        &method_name,
+        optional,
+        &properties,
+        allow_untrusted.unwrap_or(false),
+    )
+    .await;
+    log_err("execute_funcs_method", res)
 }
 
 #[tauri::command]
@@ -722,6 +857,31 @@ async fn restore_server_backup(
 }
 
 #[tauri::command]
+fn load_instance_settings(
+    library_path: String,
+    codename: String,
+    instance_name: String,
+) -> Result<Option<String>, String> {
+    log_err(
+        "load_instance_settings",
+        servers::load_instance_settings(&library_path, &codename, &instance_name),
+    )
+}
+
+#[tauri::command]
+fn save_instance_settings(
+    library_path: String,
+    codename: String,
+    instance_name: String,
+    json: String,
+) -> Result<(), String> {
+    log_err(
+        "save_instance_settings",
+        servers::save_instance_settings(&library_path, &codename, &instance_name, &json),
+    )
+}
+
+#[tauri::command]
 fn rename_server_instance(
     library_path: String,
     codename: String,
@@ -807,7 +967,8 @@ pub fn run() {
                 return;
             }
             if id == "tray_exit" {
-                std::process::exit(0);
+                app.exit(0);
+                return;
             }
             #[cfg(target_os = "windows")]
             {
@@ -828,11 +989,11 @@ pub fn run() {
                             api.prevent_close();
                             let _ = window.hide();
                         } else {
-                            std::process::exit(0);
+                            window.app_handle().exit(0);
                         }
                     }
                     tauri::WindowEvent::Destroyed => {
-                        std::process::exit(0);
+                        window.app_handle().exit(0);
                     }
                     _ => {}
                 }
@@ -843,6 +1004,9 @@ pub fn run() {
             window_minimize,
             window_close,
             set_close_to_tray,
+            is_release_mode,
+            load_app_settings,
+            save_app_settings,
             set_run_on_startup,
             open_about_window,
             open_faq_window,
@@ -870,6 +1034,11 @@ pub fn run() {
             delete_server,
             cancel_delete_task,
             rename_server_instance,
+            load_instance_settings,
+            save_instance_settings,
+            verify_server_package,
+            execute_simple_action,
+            execute_funcs_method,
             get_available_start_options,
             launch_server_option,
             stop_server_instance,

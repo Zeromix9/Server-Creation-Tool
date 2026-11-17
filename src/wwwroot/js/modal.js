@@ -103,6 +103,26 @@
         '</div>';
     } else if (m.type === 'settings') {
       const s = m.tempSettings;
+      const startupList = Array.isArray(m.tempStartupServers) ? m.tempStartupServers : [];
+      const startupListHtml =
+        startupList.length === 0
+          ? '<div class="sct-settings-startup-empty">No servers are set to run on startup.</div>'
+          : startupList
+              .map(function (item, idx) {
+                const inst = item.instanceName || 'Default';
+                return (
+                  '<div class="sct-settings-startup-row">' +
+                  '<span class="sct-settings-startup-name">' +
+                  escapeHtml((item.serverName || item.serverId) + ' (' + inst + ')') +
+                  '</span>' +
+                  '<button type="button" class="sct-btn sct-btn-danger sct-settings-startup-remove" data-remove-startup-idx="' +
+                  idx +
+                  '">Remove</button>' +
+                  '</div>'
+                );
+              })
+              .join('');
+
       bodyHtml =
         '<div class="sct-modal-body" style="display: flex; flex-direction: column; gap: 14px;">' +
         '<div>' +
@@ -110,6 +130,13 @@
         '<div style="display: flex; gap: 6px; margin-top: 4px;">' +
         '<input type="text" id="sct-modal-lib-path" class="sct-input" style="flex: 1;" value="' + escapeHtml(s.serverLibraryPath) + '" />' +
         '<button type="button" class="sct-btn" style="padding: 4px 10px;" data-modal-action="settings-browse">Browse...</button>' +
+        '</div>' +
+        '</div>' +
+        '<div>' +
+        '<label class="sct-field-label">Default Text Editor:</label>' +
+        '<div style="display: flex; gap: 6px; margin-top: 4px;">' +
+        '<input type="text" id="sct-modal-text-editor" class="sct-input" style="flex: 1;" value="' + escapeHtml(s.defaultTextEditor || 'notepad.exe') + '" placeholder="notepad.exe" />' +
+        '<button type="button" class="sct-btn" style="padding: 4px 10px;" data-modal-action="settings-browse-editor">Browse...</button>' +
         '</div>' +
         '</div>' +
         '<div style="display: flex; flex-direction: column; gap: 8px; margin-top: 4px;">' +
@@ -125,6 +152,12 @@
         '<input type="checkbox" id="sct-modal-run-startup" ' + (s.runOnStartup ? 'checked' : '') + ' />' +
         'Run on startup' +
         '</label>' +
+        '</div>' +
+        '<div>' +
+        '<label class="sct-field-label">Servers Set to Run on Startup:</label>' +
+        '<div class="sct-settings-startup-list">' +
+        startupListHtml +
+        '</div>' +
         '</div>' +
         '</div>';
       footerHtml =
@@ -350,11 +383,13 @@
   function syncSettingsFromDom() {
     if (!activeModal || activeModal.type !== 'settings') return;
     const libInput = document.getElementById('sct-modal-lib-path');
+    const editorInput = document.getElementById('sct-modal-text-editor');
     const autoUpdates = document.getElementById('sct-modal-auto-updates');
     const closeTray = document.getElementById('sct-modal-close-tray');
     const runStartup = document.getElementById('sct-modal-run-startup');
 
     if (libInput) activeModal.tempSettings.serverLibraryPath = libInput.value;
+    if (editorInput) activeModal.tempSettings.defaultTextEditor = editorInput.value.trim() || 'notepad.exe';
     if (autoUpdates) activeModal.tempSettings.autoCheckUpdates = autoUpdates.checked;
     if (closeTray) activeModal.tempSettings.closeToTray = closeTray.checked;
     if (runStartup) activeModal.tempSettings.runOnStartup = runStartup.checked;
@@ -399,9 +434,24 @@
               if (libInput) libInput.value = picked;
             }
           } catch {}
+        } else if (action === 'settings-browse-editor') {
+          syncSettingsFromDom();
+          try {
+            const picked = await window.sctPickFile();
+            if (picked && activeModal && activeModal.type === 'settings') {
+              activeModal.tempSettings.defaultTextEditor = picked;
+              const editorInput = document.getElementById('sct-modal-text-editor');
+              if (editorInput) editorInput.value = picked;
+            }
+          } catch {}
         } else if (action === 'settings-save') {
           syncSettingsFromDom();
-          closeModal(Object.assign({}, activeModal.tempSettings));
+          const result = Object.assign({}, activeModal.tempSettings, {
+            startupServers: Array.isArray(activeModal.tempStartupServers)
+              ? activeModal.tempStartupServers.slice()
+              : []
+          });
+          closeModal(result);
         } else if (action === 'settings-cancel' || action === 'launch-cancel' || action === 'backup-dest-cancel' || action === 'restore-cancel') {
           closeModal(null);
         } else if (action === 'backup-dest-default') {
@@ -505,6 +555,19 @@
           } else {
             closeModal(true);
           }
+        }
+      });
+    });
+
+    root.querySelectorAll('[data-remove-startup-idx]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (!activeModal || activeModal.type !== 'settings') return;
+        syncSettingsFromDom();
+        const idx = parseInt(btn.getAttribute('data-remove-startup-idx'), 10);
+        if (!Number.isNaN(idx) && Array.isArray(activeModal.tempStartupServers)) {
+          activeModal.tempStartupServers.splice(idx, 1);
+          render();
         }
       });
     });
@@ -632,8 +695,13 @@
       });
     },
 
-    showSettings: function (currentSettings) {
+    showSettings: function (currentSettings, startupServers) {
       return new Promise(function (resolve) {
+        const list = Array.isArray(startupServers)
+          ? startupServers.map(function (item) {
+              return Object.assign({}, item);
+            })
+          : [];
         activeModal = {
           type: 'settings',
           title: 'Settings',
@@ -645,6 +713,7 @@
             runOnStartup: Boolean(currentSettings.runOnStartup),
             defaultTextEditor: currentSettings.defaultTextEditor || 'notepad.exe'
           },
+          tempStartupServers: list,
           iconUrl: 'img/icons/settingsBtn.Image.png',
           modalClass: 'sct-modal-settings',
           resolve: resolve

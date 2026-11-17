@@ -21,6 +21,8 @@ rfd = "0.15"
 reqwest = "0.13.5"
 zip = { version = "2", default-features = false, features = ["deflate"] }
 base64 = "0.22"
+ed25519-dalek = "2"
+sha2 = "0.10"
 portable-pty = "0.9"
 
 [profile.release]

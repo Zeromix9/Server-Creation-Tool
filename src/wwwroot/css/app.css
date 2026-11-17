@@ -686,6 +686,20 @@ html, body, #app {
     object-fit: contain;
 }
 
+.sct-untrusted-icon-small {
+    position: absolute;
+    right: 8px;
+    width: 14px;
+    height: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sct-list-item-srv.untrusted .sct-star-icon-small {
+    right: 25px;
+}
+
 /* Right Column (CSS styled - semi-transparent rounded container matching original) */
 .sct-right-column {
     flex: 1;
@@ -3236,6 +3250,50 @@ html, body, #app {
     border: 1px solid #ef4444;
     font-size: 11px;
     color: #fecaca;
+}
+
+.sct-settings-startup-list {
+    margin-top: 6px;
+    max-height: 115px;
+    overflow-y: auto;
+    background-color: #16202e;
+    border: 1px solid #2d3f58;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sct-settings-startup-empty {
+    padding: 10px 8px;
+    text-align: center;
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.sct-settings-startup-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px 6px;
+    background-color: #213047;
+    border: 1px solid #354a6b;
+}
+
+.sct-settings-startup-name {
+    font-size: 11.5px;
+    color: #e2e8f0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sct-settings-startup-remove {
+    padding: 2px 8px;
+    font-size: 11px;
+    flex-shrink: 0;
 }
 
 /* Instance Settings subcontainer inside -Game Server- */

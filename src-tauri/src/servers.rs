@@ -205,6 +205,8 @@ pub struct ServerMetadataDto {
     pub custom_fields: Vec<CustomFieldDto>,
     pub languages: Vec<ServerLanguageDto>,
     pub source_file: String,
+    pub is_official: bool,
+    pub trust_reason: String,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -218,13 +220,19 @@ pub struct LibraryScanResult {
     pub servers: Vec<ServerMetadataDto>,
 }
 
-/// Resolves sct_data next to the executable first, then walks ancestors for repo dev builds.
+/// Resolves sct_data next to the executable.
+/// In release mode (`crate::IS_RELEASE && !cfg!(test)`), only checks the startup directory.
+/// In dev/test mode, walks ancestors to locate the repo `sct_data` directory.
 pub fn find_sct_data_dir() -> Option<PathBuf> {
     if let Ok(exe_path) = std::env::current_exe() {
         if let Some(exe_dir) = exe_path.parent() {
             let next_to_exe = exe_dir.join("sct_data");
             if next_to_exe.is_dir() {
                 return Some(next_to_exe);
+            }
+
+            if crate::IS_RELEASE && !cfg!(test) {
+                return None;
             }
 
             let mut cursor = exe_dir.to_path_buf();
@@ -238,6 +246,10 @@ pub fn find_sct_data_dir() -> Option<PathBuf> {
                 }
             }
         }
+    }
+
+    if crate::IS_RELEASE && !cfg!(test) {
+        return None;
     }
 
     if let Ok(cwd) = std::env::current_dir() {
@@ -935,6 +947,8 @@ fn parse_server_archive(archive_path: &Path) -> Result<ServerMetadataDto, String
             .and_then(|s| s.to_str())
             .unwrap_or_default()
             .to_string(),
+        is_official: true,
+        trust_reason: String::new(),
     })
 }
 
@@ -1337,6 +1351,12 @@ fn delete_server_instance_inner(
             .map_err(|e| format!("Failed to delete server folder '{}': {}", server_dir.display(), e))?;
     }
 
+    if let Ok(settings_path) = resolve_instance_settings_path(library_path, codename, instance_name) {
+        if settings_path.is_file() {
+            let _ = fs::remove_file(&settings_path);
+        }
+    }
+
     Ok(true)
 }
 
@@ -1381,7 +1401,73 @@ pub fn rename_server_instance(
         })?;
     }
 
+    if let (Ok(old_settings), Ok(new_settings)) = (
+        resolve_instance_settings_path(library_path, codename, old_instance_name),
+        resolve_instance_settings_path(library_path, codename, trimmed_new),
+    ) {
+        if old_settings.is_file() && old_settings != new_settings {
+            if let Some(parent) = new_settings.parent() {
+                let _ = fs::create_dir_all(parent);
+            }
+            let _ = fs::rename(&old_settings, &new_settings);
+        }
+    }
+
     Ok(new_folder_name)
+}
+
+pub fn resolve_instance_settings_path(
+    library_path: &str,
+    codename: &str,
+    instance_name: &str,
+) -> Result<PathBuf, String> {
+    let lib_trimmed = library_path.trim();
+    if lib_trimmed.is_empty() {
+        return Err("Library path cannot be empty.".to_string());
+    }
+    let code_trimmed = codename.trim();
+    if code_trimmed.is_empty() {
+        return Err("Server codename cannot be empty.".to_string());
+    }
+    let inst_raw = instance_name.trim();
+    let inst = if inst_raw.is_empty() { "Default" } else { inst_raw };
+    if inst
+        .chars()
+        .any(|c| matches!(c, '<' | '>' | ':' | '"' | '/' | '\\' | '|' | '?' | '*'))
+    {
+        return Err(format!("Instance name '{}' contains invalid characters.", inst));
+    }
+    let file_name = format!("{}_{}_settings.json", code_trimmed, inst);
+    Ok(PathBuf::from(lib_trimmed).join("settings").join(file_name))
+}
+
+pub fn load_instance_settings(
+    library_path: &str,
+    codename: &str,
+    instance_name: &str,
+) -> Result<Option<String>, String> {
+    let path = resolve_instance_settings_path(library_path, codename, instance_name)?;
+    if !path.is_file() {
+        return Ok(None);
+    }
+    let raw = fs::read_to_string(&path)
+        .map_err(|e| format!("Failed to read '{}': {}", path.display(), e))?;
+    Ok(Some(raw))
+}
+
+pub fn save_instance_settings(
+    library_path: &str,
+    codename: &str,
+    instance_name: &str,
+    json: &str,
+) -> Result<(), String> {
+    let path = resolve_instance_settings_path(library_path, codename, instance_name)?;
+    if let Some(parent) = path.parent() {
+        fs::create_dir_all(parent)
+            .map_err(|e| format!("Failed to create settings directory '{}': {}", parent.display(), e))?;
+    }
+    fs::write(&path, json)
+        .map_err(|e| format!("Failed to write '{}': {}", path.display(), e))
 }
 
 fn resolve_relative_start_file(server_dir: &Path, rel_raw: &str) -> Option<PathBuf> {
@@ -1418,8 +1504,45 @@ pub fn get_available_start_options(
 
     let mut available = Vec::new();
     for opt in options {
-        // Only Executable ("Basic") and Script options point at a file on disk.
-        // Function and Action options need the funcs/actions runtime, which is not implemented yet.
+        let is_function = opt.option_type.eq_ignore_ascii_case("Function");
+        let is_action = opt.option_type.eq_ignore_ascii_case("Action");
+        if is_function || is_action {
+            let target = if is_function {
+                let fp = opt.file_path.trim();
+                if !fp.is_empty() {
+                    fp.to_string()
+                } else {
+                    opt.pre_launch
+                        .as_ref()
+                        .map(|h| h.function_name.clone())
+                        .unwrap_or_default()
+                }
+            } else {
+                opt.pre_launch
+                    .as_ref()
+                    .map(|h| {
+                        if h.kind.eq_ignore_ascii_case("Function") {
+                            h.function_name.clone()
+                        } else {
+                            h.simple_action_id.clone()
+                        }
+                    })
+                    .unwrap_or_default()
+            };
+            if !target.trim().is_empty() {
+                available.push(AvailableStartOption {
+                    id: opt.id.clone(),
+                    label: opt.label.clone(),
+                    option_type: opt.option_type.clone(),
+                    file_path: opt.file_path.clone(),
+                    resolved_path: target,
+                    args: opt.args.clone(),
+                    is_default: opt.is_default,
+                });
+            }
+            continue;
+        }
+
         let is_file_based = opt.option_type.eq_ignore_ascii_case("Basic")
             || opt.option_type.eq_ignore_ascii_case("Script");
         if !is_file_based || opt.file_path.trim().is_empty() {
@@ -1729,6 +1852,8 @@ mod tests {
             custom_fields: Vec::new(),
             languages: Vec::new(),
             source_file: String::new(),
+            is_official: false,
+            trust_reason: String::new(),
         }
     }
 
@@ -1784,13 +1909,15 @@ mod tests {
 
         let lib_str = lib.to_string_lossy().into_owned();
         let avail1 = get_available_start_options(&lib_str, "cs", "Default", &opts).unwrap();
-        assert_eq!(avail1.len(), 1);
+        assert_eq!(avail1.len(), 2);
         assert_eq!(avail1[0].label, "Run.bat");
+        assert_eq!(avail1[1].label, "Action only");
 
         fs::write(cs_dir.join("bin").join("srcds.exe"), b"exe").unwrap();
         let avail2 = get_available_start_options(&lib_str, "cs", "Default", &opts).unwrap();
-        assert_eq!(avail2.len(), 2);
+        assert_eq!(avail2.len(), 3);
         assert_eq!(avail2[1].label, "srcds.exe (GUI)");
+        assert_eq!(avail2[2].label, "Action only");
 
         let _ = fs::remove_dir_all(&lib);
     }
@@ -1988,6 +2115,42 @@ mod tests {
         assert_eq!(new_folder, "cs_surf_ds");
         assert!(!lib.join("cs_ds").exists());
         assert!(lib.join("cs_surf_ds").is_dir());
+
+        let _ = fs::remove_dir_all(&lib);
+    }
+
+    #[test]
+    fn instance_settings_save_load_rename_and_delete() {
+        use super::{
+            delete_server_instance, load_instance_settings, rename_server_instance,
+            resolve_instance_settings_path, save_instance_settings,
+        };
+
+        let lib = make_temp_dir("inst_settings");
+        let lib_str = lib.to_string_lossy().into_owned();
+        let inst_dir = lib.join("cs_instance2_ds");
+        fs::create_dir_all(&inst_dir).unwrap();
+
+        save_instance_settings(&lib_str, "cs", "instance2", r#"{"customCheckStates":{"a":true}}"#)
+            .unwrap();
+        let expected_file = lib.join("settings").join("cs_instance2_settings.json");
+        assert!(expected_file.is_file());
+        assert_eq!(
+            resolve_instance_settings_path(&lib_str, "cs", "instance2").unwrap(),
+            expected_file
+        );
+
+        let loaded = load_instance_settings(&lib_str, "cs", "instance2")
+            .unwrap()
+            .unwrap();
+        assert!(loaded.contains("\"a\":true"));
+
+        rename_server_instance(&lib_str, "cs", "instance2", "surf").unwrap();
+        assert!(!expected_file.exists());
+        assert!(lib.join("settings").join("cs_surf_settings.json").is_file());
+
+        delete_server_instance(&lib_str, "cs", "surf").unwrap();
+        assert!(!lib.join("settings").join("cs_surf_settings.json").exists());
 
         let _ = fs::remove_dir_all(&lib);
     }

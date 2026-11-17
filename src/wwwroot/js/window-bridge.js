@@ -252,39 +252,28 @@ window.sctCheckForUpdates = function () {
   return Promise.reject(new Error('Update check requires the desktop app.'));
 };
 
-window.sctLoadSettings = function () {
-  try {
-    return window.localStorage ? window.localStorage.getItem('sct_app_settings') : null;
-  } catch {
-    return null;
+window.sctIsReleaseMode = function () {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('is_release_mode');
   }
+  return Promise.resolve(false);
 };
 
-window.sctSaveSettings = function (json) {
-  try {
-    if (window.localStorage) {
-      window.localStorage.setItem('sct_app_settings', json);
-    }
-  } catch {}
-};
-
-window.sctLoadFavorites = function () {
-  try {
-    const raw = window.localStorage ? window.localStorage.getItem('sct_favorites') : null;
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
+window.sctLoadAppSettingsFile = function () {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('load_app_settings');
   }
+  return Promise.resolve(null);
 };
 
-window.sctSaveFavorites = function (list) {
-  try {
-    if (window.localStorage) {
-      window.localStorage.setItem('sct_favorites', JSON.stringify(list || []));
-    }
-  } catch {}
+window.sctSaveAppSettingsFile = function (json) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('save_app_settings', { json: String(json || '{}') });
+  }
+  return Promise.resolve();
 };
 
 window.sctLoadServers = function (libraryPath) {
@@ -347,32 +336,29 @@ window.sctRenameServerInstance = function (libraryPath, codename, oldInstanceNam
   return Promise.reject(new Error('Rename requires the desktop app.'));
 };
 
-window.sctLoadGameServerControls = function (serverKey) {
-  try {
-    const raw = window.localStorage ? window.localStorage.getItem('sct_game_server_controls_v1') : null;
-    if (!raw) return {};
-    const map = JSON.parse(raw);
-    return map && typeof map === 'object' && map[serverKey] && typeof map[serverKey] === 'object'
-      ? map[serverKey]
-      : {};
-  } catch {
-    return {};
+window.sctLoadInstanceSettings = function (libraryPath, codename, instanceName) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('load_instance_settings', {
+      libraryPath: libraryPath || '',
+      codename: codename || '',
+      instanceName: instanceName || 'Default'
+    });
   }
+  return Promise.resolve(null);
 };
 
-window.sctSaveGameServerControls = function (serverKey, stateObj, oldServerKey) {
-  try {
-    if (!window.localStorage) return;
-    const raw = window.localStorage.getItem('sct_game_server_controls_v1');
-    const map = raw ? JSON.parse(raw) : {};
-    if (map && typeof map === 'object') {
-      if (oldServerKey && oldServerKey !== serverKey) {
-        delete map[oldServerKey];
-      }
-      map[serverKey] = stateObj || {};
-      window.localStorage.setItem('sct_game_server_controls_v1', JSON.stringify(map));
-    }
-  } catch {}
+window.sctSaveInstanceSettings = function (libraryPath, codename, instanceName, json) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('save_instance_settings', {
+      libraryPath: libraryPath || '',
+      codename: codename || '',
+      instanceName: instanceName || 'Default',
+      json: String(json || '{}')
+    });
+  }
+  return Promise.resolve();
 };
 
 window.sctGetAvailableStartOptions = function (libraryPath, codename, instanceName, options) {
@@ -418,29 +404,6 @@ window.sctGetRunningInstances = function () {
     return core.invoke('get_running_instances');
   }
   return Promise.resolve([]);
-};
-
-window.sctLoadDefaultStartOption = function (serverKey) {
-  try {
-    const raw = window.localStorage ? window.localStorage.getItem('sct_default_start_options') : null;
-    if (!raw) return null;
-    const map = JSON.parse(raw);
-    return map && typeof map === 'object' ? map[serverKey] || null : null;
-  } catch {
-    return null;
-  }
-};
-
-window.sctSaveDefaultStartOption = function (serverKey, optionId) {
-  try {
-    if (!window.localStorage) return;
-    const raw = window.localStorage.getItem('sct_default_start_options');
-    const map = raw ? JSON.parse(raw) : {};
-    if (map && typeof map === 'object') {
-      map[serverKey] = optionId;
-      window.localStorage.setItem('sct_default_start_options', JSON.stringify(map));
-    }
-  } catch {}
 };
 
 window.sctDownloadSteamCmd = function (libraryPath) {
@@ -552,10 +515,10 @@ window.sctListenServerProcess = function (handler) {
   return Promise.resolve(function () {});
 };
 
-window.sctOpenFile = function (path) {
+window.sctOpenFile = function (path, editor) {
   const core = getTauriCore();
   if (core) {
-    return core.invoke('open_file', { path: path });
+    return core.invoke('open_file', { path: path, editor: editor || null });
   }
   return Promise.resolve();
 };
@@ -668,6 +631,59 @@ window.sctRestoreServerBackup = function (params) {
     });
   }
   return Promise.reject(new Error('Restore requires the desktop app.'));
+};
+
+window.sctVerifyServerPackage = function (sourceFile) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('verify_server_package', {
+      sourceFile: sourceFile || ''
+    });
+  }
+  return Promise.resolve({
+    isOfficial: false,
+    status: 'unknown',
+    reason: 'Desktop app required.',
+    packageSha256: ''
+  });
+};
+
+window.sctExecuteSimpleAction = function (params) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('execute_simple_action', {
+      libraryPath: params.libraryPath || '',
+      codename: params.codename || '',
+      folderName: params.folderName || '',
+      sourceFile: params.sourceFile || '',
+      instanceName: params.instanceName || 'Default',
+      serverId: params.serverId || '',
+      actionId: params.actionId || '',
+      actionsList: params.actionsList || [],
+      properties: params.properties || {},
+      allowUntrusted: Boolean(params.allowUntrusted)
+    });
+  }
+  return Promise.reject(new Error('SimpleActions require the desktop app.'));
+};
+
+window.sctExecuteFuncsMethod = function (params) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('execute_funcs_method', {
+      libraryPath: params.libraryPath || '',
+      codename: params.codename || '',
+      folderName: params.folderName || '',
+      sourceFile: params.sourceFile || '',
+      instanceName: params.instanceName || 'Default',
+      serverId: params.serverId || '',
+      methodName: params.methodName || '',
+      optional: Boolean(params.optional),
+      properties: params.properties || {},
+      allowUntrusted: Boolean(params.allowUntrusted)
+    });
+  }
+  return Promise.reject(new Error('_funcs.cs execution requires the desktop app.'));
 };
 
 window.sctShowContextMenu = async function (x, y, files, libraryPath, serverId) {
