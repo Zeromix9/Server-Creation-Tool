@@ -1115,9 +1115,113 @@ pub async fn execute_funcs_method(
     })
 }
 
+pub async fn create_preconfigured_config_file(
+    app: Option<&AppHandle>,
+    library_path: &str,
+    codename: &str,
+    folder_name: &str,
+    source_file: &str,
+    instance_name: &str,
+    server_id: &str,
+    mode: &str,
+    source: &str,
+    link: &str,
+    dest_path: &str,
+    properties: &HashMap<String, String>,
+) -> Result<String, String> {
+    let (server_dir, _) = resolve_instance_dir(library_path, codename, instance_name)?;
+    let data_dir = find_sct_data_dir().unwrap_or_else(|| server_dir.clone());
+    let archive_path = find_server_archive_path(source_file);
+
+    let resolved_dest = resolve_tokens(
+        dest_path,
+        &server_dir,
+        &data_dir,
+        codename,
+        instance_name,
+        properties,
+    );
+    let trimmed_dest = resolved_dest.trim();
+    if trimmed_dest.is_empty() {
+        return Err("PreconfiguredConfigDestPath is empty.".to_string());
+    }
+    let is_dir_hint = trimmed_dest.ends_with('/') || trimmed_dest.ends_with('\\');
+    let base_dest = resolve_relative_in_dir(&server_dir, trimmed_dest)?;
+
+    let mode_norm = mode.trim().to_lowercase();
+    let (bytes, file_name) = if mode_norm == "link" {
+        let raw_url = if !link.trim().is_empty() { link } else { source };
+        let resolved_url = resolve_tokens(
+            raw_url,
+            &server_dir,
+            &data_dir,
+            codename,
+            instance_name,
+            properties,
+        );
+        if resolved_url.trim().is_empty() {
+            return Err("PreconfiguredConfigLink is empty.".to_string());
+        }
+        download_bytes_from_url(resolved_url.trim()).await?
+    } else {
+        let resolved_src = resolve_tokens(
+            source,
+            &server_dir,
+            &data_dir,
+            codename,
+            instance_name,
+            properties,
+        );
+        if resolved_src.trim().is_empty() {
+            return Err("PreconfiguredConfigSource is empty.".to_string());
+        }
+        let arch = archive_path.ok_or_else(|| {
+            format!(
+                "Server archive not found for PreconfiguredConfigSource '{}'.",
+                resolved_src
+            )
+        })?;
+        read_archive_entry_bytes(&arch, folder_name, resolved_src.trim())?
+    };
+
+    let dest_file = if is_dir_hint || base_dest.is_dir() {
+        base_dest.join(&file_name)
+    } else {
+        base_dest
+    };
+
+    if let Some(parent) = dest_file.parent() {
+        fs::create_dir_all(parent).map_err(|e| {
+            format!(
+                "Failed to create directory '{}': {}",
+                parent.display(),
+                e
+            )
+        })?;
+    }
+
+    fs::write(&dest_file, &bytes).map_err(|e| {
+        format!(
+            "Failed to write preconfigured config file '{}': {}",
+            dest_file.display(),
+            e
+        )
+    })?;
+
+    if let Some(handle) = app {
+        crate::steamcmd::emit_log(
+            handle,
+            server_id,
+            format!("Created preconfigured config file '{}'.", dest_file.display()),
+        );
+    }
+
+    Ok(dest_file.to_string_lossy().into_owned())
+}
+
 #[cfg(test)]
 mod tests {
-    use super::{execute_funcs_method, execute_simple_action};
+    use super::{create_preconfigured_config_file, execute_funcs_method, execute_simple_action};
     use crate::servers::SimpleActionDto;
     use std::collections::HashMap;
     use std::fs::{self, File};
@@ -1308,6 +1412,50 @@ end
             .logs
             .iter()
             .any(|l| l.contains("PostInstall saves:") && l.contains("os=")));
+
+        let _ = fs::remove_file(&archive_path);
+        let _ = fs::remove_dir_all(&lib);
+    }
+
+    #[test]
+    fn preconfigured_config_data_file_copies_to_dest_path() {
+        let lib = make_temp_dir("preconf_cfg");
+        let lib_str = lib.to_string_lossy().into_owned();
+        let sct_data = crate::servers::find_sct_data_dir().unwrap();
+        let archive_name = "__test_preconf.server";
+        let archive_path = sct_data.join(archive_name);
+
+        {
+            let file = File::create(&archive_path).unwrap();
+            let mut zip = ZipWriter::new(file);
+            let opts = SimpleFileOptions::default();
+            zip.start_file("testpre/data/configs/server.cfg", opts).unwrap();
+            zip.write_all(b"hostname \"SCT Test\"\n").unwrap();
+            zip.finish().unwrap();
+        }
+
+        let created = tauri::async_runtime::block_on(create_preconfigured_config_file(
+            None,
+            &lib_str,
+            "testpre",
+            "testpre",
+            archive_name,
+            "Default",
+            "testpre",
+            "data_file",
+            "configs/server.cfg",
+            "",
+            "cstrike/server.cfg",
+            &HashMap::new(),
+        ))
+        .unwrap();
+
+        let expected_path = lib.join("testpre_ds").join("cstrike").join("server.cfg");
+        assert_eq!(std::path::PathBuf::from(&created), expected_path);
+        assert_eq!(
+            fs::read_to_string(&expected_path).unwrap(),
+            "hostname \"SCT Test\"\n"
+        );
 
         let _ = fs::remove_file(&archive_path);
         let _ = fs::remove_dir_all(&lib);

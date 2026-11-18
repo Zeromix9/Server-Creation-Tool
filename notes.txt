@@ -7,3 +7,5 @@ Store state of custom controls and other setting values in a structure accesible
 pass state of custom checkboxes to actions and functions when clicked
 
 add conditional actions with branches. (in makeserver tool first)
+
+pass messagebox show function to LUA context

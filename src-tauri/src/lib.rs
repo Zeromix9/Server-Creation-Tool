@@ -560,6 +560,39 @@ async fn execute_funcs_method(
 }
 
 #[tauri::command]
+async fn create_preconfigured_config_file(
+    app: tauri::AppHandle,
+    library_path: String,
+    codename: String,
+    folder_name: String,
+    source_file: String,
+    instance_name: String,
+    server_id: String,
+    mode: String,
+    source: String,
+    link: String,
+    dest_path: String,
+    properties: std::collections::HashMap<String, String>,
+) -> Result<String, String> {
+    let res = actions::create_preconfigured_config_file(
+        Some(&app),
+        &library_path,
+        &codename,
+        &folder_name,
+        &source_file,
+        &instance_name,
+        &server_id,
+        &mode,
+        &source,
+        &link,
+        &dest_path,
+        &properties,
+    )
+    .await;
+    log_err("create_preconfigured_config_file", res)
+}
+
+#[tauri::command]
 fn get_available_start_options(
     library_path: String,
     codename: String,
@@ -1076,6 +1109,7 @@ pub fn run() {
             verify_server_package,
             execute_simple_action,
             execute_funcs_method,
+            create_preconfigured_config_file,
             get_available_start_options,
             launch_server_option,
             stop_server_instance,

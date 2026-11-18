@@ -716,6 +716,26 @@ window.sctExecuteFuncsMethod = function (params) {
   return Promise.reject(new Error('_funcs.lua execution requires the desktop app.'));
 };
 
+window.sctCreatePreconfiguredConfigFile = function (params) {
+  const core = getTauriCore();
+  if (core) {
+    return core.invoke('create_preconfigured_config_file', {
+      libraryPath: params.libraryPath || '',
+      codename: params.codename || '',
+      folderName: params.folderName || '',
+      sourceFile: params.sourceFile || '',
+      instanceName: params.instanceName || 'Default',
+      serverId: params.serverId || '',
+      mode: params.mode || 'data_file',
+      source: params.source || '',
+      link: params.link || '',
+      destPath: params.destPath || '',
+      properties: params.properties || {}
+    });
+  }
+  return Promise.reject(new Error('Creating preconfigured config files requires the desktop app.'));
+};
+
 window.sctShowContextMenu = async function (x, y, files, libraryPath, serverId) {
   const core = getTauriCore();
   if (core) {

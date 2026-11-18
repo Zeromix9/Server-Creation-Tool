@@ -123,6 +123,13 @@ pub struct CustomControlDto {
     pub simple_action_id: String,
     pub is_system_guide_btn: bool,
     pub use_system_default_text: bool,
+    pub is_system_preconfigured_config_btn: bool,
+    pub preconfigured_config_mode: String,
+    pub preconfigured_config_dest_path: String,
+    pub preconfigured_config_source: String,
+    pub preconfigured_config_link: String,
+    pub preconfigured_config_links: HashMap<String, String>,
+    pub preconfigured_config_from_link: bool,
     pub submenu_buttons: Vec<SubMenuButtonDto>,
 }
 
@@ -681,7 +688,7 @@ fn extract_submenu_buttons(val: Option<&Value>) -> Vec<SubMenuButtonDto> {
         .collect()
 }
 
-fn extract_custom_controls(val: Option<&Value>) -> Vec<CustomControlDto> {
+fn extract_custom_controls(val: Option<&Value>, base_platform: &str) -> Vec<CustomControlDto> {
     let Some(arr) = val.and_then(|v| v.as_array()) else {
         return Vec::new();
     };
@@ -689,6 +696,21 @@ fn extract_custom_controls(val: Option<&Value>) -> Vec<CustomControlDto> {
     arr.iter()
         .map(|item| {
             let texts = parse_localized(item.get("Text"));
+            let preconfigured_config_from_link =
+                get_bool(item, "PreconfiguredConfigFromLink", false);
+            let raw_mode = get_str(item, "PreconfiguredConfigMode", "");
+            let preconfigured_config_mode = if raw_mode.is_empty() {
+                if preconfigured_config_from_link {
+                    "link".to_string()
+                } else {
+                    "data_file".to_string()
+                }
+            } else {
+                raw_mode.to_lowercase()
+            };
+            let preconfigured_config_links = parse_localized(item.get("PreconfiguredConfigLink"));
+            let preconfigured_config_link = resolve_localized(&preconfigured_config_links);
+
             CustomControlDto {
                 text: resolve_localized(&texts),
                 texts,
@@ -703,6 +725,25 @@ fn extract_custom_controls(val: Option<&Value>) -> Vec<CustomControlDto> {
                 simple_action_id: get_str(item, "SimpleActionId", ""),
                 is_system_guide_btn: get_bool(item, "IsSystemGuideBtn", false),
                 use_system_default_text: get_bool(item, "UseSystemDefaultText", true),
+                is_system_preconfigured_config_btn: get_bool(
+                    item,
+                    "IsSystemPreconfiguredConfigBtn",
+                    false,
+                ),
+                preconfigured_config_mode,
+                preconfigured_config_dest_path: platform_value(
+                    item,
+                    "PreconfiguredConfigDestPath",
+                    base_platform,
+                ),
+                preconfigured_config_source: platform_value(
+                    item,
+                    "PreconfiguredConfigSource",
+                    base_platform,
+                ),
+                preconfigured_config_link,
+                preconfigured_config_links,
+                preconfigured_config_from_link,
                 submenu_buttons: extract_submenu_buttons(item.get("SubmenuButtons")),
             }
         })
@@ -889,7 +930,7 @@ fn parse_server_archive(archive_path: &Path) -> Result<ServerMetadataDto, String
     let start_options = extract_start_options(meta.get("StartOptionsList"), &base_platform);
     let simple_actions = extract_simple_actions(meta.get("SimpleActionsList"), &base_platform);
     let custom_containers = extract_custom_containers(meta.get("CustomContainers"));
-    let custom_controls = extract_custom_controls(meta.get("CustomControls"));
+    let custom_controls = extract_custom_controls(meta.get("CustomControls"), &base_platform);
     let guide_doc_links = parse_localized(meta.get("GuideDocLink"));
     let guide_doc_link = resolve_localized(&guide_doc_links);
     let custom_fields = extract_custom_fields(meta.get("CustomFields"));

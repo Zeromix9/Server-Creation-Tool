@@ -1011,6 +1011,9 @@
     if (ctrl.isSystemGuideBtn && ctrl.useSystemDefaultText && !label) {
       label = state.currentLang === 'de' ? 'Installationsanleitung' : 'Installation Guide';
     }
+    if (ctrl.isSystemPreconfiguredConfigBtn && !label) {
+      label = 'Create preconfigured config file';
+    }
     if (!label) {
       label = 'Control';
     }
@@ -3740,7 +3743,107 @@
 
     const label =
       labelOverride ||
-      getLocalizedText(ctrl.texts, ctrl.text || 'Control');
+      getLocalizedText(
+        ctrl.texts,
+        ctrl.text ||
+          (ctrl.isSystemPreconfiguredConfigBtn
+            ? 'Create preconfigured config file'
+            : 'Control')
+      );
+
+    if (ctrl.isSystemPreconfiguredConfigBtn) {
+      const mode =
+        (ctrl.preconfiguredConfigMode || '').trim().toLowerCase() ||
+        (ctrl.preconfiguredConfigFromLink ? 'link' : 'data_file');
+
+      if (mode === 'function') {
+        if (!ctrl.buttonFuncName) {
+          await window.SctModal.alert(
+            'No Lua function is configured for this preconfigured config button.',
+            label,
+            '⚠️'
+          );
+          return;
+        }
+        logUserAction(
+          'Executed preconfigured config function ' +
+            ctrl.buttonFuncName +
+            '() for ' +
+            srv.name +
+            ' (' +
+            srv.currentInstance +
+            ')'
+        );
+        try {
+          await runFuncsMethod(srv, ctrl.buttonFuncName, false);
+          await refreshServerLikeClicked(srv.id);
+        } catch (err) {
+          const msg = err && err.message ? err.message : String(err);
+          await window.SctModal.alert(
+            'Function ' + ctrl.buttonFuncName + '() failed:\n' + msg,
+            label,
+            '⚠️'
+          );
+        }
+        return;
+      }
+
+      const libPath = (state.settings.serverLibraryPath || '').trim();
+      if (!libPath) {
+        await window.SctModal.alert(
+          'No Server Library location is configured.',
+          label,
+          '⚠️'
+        );
+        return;
+      }
+
+      const linkUrl =
+        getLocalizedText(
+          ctrl.preconfiguredConfigLinks,
+          ctrl.preconfiguredConfigLink || ''
+        ) ||
+        (mode === 'link' ? ctrl.preconfiguredConfigSource || '' : '');
+
+      logUserAction(
+        'Created preconfigured config file (' +
+          mode +
+          ') for ' +
+          srv.name +
+          ' (' +
+          srv.currentInstance +
+          ')'
+      );
+      try {
+        const destFile = await window.sctCreatePreconfiguredConfigFile({
+          libraryPath: libPath,
+          codename: srv.codename,
+          folderName: srv.folderName || srv.codename,
+          sourceFile: srv.sourceFile || '',
+          instanceName: srv.currentInstance || 'Default',
+          serverId: srv.id,
+          mode: mode,
+          source: ctrl.preconfiguredConfigSource || '',
+          link: linkUrl,
+          destPath: ctrl.preconfiguredConfigDestPath || '',
+          properties: buildServerProperties(srv)
+        });
+        await refreshServerLikeClicked(srv.id);
+        await window.SctModal.alert(
+          'Preconfigured config file created:\n' + destFile,
+          label,
+          '✅'
+        );
+      } catch (err) {
+        const msg = err && err.message ? err.message : String(err);
+        await window.SctModal.alert(
+          'Failed to create preconfigured config file:\n' + msg,
+          label,
+          '⚠️'
+        );
+      }
+      return;
+    }
 
     if (ctrl.actionType === 'simple_action' && ctrl.simpleActionId) {
       const act = (srv.simpleActions || []).find(function (a) {
